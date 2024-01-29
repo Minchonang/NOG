@@ -16,6 +16,11 @@ function App() {
 	);
 }
 
+// Github에서 repository 복제한 후,
+// npm install
+// npm install react-router-dom
+// 실행하기: npm start 또는 npm run start
+
 // 사용한 라이브러리:
 // react-router-dom: v. 6.21.3
 
