@@ -9,6 +9,16 @@
       "projectName": "jada",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-SmarthomeApplication<smarthome>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jada.smarthome.SmarthomeApplication",
+      "projectName": "smarthome",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
