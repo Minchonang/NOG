@@ -51,13 +51,16 @@ function Join() {
             {/* <img className={styles.logoImg} src="" alt="로고" /> */}
             <div className={styles.form} onSubmit={handleJoin}>
                 <div className={styles.joinTitle}>회원가입</div>
-                <input className={styles.email} type="text" name="email" placeholder="이메일 주소" value={formData.email} onChange={handleInputChange} />
-                    <div className={styles.formButtons}>
-                        <button className={styles.duplicate}>중복확인</button>
-                        <button className={styles.certification}>인증하기</button>
-                    </div>
-                <input className={styles.id} type="text" name="id" placeholder="아이디" value={formData.id} onChange={handleInputChange} />
+                <div className={styles.inputWithButton}>
+                    <input className={styles.email} type="text" name="email" placeholder="이메일 주소" value={formData.email} onChange={handleInputChange} />
+                    <button className={styles.certification}>인증하기</button>
+                </div>
+                <div className={styles.inputWithButton}>
+                    <input className={styles.id} type="text" name="id" placeholder="아이디" value={formData.id} onChange={handleInputChange} />
+                    <button className={styles.duplicate}>중복확인</button>
+                </div>  
                 <input className={styles.pw} type="password" name="password" placeholder="비밀번호" value={formData.password} onChange={handleInputChange} />
+                <input className={styles.pw} type="password" name="password" placeholder="비밀번호 확인" value={formData.password} onChange={handleInputChange} />
                 <input className={styles.name} type="text" name="name" placeholder="이름" value={formData.name} onChange={handleInputChange} />
                 <input className={styles.phone} type="text" name="phone" placeholder="번호" value={formData.phone} onChange={handleInputChange} />
                 <input className={styles.add} type="text" name="address" placeholder="주소" value={formData.address} onChange={handleInputChange} />
