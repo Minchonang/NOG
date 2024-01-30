@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,8 +20,14 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.jada.smarthome.repository.UserRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
+@RequestMapping("/")
 public class AuthController {
     @Autowired
     UserRepository userRepository;
@@ -34,6 +41,7 @@ public class AuthController {
     @Autowired
     JavaMailSender mailSender;
     
+
 
     @PostMapping("/PwFind/Email")
     @ResponseBody

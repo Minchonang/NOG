@@ -34,6 +34,9 @@ public class JoinUserDto {
         this.address = address;
         this.houseNum = houseNum;
     }
+    // id 중복체크
+    private boolean idDuplicateCheck;
+
     public User toEntity(){
       return User.builder()
               .email(email)
@@ -48,5 +51,6 @@ public class JoinUserDto {
               .build();
     }
   }
+
   
 

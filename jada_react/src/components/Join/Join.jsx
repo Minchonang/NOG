@@ -94,6 +94,26 @@ function Join() {
       });
   };
 
+  // id 중복체크
+  const handleDuplicateCheck = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/userinfo/id-check?id=${formData.id}`);
+        if (response.ok) {
+            const result = await response.text();
+            if (result === '가입가능') {
+                alert('사용 가능한 아이디입니다.');
+                setFormData(prevData => ({ ...prevData, idDuplicateCheck: true }));
+            } else {
+                alert('이미 사용 중인 아이디입니다.');
+            }
+        } else {
+            console.error('ID 중복 확인 실패');
+        }
+    } catch (error) {
+        console.error('서버 통신 오류', error);
+    }
+};
+
   return (
     <div className={styles.container}>
       {/* <img className={styles.logoImg} src="" alt="로고" /> */}
@@ -134,7 +154,7 @@ function Join() {
                 value={formData.id}
                 onChange={handleInputChange}
               />
-              <button className={styles.duplicate}>중복확인</button>
+              <button className={styles.duplicate} onClick={handleDuplicateCheck}>중복확인</button>
             </div>
             <input
               className={styles.pw}
