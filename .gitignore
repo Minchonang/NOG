@@ -4,6 +4,7 @@
 /node_modules
 package-lock.json
 package.json
+jada_server/jada/src/main/resources/application.properties
 
 __pycache__
 app/__pycahe__
