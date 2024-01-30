@@ -12,6 +12,6 @@
 	padding: 0.5px 0;
 	color: black;
 }
-.option_area span:hover {
+.option_area a:active {
 	text-decoration: underline;
 }
