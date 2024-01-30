@@ -1,0 +1,17 @@
+/* 아이디, 비밀번호, 회원가입 버튼 */
+.option_area {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: 5% auto;
+	width: 100%;
+}
+.option_area a {
+	margin: 3% 5px;
+	cursor: pointer;
+	padding: 0.5px 0;
+	color: black;
+}
+.option_area span:hover {
+	text-decoration: underline;
+}
