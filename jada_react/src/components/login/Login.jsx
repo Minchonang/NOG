@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./css/Login.module.css";
+import common from "../common/css/common.module.css";
 
 function Login() {
 	const [userId, setUserId] = useState("");
@@ -37,7 +38,7 @@ function Login() {
 			} else {
 				// 로그인 실패 처리
 				console.log("로그인 실패:", response.status);
-				alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+				alert("아이디 또는 비밀번호가 일치하지 않습니다.");
 			}
 		} catch (error) {
 			console.error("로그인 중 오류 발생:", error);
@@ -46,14 +47,14 @@ function Login() {
 
 	return (
 		<>
-			<div className={style.background}>
-				<div className={style.main_area}>
-					<div className={style.title_area}>
+			<div className={common.background}>
+				<div className={common.main_area}>
+					<div className={common.title_area}>
 						<NavLink to="/">Jada</NavLink>
 					</div>
-					<div className={style.input_area}>
+					<div className={common.input_area}>
 						<input
-							className={style.themeBorder}
+							className={common.themeBorder}
 							type="text"
 							value={userId}
 							onChange={(e) => setUserId(e.target.value)}
@@ -61,7 +62,7 @@ function Login() {
 							maxLength="20"
 						/>
 						<input
-							className={style.themeBorder}
+							className={common.themeBorder}
 							type="password"
 							value={userPwd}
 							onChange={(e) => setUserPwd(e.target.value)}
@@ -70,19 +71,19 @@ function Login() {
 							maxLength="25"
 						/>
 					</div>
-					<div className={style.btn_area}>
-						<button className={style.themeBgrColor} onClick={handleLogin}>
+					<div className={common.btn_area}>
+						<button className={common.themeBgrColor} onClick={handleLogin}>
 							로그인
 						</button>
 					</div>
 					<div className={style.option_area}>
-						<NavLink to="/find_id" activeclassname={style.themeColor}>
+						<NavLink to="/find_id" activeclassname={common.themeColor}>
 							아이디 찾기
 						</NavLink>
-						<NavLink to="/find_pw" activeclassname={style.themeColor}>
+						<NavLink to="/find_pw" activeclassname={common.themeColor}>
 							비밀번호 찾기
 						</NavLink>
-						<NavLink to="/join" activeclassname={style.themeColor}>
+						<NavLink to="/join" activeclassname={common.themeColor}>
 							회원가입
 						</NavLink>
 					</div>
