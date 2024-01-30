@@ -1,0 +1,146 @@
+@font-face {
+	font-family: "Pretendard-Regular";
+	src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+		format("woff");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "SeoulNamsanM";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulNamsanM.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "TmonMonsori";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Godo";
+	font-style: normal;
+	font-weight: 400;
+	src: url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2")
+			format("woff2"),
+		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff")
+			format("woff");
+}
+@font-face {
+	font-family: "Godo";
+	font-style: normal;
+	font-weight: 700;
+	src: url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2")
+			format("woff2"),
+		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff")
+			format("woff");
+}
+
+.godo * {
+	font-family: "Godo", sans-serif;
+}
+
+/* 공통 적용 테마 색상 */
+.themeColor,
+a {
+	color: #d2b48c;
+	text-decoration: none;
+}
+.themeBgrColor {
+	background-color: #d2b48c;
+}
+.themeBorder {
+	border: 2px solid #d2b48c;
+}
+
+.background {
+	position: relative;
+	z-index: 0;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.main_area {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	padding: 20% 10%;
+	display: flex;
+	flex-direction: column;
+	font-family: "Godo", serif;
+	font-weight: lighter;
+}
+
+/* 타이틀 */
+.title_area {
+	display: flex;
+	margin: 15% auto 20%;
+	font-size: 3em;
+	font-weight: bold;
+}
+.title_area a {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 아이디, 비밀번호 input */
+.input_area {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0 auto;
+}
+.input_area input {
+	width: 100%;
+	padding: 4% 10px;
+	margin-bottom: 10px;
+	font-size: 1.1em;
+	outline: none;
+	/* border: 2px solid #467216; */
+	border-radius: 10px;
+	font-family: "Godo";
+}
+.input_area input::placeholder {
+	font-size: 0.8em;
+	font-family: "Godo";
+}
+
+/* 로그인 버튼 */
+.btn_area {
+	width: 100%;
+}
+.btn_area button {
+	width: 100%;
+	padding: 4.5% 0;
+	color: white;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	font-size: 1.1em;
+	font-style: 1em;
+	font-family: "godo";
+}
+
+/* 아이디, 비밀번호, 회원가입 버튼 */
+.option_area {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: 5% auto;
+	width: 100%;
+}
+.option_area a {
+	margin: 3% 5px;
+	cursor: pointer;
+	padding: 0.5px 0;
+	color: black;
+}
+.option_area span:hover {
+	text-decoration: underline;
+}
