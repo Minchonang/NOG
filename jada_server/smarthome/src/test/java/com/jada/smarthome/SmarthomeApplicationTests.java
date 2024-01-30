@@ -1,10 +1,10 @@
-package com.jada.jada;
+package com.jada.smarthome;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JadaApplicationTests {
+class SmarthomeApplicationTests {
 
 	@Test
 	void contextLoads() {

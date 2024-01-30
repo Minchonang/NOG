@@ -1,13 +1,13 @@
-package com.jada.jada;
+package com.jada.smarthome;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JadaApplication {
+public class SmarthomeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JadaApplication.class, args);
+		SpringApplication.run(SmarthomeApplication.class, args);
 	}
 
 }
