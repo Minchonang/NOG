@@ -6,13 +6,18 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
   @Id
@@ -38,7 +43,7 @@ public class User implements Serializable {
   // @Column(name = "houseSquare", nullable = false)
   // private Integer houseSquare;
 
-  @Column(name = "role", nullable = false)
+  @Column(name = "role")
   // 0 : 고객, 1 : 관리자
   private Integer role = 0;
 

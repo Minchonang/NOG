@@ -24,6 +24,9 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
         userService.saveUser(joinUserDto);
+        System.out.println("=================");
+        System.out.println(joinUserDto);
+
         return ResponseEntity.ok("User information saved successfully");
     }
 
@@ -33,6 +36,7 @@ public class UserController {
       
     //     return userService.getAllUsers();
     // }
+    // 유저 정보 조회 (예시: 전체 조회)
     @GetMapping("/get")
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
     List<User> users = userService.getAllUsers();
@@ -40,7 +44,8 @@ public class UserController {
             .map(user -> JoinUserDto.builder()
                     .email(user.getEmail())
                     .id(user.getId())
-                    .password(user.getPassword())
+                    // 비밀번호 제외
+                    // .password(user.getPassword())
                     .name(user.getName())
                     .phone(user.getPhone())
                     .address(user.getAddress())

@@ -3,8 +3,11 @@ import "./App.css";
 
 import Index from "./components/main/Index";
 import Login from "./components/login/Login";
-
 import Join from "./components/Join/Join";
+
+const API_BASE_URL = 'http://localhost:8080';
+
+// fetch.defaults.baseURL = "http://localhost:8080";
 
 function App() {
 	return (
@@ -32,4 +35,5 @@ function App() {
 // react-router-dom: v. 6.21.3
 
 export default App;
+export { API_BASE_URL };
 
