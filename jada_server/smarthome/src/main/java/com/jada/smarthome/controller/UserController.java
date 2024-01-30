@@ -7,6 +7,7 @@ import com.jada.smarthome.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,9 @@ public class UserController {
     // 유저정보저장
     @PostMapping("/join")
     public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
+      
         userService.saveUser(joinUserDto);
+
         System.out.println("=================");
         System.out.println(joinUserDto);
 
