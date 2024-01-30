@@ -5,20 +5,18 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
+@Builder
 public class User implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private String id;
 
   @Column(name = "name", nullable = false, length = 30)
   private String name;
@@ -37,8 +35,8 @@ public class User implements Serializable {
   @Column(name = "houseNum", nullable = false)
   private Integer houseNum;
 
-  @Column(name = "houseSquare", nullable = false)
-  private Integer houseSquare;
+  // @Column(name = "houseSquare", nullable = false)
+  // private Integer houseSquare;
 
   @Column(name = "role", nullable = false)
   // 0 : 고객, 1 : 관리자

@@ -1,31 +1,54 @@
 package com.jada.smarthome.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.jada.smarthome.dto.JoinUserDto;
+import com.jada.smarthome.model.User;
 import com.jada.smarthome.service.UserService;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/userinfo")
-@RequiredArgsConstructor // 생성자를 자동으로 생성
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
+@RequestMapping("/api/userinfo")
 public class UserController {
 
-  private final UserService userService;
+    private final UserService userService;
 
-  // 유저정보 받아오기
-  // @GetMapping("")
-  // public List<JoinUserDto.> (
-  //         @RequestParam(name = "id") String id,
-  //         @RequestParam(name = "email") String email,
-  //         @RequestParam(name = "password") String password,
-  //         @RequestParam(name = "phone") String phone,
-  //         @RequestParam(name = "houseNum") Integer houseNum) {
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-  //     return userService.(id, email, password, phone, houseNum);
-  // }
-  
+    // 유저정보저장
+    @PostMapping("/join")
+    public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
+        userService.saveUser(joinUserDto);
+        return ResponseEntity.ok("User information saved successfully");
+    }
+
+    // 유저 정보 조회 (예시: 전체 조회)
+    // @GetMapping("/get")
+    // public List<JoinUserDto> getAllUsers() {
+      
+    //     return userService.getAllUsers();
+    // }
+    @GetMapping("/get")
+    public ResponseEntity<List<JoinUserDto>> getAllUsers() {
+    List<User> users = userService.getAllUsers();
+    List<JoinUserDto> joinUserDtos = users.stream()
+            .map(user -> JoinUserDto.builder()
+                    .email(user.getEmail())
+                    .id(user.getId())
+                    .password(user.getPassword())
+                    .name(user.getName())
+                    .phone(user.getPhone())
+                    .address(user.getAddress())
+                    .houseNum(user.getHouseNum())
+                    .build())
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(joinUserDtos);
+}
+    
 }

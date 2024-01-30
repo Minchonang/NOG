@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import styles from "./css/Join.module.css"; 
-import DaumPostcode from "react-daum-postcode";
 
 function Join() {
     const [formData, setFormData] = useState({
@@ -27,13 +26,24 @@ function Join() {
         e.preventDefault();
     
         try {
+            // JoinUserDto와 유사한 구조를 가진 데이터로 변환
+            const joinUserDto = {
+                email: formData.email,
+                id: formData.id,
+                password: formData.password,
+                name: formData.name,
+                phone: formData.phone,
+                address: formData.address,
+                houseNum: formData.house_num,
+                // houseSquare: formData.house_square, // 만약 사용할 경우
+            };
             // 서버로 데이터 전송
-            const response = await fetch('엔드포인트', {
+            const response = await fetch('/api/userinfo/join', {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(joinUserDto),
             });
     
             if (response.ok) {
