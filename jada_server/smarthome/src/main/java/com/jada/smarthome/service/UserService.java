@@ -22,7 +22,9 @@ public class UserService {
     public void saveUser(JoinUserDto joinUserDto) {
         // JoinUserDto를 User 엔터티로 변환 후 저장
         User user = joinUserDto.toEntity();
+        System.out.println(user);
         userRepository.save(user);
+
     }
 
     public List<User> getAllUsers() {
