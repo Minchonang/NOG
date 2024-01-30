@@ -21,6 +21,9 @@ function FindId() {
 					<div className={common.btn_area}>
 						<button className={common.themeBgrColor}>아이디 찾기</button>
 					</div>
+					<div className={style.findPw_area}>
+						<NavLink to="/find_pw">비밀번호를 잊으셨나요?</NavLink>
+					</div>
 				</div>
 			</div>
 		</>
