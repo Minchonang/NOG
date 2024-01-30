@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-JadaApplication<jada>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jada.jada.JadaApplication",
+      "projectName": "jada",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
