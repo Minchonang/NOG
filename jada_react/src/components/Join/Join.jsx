@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import styles from "./css/Join.module.css"; 
-import DaumPostcode from "react-daum-postcode";
 
 function Join() {
     const [formData, setFormData] = useState({
@@ -46,6 +45,28 @@ function Join() {
         }
     };
 
+    const sendEmail = (e) => {
+        e.preventDefault();
+        console.log(formData.email);
+        const data = {
+            email: formData.email
+        };
+
+        fetch('http://localhost:3000/sendEmail', {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+            mode: 'cors',
+        })
+        .then(res => res.json())
+        .then(json => {
+            this.setState({
+                number: json.number,     
+            })
+
+        });
+    };
+
     return (
         <div className={styles.container}>
             {/* <img className={styles.logoImg} src="" alt="로고" /> */}
@@ -53,7 +74,7 @@ function Join() {
                 <div className={styles.joinTitle}>회원가입</div>
                 <div className={styles.inputWithButton}>
                     <input className={styles.email} type="text" name="email" placeholder="이메일 주소" value={formData.email} onChange={handleInputChange} />
-                    <button className={styles.certification}>인증하기</button>
+                    <button className={styles.certification} onClick={sendEmail}>인증하기</button>
                 </div>
                 <div className={styles.inputWithButton}>
                     <input className={styles.id} type="text" name="id" placeholder="아이디" value={formData.id} onChange={handleInputChange} />
