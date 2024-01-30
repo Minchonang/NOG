@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
 import styles from "./css/Join.module.css"; 
+import { API_BASE_URL } from '../../App.js';
 
 function Join() {
     const [formData, setFormData] = useState({
@@ -38,10 +39,11 @@ function Join() {
                 // houseSquare: formData.house_square, // 만약 사용할 경우
             };
             // 서버로 데이터 전송
-            const response = await fetch('/api/userinfo/join', {
+            const response = await fetch(`${API_BASE_URL}/api/userinfo/join`, {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
+
                 },
                 body: JSON.stringify(joinUserDto),
             });
