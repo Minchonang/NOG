@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/")
 public class AuthController {

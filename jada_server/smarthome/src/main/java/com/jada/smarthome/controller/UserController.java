@@ -1,9 +1,11 @@
 package com.jada.smarthome.controller;
 
 import com.jada.smarthome.dto.JoinUserDto;
+import com.jada.smarthome.dto.LoginUserDto;
 import com.jada.smarthome.model.User;
 import com.jada.smarthome.service.UserService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,7 @@ public class UserController {
         return isDuplicate ? DUPLICATE_ID : "가입가능";
     }
 
-    // 유저정보저장
+    // 유저정보저장(회원가입)
     @PostMapping("/join")
     public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
       
@@ -48,12 +50,22 @@ public class UserController {
         return ResponseEntity.ok("User information saved successfully");
     }
 
-    // 유저 정보 조회 (예시: 전체 조회)
-    // @GetMapping("/get")
-    // public List<JoinUserDto> getAllUsers() {
-      
-    //     return userService.getAllUsers();
-    // }
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginUserDto loginUserDto) {
+        // 컨트롤러에서 서비스로 DTO 전달
+        String loginResult = userService.loginUser(loginUserDto);
+
+        // 로그인 성공 여부에 따라 응답을 다르게 설정
+        if (loginResult.equals("로그인 성공")) {
+            return ResponseEntity.ok("로그인 성공!");
+        } else if (loginResult.equals("비밀번호 불일치")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 불일치!");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("해당 사용자가 존재하지 않습니다.");
+        }
+    }
+
     // 유저 정보 조회 (예시: 전체 조회)
     @GetMapping("/get")
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
