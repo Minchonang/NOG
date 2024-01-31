@@ -91,7 +91,10 @@ a {
   border: 0;
   border-radius: 10px;
   outline: none;
-  font-size: 1.1em;
+  font-size: 1em;
   font-style: 1em;
   font-family: "godo";
+}
+.btn_area button:active {
+  background-color: #fbb244;
 }
