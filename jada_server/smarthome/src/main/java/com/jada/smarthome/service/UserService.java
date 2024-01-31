@@ -67,4 +67,10 @@ public class UserService {
             return "해당 사용자가 존재하지 않습니다.";
         }
     }
+
+    // 이름과 이메일로 사용자 정보를 조회하는 메서드
+    public Optional<User> findUserByNameAndEmail(String name, String email) {
+        return userRepository.findByNameAndEmail(name, email);
+    }
+
 }

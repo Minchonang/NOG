@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -87,6 +88,16 @@ public class UserController {
             .collect(Collectors.toList());
 
     return ResponseEntity.ok(joinUserDtos);
-}
-    
+    }
+
+    // 아이디 찾기 : 이름 = 이메일 존재하는 유저 찾으면 id전달하도록 
+    @GetMapping("/find-id")
+    public ResponseEntity<String> findUserId(@RequestParam String name, @RequestParam String email) {
+        // 이름과 이메일로 사용자 정보를 조회
+        Optional<User> userOptional = userService.findUserByNameAndEmail(name, email);
+
+        // 사용자 정보가 존재하면 해당 아이디 반환
+        return userOptional.map(user -> ResponseEntity.ok(user.getId()))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 사용자를 찾을 수 없습니다."));
+    }
 }

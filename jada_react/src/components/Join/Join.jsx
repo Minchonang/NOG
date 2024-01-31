@@ -84,6 +84,7 @@ function Join() {
     }
   };
 
+  // 이메일인증
   const sendEmail = (e) => {
     e.preventDefault();
     console.log(formData.email);
