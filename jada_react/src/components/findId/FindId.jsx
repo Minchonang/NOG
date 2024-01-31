@@ -7,13 +7,15 @@ import { API_BASE_URL } from "../../App.js";
 
 
 function FindId() {
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailAuth, setEmailAuth] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [authkey, setAuthkey] = useState("");
 
-	const handleFindId = async () => {
+	const handleFindId = async (e) => {
+
+		handleVerify(e);
 		try {
 			// 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
 			const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
@@ -103,8 +105,8 @@ function FindId() {
           <div className={common.input_area}>
             <input
               type="text"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               placeholder="이름 입력"
               maxLength="20"
             />
@@ -128,13 +130,13 @@ function FindId() {
                 placeholder="인증번호 입력"
                 maxLength="8"
               />
-              <button className={common.themeBgrColor} onClick={handleVerify}>
+              {/* <button className={common.themeBgrColor} onClick={handleVerify}>
                 인증확인
-              </button>
+              </button> */}
             </div>
           </div>
           <div className={common.btn_area}>
-            <button className={common.themeBgrColor}>아이디 찾기</button>
+            <button className={common.themeBgrColor} onClick={handleFindId}>아이디 찾기</button>
           </div>
           <div className={style.findPw_area}>
             <NavLink to="/find_pw">비밀번호를 잊으셨나요?</NavLink>
