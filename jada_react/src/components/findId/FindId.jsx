@@ -5,36 +5,37 @@ import style from "./css/FindId.module.css";
 import { API_BASE_URL } from '../../App.js';
 
 
-const handleFindId = async () => {
-	try {
-		// 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
-		const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				name: userName,
-				email: userEmail,
-			}),
-		});
-
-		if (response.ok) {
-			// 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
-			const data = await response.json();
-			console.log("아이디 찾기 성공:", data);
-		} else {
-			console.log("아이디 찾기 실패:", response.status);
-				}
-	} catch (error) {
-		console.error("아이디 찾기 중 오류 발생:", error);
-	}
-};
 
 function FindId() {
 	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
 	const [emailAuth, setEmailAuth] = useState("");
+
+	const handleFindId = async () => {
+		try {
+			// 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
+			const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					name: userName,
+					email: userEmail,
+				}),
+			});
+	
+			if (response.ok) {
+				// 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
+				const data = await response.json();
+				console.log("아이디 찾기 성공:", data);
+			} else {
+				console.log("아이디 찾기 실패:", response.status);
+					}
+		} catch (error) {
+			console.error("아이디 찾기 중 오류 발생:", error);
+		}
+	};
 
 	return (
 		<>
