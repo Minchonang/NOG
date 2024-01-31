@@ -28,8 +28,9 @@ function FindId() {
 
       if (response.ok) {
         // 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
-        const data = await response.json();
+        const data = await response.text();
         console.log("아이디 찾기 성공:", data);
+        alert("회원의 아이디는 " + data + " 입니다.");
       } else {
         console.log("아이디 찾기 실패:", response.status);
       }
