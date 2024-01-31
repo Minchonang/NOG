@@ -51,16 +51,19 @@ public class UserController {
     }
 
     // 로그인
+    @CrossOrigin(origins = "http://192.168.0.70:3000")
+    // @CrossOrigin(origins = "http://localhost:3000") // 클라이언트의 주소로 변경
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginUserDto loginUserDto) {
+        System.out.println(loginUserDto);
         // 컨트롤러에서 서비스로 DTO 전달
         String loginResult = userService.loginUser(loginUserDto);
 
         // 로그인 성공 여부에 따라 응답을 다르게 설정
         if (loginResult.equals("로그인 성공")) {
-            return ResponseEntity.ok("로그인 성공!");
+            return ResponseEntity.ok("로그인 성공");
         } else if (loginResult.equals("비밀번호 불일치")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 불일치!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디 또는 비밀번호가 일치하지 않습니다.");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("해당 사용자가 존재하지 않습니다.");
         }

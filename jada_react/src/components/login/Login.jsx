@@ -18,30 +18,35 @@ function Login() {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 
-		const formData = new URLSearchParams();
-		formData.append("id", userId);
-		formData.append("password", userPwd);
+		const requestData = {
+			id: userId,
+			password: userPwd
+	};
+		// const formData = new URLSearchParams();
+		// formData.append("id", userId);
+		// formData.append("password", userPwd);
 
 		try {
 			const response = await fetch(`${API_BASE_URL}/api/userinfo/login`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					// "Access-Control-Allow-Origin": "ip: 8080",
+					"Access-Control-Allow-Origin": "ip: 8080",
 					// "Content-Type": "application/x-www-form-urlencoded",
 				},
-				body: formData,
+				body: JSON.stringify(requestData),
 			});
 
 			if (response.ok) {
 				// 로그인 성공 처리
-				const data = await response.json();
-				console.log("로그인 성공:", data);
+				// const data = await response.json();
+				console.log("로그인 성공:");
 				window.location.href = "/";
 			} else {
 				// 로그인 실패 처리
 				console.log("로그인 실패:", response.status);
-				alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+				const errorMessage = await response.text();
+				alert(errorMessage);
 			}
 		} catch (error) {
 			console.error("로그인 중 오류 발생:", error);
