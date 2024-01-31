@@ -20,17 +20,22 @@
 	margin: auto 0;
 	border: 0;
 	border-radius: 10px;
+	font-family: "godo";
 	color: white;
 	font-weight: bold;
 }
+.inputEmail_area button:active {
+	background-color: #fbb244;
+}
 
+/* 비밀번호 찾기(페이지) 이동 버튼 */
 .findPw_area {
 	margin: 8% auto;
 }
 .findPw_area a {
 	font-size: 0.8em;
-   color: rgb(126, 126, 126);
+	color: rgb(126, 126, 126);
 }
 .findPw_area a:hover {
-   text-decoration: underline;
+	text-decoration: underline;
 }

@@ -50,7 +50,7 @@ function FindPw() {
 							value={emailAuth}
 							onChange={(e) => setEmailAuth(e.target.value)}
 							placeholder="인증번호"
-							maxLength="6"
+							maxLength="8"
 						/>
 					</div>
 					<div className={common.btn_area}>

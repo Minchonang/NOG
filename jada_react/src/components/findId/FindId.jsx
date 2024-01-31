@@ -41,8 +41,8 @@ function FindId() {
 							type="text"
 							value={emailAuth}
 							onChange={(e) => setEmailAuth(e.target.value)}
-							placeholder="인증번호 입력"
-							maxLength="6"
+							placeholder="인증번호"
+							maxLength="8"
 						/>
 					</div>
 					<div className={common.btn_area}>
