@@ -118,8 +118,8 @@ function FindPw() {
       });
 
       if (response.ok) {
-        const data = await response.text();
-        alert(data);
+        alert("비밀번호가 변경되었습니다.");
+        window.location.href = "/login";
       } else {
         console.log("비밀번호 재설정 실패:", response.status);
       }
