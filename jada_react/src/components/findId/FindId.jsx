@@ -2,10 +2,10 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/FindId.module.css";
-import { API_BASE_URL } from '../../App.js';
+import { API_BASE_URL } from "../../App.js";
 
 function FindId() {
-	const [userId, setUserId] = useState("");
+	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
 	const [emailAuth, setEmailAuth] = useState("");
 
@@ -22,8 +22,8 @@ function FindId() {
 					<div className={common.input_area}>
 						<input
 							type="text"
-							value={userId}
-							onChange={(e) => setUserId(e.target.value)}
+							value={userName}
+							onChange={(e) => setUserName(e.target.value)}
 							placeholder="이름 입력"
 							maxLength="20"
 						/>
