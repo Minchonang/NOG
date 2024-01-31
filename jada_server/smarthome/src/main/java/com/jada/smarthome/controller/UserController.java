@@ -51,8 +51,8 @@ public class UserController {
     }
 
     // 로그인
-    @CrossOrigin(origins = "http://192.168.0.70:3000")
-    // @CrossOrigin(origins = "http://localhost:3000") // 클라이언트의 주소로 변경
+    // @CrossOrigin(origins = "http://192.168.0.70:3000")
+    @CrossOrigin(origins = "http://localhost:3000") // 클라이언트의 주소로 변경
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginUserDto loginUserDto) {
         System.out.println(loginUserDto);

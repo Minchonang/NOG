@@ -112,61 +112,63 @@ function Join() {
   // id 중복체크
   const handleDuplicateCheck = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/userinfo/id-check?id=${formData.id}`);
-        if (response.ok) {
-            const result = await response.text();
-            if (result === '가입가능') {
-                alert('사용 가능한 아이디입니다.');
-                setFormData(prevData => ({ ...prevData, idDuplicateCheck: true }));
-            } else {
-                alert('이미 사용 중인 아이디입니다.');
-            }
+      const response = await fetch(
+        `${API_BASE_URL}/api/userinfo/id-check?id=${formData.id}`
+      );
+      if (response.ok) {
+        const result = await response.text();
+        if (result === "가입가능") {
+          alert("사용 가능한 아이디입니다.");
+          setFormData((prevData) => ({ ...prevData, idDuplicateCheck: true }));
         } else {
-            console.error('ID 중복 확인 실패');
+          alert("이미 사용 중인 아이디입니다.");
         }
+      } else {
+        console.error("ID 중복 확인 실패");
+      }
     } catch (error) {
-        console.error('서버 통신 오류', error);
+      console.error("서버 통신 오류", error);
     }
-};
+  };
 
   return (
     <div className={common.background}>
       <div className={common.main_area} onSubmit={handleJoin}>
         <div className={common.title_area}>회원가입</div>
         <div className={common.input_area}>
-          <div className={styles.}>
-            <div className={styles.inputWithBtn}>
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="id"
-                placeholder="아이디"
-                value={formData.id}
-                onChange={handleInputChange}
-              />
-              <button className={styles.duplicate} onClick={handleDuplicateCheck}>중복확인</button>
-            </div>
+          <div className={styles.inputWithBtn}>
             <input
               className={common.themeBorder}
-              type="password"
-              name="password"
-              placeholder="비밀번호"
-              value={formData.password}
+              type="text"
+              name="id"
+              placeholder="아이디"
+              value={formData.id}
               onChange={handleInputChange}
             />
-            <div className={styles.inputWithBtn}>
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="email"
-                placeholder="이메일 주소"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              <button className={common.themeBgrColor} onClick={sendEmail}>
-                인증하기
-              </button>
-            </div>
+            <button className={styles.duplicate} onClick={handleDuplicateCheck}>
+              중복확인
+            </button>
+          </div>
+          <input
+            className={common.themeBorder}
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+          <div className={styles.inputWithBtn}>
+            <input
+              className={common.themeBorder}
+              type="text"
+              name="email"
+              placeholder="이메일 주소"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+            <button className={common.themeBgrColor} onClick={sendEmail}>
+              인증하기
+            </button>
           </div>
 
           {isVerified ? ( // 인증이 확인되었을 때만 나타나게 함
