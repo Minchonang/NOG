@@ -1,28 +1,27 @@
 .guide_label {
-	margin: 0 auto;
-	font-size: 0.8em;
+  margin: 0 auto;
+  font-size: 0.8em;
 }
 
 .inputEmail_area {
-	position: relative;
-	margin-bottom: 10px;
+  position: relative;
+  margin-bottom: 10px;
 }
 .inputEmail_area input {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .inputEmail_area button {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 10px;
-	width: 20%;
-	height: 70%;
-	margin: auto 0;
-	border: 0;
-	border-radius: 10px;
-	font-family: "godo";
-	color: white;
-	font-weight: bold;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  width: 20%;
+  height: 70%;
+  margin: auto 0;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
 }
 .inputEmail_area button:active {
 	background-color: #fbb244;
@@ -30,12 +29,36 @@
 
 /* 비밀번호 찾기(페이지) 이동 버튼 */
 .findPw_area {
-	margin: 8% auto;
+  margin: 8% auto;
 }
 .findPw_area a {
-	font-size: 0.8em;
-	color: rgb(126, 126, 126);
+  font-size: 0.8em;
+  color: rgb(126, 126, 126);
 }
 .findPw_area a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
+}
+
+.inputEmileAuth_area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto 0;
+}
+
+.inputEmileAuth_area input {
+  width: 100%;
+  padding: 4% 10px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  outline: none;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  font-family: "Godo";
+}
+
+.inputEmileAuth_area input::placeholder {
+  font-size: 0.8em;
+  font-family: "Godo";
+  color: rgb(198, 198, 198);
 }

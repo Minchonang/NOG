@@ -1,6 +1,6 @@
 .inputWithBtn {
   position: relative;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .inputWithBtn input {
@@ -46,13 +46,27 @@
   color: rgb(198, 198, 198);
 }
 
-.singleInput {
-  width: calc(100% - 120px); /* 버튼을 제외한 부분의 너비 */
+.idEmailPwdInput_area,
+.userInfoInput_area {
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  margin-bottom: 1em;
 }
 
-.inputDivider {
-  width: 20px;
-  height: 100%;
-  border-right: 1px solid #ccc; /* 회색 선 색상 및 두께 설정 */
-  margin: 0 10px; /* 선 사이 간격 조절 */
+.idEmailPwdInput_area input,
+.userInfoInput_area input {
+  border: 0;
+  padding: 4% 10px;
+  width: 100%;
+  border-bottom: 1px solid grey;
+}
+.inputWithBtn input {
+  border-radius: 10px 10px 0 0;
+}
+.inputWithBtn:last-child input {
+  border-radius: 0 0 10px 10px;
+  border: 0;
+}
+.idEmailPwdInput_area input:focus {
+  outline: none;
 }
