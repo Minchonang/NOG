@@ -76,8 +76,10 @@ function Join() {
 
       if (response.ok) {
         console.log("회원가입 성공");
+        alert("회원가입 성공");
       } else {
         console.error("회원가입 실패");
+        alert("회원가입 실패");
       }
     } catch (error) {
       console.error("서버 통신 오류", error);
@@ -136,86 +138,91 @@ function Join() {
     <div className={common.background}>
       <div className={common.main_area} onSubmit={handleJoin}>
         <div className={common.title_area}>회원가입</div>
-        <div className={common.input_area}>
-          <div className={styles.inputWithBtn}>
+        <div>
+          <div className={styles.idEmailPwdInput_area}>
+            <div className={styles.inputWithBtn}>
+              <input
+                type="text"
+                name="id"
+                placeholder="아이디"
+                value={formData.id}
+                onChange={handleInputChange}
+              />
+              <button
+                className={common.themeBgrColor}
+                onClick={handleDuplicateCheck}
+              >
+                중복확인
+              </button>
+            </div>
+
             <input
-              className={common.themeBorder}
-              type="text"
-              name="id"
-              placeholder="아이디"
-              value={formData.id}
+              type="password"
+              name="password"
+              placeholder="비밀번호"
+              value={formData.password}
               onChange={handleInputChange}
             />
-            <button className={styles.duplicate} onClick={handleDuplicateCheck}>
-              중복확인
-            </button>
-          </div>
-          <input
-            className={common.themeBorder}
-            type="password"
-            name="password"
-            placeholder="비밀번호"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-          <div className={styles.inputWithBtn}>
-            <input
-              className={common.themeBorder}
-              type="text"
-              name="email"
-              placeholder="이메일 주소"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            <button className={common.themeBgrColor} onClick={sendEmail}>
-              인증하기
-            </button>
+            <div className={styles.inputWithBtn}>
+              <input
+                type="text"
+                name="email"
+                placeholder="이메일 주소"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+              <button className={common.themeBgrColor} onClick={sendEmail}>
+                인증하기
+              </button>
+            </div>
           </div>
 
           {isVerified ? ( // 인증이 확인되었을 때만 나타나게 함
             <>
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="name"
-                placeholder="이름"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="phone"
-                placeholder="번호"
-                value={formData.phone}
-                onChange={handleInputChange}
-              />
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="address"
-                placeholder="주소"
-                value={formData.address}
-                onChange={handleInputChange}
-              />
-              <input
-                className={common.themeBorder}
-                type="text"
-                name="house_num"
-                placeholder="가구원 수"
-                value={formData.house_num}
-                onChange={handleInputChange}
-              />
-              {/* <input className={styles.size} type="text" name="house_square" placeholder="평수" value={formData.house_square} onChange={handleInputChange} /> */}
-              {/* <input className={styles.admin} type="text" name="admin" placeholder="관리자" /> */}
-              <div className={common.btn_area}>
-                <button
-                  className={common.themeBgrColor}
-                  onClick={handleJoin}
-                  type="button"
-                >
-                  가입
-                </button>
+              <div className={styles.userInfoInput_area}>
+                <input
+                  className={common.themeBorder}
+                  type="text"
+                  name="name"
+                  placeholder="이름"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+                <input
+                  className={common.themeBorder}
+                  type="text"
+                  name="phone"
+                  placeholder="번호"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                />
+                <input
+                  className={common.themeBorder}
+                  type="text"
+                  name="address"
+                  placeholder="주소"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                />
+                <input
+                  className={common.themeBorder}
+                  type="text"
+                  name="house_num"
+                  placeholder="가구원 수"
+                  value={formData.house_num}
+                  onChange={handleInputChange}
+                />
+                {/* <input className={styles.size} type="text" name="house_square" placeholder="평수" value={formData.house_square} onChange={handleInputChange} /> */}
+                {/* <input className={styles.admin} type="text" name="admin" placeholder="관리자" /> */}
+                <div className={common.btn_area}>
+                  <button
+                    className={common.themeBgrColor}
+                    onClick={handleJoin}
+                    type="button"
+                  >
+                    가입
+                  </button>
+                </div>
               </div>
             </>
           ) : (
