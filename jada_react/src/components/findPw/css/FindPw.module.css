@@ -24,13 +24,13 @@
 	font-weight: bold;
 }
 
-.findPw_area {
+.findId_area {
 	margin: 8% auto;
 }
-.findPw_area a {
+.findId_area a {
 	font-size: 0.8em;
    color: rgb(126, 126, 126);
 }
-.findPw_area a:hover {
+.findId_area a:hover {
    text-decoration: underline;
 }
