@@ -132,7 +132,7 @@ function FindPw() {
       <div className={common.background}>
         <div className={common.main_area} onSubmit={handleJoin}>
           <div className={common.title_area}>
-            <NavLink to="/">Jada</NavLink>
+            <NavLink to="/">NOG</NavLink>
           </div>
           <label className={style.guide_label}>
             등록된 아이디, 이메일을 입력하세요.
@@ -172,7 +172,7 @@ function FindPw() {
                     className={common.themeBgrColor}
                     onClick={handleFindPwd}
                   >
-                    본인 인증하기
+                    다음 
                   </button>
                 </div>
               </>
