@@ -12,7 +12,6 @@ function FindId() {
   const [authkey, setAuthkey] = useState("");
 
   const handleFindId = async (e) => {
-    handleVerify(e);
     try {
       // 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
       const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
@@ -30,8 +29,11 @@ function FindId() {
         // 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
         const data = await response.text();
         console.log("아이디 찾기 성공:", data);
+        handleVerify(e);
         alert("회원의 아이디는 " + data + " 입니다.");
+        window.location.href = "/login";
       } else {
+        alert("회원정보가 일치하지 않습니다..");
         console.log("아이디 찾기 실패:", response.status);
       }
     } catch (error) {
@@ -83,7 +85,7 @@ function FindId() {
     }
     if (authkey === emailAuth) {
       setIsVerified(true);
-      alert("인증이 확인되었습니다.");
+      alert("인증되었습니다.");
     } else {
       setIsVerified(false);
       alert("인증번호가 일치하지 않습니다.");

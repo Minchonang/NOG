@@ -138,6 +138,7 @@ function Join() {
     <div className={common.background}>
       <div className={common.main_area} onSubmit={handleJoin}>
         <div className={common.title_area}>회원가입</div>
+
         <div>
           <div className={styles.idEmailPwdInput_area}>
             <div className={styles.inputWithBtn}>
@@ -163,6 +164,7 @@ function Join() {
               value={formData.password}
               onChange={handleInputChange}
             />
+
             <div className={styles.inputWithBtn}>
               <input
                 type="text"
@@ -178,53 +180,48 @@ function Join() {
           </div>
 
           {isVerified ? ( // 인증이 확인되었을 때만 나타나게 함
-            <>
-              <div className={styles.userInfoInput_area}>
-                <input
-                  className={common.themeBorder}
-                  type="text"
-                  name="name"
-                  placeholder="이름"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-                <input
-                  className={common.themeBorder}
-                  type="text"
-                  name="phone"
-                  placeholder="번호"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-                <input
-                  className={common.themeBorder}
-                  type="text"
-                  name="address"
-                  placeholder="주소"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                />
-                <input
-                  className={common.themeBorder}
-                  type="text"
-                  name="house_num"
-                  placeholder="가구원 수"
-                  value={formData.house_num}
-                  onChange={handleInputChange}
-                />
-                {/* <input className={styles.size} type="text" name="house_square" placeholder="평수" value={formData.house_square} onChange={handleInputChange} /> */}
-                {/* <input className={styles.admin} type="text" name="admin" placeholder="관리자" /> */}
-                <div className={common.btn_area}>
-                  <button
-                    className={common.themeBgrColor}
-                    onClick={handleJoin}
-                    type="button"
-                  >
-                    가입
-                  </button>
-                </div>
+            <div className={styles.userInfoInput_area}>
+              <input
+                type="text"
+                name="name"
+                placeholder="이름"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+
+              <input
+                type="text"
+                name="phone"
+                placeholder="번호"
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
+
+              <input
+                type="text"
+                name="address"
+                placeholder="주소"
+                value={formData.address}
+                onChange={handleInputChange}
+              />
+
+              <input
+                className={common.themeBorder}
+                type="text"
+                name="house_num"
+                placeholder="가구원 수"
+                value={formData.house_num}
+                onChange={handleInputChange}
+              />
+
+              {/* <input className={styles.size} type="text" name="house_square" placeholder="평수" value={formData.house_square} onChange={handleInputChange} /> */}
+              {/* <input className={styles.admin} type="text" name="admin" placeholder="관리자" /> */}
+              <div className={common.btn_area}>
+                <button className={common.themeBgrColor} onClick={handleJoin}>
+                  가입
+                </button>
               </div>
-            </>
+            </div>
           ) : (
             <div className={styles.inputEmileAuth_area}>
               <input
