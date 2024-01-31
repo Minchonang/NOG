@@ -34,6 +34,10 @@ public class JoinUserDto {
         this.address = address;
         this.houseNum = houseNum;
     }
+    // id 중복체크
+    private boolean idDuplicateCheck;
+
+    // user 데이터 형태로 만들기
     public User toEntity(){
       return User.builder()
               .email(email)
@@ -48,5 +52,6 @@ public class JoinUserDto {
               .build();
     }
   }
+
   
 
