@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./css/Login.module.css";
 import common from "../common/css/common.module.css";
+import { API_BASE_URL } from '../../App.js';
 
 function Login() {
 	const [userId, setUserId] = useState("");
@@ -18,14 +19,16 @@ function Login() {
 		e.preventDefault();
 
 		const formData = new URLSearchParams();
-		formData.append("username", userId);
+		formData.append("id", userId);
 		formData.append("password", userPwd);
 
 		try {
-			const response = await fetch("/api/login", {
+			const response = await fetch(`${API_BASE_URL}/api/userinfo/login`, {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
+					"Content-Type": "application/json",
+					// "Access-Control-Allow-Origin": "ip: 8080",
+					// "Content-Type": "application/x-www-form-urlencoded",
 				},
 				body: formData,
 			});
@@ -80,9 +83,11 @@ function Login() {
 						<NavLink to="/find_id" activeclassname={common.themeColor}>
 							아이디 찾기
 						</NavLink>
+						<span>|</span>
 						<NavLink to="/find_pw" activeclassname={common.themeColor}>
 							비밀번호 찾기
 						</NavLink>
+						<span>|</span>
 						<NavLink to="/join" activeclassname={common.themeColor}>
 							회원가입
 						</NavLink>
