@@ -49,7 +49,7 @@ public class UserController {
         return isDuplicate ? DUPLICATE_ID : "가입가능";
     }
 
-    // 유저정보저장(회원가입)
+    // 회원가입
     @PostMapping("/join")
     public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
       
@@ -110,7 +110,9 @@ public class UserController {
                     // .password(user.getPassword())
                     .name(user.getName())
                     .phone(user.getPhone())
-                    .address(user.getAddress())
+                    .address1(user.getAddress1())
+                    .address2(user.getAddress2())
+                    .address3(user.getAddress3())
                     .houseNum(user.getHouseNum())
                     .build())
             .collect(Collectors.toList());
