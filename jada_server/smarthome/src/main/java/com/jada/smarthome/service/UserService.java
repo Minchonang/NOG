@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -186,6 +187,12 @@ public class UserService {
     }
 
     return userInfoDto;
+}
+
+    // 회원정보 삭제
+    @Transactional
+    public void userdelete(String userId) {
+        userRepository.deleteById(userId);
 }
 
 }

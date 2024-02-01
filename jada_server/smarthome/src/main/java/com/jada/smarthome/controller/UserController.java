@@ -207,6 +207,31 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
+    // 회원탈퇴
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/userdelete")
+    public ResponseEntity<String> exitAccount(HttpSession session) {
+        // 세션에서 현재 사용자 정보 가져오기
+        User currentUser = (User) session.getAttribute("user_info");
+
+        if (currentUser == null) {
+            // 세션이 유효하지 않으면 로그인 페이지로 리다이렉트
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션이 유효하지 않습니다.");
+        }
+
+        try {
+            // 회원 정보 삭제
+            userService.userdelete(currentUser.getId());
+            // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
+            session.invalidate(); // 세션 무효화
+
+            return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
+        }
+
+    }
+
 
 }
 
