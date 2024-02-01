@@ -1,44 +1,34 @@
-import React, { useRef, useEffect } from 'react';
-import Chart from 'chart.js/auto';
+import { PieChart } from "react-minimal-pie-chart";
 
-const MyChart = ({ rideArr, alightArr }) => {
-  const chartRef = useRef();
+const Chart = () => {
 
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
 
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['7-8', '8-9', '9-10', '10-11', '11-12', '17-18', '18-19', '19-20'],
-        datasets: [
-          {
-            label: '탑승인원',
-            data: [1,2,3,4,5,6,1],
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'red',
-            borderWidth: 2,
-          },
-          {
-            label: '하차인원',
-            data: [4,2,53,2,3,4,51,1],
-            
-            backgroundColor: 'rgb(75, 192, 192)',
-          },
-        ],
-      },
-    });
+data = 
 
-    return () => {
-      myChart.destroy();
-    };
-  }, [rideArr, alightArr]);
 
   return (
-    <div>
-      <canvas ref={chartRef}></canvas>
-    </div>
+      <PieChart
+        data={[
+          {
+            value: 0,
+            color: "#F6CB44",
+            name: "name1",
+          },
+        ]}
+        reveal={0} //퍼센트 치수
+        lineWidth={18} //도넛 두께
+        background="#f3f3f3"
+        lengthAngle={-180}
+        rounded
+        animate
+        label={({ dataEntry }) => dataEntry.value + "%"}
+        labelStyle={{
+          fontSize: "26px",
+          fill: "#33333",
+        }}
+        labelPosition={0}
+      />
   );
 };
 
-export default MyChart;
+export default Chart;

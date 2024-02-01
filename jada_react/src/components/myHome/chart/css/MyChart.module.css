@@ -1,0 +1,40 @@
+.body{
+    
+    background-color: rgb(48, 59, 113);
+    height: 100%;
+    width: 100%;
+    margin-top: 15%;
+    padding: 0.5rem;
+    font-family: "Godo";
+
+}
+
+.body>.container>.title{
+    background-color: rgb(31, 25, 57);
+    padding: 1rem;
+    /* font-size: 1rem; */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    align-items: center;
+}
+.body>.container>.title>h1{
+    font-size: 2rem;
+
+}
+
+
+.body>.container>.chart_box{
+
+    /* background-color: black; */
+    border-radius: 0.3rem;
+    border: 1px black solid;
+    width: 100%;
+    background-color: rgb(215, 255, 207);
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+
+

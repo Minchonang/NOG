@@ -1,8 +1,43 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Doughnut, Line } from 'react-chartjs-2';
+import style from './css/MyChart.module.css';
 
 const MyChart = () => {
-  const data = {
+  const doughnutData = {
+    labels: ['Red', 'Blue'],
+    datasets: [
+      {
+        data: [40, 60],
+        backgroundColor: ['#FF6384', '#36A2EB'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB'],
+      },
+    ],
+  };
+
+  const doughnutOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        
+      },
+      doughnutlabel: { 
+        labels: [{     
+                  text: '0',    
+                    font: {       
+                      size: 20,      
+                              weight: 'bold'   
+                                      }            },
+                                      {                text: 'total'            }]          }
+    },
+    maintainAspectRatio: false,
+    cutoutPercentage: 70,
+    animation: false,
+    rotation: 290,
+    circumference: 45 * Math.PI,
+  };
+
+  const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
@@ -16,9 +51,30 @@ const MyChart = () => {
   };
 
   return (
-    <div>
-      <h2>My Line Chart</h2>
-      <Line data={data} />
+    <div className={style.body}>
+      <div className={style.container}>
+        <div className={style.title}>
+          <h1>user</h1>
+          <span>@@@@@@@</span>
+          <span>@@@@@@@@.</span>
+        </div>
+
+        <div className={style.chart_box}>
+          <Doughnut data={doughnutData} options={doughnutOptions} />
+        </div>
+
+        <div className={style.chart_box}>
+          <Line data={lineData} />
+        </div>
+
+        <div className={style.chart_box}>
+          <Line data={lineData} />
+        </div>
+
+        <div className={style.chart_box}>
+          <Line data={lineData} />
+        </div>
+      </div>
     </div>
   );
 };
