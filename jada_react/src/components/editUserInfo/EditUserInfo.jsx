@@ -19,12 +19,14 @@ function EditUserInfo() {
     setEditPwd(true);
   };
 
+  // 번호 수정
   const [editPhone, setEditPhone] = useState(false);
   const [newPhone, setNewPhone] = useState("010-3945-9475"); // 추후 서버 연결 시 변수 설정
   const editPhoneBtn = () => {
     setEditPhone(true);
   };
 
+  // 가구 수 수정
   let houseNum = 4; // 임시로 넣은 가구원 수 변수
   const [editHouseNum, setEditHouseNum] = useState(false);
   const [newHouseNum, setNewHouseNum] = useState(houseNum);
