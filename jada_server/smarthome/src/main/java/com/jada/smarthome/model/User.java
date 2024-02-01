@@ -58,6 +58,12 @@ public class User implements Serializable {
   private String newPassword;
 	
 
-  @Column(name = "address", nullable = false, length = 255)
-  private String address;
+  @Column(name = "address1", nullable = false, length = 255)
+  private String address1;
+  
+  @Column(name = "address2", nullable = false, length = 255)
+  private String address2;
+  
+  @Column(name = "address3", length = 255)
+  private String address3;
 }

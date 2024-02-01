@@ -3,15 +3,17 @@ package com.jada.smarthome.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jada.smarthome.dto.EditUserDto;
 import com.jada.smarthome.dto.JoinUserDto;
 import com.jada.smarthome.dto.LoginUserDto;
+import com.jada.smarthome.dto.UserInfoDto;
 import com.jada.smarthome.model.User;
 import com.jada.smarthome.repository.UserRepository;
 
@@ -140,4 +142,57 @@ public class UserService {
             return "비밀번호 변경 중 오류가 발생하였습니다. 오류 내용: " + e.getMessage();
         }
     }
+
+    // 회원정보 수정
+    public String editUser(EditUserDto editUserDto){
+       Optional<User> userOptional = userRepository.findById(editUserDto.getUser_id());
+       System.out.println("user레파지토리 정보 :"+ userOptional);
+
+       if (userOptional.isPresent()) {
+        User user = userOptional.get();
+        editUserDto.setId(user.getId());
+        editUserDto.setName(user.getName());
+        editUserDto.setEmail(user.getEmail());
+        editUserDto.setPhone(user.getPhone());
+        editUserDto.setAddress1(user.getAddress1());
+        editUserDto.setAddress2(user.getAddress2());
+        editUserDto.setAddress3(user.getAddress3());
+        editUserDto.setHouseNum(user.getHouseNum());
+        
+        System.out.println("사용자 정보 조회 완료");
+        } else {
+        System.out.println("사용자 정보가 존재하지 않습니다.");
+        }
+
+        return editUserDto.toString();
+    }
+
+    // 회원정보 조회
+    public UserInfoDto getUserInfo(String userId) {
+    Optional<User> userOptional = userRepository.findById(userId);
+    System.out.println("user레파지토리 정보 :"+ userOptional);
+    
+    if (userOptional.isPresent()) {
+    User user = userOptional.get();
+    UserInfoDto userInfoDto = new UserInfoDto();
+    userInfoDto.setUserId(userId);
+    userInfoDto.setName(user.getName()); 
+    userInfoDto.setEmail(user.getEmail());
+    userInfoDto.setPhone(user.getPhone());
+    userInfoDto.setAddress1(user.getAddress1());
+    userInfoDto.setAddress2(user.getAddress2());
+    userInfoDto.setAddress3(user.getAddress3());
+    userInfoDto.setHouseNum(user.getHouseNum());
+        
+    }
+
+    return userInfoDto;
+}
+
+    // 회원정보 삭제
+    @Transactional
+    public void userdelete(String userId) {
+        userRepository.deleteById(userId);
+}
+
 }
