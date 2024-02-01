@@ -12,6 +12,11 @@ app/__pycahe__
 /.pnp
 .pnp.js
 
+# jupyter notebook
+.ipynb_checkpoints/
+
+# ignore model file
+*.pt
 
 # testing
 /coverage
