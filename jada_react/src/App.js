@@ -10,7 +10,7 @@ import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import MyChart from "./components/myHome/chart/MyChart";
 import MyChart2 from "./components/myHome/chart/MyChart2";
-
+import RadarChart from "./components/myHome/chart/RadarChart";
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
 					<Route path="/edit_userinfo" element={<EditUserInfo />} />
 					<Route path="/my_chart" element={< MyChart/>} />
 					<Route path="/my_chart2" element={< MyChart2/>} />
+					<Route path="/my_chart3" element={< RadarChart/>} />
 				</Routes>
 			</BrowserRouter>
 		</>

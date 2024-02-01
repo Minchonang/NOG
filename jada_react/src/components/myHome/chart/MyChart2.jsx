@@ -1,37 +1,45 @@
 import React from 'react';
 import { Doughnut, Line } from 'react-chartjs-2';
 import style from './css/MyChart.module.css';
+import 'chart.js/auto';
+import RadarChart from './RadarChart';
+// import 'chartjs-plugin-datalabels'; // 추가한 플러그인을 import
 
 const MyChart = () => {
   const doughnutData = {
     labels: ['Red', 'Blue'],
     datasets: [
       {
-        data: [40, 60],
-        backgroundColor: ['#FF6384', '#36A2EB'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB'],
+        data: [60,40],
+        backgroundColor: ['yellow', 'darkgray'],
+        hoverBackgroundColor: ['red', 'black'],
       },
     ],
   };
 
   const doughnutOptions = {
-    responsive: true,
+    responsive: false,
+    
     plugins: {
+
+      
       legend: {
         display: false,
-        
       },
-      doughnutlabel: { 
-        labels: [{     
-                  text: '0',    
-                    font: {       
-                      size: 20,      
-                              weight: 'bold'   
-                                      }            },
-                                      {                text: 'total'            }]          }
+      title: {
+        display: false,
+        text: '234%', // 여기에 원하는 제목을 입력하세요.
+        font: {
+          size: 10,
+        },
+      },
+      tooltips: {
+        enabled: false, // 툴팁 비활성화
+      },
+    
     },
-    maintainAspectRatio: false,
-    cutoutPercentage: 70,
+    maintainAspectRatio: true,
+    cutoutPercentage: 400,
     animation: false,
     rotation: 290,
     circumference: 45 * Math.PI,
@@ -59,12 +67,19 @@ const MyChart = () => {
           <span>@@@@@@@@.</span>
         </div>
 
-        <div className={style.chart_box}>
-          <Doughnut data={doughnutData} options={doughnutOptions} />
+      {/* <div> */}
+         <div className={style.chart_box}>
+            <span className={style.chart_box_title}>이번달 소비 전력량(kW) </span>          
+
+            <Doughnut data={doughnutData} options={doughnutOptions}  className={style.doughnut_chart}/>
+            <span className={style.doughnut_value}>120kW</span>          
+        {/* </div> */}
         </div>
 
         <div className={style.chart_box}>
-          <Line data={lineData} />
+          <RadarChart/>
+          
+          <RadarChart/>
         </div>
 
         <div className={style.chart_box}>
