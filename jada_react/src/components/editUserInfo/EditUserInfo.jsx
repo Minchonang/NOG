@@ -253,6 +253,7 @@ function EditUserInfo() {
     ],
   };
 
+
   const handleChangeElement1 = (e) => {
     setSelectedElement1(e.target.value);
     setSelectedElement2(""); // Element1이 변경되면 Element2를 초기화
@@ -263,6 +264,7 @@ function EditUserInfo() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
+	const [userPassword, setUserPassword] = useState("");
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
   const [userAddress3, setUserAddress3] = useState("");
@@ -294,6 +296,7 @@ function EditUserInfo() {
         setUserName(result.name);
         setUserEmail(result.email);
         setUserPhone(result.phone);
+				setUserPassword(result.password);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
         setUserAddress3(result.address3);
@@ -350,33 +353,83 @@ function EditUserInfo() {
     // user_id를 가져오기
     const userIdFromSession = sessionStorage.getItem("user_id");
 
+		// const editUserDto = {
+		// 	user_id: userIdFromSession,
+		// 	email: newEmail,
+		// 	phone: newPhone,
+		// 	password: newPwd,
+		// 	address1: selectedElement1,
+		// 	address2: selectedElement2,
+		// 	address3: selectedElement3,
+		// 	houseNum: parseInt(newHouseNum),
+		// };
+		
 		const editUserDto = {
 			user_id: userIdFromSession,
-			email: newEmail,
-			phone: newPhone,
-			password: newPwd,
-			address1: selectedElement1,
-			address2: selectedElement2,
-			address3: selectedElement3,
-			houseNum: parseInt(newHouseNum),
 		};
 
-    // newHouseNum이 숫자인지 검증
-    const numberRegex = /^[0-9]+$/;
-    if (!numberRegex.test(newHouseNum)) {
-      alert("가구원 수는 숫자만 입력해야 합니다.");
-      return;
-    }
-    // newPhone이 올바른 전화번호 형식인지 검증
-    const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
-    if (!phoneRegex.test(newPhone)) {
-      alert("휴대폰 번호 형식이 맞지 않습니다. \n예시: 010-0000-0000");
-      return;
-    }
+		// 새로운 이메일이 있는 경우에만 추가
+		 if (newEmail) {
+			editUserDto.email = newEmail;
+		}else{
+			editUserDto.email = userEmail;
+		}
+	
+		// 새로운 전화번호가 있는 경우에만 추가
+		if (newPhone) {
+			// newPhone이 올바른 전화번호 형식인지 검증
+			const phoneRegex = /^\d{3}\d{3,4}\d{4}$/;
+			if (!phoneRegex.test(newPhone)) {
+				alert("휴대폰 번호 형식이 맞지 않습니다. \n예시: 01000000000");
+				return;
+			}
+			// editUserDto.phone = newPhone ? newPhone : userPhone;
+			editUserDto.phone = newPhone;
+		}else {
+			editUserDto.phone = userPhone;
+		}
+	
+		// 새로운 비밀번호가 있는 경우에만 추가
+		if (newPwd) {
+			editUserDto.password = newPwd;
+		}else{
+			editUserDto.password = userPassword;
+		}
+	
+		// 새로운 주소 정보가 있는 경우에만 추가
+		if (selectedElement1) {
+			editUserDto.address1 = selectedElement1;
+		}else{
+			editUserDto.address1 = userAddress1;
+		}
+
+		if (selectedElement2) {
+			editUserDto.address2 = selectedElement2;
+		}else{
+			editUserDto.address2 = userAddress2;
+		}
+		if (selectedElement3) {
+			editUserDto.address3 = selectedElement3;
+		}else{
+			editUserDto.address3 = userAddress3;
+		}
+
+		// 새로운 가구원 수가 있는 경우에만 추가
+		if (newHouseNum) {
+			// newHouseNum이 숫자인지 검증
+			const numberRegex = /^[0-9]+$/;
+			if (!numberRegex.test(parseInt(newHouseNum))) {
+				alert("가구원 수는 숫자만 입력해야 합니다.");
+				return;
+			}
+			// editUserDto.houseNum = newHouseNum ? parseInt(newHouseNum) : userHouseNum;
+			editUserDto.houseNum = parseInt(newHouseNum);
+		}else{
+			editUserDto.houseNum = userHouseNum;
+		}
 
     try {
-
-      // 서버로 데이터 전송 - 경로 수정 필요
+      // 서버로 데이터 전송
       const response = await fetch(
         `${API_BASE_URL}/api/userinfo/edituser`,
         {
@@ -440,6 +493,7 @@ function EditUserInfo() {
                 <input
                   type="text"
                   value={newPhone}
+									pattern="{phoneRegex}"
                   onChange={(e) => setNewPhone(e.target.value)}
                   className={style.input_new}
                   maxLength="13"
@@ -533,7 +587,7 @@ function EditUserInfo() {
               <div style={{ marginRight: "5px" }}>가구원 수: </div>
               {editHouseNum ? (
                 <input
-                  type="number"
+                  type="text"
                   value={newHouseNum}
                   onChange={(e) => setNewHouseNum(e.target.value)}
                   className={`${style.input_new} ${style.input_newHouseNum}`}
