@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import common from "../common/css/common.module.css";
+import Header from "../common/jsx/Header";
+import BottomNav from "../common/jsx/BottomNav";
 
 function SampleComp() {
 	const go_login = () => {
@@ -24,14 +26,14 @@ function SampleComp() {
 
 function Index() {
 	return (
-		<div>
-			<div className={common.background}>
-				<div className={common.main_area}>
-					<NavLink to="/" className={common.title_area}>
-						NOG
-					</NavLink>
-					<SampleComp />
-				</div>
+		<div className={common.background}>
+			<Header />
+			<div className={common.main_area}>
+				<NavLink to="/" className={common.title_area}>
+					NOG
+				</NavLink>
+				<SampleComp />
+			<BottomNav />
 			</div>
 		</div>
 	);
