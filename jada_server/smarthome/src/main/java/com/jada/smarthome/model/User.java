@@ -3,10 +3,15 @@ package com.jada.smarthome.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +54,9 @@ public class User implements Serializable {
 
   // 0 : 고객, 1 : 관리자
   private Integer role;
+
+  private String newPassword;
+	
 
   @Column(name = "address", nullable = false, length = 255)
   private String address;

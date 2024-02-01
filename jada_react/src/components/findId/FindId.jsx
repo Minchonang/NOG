@@ -4,8 +4,6 @@ import common from "../common/css/common.module.css";
 import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
 
-
-
 function FindId() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -13,35 +11,35 @@ function FindId() {
   const [isVerified, setIsVerified] = useState(false);
   const [authkey, setAuthkey] = useState("");
 
-	const handleFindId = async (e) => {
+  const handleFindId = async (e) => {
+    try {
+      // 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
+      const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userName,
+          email: userEmail,
+        }),
+      });
 
-		handleVerify(e);
-		try {
-			// 아이디 찾기 버튼 클릭 시 서버로 요청 보내기
-			const response = await fetch(`${API_BASE_URL}/api/userinfo/find-id`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					name: userName,
-					email: userEmail,
-				}),
-			});
-	
-			if (response.ok) {
-				// 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
-				const data = await response.text();
-				console.log("아이디 찾기 성공:", data);
-				alert("회원의 아이디는 "+data+" 입니다.")
-			} else {
-				console.log("아이디 찾기 실패:", response.status);
-			  alert("일치하는 회원이 없습니다.")	
-			}
-		} catch (error) {
-			console.error("아이디 찾기 중 오류 발생:", error);
-		}
-	};
+      if (response.ok) {
+        // 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
+        const data = await response.text();
+        console.log("아이디 찾기 성공:", data);
+        handleVerify(e);
+        alert("회원의 아이디는 " + data + " 입니다.");
+        window.location.href = "/login";
+      } else {
+        alert("회원정보가 일치하지 않습니다..");
+        console.log("아이디 찾기 실패:", response.status);
+      }
+    } catch (error) {
+      console.error("아이디 찾기 중 오류 발생:", error);
+    }
+  };
 
   const handleJoin = async (e) => {
     e.preventDefault();
@@ -87,7 +85,7 @@ function FindId() {
     }
     if (authkey === emailAuth) {
       setIsVerified(true);
-      alert("인증이 확인되었습니다.");
+      alert("인증되었습니다.");
     } else {
       setIsVerified(false);
       alert("인증번호가 일치하지 않습니다.");
@@ -99,7 +97,7 @@ function FindId() {
       <div className={common.background}>
         <div className={common.main_area} onSubmit={handleJoin}>
           <div className={common.title_area}>
-            <NavLink to="/">Jada</NavLink>
+            <NavLink to="/">NOG</NavLink>
           </div>
           <label className={style.guide_label}>
             등록된 이름, 이메일을 입력하세요.
@@ -124,21 +122,18 @@ function FindId() {
                 인증하기
               </button>
             </div>
-            <div className={style.inputEmail_area}>
-              <input
-                type="text"
-                value={emailAuth}
-                onChange={(e) => setEmailAuth(e.target.value)}
-                placeholder="인증번호 입력"
-                maxLength="8"
-              />
-              {/* <button className={common.themeBgrColor} onClick={handleVerify}>
-                인증확인
-              </button> */}
-            </div>
+            <input
+              type="text"
+              value={emailAuth}
+              onChange={(e) => setEmailAuth(e.target.value)}
+              placeholder="인증번호"
+              maxLength="8"
+            />
           </div>
           <div className={common.btn_area}>
-            <button className={common.themeBgrColor} onClick={handleFindId}>아이디 찾기</button>
+            <button className={common.themeBgrColor} onClick={handleFindId}>
+              아이디 찾기
+            </button>
           </div>
           <div className={style.findPw_area}>
             <NavLink to="/find_pw">비밀번호를 잊으셨나요?</NavLink>

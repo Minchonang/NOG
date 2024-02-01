@@ -5,7 +5,7 @@ import common from "../common/css/common.module.css";
 // import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
 
-function CheckUserInfo() {
+function CheckUser() {
 	const [userPwd, setUserPwd] = useState("");
 
 	const checkUserPwd = async (e) => {
@@ -74,4 +74,4 @@ function CheckUserInfo() {
 	);
 }
 
-export default CheckUserInfo;
+export default CheckUser;

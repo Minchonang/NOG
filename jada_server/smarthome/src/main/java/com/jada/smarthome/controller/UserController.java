@@ -3,12 +3,14 @@ package com.jada.smarthome.controller;
 import com.jada.smarthome.dto.JoinUserDto;
 import com.jada.smarthome.dto.LoginUserDto;
 import com.jada.smarthome.model.User;
+import com.jada.smarthome.repository.UserRepository;
 import com.jada.smarthome.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,8 +26,12 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/api/userinfo")
 public class UserController {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private final UserService userService;
+
     private static final String DUPLICATE_ID = "가입불가 - 중복된 아이디";
 
     @Autowired
@@ -151,4 +157,26 @@ public class UserController {
         }
     }
 
+     // 비밀번호 찾기 : 아이디 = 이메일 존재하는 유저 찾으면 새 비밀번호로 초기화
+     @CrossOrigin(origins = "http://localhost:3000")
+     @PostMapping("/find-pwd")
+     public ResponseEntity<String> findUserPwd(@RequestBody Map<String, String> requestData) {
+         String id = requestData.get("id");
+         String email = requestData.get("email");
+ 
+         // 아이디과 이메일로 사용자 정보를 조회
+         Optional<User> userOptional = userService.findUserByIdAndEmail(id, email);
+ 
+         // 사용자 정보가 존재하면 해당 아이디 반환
+         return userOptional.map(user -> ResponseEntity.ok("본인인증 되었습니다."))
+                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 사용자를 찾을 수 없습니다."));
+     }
+
+     @CrossOrigin(origins = "http://localhost:3000")
+     @PostMapping("/pwdforget")
+     @ResponseBody
+     public String pwdforgetPost(@RequestBody User user) {
+         return userService.changePassword(user);
+     }
 }
+

@@ -1,36 +1,37 @@
 .guide_label {
-	margin: 0 auto;
-	font-size: 0.8em;
+  margin: 0 auto;
+  font-size: 0.8em;
 }
 
 .inputEmail_area {
-	position: relative;
-	margin-bottom: 10px;
+  position: relative;
+  margin-bottom: 10px;
 }
 .inputEmail_area input {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .inputEmail_area button {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 10px;
-	width: 20%;
-	height: 70%;
-	margin: auto 0;
-	border: 0;
-	border-radius: 10px;
-	color: white;
-	font-weight: bold;
+  font-family: "Godo";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  width: 20%;
+  height: 70%;
+  margin: auto 0;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
 }
 
 .findId_area {
-	margin: 8% auto;
+  margin: 8% auto;
 }
 .findId_area a {
-	font-size: 0.8em;
-   color: rgb(126, 126, 126);
+  font-size: 0.8em;
+  color: rgb(126, 126, 126);
 }
 .findId_area a:hover {
-   text-decoration: underline;
+  text-decoration: underline;
 }

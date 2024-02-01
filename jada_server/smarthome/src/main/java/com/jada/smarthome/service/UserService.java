@@ -109,7 +109,35 @@ public class UserService {
         }     
         //  return userOptional.map(dbUser -> passwordEncoder.matches(password, dbUser.getPassword()))
         // .orElse(false);
-        }
+    }
     
 
+
+    // 아이디과 이메일로 사용자 정보를 조회하는 메서드
+    public Optional<User> findUserByIdAndEmail(String id, String email) {
+        return userRepository.findByIdAndEmail(id, email);
+    }
+
+    // 비밀번호 초기화하는 메서드
+    public String changePassword(User user) {
+        try {
+            String newPassword = user.getNewPassword();
+            if (newPassword != null && !newPassword.isEmpty()) {
+                String hashedPassword = passwordEncoder.encode(newPassword);
+                User existingUser = userRepository.findById(user.getId()).orElse(null);
+                if (existingUser != null) {
+                    existingUser.setPassword(hashedPassword);
+                    userRepository.save(existingUser);
+                    return "비밀번호가 성공적으로 변경되었습니다.";
+                } else {
+                    return "해당 사용자를 찾을 수 없습니다.";
+                }
+            } else {
+                return "비밀번호 값을 올바르게 입력하십시오.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "비밀번호 변경 중 오류가 발생하였습니다. 오류 내용: " + e.getMessage();
+        }
+    }
 }

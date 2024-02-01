@@ -70,7 +70,7 @@ function Login() {
 			<div className={common.background}>
 				<div className={common.main_area}>
 					<div className={common.title_area}>
-						<NavLink to="/">Jada</NavLink>
+						<NavLink to="/">NOG</NavLink>
 					</div>
 					<div className={common.input_area}>
 						<input

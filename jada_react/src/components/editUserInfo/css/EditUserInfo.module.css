@@ -1,0 +1,139 @@
+@font-face {
+	font-family: "Godo";
+	font-style: normal;
+	font-weight: 700;
+	src: url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2")
+			format("woff2"),
+		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff")
+			format("woff");
+}
+
+.main_area {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	padding: 5% 5%;
+	display: flex;
+	flex-direction: column;
+	font-family: "Godo", serif;
+	/* font-weight: lighter; */
+}
+
+.title_area {
+	display: flex;
+	flex-direction: row;
+	/* align-items: baseline; */
+	font-size: 1.7em;
+}
+.title_area div {
+	margin-left: 10px;
+	font-size: 0.9em;
+}
+
+/* 유저 아이디 */
+.userId {
+	display: flex;
+	margin: 15% auto 15%;
+}
+.userId div {
+	padding: 0 10px;
+	font-size: 2em;
+	border-bottom: 5px solid #ff9f0a;
+}
+
+.info_main {
+	width: 100%;
+	margin: 0 auto 5%;
+	padding: 5%;
+	border: 1px solid #ff9f0a;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.info_main_title {
+	font-size: 1.3em;
+	margin-bottom: 5%;
+	color: #ff9f0a;
+}
+
+.info_main_detail,
+.info_sub_detail {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 8px 0 8px;
+	font-size: 1.1em;
+}
+.info_main_detail:last-child,
+.info_sub_detail:last-child {
+	margin-bottom: 0;
+}
+
+.info_sub {
+	width: 100%;
+	margin: 0 auto 5%;
+	padding: 5%;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.info_sub_title {
+	font-size: 1.1em;
+	margin-bottom: 5%;
+	color: gray;
+}
+
+.info_main_detail button,
+.info_sub_detail button {
+	position: absolute;
+	top: 5px;
+	right: 0;
+	width: 55px;
+	height: 26px;
+	margin: 0;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	font-size: 0.7em;
+	color: gray;
+	background-color: rgb(242, 241, 241);
+}
+
+.info_main_detail button:active,
+.info_sub_detail button:active {
+	background-color: white;
+}
+
+.input_new {
+	width: 77%;
+	padding: 0 1px 1%;
+	border: 0;
+	border-bottom: 1px solid #ff9f0a;
+	border-radius: 0;
+	outline: none;
+	font-size: 0.9em;
+	font-family: "godo";
+	transition-duration: 0.3s;
+}
+.input_newHouseNum {
+	width: 13%;
+	padding: 0 10px 1%;
+}
+
+.delete_account {
+	display: flex;
+	position: relative;
+	margin: 7% 0;
+}
+.delete_account div {
+	position: absolute;
+	top: 0;
+	right: 3px;
+	border: 0;
+	color: gray;
+	font-size: 0.7em;
+	text-decoration: underline;
+}
+.delete_account div:active {
+	color: black;
+}
