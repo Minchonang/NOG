@@ -361,11 +361,13 @@ function EditUserInfo() {
     };
 
     // newHouseNum이 숫자인지 검증
+
     const numberRegex = /^[0-9]+$/;
     if (!numberRegex.test(newHouseNum)) {
       alert("가구원 수는 숫자만 입력해야 합니다.");
       return;
     }
+
     // newPhone이 올바른 전화번호 형식인지 검증
     const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
     if (!phoneRegex.test(newPhone)) {
@@ -385,6 +387,7 @@ function EditUserInfo() {
       if (response.ok) {
         console.log("회원 정보 수정 완료");
         alert("회원 정보가 수정되었습니다.");
+        window.location.href = "/edit_userinfo";
       } else {
         console.log("회원 정보 수정 실패");
         alert("오류가 발생하였습니다.");

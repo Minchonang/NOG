@@ -5,11 +5,13 @@ import { NavLink } from "react-router-dom";
 function Home() {
   return (
     <div className={common.background}>
+      <div className={style.title_area}>
+        <NavLink to="/">NOG</NavLink>
+      </div>
       <div className={style.main_area}>
-        <div className={style.title_area}>
-          <NavLink to="/">NOG</NavLink>
+        <div className={style.subtitle_area}>
+          <div>Nog에 오신걸 환영합니다.</div>
         </div>
-        <div className={style.subtitle}> Nog에 오신걸 환영합니다.</div>
         <div> 저희 Nog에서는 </div>
         <div className="main_contents">
           <div className={style.main_content}>
@@ -32,6 +34,9 @@ function Home() {
           </div>
         </div>
       </div>
+      {/* <div className={style.join_area}>
+        <NavLink to="/join">회원가입하러 가기</NavLink>
+      </div> */}
     </div>
   );
 }
