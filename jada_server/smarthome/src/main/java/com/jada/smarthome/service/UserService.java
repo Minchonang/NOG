@@ -153,7 +153,7 @@ public class UserService {
     }
 
     // 회원정보 수정
-    public String editUser(String user_id, String newEmail, String newPhone, String newPwd, Integer newhouserNum){
+    public String editUser(String user_id, String newEmail, String newPhone, String newPwd, Integer newhouserNum, String newAddress1, String newAddress2, String newAddress3){
         System.out.println("=====userid:"+ user_id);
        Optional<User> userOptional = userRepository.findById(user_id);
        System.out.println("user레파지토리 정보 :"+ userOptional);
@@ -165,6 +165,9 @@ public class UserService {
         user.setPhone(newPhone);
         String enPassword = passwordEncoder.encode(newPwd);
         user.setPassword(enPassword);
+        user.setAddress1(newAddress1);
+        user.setAddress2(newAddress2);
+        user.setAddress3(newAddress3);
         user.setHouseNum(newhouserNum);
         
         // 저장된 값을 다시 userRepository를 통해 저장

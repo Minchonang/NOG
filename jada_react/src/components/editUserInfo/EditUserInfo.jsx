@@ -298,7 +298,6 @@ function EditUserInfo() {
         setUserAddress2(result.address2);
         setUserAddress3(result.address3);
         setUserHouseNum(result.houseNum);
-        console.log("회원 정보 조회 완료", result);
 
       } else {
         console.log("회원 정보 조회 실패");
@@ -356,6 +355,9 @@ function EditUserInfo() {
 			email: newEmail,
 			phone: newPhone,
 			password: newPwd,
+			address1: selectedElement1,
+			address2: selectedElement2,
+			address3: selectedElement3,
 			houseNum: parseInt(newHouseNum),
 		};
 

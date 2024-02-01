@@ -10,8 +10,8 @@ public class EditUserDto {
   private String email;
   private String phone;
   private String password;
-  // private String address1;
-  // private String address2;
-  // private String address3;
+  private String address1;
+  private String address2;
+  private String address3;
   private Integer houseNum;
 }
