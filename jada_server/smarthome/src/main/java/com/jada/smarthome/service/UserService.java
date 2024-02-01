@@ -168,31 +168,32 @@ public class UserService {
     }
 
     // 회원정보 조회
-    public UserInfoDto getUserInfo(String userId) {
-    Optional<User> userOptional = userRepository.findById(userId);
-    System.out.println("user레파지토리 정보 :"+ userOptional);
-    
-    if (userOptional.isPresent()) {
-    User user = userOptional.get();
-    UserInfoDto userInfoDto = new UserInfoDto();
-    userInfoDto.setUserId(userId);
-    userInfoDto.setName(user.getName()); 
-    userInfoDto.setEmail(user.getEmail());
-    userInfoDto.setPhone(user.getPhone());
-    userInfoDto.setAddress1(user.getAddress1());
-    userInfoDto.setAddress2(user.getAddress2());
-    userInfoDto.setAddress3(user.getAddress3());
-    userInfoDto.setHouseNum(user.getHouseNum());
+    public UserInfoDto getUserInfo(String user_id) {
+        System.out.println(user_id);
+        Optional<User> userOptional = userRepository.findById(user_id);
+        System.out.println("user레파지토리 정보 :"+ userOptional);
         
-    }
-
-    return userInfoDto;
-}
+        if (userOptional.isPresent()) {
+        User user = userOptional.get();
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setUserId(user.getId());
+        userInfoDto.setName(user.getName()); 
+        userInfoDto.setEmail(user.getEmail());
+        userInfoDto.setPhone(user.getPhone());
+        userInfoDto.setAddress1(user.getAddress1());
+        userInfoDto.setAddress2(user.getAddress2());
+        userInfoDto.setAddress3(user.getAddress3());
+        userInfoDto.setHouseNum(user.getHouseNum());
+    
+            return userInfoDto;
+        }else{
+            return null;
+        }
+        }
 
     // 회원정보 삭제
-    @Transactional
-    public void userdelete(String userId) {
-        userRepository.deleteById(userId);
+    public void userdelete(String id) {
+        userRepository.deleteById(id);
 }
 
 }

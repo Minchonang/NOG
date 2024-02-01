@@ -6,27 +6,29 @@ import Login from "./components/login/Login";
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
 import Join from "./components/Join/Join";
+import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
-	return (
-		<>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Index />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/find_id" element={<FindId />} />
-					<Route path="/find_pw" element={<FindPw />} />
-					<Route path="/join" element={<Join />} />
-					<Route path="/check_user" element={<CheckUser />} />
-					<Route path="/edit_userinfo" element={<EditUserInfo />} />
-				</Routes>
-			</BrowserRouter>
-		</>
-	);
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/find_id" element={<FindId />} />
+          <Route path="/find_pw" element={<FindPw />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/check_user" element={<CheckUser />} />
+          <Route path="/edit_userinfo" element={<EditUserInfo />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 // Github에서 repository 복제한 후,

@@ -85,10 +85,16 @@ function EditUserInfo() {
 
   // 회원탈퇴
   const handleDeletion = async () => {
+    // user_id를 가져오기
+    const user_id = sessionStorage.getItem("user_id");
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/userinfo/userdelete`, {
         method: "POST",
-        credentials: "include", // 쿠키를 전송하기 위해 필요한 옵션
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user_id),
       });
 
       if (response.ok) {
@@ -96,6 +102,7 @@ function EditUserInfo() {
         // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
         // window.location.href = "/";
       } else {
+        console.log(user_id);
         alert("회원탈퇴에 실패했습니다. 다시 시도해주세요.");
       }
     } catch (error) {
