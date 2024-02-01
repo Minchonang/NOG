@@ -158,7 +158,7 @@ function EditUserInfo() {
 					<div className={style.info_sub}>
 						<div className={style.info_sub_title}>부가 정보</div>
 						<div className={style.info_sub_detail}>
-							<div>광주광역시 광산구 소촌동</div>
+							<div>서울특별시 강남구 청담동</div>
 							<button>수정</button>
 						</div>
 
@@ -190,7 +190,7 @@ function EditUserInfo() {
 
 					{/* 회원탈퇴 */}
 					<div className={style.delete_account}>
-						<NavLink to="/delete_check">회원탈퇴</NavLink>
+						<NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
 					</div>
 				</div>
 			</div>

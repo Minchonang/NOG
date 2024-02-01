@@ -155,7 +155,7 @@
 	border: 0;
 	color: gray;
 	font-size: 0.7em;
-	text-decoration: underline;
+	/* text-decoration: underline; */
 }
 .delete_account a:active {
 	color: black;
