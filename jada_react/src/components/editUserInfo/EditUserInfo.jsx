@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/EditUserInfo.module.css";
-import { API_BASE_URL } from "../../App.js";
 
 function EditUserInfo() {
+  // 이메일 수정
   const [editEmail, setEditEmail] = useState(false);
   const [newEmail, setNewEmail] = useState("asdf3y92@gmail.com"); // 추후 서버 연결 시 변수 설정
   const editEmailBtn = () => {
     setEditEmail(true);
+  };
+
+  // 비밀번호 수정
+  const [editPwd, setEditPwd] = useState(false);
+  const [newPwd, setNewPwd] = useState(""); // 추후 서버 연결 시 변수 설정
+  const editPwdBtn = () => {
+    setEditPwd(true);
   };
 
   const [editPhone, setEditPhone] = useState(false);
@@ -17,7 +25,7 @@ function EditUserInfo() {
     setEditPhone(true);
   };
 
-  let houseNum = 4; // 임시로 넣은 가구원 수
+  let houseNum = 4; // 임시로 넣은 가구원 수 변수
   const [editHouseNum, setEditHouseNum] = useState(false);
   const [newHouseNum, setNewHouseNum] = useState(houseNum);
   const editHouseNumBtn = () => {
@@ -36,11 +44,10 @@ function EditUserInfo() {
       alert("가구원 수는 숫자만 입력해야 합니다.");
       return;
     }
-
     // newPhone이 올바른 전화번호 형식인지 검증
     const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
     if (!phoneRegex.test(newPhone)) {
-      alert("휴대폰 번호 형식이 맞지 않습니다.");
+      alert("휴대폰 번호 형식이 맞지 않습니다. \n예시: 010-0000-0000");
       return;
     }
 
@@ -65,10 +72,7 @@ function EditUserInfo() {
         }
       );
       if (response.ok) {
-        // 서버 응답이 성공인 경우
-        const result = await response.json();
-        console.log("회원 정보 조회 완료", result);
-        // console.log("회원 정보 수정 완료");
+        console.log("회원 정보 수정 완료");
         alert("회원 정보가 수정되었습니다.");
       } else {
         console.log("회원 정보 수정 실패");
@@ -78,9 +82,9 @@ function EditUserInfo() {
       console.error("서버 통신 오류", error);
     }
 
-    editEmailBtn(false);
-    editPhoneBtn(false);
-    editHouseNumBtn(false);
+    // editEmailBtn(false);
+    // editPhoneBtn(false);
+    // editHouseNumBtn(false);
   };
 
   // 회원탈퇴
@@ -109,15 +113,14 @@ function EditUserInfo() {
       console.error("회원탈퇴 중 오류가 발생했습니다.", error);
     }
   };
-
   return (
     <>
       <div className={common.background}>
+        <div className={style.title_area}>
+          <NavLink to="/">NOG</NavLink>
+          <div>회원정보</div>
+        </div>
         <div className={style.main_area}>
-          <div className={style.title_area}>
-            <NavLink to="/">NOG</NavLink>
-            <div>회원정보</div>
-          </div>
           <div className={style.userId}>
             <div>test2</div>
           </div>
@@ -157,6 +160,26 @@ function EditUserInfo() {
               {/* <div>010-3945-9475</div> */}
               <button onClick={editPhoneBtn}>수정</button>
             </div>
+            <div className={style.info_main_detail}>
+              <div className={style.divLine}></div>
+            </div>
+
+            <div className={style.pwd_title}>비밀번호 변경</div>
+            <div className={style.info_main_detail}>
+              <div className={style.pwdInput_area}>
+                {editPwd ? (
+                  <input
+                    type="password"
+                    value={newPwd}
+                    onChange={(e) => setNewPwd(e.target.value)}
+                    className={style.input_new}
+                  />
+                ) : (
+                  <div>***************</div>
+                )}
+                <button onClick={editPwdBtn}>변경</button>
+              </div>
+            </div>
           </div>
 
           <div className={style.info_sub}>
@@ -184,17 +207,15 @@ function EditUserInfo() {
               <button onClick={editHouseNumBtn}>수정</button>
             </div>
           </div>
-
           {/* 정보 수정 완료 */}
           <div className={common.btn_area}>
             <button className={common.themeBgrColor} onClick={handleEdit}>
               확인
             </button>
           </div>
-
           {/* 회원탈퇴 */}
-          <div className={style.delete_account} onClick={handleDeletion}>
-            <div>회원탈퇴</div>
+          <div className={style.delete_account}>
+            <NavLink to="/delete_check">회원탈퇴</NavLink>
           </div>
         </div>
       </div>

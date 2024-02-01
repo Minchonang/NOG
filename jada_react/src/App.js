@@ -9,6 +9,7 @@ import Join from "./components/Join/Join";
 import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
+import DeleteCheck from "./components/editUserInfo/DeleteCheck";
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/check_user" element={<CheckUser />} />
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
+          <Route path="/delete_check" element={<DeleteCheck />} />
         </Routes>
       </BrowserRouter>
     </>
@@ -37,6 +39,8 @@ function App() {
 // npm install react-router-dom
 // npm start 또는 npm run start (실행하기)
 
+// node.js 버전(nvm install 18.17.1):
+// 18.17.1
 // 사용한 라이브러리:
 // react-router-dom: v. 6.21.3
 

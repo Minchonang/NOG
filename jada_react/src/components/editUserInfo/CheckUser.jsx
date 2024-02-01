@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import style from "./css/CheckUser.module.css";
+
 import common from "../common/css/common.module.css";
 // import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
@@ -53,7 +53,7 @@ function CheckUser() {
 					<div className={common.title_area}>
 						<NavLink to="/">NOG</NavLink>
 					</div>
-					<label className={style.guide_label}>
+					<label className={common.guide_label}>
 						회원님의 비밀번호를 다시 한번 확인합니다.
 					</label>
 					<div className={common.input_area}>
