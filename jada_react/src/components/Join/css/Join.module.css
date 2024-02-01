@@ -5,6 +5,7 @@
 
 .inputWithBtn input {
   margin-bottom: 0;
+  font-family: "godo";
 }
 
 .inputWithBtn button {
@@ -22,6 +23,8 @@
   font-weight: bold;
 }
 
+/* --------------------------- */
+/* 이메일 인증 구역 */
 .inputEmileAuth_area {
   display: flex;
   flex-direction: column;
@@ -46,15 +49,15 @@
   color: rgb(198, 198, 198);
 }
 
-.idEmailPwdInput_area,
-.userInfoInput_area {
+/* --------------------------- */
+/* 아이디, 비번, 이메일 인증 구역 */
+.idEmailPwdInput_area {
   border: 2px solid #ff9f0a;
   border-radius: 10px;
   margin-bottom: 1em;
 }
 
-.idEmailPwdInput_area input,
-.userInfoInput_area input {
+.idEmailPwdInput_area input {
   border: 0;
   padding: 4% 10px;
   width: 100%;
@@ -69,4 +72,30 @@
 }
 .idEmailPwdInput_area input:focus {
   outline: none;
+}
+
+/* --------------------------- */
+/* 사용자 정보 인증 구역 */
+.userInfoInput_area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto 0;
+}
+
+.userInfoInput_area input {
+  width: 100%;
+  padding: 4% 10px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  outline: none;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  font-family: "Godo";
+}
+
+.userInfoInput_area input::placeholder {
+  font-size: 0.8em;
+  font-family: "Godo";
+  color: rgb(198, 198, 198);
 }
