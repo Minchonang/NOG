@@ -20,7 +20,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 @RestController
 @RequestMapping("/api/userinfo")
@@ -97,6 +101,24 @@ public class UserController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        }
     }
+
+    // 로그아웃
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(@RequestBody String userid, HttpServletResponse response) {
+        System.out.println(session.getAttribute(userid));
+        session.invalidate();
+
+        // 세션 쿠키 제거
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+    
+    
 
     // 유저 정보 조회 (전체 조회)
     @GetMapping("/get")
@@ -183,29 +205,32 @@ public class UserController {
 
     // 회원정보 조회
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/userinfo/{userId}")
-    public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String userId) {
+    @PostMapping("/userfind")
+    public ResponseEntity<?> getUserInfo(@RequestBody  Map<String, String> requestData) {
+        String id = requestData.get("user_id");
+        System.out.println("----------------------------------------"+ id);
         // userId를 기반으로 회원 정보를 조회
-        UserInfoDto userInfo = userService.getUserInfo(userId);
+        UserInfoDto userInfo = userService.getUserInfo(id);
 
         if (userInfo != null) {
+
             return ResponseEntity.ok(userInfo);
-        } else {
-            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
         }
     }
 
 
-    // 회원정보 수정
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/edituserinfo")
-    public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
+    // // 회원정보 수정
+    // @CrossOrigin(origins = "http://localhost:3000")
+    // @PostMapping("/edituserinfo")
+    // public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
 
-        String result = userService.editUser(editUserDto);
-        System.out.println(result);
+    //     String result = userService.editUser(editUserDto);
+    //     System.out.println(result);
 
-        return ResponseEntity.ok(result);
-    }
+    //     return ResponseEntity.ok(result);
+    // }
 
     // 회원탈퇴
     @CrossOrigin(origins = "http://localhost:3000")

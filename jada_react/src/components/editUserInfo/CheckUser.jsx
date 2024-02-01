@@ -29,16 +29,16 @@ function CheckUser() {
 
 			if (response.ok) {
 				// const data = await response.json();
-				console.log(requestData.id);
+				// console.log(requestData.id);
 				console.log("비밀번호 일치:");
 				alert("본인 확인이 완료되었습니다.");
 				window.location.href = "/edit_userinfo";
 			} else {
-				console.log(requestData.id);
+				// console.log(requestData.id);
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
 				// console.log(errorMessage)
-				alert(errorMessage);
+				alert("일치하는 회원이 없습니다.");
 			}
 		} catch (error) {
 			console.log(requestData.id);
