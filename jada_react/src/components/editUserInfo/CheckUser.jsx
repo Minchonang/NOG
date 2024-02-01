@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import style from "./css/CheckUser.module.css";
+
 import common from "../common/css/common.module.css";
 // import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
@@ -29,16 +29,16 @@ function CheckUser() {
 
 			if (response.ok) {
 				// const data = await response.json();
-				console.log(requestData.id);
+				// console.log(requestData.id);
 				console.log("비밀번호 일치:");
 				alert("본인 확인이 완료되었습니다.");
 				window.location.href = "/edit_userinfo";
 			} else {
-				console.log(requestData.id);
+				// console.log(requestData.id);
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
 				// console.log(errorMessage)
-				alert(errorMessage);
+				alert("일치하는 회원이 없습니다.");
 			}
 		} catch (error) {
 			console.log(requestData.id);
@@ -53,7 +53,7 @@ function CheckUser() {
 					<div className={common.title_area}>
 						<NavLink to="/">NOG</NavLink>
 					</div>
-					<label className={style.guide_label}>
+					<label className={common.guide_label}>
 						회원님의 비밀번호를 다시 한번 확인합니다.
 					</label>
 					<div className={common.input_area}>

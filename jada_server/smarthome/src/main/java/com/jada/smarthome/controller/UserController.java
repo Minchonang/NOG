@@ -20,7 +20,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 @RestController
 @RequestMapping("/api/userinfo")
@@ -97,6 +101,24 @@ public class UserController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        }
     }
+
+    // 로그아웃
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(@RequestBody String userid, HttpServletResponse response) {
+        System.out.println(session.getAttribute(userid));
+        session.invalidate();
+
+        // 세션 쿠키 제거
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+    
+    
 
     // 유저 정보 조회 (전체 조회)
     @GetMapping("/get")
@@ -183,26 +205,37 @@ public class UserController {
 
     // 회원정보 조회
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/userinfo/{userId}")
-    public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String userId) {
+    @PostMapping("/userfind")
+    public ResponseEntity<?> getUserInfo(@RequestBody  Map<String, String> requestData) {
+        String id = requestData.get("user_id");
+        System.out.println("----------------------------------------"+ id);
         // userId를 기반으로 회원 정보를 조회
-        UserInfoDto userInfo = userService.getUserInfo(userId);
+        UserInfoDto userInfo = userService.getUserInfo(id);
 
         if (userInfo != null) {
+
             return ResponseEntity.ok(userInfo);
-        } else {
-            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
         }
     }
 
 
     // 회원정보 수정
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/edituserinfo")
+    @PostMapping("/edituser")
     public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
+        String user_id = editUserDto.getUser_id();
+        String newEmail = editUserDto.getEmail();
+        String newPhone = editUserDto.getPhone();
+        String newPassword = editUserDto.getPassword();
+        String newAddress1 = editUserDto.getAddress1();
+        String newAddress2 = editUserDto.getAddress2();
+        String newAddress3 = editUserDto.getAddress3();
+        Integer newHouseNum = editUserDto.getHouseNum();
 
-        String result = userService.editUser(editUserDto);
-        System.out.println(result);
+        String result = userService.editUser(user_id, newEmail, newPhone, newPassword, newHouseNum,newAddress1,newAddress2,newAddress3);
+        System.out.println("============수정된값:"+result);
 
         return ResponseEntity.ok(result);
     }
@@ -210,18 +243,22 @@ public class UserController {
     // 회원탈퇴
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/userdelete")
-    public ResponseEntity<String> exitAccount(HttpSession session) {
+    public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
         // 세션에서 현재 사용자 정보 가져오기
-        User currentUser = (User) session.getAttribute("user_info");
+        // User currentUser = (User) session.getAttribute("user_info");
+        // System.out.println("-------------------"+currentUser);
+        String id = requestData.get("user_id");
+        System.out.println("----------------------------------------"+ id);
 
-        if (currentUser == null) {
-            // 세션이 유효하지 않으면 로그인 페이지로 리다이렉트
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션이 유효하지 않습니다.");
-        }
+
+        // if (id == null) {
+        //     // 세션이 유효하지 않으면 로그인 페이지로 리다이렉트
+        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션이 유효하지 않습니다.");
+        // }
 
         try {
             // 회원 정보 삭제
-            userService.userdelete(currentUser.getId());
+            userService.userdelete(id);
             // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
             session.invalidate(); // 세션 무효화
 
