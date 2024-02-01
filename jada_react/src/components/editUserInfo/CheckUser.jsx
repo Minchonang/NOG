@@ -12,32 +12,38 @@ function CheckUserInfo() {
 		e.preventDefault();
 
 		const requestData = {
-			passowrd: userPwd,
+			
+			id : sessionStorage.getItem("user_id"),
+			password: userPwd,
 		};
 		try {
-			const response = await fetch(`${API_BASE_URL}/api/userinfo/login`, {
+			const response = await fetch(`${API_BASE_URL}/api/userinfo/check-password`, {
 				method: "POST",
+				credentials: 'include', // 쿠키를 요청 헤더에 포함하기 위한 설정
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "ip: 8080",
-					// "Content-Type": "application/x-www-form-urlencoded",
 				},
 				body: JSON.stringify(requestData),
 			});
 
 			if (response.ok) {
 				// const data = await response.json();
+				console.log(requestData.id);
 				console.log("비밀번호 일치:");
 				alert("본인 확인이 완료되었습니다.");
 				window.location.href = "/edit_userinfo";
 			} else {
+				console.log(requestData.id);
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
+				// console.log(errorMessage)
 				alert(errorMessage);
 			}
 		} catch (error) {
+			console.log(requestData.id);
 			console.error("로그인 중 오류 발생:", error);
-			alert("통신 오류");
+			alert(`통신 오류: ${error}`);
 		}
 	};
 	return (

@@ -41,15 +41,27 @@ function Login() {
 				// 로그인 성공 처리
 				// const data = await response.json();
 				console.log("로그인 성공:");
+				console.log(response);
+
+				// 서버에서 반환된 값 출력
+				const responseData = await response.json();
+				// userId 추출
+				const receivedUserId  = responseData.userId;
+				console.log("서버 응답 데이터:", responseData);
+				console.log(responseData.userId);
+				window.sessionStorage.setItem("user_id", receivedUserId )
+
 				window.location.href = "/";
 			} else {
 				// 로그인 실패 처리
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
+			  sessionStorage.removeItem("user_id");
 				alert(errorMessage);
 			}
 		} catch (error) {
 			console.error("로그인 중 오류 발생:", error);
+			sessionStorage.removeItem("user_id");
 		}
 	};
 

@@ -36,7 +36,8 @@ function FindId() {
 				alert("회원의 아이디는 "+data+" 입니다.")
 			} else {
 				console.log("아이디 찾기 실패:", response.status);
-					}
+			  alert("일치하는 회원이 없습니다.")	
+			}
 		} catch (error) {
 			console.error("아이디 찾기 중 오류 발생:", error);
 		}
