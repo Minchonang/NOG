@@ -27,6 +27,9 @@ function EditUserInfo() {
 	const handleEdit = async (e) => {
 		e.preventDefault();
 
+		// user_id를 가져오기
+		const user_id = sessionStorage.getItem("user_id");
+
 		// newHouseNum이 숫자인지 검증
 		const numberRegex = /^[0-9]+$/;
 		if (!numberRegex.test(newHouseNum)) {
@@ -44,9 +47,9 @@ function EditUserInfo() {
 		try {
 			// 주소 추가 필요
 			const editUserDto = {
+				user_id: user_id,
 				email: newEmail,
 				phone: newPhone,
-
 				houseNum: newHouseNum,
 			};
 
@@ -62,7 +65,10 @@ function EditUserInfo() {
 				}
 			);
 			if (response.ok) {
-				console.log("회원 정보 수정 완료");
+				// 서버 응답이 성공인 경우
+				const result = await response.json();
+				console.log("회원 정보 조회 완료", result);
+				// console.log("회원 정보 수정 완료");
 				alert("회원 정보가 수정되었습니다.");
 			} else {
 				console.log("회원 정보 수정 실패");
