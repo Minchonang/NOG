@@ -221,16 +221,21 @@ public class UserController {
     }
 
 
-    // // 회원정보 수정
-    // @CrossOrigin(origins = "http://localhost:3000")
-    // @PostMapping("/edituserinfo")
-    // public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
+    // 회원정보 수정
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/edituser")
+    public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
+        String user_id = editUserDto.getUser_id();
+        String newEmail = editUserDto.getEmail();
+        String newPhone = editUserDto.getPhone();
+        String newPassword = editUserDto.getPassword();
+        Integer newHouseNum = editUserDto.getHouseNum();
 
-    //     String result = userService.editUser(editUserDto);
-    //     System.out.println(result);
+        String result = userService.editUser(user_id, newEmail, newPhone, newPassword, newHouseNum);
+        System.out.println("============수정된값:"+result);
 
-    //     return ResponseEntity.ok(result);
-    // }
+        return ResponseEntity.ok(result);
+    }
 
     // 회원탈퇴
     @CrossOrigin(origins = "http://localhost:3000")

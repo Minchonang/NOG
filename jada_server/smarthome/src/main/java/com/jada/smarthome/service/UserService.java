@@ -153,34 +153,34 @@ public class UserService {
     }
 
     // 회원정보 수정
-    // public String editUser(EditUserDto editUserDto){
-    //    Optional<User> userOptional = userRepository.findById(editUserDto.getUser_id());
-    //    System.out.println("user레파지토리 정보 :"+ userOptional);
+    public String editUser(String user_id, String newEmail, String newPhone, String newPwd, Integer newhouserNum){
+        System.out.println("=====userid:"+ user_id);
+       Optional<User> userOptional = userRepository.findById(user_id);
+       System.out.println("user레파지토리 정보 :"+ userOptional);
 
-    //    if (userOptional.isPresent()) {
-    //     User user = userOptional.get();
-    //     editUserDto.setId(user.getId());
-    //     editUserDto.setName(user.getName());
-    //     editUserDto.setEmail(user.getEmail());
-    //     editUserDto.setPhone(user.getPhone());
-    //     editUserDto.setAddress1(user.getAddress1());
-    //     editUserDto.setAddress2(user.getAddress2());
-    //     editUserDto.setAddress3(user.getAddress3());
-    //     editUserDto.setHouseNum(user.getHouseNum());
+       if (userOptional.isPresent()) {
+        User user = userOptional.get();
+
+        user.setEmail(newEmail);
+        user.setPhone(newPhone);
+        String enPassword = passwordEncoder.encode(newPwd);
+        user.setPassword(enPassword);
+        user.setHouseNum(newhouserNum);
         
-    //     System.out.println("사용자 정보 조회 완료");
-    //     } else {
-    //     System.out.println("사용자 정보가 존재하지 않습니다.");
-    //     }
+        // 저장된 값을 다시 userRepository를 통해 저장
+        userRepository.save(user);
 
-    //     return editUserDto.toString();
-    // }
+        System.out.println("사용자 정보 수정 완료");
+        } else {
+        System.out.println("사용자 정보가 존재하지 않습니다.");
+        }
+
+        return "수정 결과 메시지";
+    }
 
     // 회원정보 조회
     public UserInfoDto getUserInfo(String user_id) {
-        System.out.println(user_id);
         Optional<User> userOptional = userRepository.findById(user_id);
-        System.out.println("user레파지토리 정보 :"+ userOptional);
         
         if (userOptional.isPresent()) {
         User user = userOptional.get();

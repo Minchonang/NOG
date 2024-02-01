@@ -47,10 +47,9 @@ function EditUserInfo() {
         setUserAddress3(result.address3);
         setUserHouseNum(result.houseNum);
         console.log("회원 정보 조회 완료", result);
-        // console.log("회원 정보 수정 완료");
-        // alert("회원 정보가 수정되었습니다.");
+
       } else {
-        console.log("회원 정보 수정 실패");
+        console.log("회원 정보 조회 실패");
         alert("오류가 발생하였습니다.");
       }
     } catch (error) {
@@ -82,7 +81,6 @@ function EditUserInfo() {
   };
 
   // 가구 수 수정
-  let houseNum = 4; // 임시로 넣은 가구원 수
   const [editHouseNum, setEditHouseNum] = useState(false);
   const [newHouseNum, setNewHouseNum] = useState(userHouseNum);
   const editHouseNumBtn = () => {
@@ -92,15 +90,16 @@ function EditUserInfo() {
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    // 주소 추가 필요
-    const editUserDto = {
-      email: newEmail,
-      phone: newPhone,
-      houseNum: newHouseNum,
-    };
-
     // user_id를 가져오기
-    const user_id = sessionStorage.getItem("user_id");
+    const userIdFromSession = sessionStorage.getItem("user_id");
+
+		const editUserDto = {
+			user_id: userIdFromSession,
+			email: newEmail,
+			phone: newPhone,
+			password: newPwd,
+			houseNum: parseInt(newHouseNum),
+		};
 
     // newHouseNum이 숫자인지 검증
     const numberRegex = /^[0-9]+$/;
@@ -116,17 +115,10 @@ function EditUserInfo() {
     }
 
     try {
-      // 주소 추가 필요
-      const editUserDto = {
-        user_id: user_id,
-        email: newEmail,
-        phone: newPhone,
-        houseNum: newHouseNum,
-      };
 
       // 서버로 데이터 전송 - 경로 수정 필요
       const response = await fetch(
-        `${API_BASE_URL}/api/userinfo/edituserinfo`,
+        `${API_BASE_URL}/api/userinfo/edituser`,
         {
           method: "POST",
           headers: {
