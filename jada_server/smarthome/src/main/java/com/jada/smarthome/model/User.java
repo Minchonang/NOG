@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable {
 
   @Id
+  @Column(name = "id", nullable = false, length = 255)
   private String id;
 
   @Column(name = "name", nullable = false, length = 30)

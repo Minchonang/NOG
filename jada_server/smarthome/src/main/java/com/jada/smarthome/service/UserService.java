@@ -3,11 +3,14 @@ package com.jada.smarthome.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.jada.smarthome.dto.EditUserDto;
 import com.jada.smarthome.dto.JoinUserDto;
@@ -31,30 +34,34 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // JoinUserDto를 User 엔터티로 변환 후 저장
+    // 회원가입
     public void saveUser(JoinUserDto joinUserDto) {
         // 비밀번호 암호화
         String rawPassword = joinUserDto.getPassword();
         String encodedPassword = passwordEncoder.encode(rawPassword);
         joinUserDto.setPassword(encodedPassword);
         
+        // JoinUserDto를 User 엔터티로 변환 후 저장
         User user = joinUserDto.toEntity();
         userRepository.save(user);
 
+
     }
 
-    // 데이터베이스에서 모든 유저 정보를 조회
+    //모든 유저 정보를 조회
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     // id 중복체크
     public boolean isIdDuplicate(String id) {
+        // System.out.println(id);
         User user = userRepository.findById(id).orElse(null);
+        // System.out.println("user정보불러오기"+user);
         return user != null;
     }
 
-    // 로그인 기능
+    // 로그인
     public String loginUser(LoginUserDto loginUserDto,HttpSession session) {
         // LoginUserDto에서 id와 password를 추출
         String id = loginUserDto.getId();
@@ -79,6 +86,8 @@ public class UserService {
         }
     }
 
+
+
     // 이름과 이메일로 사용자 정보를 조회하는 메서드
     public Optional<User> findUserByNameAndEmail(String name, String email) {
         return userRepository.findByNameAndEmail(name, email);
@@ -88,7 +97,7 @@ public class UserService {
     public boolean checkPassword(String password, String id, HttpSession session) {
         // UserRepository를 이용하여 현재 로그인된 사용자의 정보 조회
         Optional<User> userOptional = userRepository.findById(id);
-        System.out.println(userOptional);
+        System.out.println("-------------------"+userOptional);
         String enrollpwd = userOptional.get().getPassword();
         System.out.println(enrollpwd);
 
@@ -143,47 +152,54 @@ public class UserService {
     }
 
     // 회원정보 수정
-    public String editUser(EditUserDto editUserDto){
-       Optional<User> userOptional = userRepository.findById(editUserDto.getUser_id());
-       System.out.println("user레파지토리 정보 :"+ userOptional);
+    // public String editUser(EditUserDto editUserDto){
+    //    Optional<User> userOptional = userRepository.findById(editUserDto.getUser_id());
+    //    System.out.println("user레파지토리 정보 :"+ userOptional);
 
-       if (userOptional.isPresent()) {
-        User user = userOptional.get();
-        editUserDto.setId(user.getId());
-        editUserDto.setName(user.getName());
-        editUserDto.setEmail(user.getEmail());
-        editUserDto.setPhone(user.getPhone());
-        editUserDto.setAddress(user.getAddress());
-        editUserDto.setHouseNum(user.getHouseNum());
+    //    if (userOptional.isPresent()) {
+    //     User user = userOptional.get();
+    //     editUserDto.setId(user.getId());
+    //     editUserDto.setName(user.getName());
+    //     editUserDto.setEmail(user.getEmail());
+    //     editUserDto.setPhone(user.getPhone());
+    //     editUserDto.setAddress1(user.getAddress1());
+    //     editUserDto.setAddress2(user.getAddress2());
+    //     editUserDto.setAddress3(user.getAddress3());
+    //     editUserDto.setHouseNum(user.getHouseNum());
         
-        System.out.println("사용자 정보 조회 완료");
-        } else {
-        System.out.println("사용자 정보가 존재하지 않습니다.");
-        }
+    //     System.out.println("사용자 정보 조회 완료");
+    //     } else {
+    //     System.out.println("사용자 정보가 존재하지 않습니다.");
+    //     }
 
-        return editUserDto.toString();
-    }
+    //     return editUserDto.toString();
+    // }
 
     // 회원정보 조회
-    public UserInfoDto getUserInfo(String userId) {
-    Optional<User> userOptional = userRepository.findById(userId);
-    System.out.println("user레파지토리 정보 :"+ userOptional);
-    
-    if (userOptional.isPresent()) {
-    User user = userOptional.get();
-    UserInfoDto userInfoDto = new UserInfoDto();
-    userInfoDto.setUserId(userId);
-    userInfoDto.setName(user.getName()); 
-    userInfoDto.setEmail(user.getEmail());
-    userInfoDto.setPhone(user.getPhone());
-    userInfoDto.setAddress1(user.getAddress1());
-    userInfoDto.setAddress2(user.getAddress2());
-    userInfoDto.setAddress3(user.getAddress3());
-    userInfoDto.setHouseNum(user.getHouseNum());
-        
-    }
+    public UserInfoDto getUserInfo(String id) {
+        System.out.println(id);
 
-    return userInfoDto;
-}
+        Optional<User> userOptional = userRepository.findById(id);
+        System.out.println("================유저정보"+userOptional);
+        // System.out.println("user레파지토리 정보 :"+ userOptional.get().getEmail());
+    
+        if (userOptional.isPresent()) {
+        User user = userOptional.get();
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setUserId(user.getId());
+        userInfoDto.setName(user.getName()); 
+        userInfoDto.setEmail(user.getEmail());
+        userInfoDto.setPhone(user.getPhone());
+        userInfoDto.setAddress1(user.getAddress1());
+        userInfoDto.setAddress2(user.getAddress2());
+        userInfoDto.setAddress3(user.getAddress3());
+        userInfoDto.setHouseNum(user.getHouseNum());
+
+        return userInfoDto;
+    }else{
+        return null;
+    }
+    // return null;
+    }
 
 }
