@@ -235,11 +235,13 @@ public class UserController {
     // 회원탈퇴
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/userdelete")
-    public ResponseEntity<String> exitAccount(HttpSession session, @RequestBody String id) {
+    public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
         // 세션에서 현재 사용자 정보 가져오기
         // User currentUser = (User) session.getAttribute("user_info");
         // System.out.println("-------------------"+currentUser);
-        System.out.println("-------------"+id);
+        String id = requestData.get("user_id");
+        System.out.println("----------------------------------------"+ id);
+
 
         // if (id == null) {
         //     // 세션이 유효하지 않으면 로그인 페이지로 리다이렉트

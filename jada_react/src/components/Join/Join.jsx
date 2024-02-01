@@ -7,7 +7,24 @@ import { API_BASE_URL } from "../../App.js";
 function Join() {
   const [selectedElement1, setSelectedElement1] = useState("");
   const [selectedElement2, setSelectedElement2] = useState("");
+  const [authkey, setAuthkey] = useState("");
+  const [isVerified, setIsVerified] = useState(false); // 인증 확인 상태. 초기값은 false.
+  const [formData, setFormData] = useState({
+    email: "",
+    id: "",
+    password: "",
+    passwordConfirm: "",
+    name: "",
+    phone: "",
+    address1: "",
+    address2: "",
+    address3: "",
+    house_num: "",
+    emailauth: "",
+    // house_square:''
+  });
 
+  // 지역 옵션
   const options = {
     강원도: [
       "강릉시",
@@ -256,24 +273,6 @@ function Join() {
     setSelectedElement2(""); // Element1이 변경되면 Element2를 초기화
   };
 
-  const [formData, setFormData] = useState({
-    email: "",
-    id: "",
-    password: "",
-    passwordConfirm: "",
-    name: "",
-    phone: "",
-    address1: "",
-    address2: "",
-    address3: "",
-    house_num: "",
-    emailauth: "",
-    // house_square:''
-  });
-
-  const [authkey, setAuthkey] = useState("");
-  const [isVerified, setIsVerified] = useState(false); // 인증 확인 상태. 초기값은 false.
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -282,6 +281,7 @@ function Join() {
     }));
   };
 
+  // 이메일 인증 했는지 확인
   const handleVerify = (e) => {
     e.preventDefault();
     if (!authkey) {
@@ -297,11 +297,27 @@ function Join() {
     }
   };
 
+  // 회원가입 버튼
   const handleJoin = async (e) => {
     e.preventDefault();
 
     if (!isVerified) {
       alert("이메일 인증을 먼저 완료하세요.");
+      return;
+    }
+
+    // 비밀번호 정규식
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      alert("비밀번호 형식이 맞지않습니다.");
+      return;
+    }
+
+    //  이메일 정규식
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("이메일 형식이 맞지않습니다.");
       return;
     }
 
@@ -417,7 +433,7 @@ function Join() {
             <input
               type="password"
               name="password"
-              placeholder="비밀번호"
+              placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
               value={formData.password}
               onChange={handleInputChange}
             />
@@ -426,7 +442,7 @@ function Join() {
               <input
                 type="text"
                 name="email"
-                placeholder="이메일 주소"
+                placeholder="이메일 주소(ex.aaa@gmail.com)"
                 value={formData.email}
                 onChange={handleInputChange}
               />
