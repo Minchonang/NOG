@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { NavLink } from "react-router-dom";
 import styles from "./css/Join.module.css";
 import common from "../common/css/common.module.css";
 import { API_BASE_URL } from "../../App.js";
@@ -534,6 +534,11 @@ function Join() {
               </div>
             </div>
           )}
+        </div>
+        <div className={styles.option_area}>
+          <NavLink to="/login" activeclassname={common.themeColor}>
+            로그인으로 돌아가기
+          </NavLink>
         </div>
       </div>
     </div>

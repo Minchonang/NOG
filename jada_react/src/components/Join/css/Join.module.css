@@ -81,6 +81,7 @@
   border: 2px solid #ff9f0a;
   border-radius: 10px;
   margin-bottom: 1em;
+  font-family: "Godo";
 }
 
 .idEmailPwdInput_area input {
@@ -88,6 +89,7 @@
   padding: 4% 10px;
   width: 100%;
   border-bottom: 1px solid grey;
+  font-family: "Godo";
 }
 .inputWithBtn input {
   border-radius: 10px 10px 0 0;
@@ -139,4 +141,25 @@
   color: rgb(198, 198, 198);
   font-size: 0.8em;
   margin: 6px 17% 0 0;
+}
+
+/* 아이디, 비밀번호, 회원가입 버튼 */
+.option_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5% auto;
+  width: 100%;
+}
+.option_area a,
+.option_area span {
+  margin: 3% 5px;
+  padding: 0.5px 0;
+  color: gray;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+.option_area a:active {
+  text-decoration: underline;
 }

@@ -153,7 +153,9 @@ public class UserService {
         editUserDto.setName(user.getName());
         editUserDto.setEmail(user.getEmail());
         editUserDto.setPhone(user.getPhone());
-        editUserDto.setAddress(user.getAddress());
+        editUserDto.setAddress1(user.getAddress1());
+        editUserDto.setAddress2(user.getAddress2());
+        editUserDto.setAddress3(user.getAddress3());
         editUserDto.setHouseNum(user.getHouseNum());
         
         System.out.println("사용자 정보 조회 완료");
