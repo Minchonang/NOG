@@ -76,10 +76,10 @@ const MyChart = () => {
         {/* </div> */}
         </div>
 
-        <div className={style.chart_box}>
-          <RadarChart/>
+        <div className={`${style.chart_box} ${style.chart_box2}`}>
+          <RadarChart className={style.radar_chart} />
           
-          <RadarChart/>
+          <RadarChart className={style.radar_chart} />
         </div>
 
         <div className={style.chart_box}>
