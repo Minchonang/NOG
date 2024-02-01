@@ -8,6 +8,8 @@ import FindPw from "./components/findPw/FindPw";
 import Join from "./components/Join/Join";
 import CheckUserInfo from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
+import MyChart from "./components/myHome/chart/MyChart";
+import MyChart2 from "./components/myHome/chart/MyChart2";
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -23,6 +25,8 @@ function App() {
 					<Route path="/join" element={<Join />} />
 					<Route path="/check_user" element={<CheckUserInfo />} />
 					<Route path="/edit_userinfo" element={<EditUserInfo />} />
+					<Route path="/my_chart" element={< MyChart/>} />
+					<Route path="/my_chart2" element={< MyChart2/>} />
 				</Routes>
 			</BrowserRouter>
 		</>
