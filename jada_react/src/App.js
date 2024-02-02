@@ -10,6 +10,7 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
+import ChatTest from "./components/chatbot/ChatTest"
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -19,6 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/chatbot" element={<ChatTest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
