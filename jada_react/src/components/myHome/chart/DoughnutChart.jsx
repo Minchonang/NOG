@@ -4,11 +4,11 @@ import style from './css/MyChart.module.css';
 
 const DoughnutChart = () => {
     const doughnutData = {
-        labels: ['Red', 'Blue'],
+        labels: ['사용량', '지역평균에서 차이나는 %p'],
         datasets: [
           {
-            data: [60,40],
-            backgroundColor: ['yellow', 'darkgray'],
+            data: [100,40],
+            backgroundColor: [ 'rgb(250, 185, 33)', 'gray'],
             hoverBackgroundColor: ['red', 'black'],
           },
         ],
@@ -17,16 +17,19 @@ const DoughnutChart = () => {
       const doughnutOptions = {
         responsive: true,
         aspectRatio:1|2,
-        
+        borderColor:'white',
+        borderWidth: 10,
+       
+
+
         plugins: {
-    
-          
+        
           legend: {
             display: false,
           },
           title: {
             display: false,
-            text: '234%', // 여기에 원하는 제목을 입력하세요.
+            text: 152+"kw" ,
             font: {
               size: 10,
             },
@@ -38,7 +41,7 @@ const DoughnutChart = () => {
         },
         maintainAspectRatio: true,
         cutoutPercentage: 400,
-        animation: true,
+        // animation: true,
         rotation: 290,
         circumference: 45 * Math.PI,
       };
@@ -46,8 +49,10 @@ const DoughnutChart = () => {
 
 
   return (
-
+            <div className={style.doughnut_chart_box}>
           <Doughnut  data={doughnutData} options={doughnutOptions} className={style.doughnut_chart}/>
+          <span className={style.doughnut_value}>120kW</span>          
+          </div>
   );
 };
 

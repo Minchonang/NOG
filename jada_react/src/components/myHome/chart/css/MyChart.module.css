@@ -57,11 +57,11 @@
 /* position: absolute; */
 /* top: 0; */
 /* background-color: red; */
-width: 100%;
+/* width: 100%; */
 /* background-color: rgb(120, 120, 177); */
 padding: 0.5rem;
 font-size: 2rem;
-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
 }
 
 
@@ -69,7 +69,9 @@ color: rgb(255, 255, 255);
 
 /* 차트부모: 한 횡 */
 
-.box_container_one{
+.box_container{
+    /* display: none; */
+
     /* display: block; */
 
 }
@@ -78,12 +80,12 @@ color: rgb(255, 255, 255);
 /* 개별 차트 하나 */
 .chart_box{
 margin-top: 1rem;
+margin-bottom: 1rem;
 
-    /* border: 1px black solid; */
+    border: 1px black solid;
     border-radius: 1rem;
     /* width: 10%; */
-    background-color: rgb(10, 54, 99);
-    box-shadow:  0.1rem  0.1rem 2px rgb(255, 252, 252);
+    background-color: rgb(255, 255, 255);
     /* padding: 1rem; */
     /* margin-top: 0.5rem; */
      /* position: relative; */
@@ -96,7 +98,7 @@ margin-top: 1rem;
 }
 
 .doughnut_chart{
-    /* background-color: rgb(185, 231, 208); */
+    background-color: rgb(185, 185, 249);
     /* position: relative; */
     width: 20%;
     /* overflow: hidden; */
@@ -121,16 +123,37 @@ margin-top: 1rem;
     width: 20%;
 }
 
-
+.doughnut_chart_box{
+    position: relative;
+    width: 100%;
+}
 /* 도넛 차트 사용량 */
 .doughnut_value{
-    /* position: absolute; */
+    position: absolute;
     
-    /* transform: translateX(50%); */
+    transform: translateX(50%);
     /* transform: translateY(50%); */
     
-    /* right: 50%; */
-    bottom:  20%;
+    right: 50%;
+    bottom:  0%;
     font-size: 2rem;
-    color: rgb(252, 252, 0);
+    color: rgb(95, 95, 95);
     }
+
+.text_box{
+    padding: 1rem;
+}
+
+.chart_title_box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.spring{
+    flex: 1;
+}
+
+.close{
+    padding: 0 1rem;
+}

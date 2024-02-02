@@ -31,15 +31,25 @@ const MyChart = () => {
           <h1>500원</h1>
           <span>직전달 대비 절약 금액</span>
         </div>
+        {/*도넛 차트 박스  */}
         <div className={style.box_container}>
          <div className={style.chart_box}>
-            <h1 className={style.chart_box_title}>이달 소비 전력량(kW) </h1>          
+            {/* 도넛 제목 박스 */}
+            <div className={style.chart_title_box}>
+              <h1 className={style.chart_box_title}>이달 소비 전력량(kW) </h1>
+              <span className={style.spring}></span>          
+              <span className={style.close}> ▲</span>
+            </div>
 
             <DoughnutChart />
-            <span className={style.doughnut_value}>120kW</span>          
-            <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. 현재까지의 요금은 약12500원 입니다.</p>          
-            <p>이추이로 소비가 계속 되었을때 이번달 예상 총 사용량은 542kw 요금은 12344원입니다.</p>
 
+            {/* 해설상자 */}
+            <div className={style.text_box}>
+           
+            <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
+            <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
+            <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+            </div>
 
         </div>
        
@@ -53,63 +63,34 @@ const MyChart = () => {
           <span>가장 많은 소비시간대</span>
 
         </div>
+
+        {/* 두번째 줄 */}
+        <div className={style.box_container}> 
+        <div className={style.chart_box}>
+          <span className={style.chart_box_title}>소비 유형 </span>          
+          <PieChart />
+        </div>
+        </div>
         <div className={style.keyword_box}>
           <h1>금요일</h1>
           <span>소비량이 가장 많은 요일</span>
           
         </div>
+        <div className={style.box_container}> 
+
+<div className={style.chart_box}>
+  <span className={style.chart_box_title}>요일별 소비 패턴</span>      
+  <LineChart></LineChart>
+</div>
+</div>
+
+
+
+
         <div className={style.keyword_box}>
           <h1>13일</h1>
           <span>이달 가장 사용량이 많았던 날</span>
         </div>   
-
-        <div className={style.keyword_box}>
-          <h1>4kW</h1>
-          <span>하루 평균 사용량</span>
-        </div>
-        <div className={style.keyword_box}>
-          <h1>54%</h1>
-          <span>지역주민 대비 사용량</span>
-        </div>
-       
-
-
-
-     
-
-        {/* 두번째 줄 */}
-      <div className={style.box_container}> 
-        <div className={style.chart_box}>
-          <span className={style.chart_box_title}>소비 유형 </span>          
-          <PieChart />
-        </div>
-
-        {/* <div className={style.chart_box}>
-          <span className={style.chart_box_title}>도시인구 대비 비교</span>          
-          <RadarChart />
-        </div> */}
-      </div>
-
-      <div className={style.box_container}> 
-        {/* <div className={style.chart_box}>
-          <span className={style.chart_box_title}>소비 유형 </span>          
-          <PieChart />
-        </div> */}
-
-        <div className={style.chart_box}>
-          <span className={style.chart_box_title}>도시인구 대비 비교</span>          
-          <RadarChart />
-        </div>
-      </div>
-
-
-        <div className={style.box_container}> 
-
-        <div className={style.chart_box}>
-          <span className={style.chart_box_title}>요일별 소비 패턴</span>      
-          <LineChart></LineChart>
-        </div>
-        </div>
 
         <div className={style.box_container}> 
 
@@ -118,16 +99,61 @@ const MyChart = () => {
   <LineChart></LineChart>
 </div>
 </div>
-
+        <div className={style.keyword_box}>
+          <h1>4kW</h1>
+          <span>하루 평균 사용량</span>
+        </div>
 
 
         <div className={style.box_container}> 
+
+        <div className={style.chart_box}>
+          <span className={style.chart_box_title}>평균 소비 패턴</span>      
+          <LineChart></LineChart>
+        </div>
+        </div>
+
+
+
+
+        <div className={style.keyword_box}>
+          <h1>54%</h1>
+          <span>지역주민 대비 사용량</span>
+        </div>
+       
+      <div className={style.box_container}> 
+       
+
+       <div className={style.chart_box}>
+         <span className={style.chart_box_title}>도시인구 대비 비교</span>          
+         <RadarChart />
+       </div>
+
+    
+     <div className={style.chart_box}>
+
           <span className={style.chart_box_title}>비교</span>      
 
            
            <BarChart></BarChart>
+           </div>
 
         </div>
+
+
+     
+
+
+      
+      
+
+
+
+ 
+
+
+
+
 
 
       </div>
