@@ -7,6 +7,8 @@ import { API_BASE_URL } from "../../App.js";
 import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function CheckUser() {
+	const activeUser = true;
+
 	const pwdRef = useRef();
 	useEffect(() => {
 		setTimeout(() => {
@@ -14,7 +16,7 @@ function CheckUser() {
 				pwdRef.current.focus();
 			}
 		}, 500);
-	}, [])
+	}, []);
 
 	const [userPwd, setUserPwd] = useState("");
 
@@ -71,10 +73,12 @@ function CheckUser() {
 						/>
 					</div>
 					<div className={common.btn_area}>
-						<button className={common.themeBgrColor} onClick={checkUserPwd}>왁인</button>
+						<button className={common.themeBgrColor} onClick={checkUserPwd}>
+							왁인
+						</button>
 					</div>
 				</div>
-				<BottomNav/>
+				<BottomNav activeUser={activeUser} />
 			</div>
 		</>
 	);

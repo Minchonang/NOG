@@ -13,15 +13,17 @@
 	flex-direction: row;
 	align-items: center;
    margin: 0 auto;
-   padding: 2% 6% 4%;
+   padding: 1% 6% 5%;
+   font-family: "godo";
 }
 
 .nav_btn {
    display: flex;
    flex-direction: column;
    margin: 0 auto ;
-   padding: 5% auto;
+   padding: 3% 10%;
    border-radius: 15px;
+   transition-duration: .3s;
 }
 .nav_btn img {
    width: 30px;
@@ -31,9 +33,9 @@
 
 }
 .nav_btn div {
-   font-size: .8em;
+   font-size: .7em;
    margin: 0 auto;
 }
 .nav_btn:active {
-   background-color: white;
+   background-color: #ff9f0a;
 }

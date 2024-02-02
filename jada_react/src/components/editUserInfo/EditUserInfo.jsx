@@ -6,6 +6,8 @@ import style from "./css/EditUserInfo.module.css";
 import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function EditUserInfo() {
+	const activeUser = true;
+
 	// 이메일 수정
 	const [editEmail, setEditEmail] = useState(false);
 	const [newEmail, setNewEmail] = useState("asdf3y92@gmail.com"); // 추후 서버 연결 시 변수 설정
@@ -93,6 +95,7 @@ function EditUserInfo() {
 					<NavLink to="/">NOG</NavLink>
 					<div>회원정보</div>
 				</div>
+				
 				<div className={style.main_area}>
 					<div className={style.userId}>
 						<div>test2</div>
@@ -194,7 +197,7 @@ function EditUserInfo() {
 						<NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
 					</div>
 				</div>
-				<BottomNav/>
+				<BottomNav activeUser={activeUser}/>
 			</div>
 		</>
 	);

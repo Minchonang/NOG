@@ -25,6 +25,7 @@ function SampleComp() {
 }
 
 function Index() {
+	const activeData = true;
 	return (
 		<div className={common.background}>
 			<Header />
@@ -33,7 +34,7 @@ function Index() {
 					NOG
 				</NavLink>
 				<SampleComp />
-			<BottomNav />
+			<BottomNav activeData={activeData}/>
 			</div>
 		</div>
 	);

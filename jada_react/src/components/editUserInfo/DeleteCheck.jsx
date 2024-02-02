@@ -5,9 +5,10 @@ import style from "./css/DeleteCheck.module.css";
 import BottomNav from "../common/jsx/BottomNav";
 
 function DeleteCheck() {
-	const navigate = useNavigate();
-
+	const activeUser = true;
+	
 	// 이전 페이지로 돌아가는 기능
+	const navigate = useNavigate();
 	const goBack = () => {
 		navigate(-1); 
 	};
@@ -71,7 +72,7 @@ function DeleteCheck() {
 						</button>
 					</div>
 				</div>
-				<BottomNav/>
+				<BottomNav activeUser={activeUser}/>
 			</div>
 		</>
 	);
