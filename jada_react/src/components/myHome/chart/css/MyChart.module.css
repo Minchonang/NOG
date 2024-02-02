@@ -9,7 +9,7 @@
 
 }
 
-.body>.container>.keyword{
+.body>.container>.keyword_box{
     background-color: rgb(255, 255, 255);
     padding:2rem 1rem;
     /* font-size: 1rem; */
@@ -27,7 +27,7 @@
     /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 
 }
-.body>.container>.keyword>h1,
+.body>.container>.keyword_box>h1,
 .body>.container>.title>h1
 {
     font-size: 2rem;
