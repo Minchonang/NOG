@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import questionImage from "./nogimg.png";
-import common from "../common/css/common.module.css";
-import style from "./css/ChatTest.module.css";
-import { NavLink } from "react-router-dom";
 
 const socket = io("http://localhost:5000"); // Flask 서버 주소에 맞게 변경
 
@@ -44,19 +41,16 @@ const ChatTest = () => {
   }, [chatHistory]);
 
   return (
-    <div className={style.background}>
-      <div className={style.title_area}>
-        <NavLink to="/home">NOG</NavLink>
-        <div>Chatbot</div>
-      </div>
-
-      <div className={style.chatContainer} id="chatContainer">
+    <div>
+      <div
+        id="chatContainer"
+        style={{ maxHeight: "700px", overflowY: "auto", marginTop: "1rem" }}
+      >
         <div>
           <img
             src={questionImage}
             style={{ maxWidth: "50px", height: "50px", marginLeft: "1rem" }}
           ></img>
-
           <p
             style={{
               backgroundColor: "#FFCF81",
