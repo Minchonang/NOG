@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { Doughnut, Line } from 'react-chartjs-2';
 import style from './css/MyChart.module.css';
 import 'chart.js/auto';
@@ -11,8 +11,13 @@ import DoughnutChart from './DoughnutChart';
 // import 'chartjs-plugin-datalabels'; // 추가한 플러그인을 import
 
 const MyChart = () => {
- 
- 
+  const [visibleContainers, setVisibleContainers] = useState({});
+  const handleBoxClick = (boxNum) => {
+    setVisibleContainers((prevContainers) => ({
+      ...prevContainers,
+      [boxNum]: !prevContainers[boxNum],
+    }));
+  };
   return (
     <div className={style.body}>
       <div className={style.container}>
@@ -21,7 +26,7 @@ const MyChart = () => {
           <span>광주광역시 광산구</span>
         </div>
 
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(1)}>
           <h1>120kw </h1>
           <span>이달 사용 전력</span>
 
