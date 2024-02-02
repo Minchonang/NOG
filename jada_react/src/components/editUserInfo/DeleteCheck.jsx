@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/DeleteCheck.module.css";
+import BottomNav from "../common/jsx/BottomNav";
 
 function DeleteCheck() {
 	const navigate = useNavigate();
@@ -70,6 +71,7 @@ function DeleteCheck() {
 						</button>
 					</div>
 				</div>
+				<BottomNav/>
 			</div>
 		</>
 	);

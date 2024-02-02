@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { API_BASE_URL } from "../../App.js";
 import style from "./css/Login.module.css";
 import common from "../common/css/common.module.css";
-import { API_BASE_URL } from '../../App.js';
+import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function Login() {
+
+	// 페이지 진입 시 바로 아이디 입력(input)에 focus 실행
+	const idRef = useRef();
+	useEffect(() => {
+		setTimeout(() => {
+			if (idRef.current) {
+				idRef.current.focus();
+			}
+		}, 500); 
+	}, []);
+
 	const [userId, setUserId] = useState("");
 	const [userPwd, setUserPwd] = useState("");
 
@@ -20,8 +32,8 @@ function Login() {
 
 		const requestData = {
 			id: userId,
-			password: userPwd
-	};
+			password: userPwd,
+		};
 		// const formData = new URLSearchParams();
 		// formData.append("id", userId);
 		// formData.append("password", userPwd);
@@ -66,6 +78,7 @@ function Login() {
 							type="text"
 							value={userId}
 							onChange={(e) => setUserId(e.target.value)}
+							ref={idRef}
 							placeholder="아이디 입력"
 							maxLength="20"
 						/>
@@ -98,6 +111,7 @@ function Login() {
 						</NavLink>
 					</div>
 				</div>
+				<BottomNav />
 			</div>
 		</>
 	);

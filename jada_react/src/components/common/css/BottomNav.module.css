@@ -1,5 +1,6 @@
 .background {
 	position: fixed;
+   z-index: 100;
 	bottom: 0;
    left: 0;
 	width: 100%;
@@ -10,11 +11,9 @@
 .main_area {
 	display: flex;
 	flex-direction: row;
-   /* justify-content: space-around; */
 	align-items: center;
    margin: 0 auto;
    padding: 2% 6% 4%;
-
 }
 
 .nav_btn {
@@ -25,8 +24,8 @@
    border-radius: 15px;
 }
 .nav_btn img {
-   width: 40px;
-   height: 40px;
+   width: 30px;
+   height: 30px;
    margin: 0 auto 5px;
    border-radius: 10px;
 

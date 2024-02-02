@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import common from "../common/css/common.module.css";
 // import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
+import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function CheckUser() {
+	const pwdRef = useRef();
+	useEffect(() => {
+		setTimeout(() => {
+			if (pwdRef.current) {
+				pwdRef.current.focus();
+			}
+		}, 500);
+	}, [])
+
 	const [userPwd, setUserPwd] = useState("");
 
 	const checkUserPwd = async (e) => {
@@ -55,6 +65,7 @@ function CheckUser() {
 							type="text"
 							value={userPwd}
 							onChange={(e) => setUserPwd(e.target.value)}
+							ref={pwdRef}
 							placeholder="비밀번호 입력"
 							maxLength="25"
 						/>
@@ -63,6 +74,7 @@ function CheckUser() {
 						<button className={common.themeBgrColor} onClick={checkUserPwd}>왁인</button>
 					</div>
 				</div>
+				<BottomNav/>
 			</div>
 		</>
 	);

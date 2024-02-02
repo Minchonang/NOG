@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/EditUserInfo.module.css";
+import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function EditUserInfo() {
 	// 이메일 수정
@@ -193,6 +194,7 @@ function EditUserInfo() {
 						<NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
 					</div>
 				</div>
+				<BottomNav/>
 			</div>
 		</>
 	);
