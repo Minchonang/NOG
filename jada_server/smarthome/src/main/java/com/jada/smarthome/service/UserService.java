@@ -163,8 +163,10 @@ public class UserService {
 
         user.setEmail(newEmail);
         user.setPhone(newPhone);
-        String enPassword = passwordEncoder.encode(newPwd);
-        user.setPassword(enPassword);
+        if (newPwd != null) {
+            String enPassword = passwordEncoder.encode(newPwd);
+            user.setPassword(enPassword);
+        }
         user.setAddress1(newAddress1);
         user.setAddress2(newAddress2);
         user.setAddress3(newAddress3);
