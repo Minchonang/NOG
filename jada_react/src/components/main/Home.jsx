@@ -71,7 +71,9 @@ function Home() {
             <div className={style.content_title}>
               <div>이번달 전기세가</div>
               <div>자다가도 생각이난다면?</div>
-              <button className="join_btn">회원가입하러 가기</button>
+              <NavLink to="/join">
+                <button className={style.join_btn}>회원가입하러 가기</button>
+              </NavLink>
             </div>
           </div>
         </div>
