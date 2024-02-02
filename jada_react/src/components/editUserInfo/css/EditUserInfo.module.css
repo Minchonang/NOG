@@ -8,31 +8,31 @@
       format("woff");
 }
 
-.main_area {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  padding: 5% 5%;
-  display: flex;
-  flex-direction: column;
-  font-family: "Godo", serif;
-}
-
 .title_area {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  padding: 2% 5%;
-  background-color: #fbf7ef;
-  font-family: "godo";
-  font-size: 1.7em;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	width: 100vw;
+	padding: 2% 5%;
+	background-color: #fbf7ef;
+	font-family: "godo";
+	font-size: 1.7em;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 .title_area div {
   margin-left: 10px;
   font-size: 0.9em;
+}
+
+.main_area {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	padding: 10% 5% 70px;
+	display: flex;
+	flex-direction: column;
+	font-family: "Godo", serif;
 }
 
 /* 유저 아이디 */
@@ -110,18 +110,18 @@
 }
 
 .divLine {
-  width: 100%;
-  height: 2px;
-  margin: 3% 0;
-  background-color: rgb(237, 237, 237);
+	width: 100%;
+	height: 2px;
+	margin: 3% 0;
+	background-color: rgb(237, 237, 237);
 }
 
 /* 비밀번호 변경 */
 .pwd_title {
-  display: flex;
-  margin: 2% 0 5%;
-  font-size: 0.9em;
-  color: gray;
+	display: flex;
+	margin: 2% 0 5%;
+	font-size: 0.9em;
+	color: gray;
 }
 
 .input_new {
@@ -141,9 +141,9 @@
 }
 
 .delete_account {
-  display: flex;
-  position: relative;
-  margin: 6% 0;
+	display: flex;
+	position: relative;
+	margin: 8% 0;
 }
 .delete_account a {
   position: absolute;

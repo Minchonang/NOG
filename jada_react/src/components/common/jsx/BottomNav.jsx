@@ -2,14 +2,20 @@ import { NavLink } from "react-router-dom";
 import common from "../css/common.module.css";
 import bottom from "../css/BottomNav.module.css";
 
-function BottomNav() {
-	const img =
-		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2F07e61c0b-34f6-41c8-945f-0c7b5578a826%2FUntitled.png?table=block&id=04d507f7-44d0-4103-b73f-74ccbd2f48e4&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
+import icon_data from "../svg/icon_data.svg";
+import icon_home from "../svg/icon_home.svg";
+import icon_user from "../svg/icon_user.svg";
+
+import active_data from "../svg/activeicon_data.svg";
+import active_home from "../svg/activeicon_home.svg";
+import active_user from "../svg/activeicon_user.svg";
+
+function BottomNav({ activeHome, activeData, activeUser }) {
 	const goHome = () => {
-		window.location.href = "/";
+		window.location.href = "/"; // 집 제어 페이지 제작 시 링크 변경
 	};
 	const goData = () => {
-		window.location.href = "/"; // 데이터 분석 페이지 제작 시 링크 변경
+		window.location.href = "/";
 	};
 	const goUserCheck = () => {
 		window.location.href = "/check_user";
@@ -19,17 +25,17 @@ function BottomNav() {
 			<div className={bottom.background}>
 				<div className={bottom.main_area}>
 					<div className={bottom.nav_btn} onClick={goHome}>
-						<img src={img} alt=""></img>
+						<img src={activeHome ? active_home : icon_home} alt="" />
 						<div>우리집</div>
 					</div>
 					<div className={bottom.nav_btn} onClick={goData}>
-						<img src={img} alt=""></img>
+						<img src={activeData ? active_data : icon_data} alt="" />
 						<div>분석</div>
 					</div>
 
 					<div className={bottom.nav_btn} onClick={goUserCheck}>
-						<img src={img} alt=""></img>
-						<div>내정보</div>
+						<img src={activeUser ? active_user : icon_user} alt="" />
+						<div>내 정보</div>
 					</div>
 				</div>
 			</div>
