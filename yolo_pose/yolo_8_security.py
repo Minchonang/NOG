@@ -1,4 +1,10 @@
-#%%
+import sys
+from io import StringIO
+
+# sys.stdout을 메모리 버퍼로 설정
+memory_buffer = StringIO()
+sys.stdout = memory_buffer
+
 import torch
 import numpy as np
 import cv2
@@ -12,7 +18,7 @@ from ultralytics.solutions import object_counter
 ## supervision
 
 
-#%%
+
 class ObjectDetection:
     def __init__(self, capture_index, frame_width=640, frame_height=480):
         # default parameters
@@ -34,7 +40,7 @@ class ObjectDetection:
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
 
         # model information
-        self.model = YOLO(model = "yolov8m-pose.pt")
+        self.model = YOLO(model = "input_yolov8m-pose.pt")
 
         # 클래스에서 사용할 카운터 생성
         self.inside_counter = self.object_counter(self.inside_region_point)
@@ -110,7 +116,6 @@ class ObjectDetection:
 
         while True:
             in_counts, out_counts, im0 = self.model_count()
-            print(in_counts, out_counts)
             cv2.imshow('YOLOv8 Detection', im0)
 
 
@@ -151,18 +156,8 @@ class ObjectDetection:
             
 
         
-#%%
 if __name__ == "__main__":
     detector = ObjectDetection(capture_index=0,frame_width = 1920, frame_height=1080)
     detector.main()
-#%%
 
-#%%
 
-#%%
-
-#%%
-
-#%%
-
-#%%
