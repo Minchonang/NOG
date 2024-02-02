@@ -2,7 +2,7 @@
 	position: absolute;
 	z-index: 1;
 	width: 100%;
-	padding: 5% 5%;
+	padding: 5% 5% 70px;
 	display: flex;
 	flex-direction: column;
 	font-family: "Godo", serif;
@@ -75,7 +75,7 @@
 	flex-direction: row;
 	align-items: center;
 	padding: 8px 0 8px;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	color: gray;
 	line-height: 130%;
 	white-space: normal;

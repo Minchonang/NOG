@@ -52,18 +52,19 @@ function SampleComp() {
 }
 
 function Index() {
-  return (
-    <div className={common.background}>
-      <Header />
-      <div className={common.main_area}>
-        <NavLink to="/" className={common.title_area}>
-          NOG
-        </NavLink>
-        <SampleComp />
-        <BottomNav />
-      </div>
-    </div>
-  );
+	const activeData = true;
+	return (
+		<div className={common.background}>
+			<Header />
+			<div className={common.main_area}>
+				<NavLink to="/" className={common.title_area}>
+					NOG
+				</NavLink>
+				<SampleComp />
+			<BottomNav activeData={activeData}/>
+			</div>
+		</div>
+	);
 }
 
 export default Index;

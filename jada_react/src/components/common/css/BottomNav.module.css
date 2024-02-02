@@ -1,5 +1,6 @@
 .background {
 	position: fixed;
+   z-index: 100;
 	bottom: 0;
    left: 0;
 	width: 100%;
@@ -10,31 +11,31 @@
 .main_area {
 	display: flex;
 	flex-direction: row;
-   /* justify-content: space-around; */
 	align-items: center;
    margin: 0 auto;
-   padding: 2% 6% 4%;
-
+   padding: 1% 6% 5%;
+   font-family: "godo";
 }
 
 .nav_btn {
    display: flex;
    flex-direction: column;
    margin: 0 auto ;
-   padding: 5% auto;
+   padding: 3% 10%;
    border-radius: 15px;
+   transition-duration: .3s;
 }
 .nav_btn img {
-   width: 40px;
-   height: 40px;
+   width: 30px;
+   height: 30px;
    margin: 0 auto 5px;
    border-radius: 10px;
 
 }
 .nav_btn div {
-   font-size: .8em;
+   font-size: .7em;
    margin: 0 auto;
 }
 .nav_btn:active {
-   background-color: white;
+   background-color: #ff9f0a;
 }

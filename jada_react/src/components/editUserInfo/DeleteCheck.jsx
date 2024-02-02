@@ -2,15 +2,17 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/DeleteCheck.module.css";
-import { API_BASE_URL } from "../../App.js";
+import BottomNav from "../common/jsx/BottomNav";
+import { API_BASE_URL } from "../../App";
 
 function DeleteCheck() {
-  const navigate = useNavigate();
-
-  // 이전 페이지로 돌아가는 기능
-  const goBack = () => {
-    navigate(-1);
-  };
+	const activeUser = true;
+	
+	// 이전 페이지로 돌아가는 기능
+	const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1); 
+	};
 
   // 서버에서 받아온 유저 정보
   const [userId, setUserId] = useState("");
@@ -129,16 +131,18 @@ function DeleteCheck() {
           </div>
 
           {/* 정보 수정 완료 */}
-          <div className={`${common.btn_area} ${style.deleteBtn_area}`}>
-            <button onClick={goBack}>돌아가기</button>
-            <button className={common.themeBgrColor} onClick={handleDeletion}>
-              회원탈퇴
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+					<div className={`${common.btn_area} ${style.deleteBtn_area}`}>
+						<button onClick={goBack}>돌아가기</button>
+						<button className={common.themeBgrColor} onClick={handleDeletion}>
+							회원탈퇴
+						</button>
+					</div>
+				</div>
+				<BottomNav activeUser={activeUser}/>
+			</div>
+		</>
+	);
+					
 }
 
 export default DeleteCheck;
