@@ -1,6 +1,6 @@
 .body{
     
-    background-color: rgb(48, 59, 113);
+    background-color: rgb(255, 255, 255);
     height: 100%;
     width: 100%;
     margin-top: 15%;
@@ -9,11 +9,11 @@
 
 }
 
-.body>.container>.title{
-    background-color: rgb(31, 25, 57);
+.body>.container>.keyword{
+    background-color: rgb(255, 255, 255);
     padding:2rem 1rem;
     /* font-size: 1rem; */
-    color: rgb(255, 255, 255);
+    color: rgb(255, 216, 154);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* flex-direction: column; */
@@ -21,39 +21,35 @@
     /* align-items: center; */
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
-    
+    cursor: pointer;
+    border: 0.3rem solid rgb(250, 185, 33);
+    box-shadow: 2px 2px 2px black;
+    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+
 }
-.body>.container>.title>h1,
-.body>.container>.main_title>h1
+.body>.container>.keyword>h1,
+.body>.container>.title>h1
 {
     font-size: 2rem;
 
 }
 
 
-.body>.container>.main_title{
-    background-color: rgb(197, 135, 35);
+.body>.container>.title{
+    background-color: rgb(255, 241, 169);
     padding: 1rem;
-    border: 0.5rem solid rgb(255, 252, 251);
-    border-radius: 1rem ;
+    /* border: 0.3rem solid rgb(31, 25, 57); */
+    border-radius: 0.3rem ;
+    box-shadow: 2px 2px 2px black;
+
+}
+
+.body>.container>.title>h1{
+    margin-bottom: 0.5rem;
 }
 
 
 
-
-
-/* 도넛 차트 사용량 */
-.doughnut_value{
-/* position: absolute; */
-
-/* transform: translateX(50%); */
-/* transform: translateY(50%); */
-
-/* right: 50%; */
-bottom:  20%;
-font-size: 2rem;
-color: rgb(252, 252, 0);
-}
 
 
 /* 차트 제목 */
@@ -62,38 +58,32 @@ color: rgb(252, 252, 0);
 /* top: 0; */
 /* background-color: red; */
 width: 100%;
+/* background-color: rgb(120, 120, 177); */
 padding: 0.5rem;
-font-size: 1rem;
-color: aqua;
+font-size: 2rem;
+color: rgb(255, 255, 255);
 }
+
+
+
 
 /* 차트부모: 한 횡 */
-.box_container{
-    background-color: rgb(158, 187, 212);
-    /* border-radius: 0.3rem; */
-    /* width: 100%; */
-    /* background-color: blue; */
-    /* display: grid; */
-    /* grid-template-columns: repeat(2, 1fr) */
-    /* display: flex; */
-    /* flex-direction: row;  */
 
-    display: grid; /* Grid 레이아웃 적용 */
-  grid-template-columns: repeat(2, 1fr); /* 두 개의 열을 균일한 크기로 생성 */
-  gap: 0.5rem; /* 그리드 아이템 사이의 간격 설정 */
-}
 .box_container_one{
-    display: block;
+    /* display: block; */
 
 }
 
 
 /* 개별 차트 하나 */
 .chart_box{
+margin-top: 1rem;
 
     /* border: 1px black solid; */
+    border-radius: 1rem;
     /* width: 10%; */
-    background-color: rgb(178, 113, 113);
+    background-color: rgb(10, 54, 99);
+    box-shadow:  0.1rem  0.1rem 2px rgb(255, 252, 252);
     /* padding: 1rem; */
     /* margin-top: 0.5rem; */
      /* position: relative; */
@@ -130,3 +120,17 @@ color: aqua;
     
     width: 20%;
 }
+
+
+/* 도넛 차트 사용량 */
+.doughnut_value{
+    /* position: absolute; */
+    
+    /* transform: translateX(50%); */
+    /* transform: translateY(50%); */
+    
+    /* right: 50%; */
+    bottom:  20%;
+    font-size: 2rem;
+    color: rgb(252, 252, 0);
+    }
