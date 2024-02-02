@@ -12,7 +12,7 @@ import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
 import MyChart from "./components/myHome/chart/MyChart";
 import MyChart2 from "./components/myHome/chart/MyChart2";
-import RadarChart from "./components/myHome/chart/RadarChart";
+import RadarChart from "./components/myHome/chart/RadarChart_ori";
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
