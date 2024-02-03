@@ -10,6 +10,7 @@
 }
 
 .body>.container>.keyword_box{
+    position: relative;
     background-color: rgb(255, 255, 255);
     padding:2rem 1rem;
     margin-left: 0.25rem;
@@ -19,13 +20,13 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* flex-direction: column; */
-    border-radius: 0.2rem;
+    border-radius: 0.1rem;
     /* align-items: center; */
     /* margin-top: 0.5rem; */
     /* margin-bottom: 0.25rem; */
     cursor: pointer;
     border: 0.3rem solid rgb(250, 185, 33);
-    box-shadow: 5px 5px 2px rgb(152, 152, 151);
+    box-shadow: 1px 1px 2px rgb(152, 152, 151);
     text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black;
 
 }
@@ -39,11 +40,12 @@
 
 .body>.container>.title{
     background-color: rgb(255, 241, 169);
+    background-image: linear-gradient(to bottom, rgb(62, 234, 74), #3ce06d, rgb(31, 141, 48)  , rgb(34, 120, 85),rgb(14, 96, 55) );
     padding: 1rem;
-    margin-bottom: 1rem;
-    /* border: 0.3rem solid rgb(31, 25, 57); */
-    border-radius: 0.3rem ;
-    box-shadow: 2px 2px 2px black;
+    margin-bottom: 0.5rem;
+    border: 0.3rem solid rgb(255, 255, 255);
+    /* border-radius: 0.3rem ; */
+    box-shadow: 0px 1px 2px rgb(155, 154, 154);
     color: white;
     text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black;
 
@@ -52,7 +54,7 @@
 
 .body>.container>.title>h1{
     margin-bottom: 0.5rem;
-    
+
 }
 
 
@@ -80,7 +82,7 @@ color: rgb(0, 0, 0);
     max-height:100rem;
     transition-property: max-height;
     transition-duration: 0.5s;
-    border: 1px black solid;
+    border: 1px rgba(0, 0, 0, 0.205) solid;
 
 
 }
@@ -90,6 +92,8 @@ color: rgb(0, 0, 0);
     overflow: hidden;
     transition-property: max-height;
     transition-duration: 0.2s;
+box-shadow: none;
+
 }
 
 
@@ -99,9 +103,9 @@ margin-top: 0.25rem;
 margin-bottom: 0.25rem;
 margin-left: 1rem;
 margin-right: 0.25rem;
-box-sizing: border-box;
-
-    border-radius: 0.2rem;
+/* box-sizing: border-box; */
+/* box-shadow: 1px 1px 1px 0.1rem rgb(161, 161, 161); */
+    border-radius: 1rem;
     /* width: 10%; */
     background-color: rgb(255, 255, 255);
     /* padding: 1rem; */
@@ -175,4 +179,17 @@ box-sizing: border-box;
 
 .close{
     padding: 0 1rem;
+    /* position: absolute;
+    right: 50%; */
+
+}
+.open{
+    position: absolute;
+    right: 2%;
+    bottom: 50%;
+    /* transform: translateX(50%); */
+    transform: translateY(50%);
+    text-shadow:none;
+
+    color: rgb(214, 131, 43);
 }
