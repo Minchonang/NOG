@@ -65,3 +65,4 @@ public class User implements Serializable {
   // @Column(name = "houseSquare", nullable = false)
   // private Integer houseSquare;
 }
+

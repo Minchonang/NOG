@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
+import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function FindId() {
+  const nameRef = useRef();
+  useEffect(() => {
+    setTimeout(() => {
+      if(nameRef.current) {
+        nameRef.current.focus();
+      }
+    }, 500);
+  }, [])
+
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailAuth, setEmailAuth] = useState("");
@@ -107,6 +117,7 @@ function FindId() {
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
+              ref={nameRef}
               placeholder="이름 입력"
               maxLength="20"
             />
@@ -139,6 +150,7 @@ function FindId() {
             <NavLink to="/find_pw">비밀번호를 잊으셨나요?</NavLink>
           </div>
         </div>
+        <BottomNav/>
       </div>
     </>
   );

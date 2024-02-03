@@ -1,78 +1,111 @@
 .inputWithBtn {
-  position: relative;
-  /* margin-bottom: 10px; */
+	position: relative;
+	/* margin-bottom: 10px; */
 }
 
 .inputWithBtn input {
-  margin-bottom: 0;
-  font-family: "godo";
+	margin-bottom: 0;
+	font-family: "godo";
 }
 
 .inputWithBtn button {
-  font-family: "Godo";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 10px;
-  width: 20%;
-  height: 70%;
-  margin: auto 0;
-  border: 0;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
+	font-family: "Godo";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 10px;
+	width: 20%;
+	height: 70%;
+	margin: auto 0;
+	border: 0;
+	border-radius: 10px;
+	color: white;
+	font-weight: bold;
 }
 
 /* --------------------------- */
 /* 이메일 인증 구역 */
 .inputEmileAuth_area {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 auto 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0 auto 0;
 }
 
 .inputEmileAuth_area input {
-  width: 100%;
-  padding: 4% 10px;
-  margin-bottom: 10px;
-  font-size: 1em;
-  outline: none;
-  border: 2px solid #ff9f0a;
-  border-radius: 10px;
-  font-family: "Godo";
+	width: 100%;
+	padding: 4% 10px;
+	margin-bottom: 10px;
+	font-size: 1em;
+	outline: none;
+	border: 2px solid #ff9f0a;
+	border-radius: 10px;
+	font-family: "Godo";
 }
 
 .inputEmileAuth_area input::placeholder {
-  font-size: 0.8em;
-  font-family: "Godo";
-  color: rgb(198, 198, 198);
+	font-size: 0.8em;
+	font-family: "Godo";
+	color: rgb(198, 198, 198);
+}
+
+/* --------------------------- */
+/* 아이디, 비번, 이메일 인증 구역 */
+.idEmailPwdInput_area {
+	border: 2px solid #ff9f0a;
+	border-radius: 10px;
+	margin-bottom: 1em;
+}
+
+.idEmailPwdInput_area input {
+	border: 0;
+	padding: 5% 10px;
+	width: 100%;
+	border-bottom: 1px solid grey;
+	font-size: 1em;
+}
+.idEmailPwdInput_area input::placeholder,
+.inputWithBtn input::placeholder {
+	font-size: 0.8em;
+	font-family: "Godo";
+	color: rgb(198, 198, 198);
+}
+.inputWithBtn input {
+	border-radius: 10px 10px 0 0;
+}
+
+.inputWithBtn:last-child input {
+	border-radius: 0 0 10px 10px;
+	border: 0;
+}
+.idEmailPwdInput_area input:focus {
+	outline: none;
 }
 
 /* --------------------------- */
 /* 사용자 정보 인증 구역 */
 .userInfoInput_area {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 auto 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0 auto 0;
 }
 
 .userInfoInput_area input {
-  width: 100%;
-  padding: 4% 10px;
-  margin-bottom: 10px;
-  font-size: 1em;
-  outline: none;
-  border: 2px solid #ff9f0a;
-  border-radius: 10px;
-  font-family: "Godo";
+	width: 100%;
+	padding: 4% 10px;
+	margin-bottom: 10px;
+	font-size: 1em;
+	outline: none;
+	border: 2px solid #ff9f0a;
+	border-radius: 10px;
+	font-family: "Godo";
 }
 
 .userInfoInput_area input::placeholder {
-  font-size: 0.8em;
-  font-family: "Godo";
-  color: rgb(198, 198, 198);
+	font-size: 0.8em;
+	font-family: "Godo";
+	color: rgb(198, 198, 198);
 }
 
 /* --------------------------- */

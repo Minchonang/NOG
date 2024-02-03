@@ -10,6 +10,8 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
+import ChatTest from "./components/chatbot/ChatTest";
+import HomeControl from "./components/homeControl/HomeControl";
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -19,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/chatbot" element={<ChatTest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
@@ -27,6 +30,7 @@ function App() {
           <Route path="/check_user" element={<CheckUser />} />
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
           <Route path="/delete_check" element={<DeleteCheck />} />
+          <Route path="/homeControl" element={<HomeControl />} />
         </Routes>
       </BrowserRouter>
     </>

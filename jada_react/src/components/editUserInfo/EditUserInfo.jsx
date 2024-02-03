@@ -4,8 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { API_BASE_URL } from '../../App.js';
 import common from '../common/css/common.module.css';
 import style from './css/EditUserInfo.module.css';
+import BottomNav from '../common/jsx/BottomNav.jsx';
 
 function EditUserInfo() {
+    const activeUser = true;
+
     const [selectedElement1, setSelectedElement1] = useState('');
     const [selectedElement2, setSelectedElement2] = useState('');
     const [selectedElement3, setSelectedElement3] = useState('');
@@ -259,7 +262,7 @@ function EditUserInfo() {
         };
 
         try {
-            // 회원정보 조회
+            // 서버로 데이터 전송 - 경로 수정 필요
             const response = await fetch(`${API_BASE_URL}/api/userinfo/userfind`, {
                 method: 'POST',
                 headers: {
@@ -330,6 +333,17 @@ function EditUserInfo() {
 
         // user_id를 가져오기
         const userIdFromSession = sessionStorage.getItem('user_id');
+
+        // const editUserDto = {
+        // 	user_id: userIdFromSession,
+        // 	email: newEmail,
+        // 	phone: newPhone,
+        // 	password: newPwd,
+        // 	address1: selectedElement1,
+        // 	address2: selectedElement2,
+        // 	address3: selectedElement3,
+        // 	houseNum: parseInt(newHouseNum),
+        // };
 
         const editUserDto = {
             user_id: userIdFromSession,
@@ -407,6 +421,7 @@ function EditUserInfo() {
             if (response.ok) {
                 console.log('회원 정보 수정 완료');
                 alert('회원 정보가 수정되었습니다.');
+                window.location.href = '/edit_userinfo';
             } else {
                 console.log('회원 정보 수정 실패');
                 alert('오류가 발생하였습니다.');
@@ -574,9 +589,10 @@ function EditUserInfo() {
                     </div>
                     {/* 회원탈퇴 */}
                     <div className={style.delete_account}>
-                        <NavLink to="/delete_check">회원탈퇴</NavLink>
+                        <NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
                     </div>
                 </div>
+                <BottomNav activeUser={activeUser} />
             </div>
         </>
     );
