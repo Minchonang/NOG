@@ -13,8 +13,7 @@ import DoughnutChart from './DoughnutChart';
 const MyChart = () => {
   const [visibleContainers, setVisibleContainers] = useState({});
   const handleBoxClick = (boxNum) => {
-    setVisibleContainers((prevContainers) => ({
-      ...prevContainers,
+    setVisibleContainers((prevContainers) => ({...prevContainers,
       [boxNum]: !prevContainers[boxNum],
     }));
   };
@@ -37,13 +36,13 @@ const MyChart = () => {
           <span>직전달 대비 절약 금액</span>
         </div>
         {/*도넛 차트 박스  */}
-        <div className={style.box_container}>
+        <div className={visibleContainers['1'] ? style.box_container : style.box_container_close}>
          <div className={style.chart_box}>
             {/* 도넛 제목 박스 */}
             <div className={style.chart_title_box}>
               <h1 className={style.chart_box_title}>이달 소비 전력량(kW) </h1>
               <span className={style.spring}></span>          
-              <span className={style.close}> ▲</span>
+              <span className={style.close} onClick={()=>handleBoxClick(1)}> ▲</span>
             </div>
 
             <DoughnutChart />
@@ -63,25 +62,33 @@ const MyChart = () => {
         
 
 
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(2)}>
           <h1> 오후 소비형</h1>
           <span>가장 많은 소비시간대</span>
 
         </div>
 
         {/* 두번째 줄 */}
-        <div className={style.box_container}> 
+        <div className={visibleContainers['2'] ? style.box_container : style.box_container_close}>
+
         <div className={style.chart_box}>
-          <span className={style.chart_box_title}>소비 유형 </span>          
+        <div className={style.chart_title_box}>
+
+          <span className={style.chart_box_title}>소비 유형 </span> 
+          <span className={style.spring}></span>     
+          <span className={style.close} onClick={()=>handleBoxClick(2)}> ▲</span>  
+          </div>  
+
           <PieChart />
         </div>
         </div>
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(3)}>
           <h1>금요일</h1>
           <span>소비량이 가장 많은 요일</span>
           
         </div>
-        <div className={style.box_container}> 
+        <div className={visibleContainers['3'] ? style.box_container : style.box_container_close}>
+        
 
 <div className={style.chart_box}>
   <span className={style.chart_box_title}>요일별 소비 패턴</span>      
@@ -92,25 +99,28 @@ const MyChart = () => {
 
 
 
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(4)}>
           <h1>13일</h1>
           <span>이달 가장 사용량이 많았던 날</span>
         </div>   
 
-        <div className={style.box_container}> 
+        <div className={visibleContainers['4'] ? style.box_container : style.box_container_close}>
+
+
 
 <div className={style.chart_box}>
   <span className={style.chart_box_title}>이달 소비 패턴</span>      
   <LineChart></LineChart>
 </div>
 </div>
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(5)}>
           <h1>4kW</h1>
           <span>하루 평균 사용량</span>
         </div>
 
 
-        <div className={style.box_container}> 
+        <div className={visibleContainers['5'] ? style.box_container : style.box_container_close}>
+
 
         <div className={style.chart_box}>
           <span className={style.chart_box_title}>평균 소비 패턴</span>      
@@ -121,12 +131,12 @@ const MyChart = () => {
 
 
 
-        <div className={style.keyword_box}>
+        <div className={style.keyword_box} onClick={()=>handleBoxClick(6)}>
           <h1>54%</h1>
           <span>지역주민 대비 사용량</span>
         </div>
        
-      <div className={style.box_container}> 
+      <div className={visibleContainers['6'] ? style.box_container : style.box_container_close}>
        
 
        <div className={style.chart_box}>

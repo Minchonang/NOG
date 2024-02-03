@@ -19,7 +19,7 @@
     /* flex-direction: column; */
     border-radius: 0.2rem;
     /* align-items: center; */
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.25rem;
     cursor: pointer;
     border: 0.3rem solid rgb(250, 185, 33);
@@ -68,11 +68,27 @@ color: rgb(0, 0, 0);
 
 
 /* 차트부모: 한 횡 */
-
 .box_container{
+    /* height: 100%; */
+    transition-duration: 1s;
+}
+.box_container_close{
+    /* height: 0; */
     /* display: none; */
+    transition-duration: 1s;
 
-    /* display: block; */
+
+}
+.box_container *{
+/* height: 100%; */
+    transition-duration: 1s;
+
+}
+
+
+.box_container_close *{
+    /* height:0; */
+    transition-duration: 1s;
 
 }
 
