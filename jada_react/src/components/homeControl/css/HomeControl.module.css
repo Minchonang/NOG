@@ -54,19 +54,34 @@
   border: 2px solid;
   z-index: 1;
   width: 100%;
-  padding: 20% 10% 70px;
+  padding: 15% 10% 7%;
   display: flex;
   font-family: "Godo", serif;
   font-weight: lighter;
   margin-top: 2.6em;
   border: none;
-  background-color: rgb(88, 189, 155);
+  background-color: #fbf7ef;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .outdoor_temp,
 .home_temp,
 .recommend_temp {
   text-align: center;
+  font-size: 1.2em;
+}
+
+.outdoor_temp_title,
+.home_temp_title,
+.recommend_temp_title {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+
+.outdoor_temp_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ----------------------------------- */

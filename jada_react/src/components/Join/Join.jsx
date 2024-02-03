@@ -272,6 +272,7 @@ function Join() {
         }));
     };
 
+    // 이메일 인증 했는지 확인
     const handleVerify = (e) => {
         e.preventDefault();
         if (!authkey) {
@@ -287,6 +288,7 @@ function Join() {
         }
     };
 
+    // 회원가입버튼
     const handleJoin = async (e) => {
         e.preventDefault();
 
@@ -316,7 +318,9 @@ function Join() {
                 password: formData.password,
                 name: formData.name,
                 phone: formData.phone,
-                address: formData.address,
+                address1: selectedElement1,
+                address2: selectedElement2,
+                address3: formData.address3,
                 houseNum: formData.house_num,
                 // houseSquare: formData.house_square, // 만약 사용할 경우
             };
@@ -413,7 +417,7 @@ function Join() {
                         <input
                             type="password"
                             name="password"
-                            placeholder="비밀번호"
+                            placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
                             value={formData.password}
                             onChange={handleInputChange}
                         />
@@ -422,7 +426,7 @@ function Join() {
                             <input
                                 type="text"
                                 name="email"
-                                placeholder="이메일 주소"
+                                placeholder="이메일 주소(ex.aaa@gmail.com)"
                                 value={formData.email}
                                 onChange={handleInputChange}
                             />
@@ -452,7 +456,7 @@ function Join() {
 
                             <input
                                 className={common.themeBorder}
-                                type="text"
+                                type="number"
                                 name="house_num"
                                 placeholder="가구원 수"
                                 value={formData.house_num}
@@ -530,6 +534,11 @@ function Join() {
                             </div>
                         </div>
                     )}
+                </div>
+                <div className={styles.option_area}>
+                    <NavLink to="/login" activeclassname={common.themeColor}>
+                        로그인으로 돌아가기
+                    </NavLink>
                 </div>
             </div>
             <BottomNav />
