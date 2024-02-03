@@ -1,5 +1,6 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import style from './css/MyChart.module.css';
+import axios from 'axios';
 import 'chart.js/auto';
 import RadarChart from './RadarChart';
 import PieChart from './PieChart';
@@ -15,11 +16,24 @@ const MyChart = () => {
   const handleBoxClick = (boxNum) => {
     setVisibleContainers((prevContainers) => ({...prevContainers,
       [boxNum]: !prevContainers[boxNum],
+
     }));
   };
 
   const [이달의소비전력량, set이달의소비전력량] = useState([]);
   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('your_api_endpoint');
+        set이달의소비전력량(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
 
 
 
