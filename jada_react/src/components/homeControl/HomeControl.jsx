@@ -50,7 +50,7 @@ function HomeControl() {
       const response = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       );
-      console.log(response.data.main.temp); // 온도 출력
+      //   console.log(response.data.main.temp);
       setOutdoorTemp(response.data.main.temp);
     } catch (error) {
       console.error(error);
@@ -77,7 +77,6 @@ function HomeControl() {
       if (response.ok) {
         // // 서버 응답이 성공인 경우
         const result = await response.json();
-        console.log(user_id + "-------------------");
 
         // 추출된 데이터 사용
         setUserId(result.user_id);
@@ -87,10 +86,10 @@ function HomeControl() {
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
         const fullAddress = `${result.address1} ${result.address2}`;
         getAddressLatLng(fullAddress).then((coords) => {
-          console.log(result.address1);
-          console.log(result.address2);
-          console.log(fullAddress);
-          console.log(coords); // 위도와 경도 출력
+          //   console.log(result.address1);
+          //   console.log(result.address2);
+          //   console.log(fullAddress);
+          //   console.log(coords);
           getWeather(coords.lat, coords.lng);
         });
       } else {
