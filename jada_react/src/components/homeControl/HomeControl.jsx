@@ -21,6 +21,7 @@ function HomeControl() {
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
   const [outdoorTemp, setOutdoorTemp] = useState("");
+  const [weatherIcon, setWeatherIcon] = useState("");
 
   //   주소 위도 경도로 바꾸기
   const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
@@ -52,6 +53,10 @@ function HomeControl() {
       );
       //   console.log(response.data.main.temp);
       setOutdoorTemp(response.data.main.temp);
+
+      const weatherIcon = response.data.weather[0].icon;
+      // console.log(weatherIcon); // 아이콘 정보 출력
+      setWeatherIcon(weatherIcon);
     } catch (error) {
       console.error(error);
     }
@@ -118,17 +123,21 @@ function HomeControl() {
 
       {/*--------------------온도-------------------- */}
       <div className={style.temp_area}>
-        <div className={style.outdoor_temp_title}>
-          실외온도
+        <div className={style.outdoor_temp_area}>
+          <div className={style.outdoor_temp_title}>실외온도</div>
           <div className={style.outdoor_temp}>{outdoorTemp}</div>
+          <img
+            className={style.outdoor_temp_icon}
+            src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
+          ></img>
         </div>
-        <div className={style.home_temp_title}>
-          실내온도
-          <div className={style.home_temp}>3.2º</div>
+        <div className={style.home_temp_area}>
+          <div className={style.home_temp_title}>실내온도</div>
+          <div className={style.home_temp}>3.2</div>
         </div>
-        <div className={style.recommend_temp_title}>
-          추천온도
-          <div className={style.recommend_temp}>3.2º</div>
+        <div className={style.recommend_temp_area}>
+          <div className={style.recommend_temp_title}>추천온도</div>
+          <div className={style.recommend_temp}>3.2</div>
         </div>
       </div>
 
