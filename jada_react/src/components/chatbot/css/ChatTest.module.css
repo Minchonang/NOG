@@ -1,0 +1,82 @@
+.background {
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+}
+
+/* 상단바 */
+.title_area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo";
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+.title_area div {
+  margin-left: 10px;
+  font-size: 0.9em;
+}
+
+/* ------------------ */
+.chatContainer {
+  /* max-height: 100%; */
+  max-height: calc(100vh - 128px);
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+.helloNog {
+  border-radius: 5%;
+  background-color: #ffe3b7;
+  padding: 1rem;
+  margin: 5px 8em 1em 1em;
+}
+
+.question_box {
+  text-align: right;
+  background-color: #a0d16f;
+  padding: 1rem;
+  margin: 0 1rem 1em 8rem;
+}
+
+/* ------------- */
+/* 채팅 입력칸 */
+.input_area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: #fbf7ef;
+}
+
+.input_area input {
+  width: 100%;
+  padding: 4% 10px;
+  font-size: 1em;
+  outline: none;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  font-family: "Godo";
+  margin-right: 10px;
+}
+
+.send_btn {
+  border-radius: 10px;
+  border: none;
+  width: 18%;
+  font-size: large;
+  border: 1px solid #d0d0d0;
+}

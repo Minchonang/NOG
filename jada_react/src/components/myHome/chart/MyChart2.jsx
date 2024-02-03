@@ -39,10 +39,10 @@ const MyChart = () => {
         <div className={visibleContainers['1'] ? style.box_container : style.box_container_close}>
          <div className={style.chart_box}>
             {/* 도넛 제목 박스 */}
-            <div className={style.chart_title_box}>
+            <div className={style.chart_title_box} onClick={()=>handleBoxClick(1)}>
               <h1 className={style.chart_box_title}>이달 소비 전력량(kW) </h1>
               <span className={style.spring}></span>          
-              <span className={style.close} onClick={()=>handleBoxClick(1)}> ▲</span>
+              <span className={style.close} > ▲</span>
             </div>
 
             <DoughnutChart className={style.a}/>
@@ -72,11 +72,11 @@ const MyChart = () => {
         <div className={visibleContainers['2'] ? style.box_container : style.box_container_close}>
 
         <div className={style.chart_box}>
-        <div className={style.chart_title_box}>
+        <div className={style.chart_title_box} onClick={()=>handleBoxClick(2)}>
 
           <span className={style.chart_box_title}>소비 유형 </span> 
           <span className={style.spring}></span>     
-          <span className={style.close} onClick={()=>handleBoxClick(2)}> ▲</span>  
+          <span className={style.close}> ▲</span>  
           </div>  
 
           <PieChart />
@@ -91,7 +91,12 @@ const MyChart = () => {
         
 
 <div className={style.chart_box}>
-  <span className={style.chart_box_title}>요일별 소비 패턴</span>      
+<div className={style.chart_title_box} onClick={()=>handleBoxClick(3)}>
+
+  <span className={style.chart_box_title}>요일별 소비 패턴</span> 
+  <span className={style.spring}></span>     
+          <span className={style.close} > ▲</span>  
+          </div>      
   <LineChart></LineChart>
 </div>
 </div>
@@ -109,7 +114,12 @@ const MyChart = () => {
 
 
 <div className={style.chart_box}>
-  <span className={style.chart_box_title}>이달 소비 패턴</span>      
+<div className={style.chart_title_box} onClick={()=>handleBoxClick(4)}>
+
+  <span className={style.chart_box_title}>이달 소비 패턴</span>
+  <span className={style.spring}></span>     
+          <span className={style.close} > ▲</span>  
+          </div>       
   <LineChart></LineChart>
 </div>
 </div>
@@ -123,7 +133,13 @@ const MyChart = () => {
 
 
         <div className={style.chart_box}>
-          <span className={style.chart_box_title}>평균 소비 패턴</span>      
+<div className={style.chart_title_box} onClick={()=>handleBoxClick(5)}>
+
+          <span className={style.chart_box_title}>평균 소비 패턴</span>    
+          <span className={style.spring}></span>     
+          <span className={style.close} > ▲</span>    
+        </div>
+
           <LineChart></LineChart>
         </div>
         </div>
@@ -140,14 +156,23 @@ const MyChart = () => {
        
 
        <div className={style.chart_box}>
-         <span className={style.chart_box_title}>도시인구 대비 비교</span>          
+<div className={style.chart_title_box} onClick={()=>handleBoxClick(6)}>
+
+         <span className={style.chart_box_title}>도시인구 대비 비교</span> 
+         <span className={style.spring}></span>     
+          <span className={style.close} > ▲</span>    
+        </div>         
          <RadarChart />
        </div>
 
     
      <div className={style.chart_box}>
+     <div className={style.chart_title_box} onClick={()=>handleBoxClick(6)}>
 
-          <span className={style.chart_box_title}>비교</span>      
+          <span className={style.chart_box_title}>비교</span> 
+          <span className={style.spring}></span>     
+          <span className={style.close} > ▲</span>    
+        </div>     
 
            
            <BarChart></BarChart>
