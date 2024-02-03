@@ -68,38 +68,30 @@ color: rgb(0, 0, 0);
 
 
 /* 차트부모: 한 횡 */
-.box_container{
-    /* height: 100%; */
-    transition-duration: 1s;
-}
-.box_container_close{
-    /* height: 0; */
-    /* display: none; */
-    transition-duration: 1s;
+
+.box_container>.chart_box{
+    max-height:100rem;
+    transition-property: max-height;
+    transition-duration: 0.5s;
+    border: 1px black solid;
 
 
 }
-.box_container *{
-/* height: 100%; */
-    transition-duration: 1s;
 
-}
-
-
-.box_container_close *{
-    /* height:0; */
-    transition-duration: 1s;
-
+.box_container_close>.chart_box {
+    max-height: 0;
+    overflow: hidden;
+    transition-property: max-height;
+    transition-duration: 0.2s;
 }
 
 
 /* 개별 차트 하나 */
 .chart_box{
-margin-top: 1rem;
-margin-bottom: 1rem;
+margin-top: 0.5rem;
+margin-bottom: 0.5rem;
 
-    border: 1px black solid;
-    border-radius: 1rem;
+    border-radius: 0.2rem;
     /* width: 10%; */
     background-color: rgb(255, 255, 255);
     /* padding: 1rem; */
@@ -142,6 +134,7 @@ margin-bottom: 1rem;
 .doughnut_chart_box{
     position: relative;
     width: 100%;
+    height: 100%;
 }
 /* 도넛 차트 사용량 */
 .doughnut_value{

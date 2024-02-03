@@ -45,7 +45,7 @@ const MyChart = () => {
               <span className={style.close} onClick={()=>handleBoxClick(1)}> ▲</span>
             </div>
 
-            <DoughnutChart />
+            <DoughnutChart className={style.a}/>
 
             {/* 해설상자 */}
             <div className={style.text_box}>
