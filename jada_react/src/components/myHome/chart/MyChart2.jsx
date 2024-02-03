@@ -1,5 +1,4 @@
 import {React, useState} from 'react';
-import { Doughnut, Line } from 'react-chartjs-2';
 import style from './css/MyChart.module.css';
 import 'chart.js/auto';
 import RadarChart from './RadarChart';
@@ -8,7 +7,6 @@ import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
 
-// import 'chartjs-plugin-datalabels'; // 추가한 플러그인을 import
 
 const MyChart = () => {
   const [visibleContainers, setVisibleContainers] = useState({});
