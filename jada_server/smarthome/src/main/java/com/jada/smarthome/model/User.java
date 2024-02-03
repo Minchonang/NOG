@@ -53,10 +53,10 @@ public class User implements Serializable {
   // 0 : 고객, 1 : 관리자
   private Integer role;
   
-  @Column(name = "address1", nullable = false, length = 10)
+  @Column(name = "address1", nullable = false, length = 30)
   private String address1;
   
-  @Column(name = "address2", nullable = false, length = 10)
+  @Column(name = "address2", nullable = false, length = 30)
   private String address2;
   
   @Column(name = "address3", length = 150)
