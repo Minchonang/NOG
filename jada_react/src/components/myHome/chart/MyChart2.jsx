@@ -9,12 +9,20 @@ import DoughnutChart from './DoughnutChart';
 
 
 const MyChart = () => {
+  // 키워드 배너를 눌렀는지 값을 할당   
   const [visibleContainers, setVisibleContainers] = useState({});
+  // 키워드 박스를 눌렀을 때 해당 키워드 박스에 해당하는 차트 박스를 on/off
   const handleBoxClick = (boxNum) => {
     setVisibleContainers((prevContainers) => ({...prevContainers,
       [boxNum]: !prevContainers[boxNum],
     }));
   };
+
+  const [이달의소비전력량, set이달의소비전력량] = useState([]);
+  
+
+
+
   return (
     <div className={style.body}>
       <div className={style.container}>
