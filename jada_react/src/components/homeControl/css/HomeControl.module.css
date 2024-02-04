@@ -78,7 +78,9 @@
   margin-bottom: 5px;
 }
 
-.outdoor_temp_area {
+.outdoor_temp_area,
+.home_temp_area,
+.recommend_temp_area {
   display: flex;
   flex-direction: column;
   align-items: center;
