@@ -66,7 +66,7 @@ def handle_message(message):
     # 답변
     answer = df['답변(Answer)'][best_sim_idx]
     img = df['답변 이미지'][best_sim_idx]
-    if score < 0.1:
+    if score < 0.3:
         answer = "부정확한 질문이거나 답변할 수 없습니다.\n 수일 내로 답변을 업데이트하겠습니다.\n 죄송합니다 :("
 
     send_json_data_str = {
