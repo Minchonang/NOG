@@ -120,11 +120,17 @@ const ChatTest = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <img
-                            src={chat.img}
-                            style={{ maxWidth: "100%", height: "100%" }}
-                            alt="chat image"
-                          />
+                          {/(.jpg|.jpeg|.png|.gif)$/.test(
+                            chat.img.toLowerCase()
+                          ) ? (
+                            <img
+                              src={chat.img}
+                              style={{ maxWidth: "100%", height: "100%" }}
+                              alt="chat image"
+                            />
+                          ) : (
+                            <span>{chat.img}</span>
+                          )}
                         </a>
                       ) : (
                         <span>{chat.img}</span>
