@@ -10,6 +10,8 @@ import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 import axios from "axios";
 import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { BiSolidUpArrow } from "react-icons/bi";
 
 function HomeControl() {
   const [lightOn, setLightOn] = useState(false);
@@ -26,6 +28,13 @@ function HomeControl() {
   const [weatherIcon, setWeatherIcon] = useState("");
   const [recommendTemp, setRecommendTemp] = useState(null);
   const [userHumanCount, setUserHumanCount] = useState(0);
+
+  const [homeTemp, setUserHomeTemp] = useState("");
+  const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
+  const [homeAirOnOff, setHomeAirOnOff] = useState("");
+  const [homeLightOnOff, setHomeLightOnOff] = useState("");
+  const [homeAirTemp, setHomeAirTemp] = useState("");
+  const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
 
   // 주소 위도 경도로 바꾸기
   const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
@@ -177,7 +186,7 @@ function HomeControl() {
         </div>
         <div className={style.home_temp_area}>
           <div className={style.home_temp_title}>실내온도</div>
-          <div className={style.home_temp}>3.2</div>
+          <div className={style.home_temp}>{homeTemp}</div>
           <FcHome
             style={{
               width: "2em",
@@ -207,7 +216,7 @@ function HomeControl() {
         {/*--------------------집 인원--------------------*/}
         <div className={style.homeCount}>
           <div className={style.homeCount_name}>{userId}님의 집</div>
-          <div className={style.count}>현재 0명</div>
+          <div className={style.count}>현재 {userHumanCount}명</div>
         </div>
 
         {/*--------------------전등--------------------*/}
@@ -245,7 +254,11 @@ function HomeControl() {
           {/*--------------------보일러--------------------*/}
           <div className={style.boiler}>
             <div className={style.boiler_name}>보일러</div>
-            <div className={style.boiler_temp}>보일러 온도</div>
+            <div className={style.boiler_temp}>
+              <BiSolidDownArrow />
+              설정 온도
+              <BiSolidUpArrow />
+            </div>
             {/* <label className={style.switch}>
               <input
                 type="checkbox"
@@ -268,7 +281,11 @@ function HomeControl() {
           {/*--------------------에어컨--------------------*/}
           <div className={style.airConditioner}>
             <div className={style.airConditioner_name}>에어컨</div>
-            <div className={style.airConditioner_temp}>에어컨 온도</div>
+            <div className={style.airConditioner_temp}>
+              <BiSolidDownArrow />
+              설정 온도
+              <BiSolidUpArrow />
+            </div>
             {/* <label className={style.switch}>
               <input
                 type="checkbox"
