@@ -9,6 +9,9 @@ import chatbotimg from "../chatbot/nogimg.png";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 import axios from "axios";
+import { AiOutlineSmile } from "react-icons/ai";
+import { FcHome } from "react-icons/fc";
+import { FcCloseUpMode } from "react-icons/fc";
 
 function HomeControl() {
   const [lightOn, setLightOn] = useState(false);
@@ -22,6 +25,7 @@ function HomeControl() {
   const [userAddress2, setUserAddress2] = useState("");
   const [outdoorTemp, setOutdoorTemp] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
+  const [recommendTemp, setRecommendTemp] = useState(null);
 
   //   주소 위도 경도로 바꾸기
   const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
@@ -51,25 +55,40 @@ function HomeControl() {
       const response = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       );
-      //   console.log(response.data.main.temp);
-      setOutdoorTemp(response.data.main.temp);
 
+      // 온도 정보 저장
+      const outdoorTemp = response.data.main.temp;
+      setOutdoorTemp(outdoorTemp);
       const weatherIcon = response.data.weather[0].icon;
-      // console.log(weatherIcon); // 아이콘 정보 출력
       setWeatherIcon(weatherIcon);
+
+      // 추천 온도 설정
+      let recommendTemp;
+      if (outdoorTemp < -10) {
+        recommendTemp = "20~22";
+      } else if (outdoorTemp < 10) {
+        recommendTemp = "20~22";
+      } else if (outdoorTemp < 20) {
+        recommendTemp = "22~24";
+      } else if (outdoorTemp < 30) {
+        recommendTemp = "24~26";
+      } else {
+        recommendTemp = "26~28";
+      }
+      setRecommendTemp(recommendTemp);
     } catch (error) {
       console.error(error);
     }
   }
 
-  // user_id를 가져오기
-  const user_id = sessionStorage.getItem("user_id");
-
-  const editUserDto = {
-    user_id: user_id,
-  };
-
   const serverlink = async (e) => {
+    // user_id를 가져오기
+    const user_id = sessionStorage.getItem("user_id");
+
+    const editUserDto = {
+      user_id: user_id,
+    };
+
     try {
       // 서버로 데이터 전송 - 경로 수정 필요
       const response = await fetch(`${API_BASE_URL}/api/userinfo/userfind`, {
@@ -84,17 +103,13 @@ function HomeControl() {
         const result = await response.json();
 
         // 추출된 데이터 사용
-        setUserId(result.user_id);
+        setUserId(result.userId);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
 
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
         const fullAddress = `${result.address1} ${result.address2}`;
         getAddressLatLng(fullAddress).then((coords) => {
-          //   console.log(result.address1);
-          //   console.log(result.address2);
-          //   console.log(fullAddress);
-          //   console.log(coords);
           getWeather(coords.lat, coords.lng);
         });
       } else {
@@ -107,12 +122,6 @@ function HomeControl() {
   };
 
   serverlink();
-
-  //   const address = "광주광역시 광산구";
-  //   getAddressLatLng(address).then((coords) => {
-  //     console.log(coords); // 위도와 경도 출력
-  //     getWeather(coords.lat, coords.lng);
-  //   });
 
   return (
     <div className={common.background}>
@@ -134,18 +143,36 @@ function HomeControl() {
         <div className={style.home_temp_area}>
           <div className={style.home_temp_title}>실내온도</div>
           <div className={style.home_temp}>3.2</div>
+          <FcHome
+            style={{
+              width: "2em",
+              height: "2em",
+              display: "flex",
+              justifyItems: "center",
+              marginTop: "4px",
+            }}
+          />
         </div>
         <div className={style.recommend_temp_area}>
           <div className={style.recommend_temp_title}>추천온도</div>
-          <div className={style.recommend_temp}>3.2</div>
+          <div className={style.recommend_temp}>{recommendTemp}</div>
+          <FcCloseUpMode
+            style={{
+              width: "2em",
+              height: "2em",
+              display: "flex",
+              justifyItems: "center",
+              marginTop: "4px",
+            }}
+          />
         </div>
       </div>
 
       <div className={style.main_area}>
         {/*--------------------집 인원--------------------*/}
         <div className={style.homeCount}>
-          <div className={style.homeCount_name}>현재 집에 남아있는 가족 수</div>
-          <div className={style.count}>0명</div>
+          <div className={style.homeCount_name}>{userId}님의 집</div>
+          <div className={style.count}>현재 0명</div>
         </div>
 
         {/*--------------------전등--------------------*/}
