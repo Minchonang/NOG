@@ -20,13 +20,14 @@ const MyChart = () => {
     }));
   };
 
-  const [이달의소비전력량, set이달의소비전력량] = useState([]);
+  const [userData, setUserData] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('your_api_endpoint');
-        set이달의소비전력량(response.data);
+        const response = await axios.get(`http://localhost:8080/myHome/test5`);
+        setUserData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
