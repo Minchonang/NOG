@@ -7,7 +7,7 @@ import PieChart from './PieChart';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
-
+import Plot from 'react-plotly.js';
 
 const MyChart = () => {
   // 키워드 배너를 눌렀는지 값을 할당   
@@ -21,7 +21,10 @@ const MyChart = () => {
   };
 
   const [userData, setUserData] = useState([]);
-  
+  const [graphImage, setGraphImage] = useState('');
+  const [mapHtml, setMapHtml] = useState('');
+  const [chartHtml, setChartHtml] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,7 +37,30 @@ const MyChart = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // axios로 GET 요청 보내기
+        const response = await axios.get('http://127.0.0.1:8000/first/test2/');
+        
+        // 응답에서 데이터 추출하고 상태 업데이트
+        const data = response.data;
+        setMapHtml(data.map_html);
+        setChartHtml(data.chart_html);
+
+        console.log(1213321);
+        // console.log(data);
+        // console.log(data.map_html);
+        // console.log(data.chart_html);
+
+      } catch (error) {
+        console.error('Error fetching graph data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
 
 
@@ -67,12 +93,19 @@ const MyChart = () => {
               {/* <span className={style.close} > ▲</span> */}
             </div>
 
-            <DoughnutChart />
-
+            {/* <DoughnutChart /> */}
+            <div>
+      {/* {graphImage && <img src={`data:image/png;base64,${graphImage}`} alt="Graph" />} */}
+      {/* <div dangerouslySetInnerHTML={{ __html: mapHtml }} /> */}
+      {/* <div dangerouslySetInnerHTML={{ __html: chartHtml }} /> */}
+      <div>
+            {chartHtml && <Plot data={JSON.parse(chartHtml).data}  layout={JSON.parse(chartHtml).layout}/>}
+        </div>
+    </div>
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
+            <p >{1}이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
             <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
             <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
             </div>
