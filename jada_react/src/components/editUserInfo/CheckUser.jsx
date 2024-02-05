@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import style from "./css/CheckUser.module.css";
 import common from "../common/css/common.module.css";
 // import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
@@ -80,7 +80,7 @@ function CheckUser() {
           <label className={common.guide_label}>
             회원님의 비밀번호를 다시 한번 확인합니다.
           </label>
-          <div className={common.input_area}>
+          <div className={style.input_area}>
             <input
               type={showPassword ? "text" : "password"}
               value={userPwd}
@@ -89,16 +89,9 @@ function CheckUser() {
               placeholder="비밀번호 입력"
               maxLength="25"
             />
-            <span
-              onClick={togglePasswordVisibility}
-              className={
-                showPassword ? (
-                  <FaEye /> // 보일 때의 아이콘 클래스
-                ) : (
-                  <FaEyeSlash />
-                ) // 안 보일 때의 아이콘 클래스
-              }
-            ></span>
+            <span onClick={togglePasswordVisibility} className={style.eyeIcon}>
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
           </div>
           <div className={common.btn_area}>
             <button className={common.themeBgrColor} onClick={checkUserPwd}>

@@ -1,0 +1,25 @@
+.input_area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin: 10% auto 0;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.input_area input {
+  width: 90%;
+  padding: 4% 10px;
+  font-size: 1em;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  font-family: "Godo";
+}
+
+.eyeIcon {
+  width: 5%;
+  height: 5%;
+}
