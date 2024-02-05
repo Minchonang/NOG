@@ -7,6 +7,7 @@ import style from "./css/ChatTest.module.css";
 import { NavLink } from "react-router-dom";
 
 // Flask 서버 주소에 맞게 변경
+// const socket = io("http://192.168.0.58:5000");
 const socket = io("http://192.168.0.67:5000");
 // const socket = io("http://localhost:5000");
 
