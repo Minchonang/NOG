@@ -1,0 +1,194 @@
+/* ------------------ */
+/* 챗봇 */
+.chatbotimg {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.bounce {
+  animation: bounce 1s infinite;
+}
+
+/* --------------------- */
+/* 상단바 */
+.title_area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo";
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+.title_area div {
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 0.6em;
+}
+
+/* -------------------------- */
+/* 온도 구역 */
+.temp_area {
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid;
+  z-index: 1;
+  width: 100%;
+  padding: 15% 10% 7%;
+  display: flex;
+  font-family: "Godo", serif;
+  font-weight: lighter;
+  margin-top: 2.6em;
+  border: none;
+  background-color: #fbf7ef;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.outdoor_temp,
+.home_temp,
+.recommend_temp {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.outdoor_temp_title,
+.home_temp_title,
+.recommend_temp_title {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+
+.outdoor_temp_area,
+.home_temp_area,
+.recommend_temp_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ----------------------------------- */
+.main_area {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 20% 10% 70px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Godo", serif;
+  font-weight: lighter;
+  margin-top: 12em;
+  text-align: center;
+}
+
+/* --------------------- */
+/* 집 인원 */
+.homeCount {
+  border-left: 2px solid rgb(88, 189, 155);
+  border-right: 2px solid rgb(88, 189, 155);
+  margin-bottom: 2em;
+}
+.homeCount_name {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+/* -------------- */
+/* 전등 */
+.light {
+  border: 2px solid rgb(88, 189, 155);
+  border-radius: 10em;
+  padding: 5%;
+  margin-bottom: 2em;
+}
+/* ------------------------- */
+/* 보일러 및 에어컨 구역 */
+.boilerAir_area {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 보일러 */
+.boiler,
+.airConditioner {
+  border: 2px solid rgb(88, 189, 155);
+  border-radius: 5%;
+  padding: 5%;
+}
+
+/* ---------------------------------------------- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.heartSwitch {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}

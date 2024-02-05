@@ -76,7 +76,8 @@
   flex-direction: column;
 }
 
-.main_content_1 {
+.main_content_1,
+.main_content_4 {
   width: 100%;
   padding: 8%;
   margin-top: 10px;
@@ -116,6 +117,8 @@
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content_text {
@@ -139,5 +142,22 @@
   font-family: "godo";
   font-size: 1.7em;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  bottom: 0;
+  bottom: -50px;
+}
+
+.join_btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px; /* 원형 모양으로 변경 */
+  background-color: #ffb700; /* 버튼 배경색 */
+  color: #fff; /* 텍스트 색상 */
+  transition: background-color 0.3s ease; /* 배경색 변경 시 부드러운 효과 */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+  margin-top: 1rem;
 }

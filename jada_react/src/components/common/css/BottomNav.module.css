@@ -1,40 +1,40 @@
 .background {
-	position: fixed;
-	bottom: 0;
-   left: 0;
-	width: 100%;
-	margin: 0 auto;
-   background-color: #fbf7ef;
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fbf7ef;
 }
 
 .main_area {
-	display: flex;
-	flex-direction: row;
-   /* justify-content: space-around; */
-	align-items: center;
-   margin: 0 auto;
-   padding: 2% 6% 4%;
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1% 6% 1%; /* 하단바가 회원탈퇴 버튼 가려서 하단 패딩 줄였습니다 */
+  font-family: "godo";
 }
 
 .nav_btn {
-   display: flex;
-   flex-direction: column;
-   margin: 0 auto ;
-   padding: 5% auto;
-   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 3% 10%;
+  border-radius: 15px;
+  transition-duration: 0.3s;
 }
 .nav_btn img {
-   width: 40px;
-   height: 40px;
-   margin: 0 auto 5px;
-   border-radius: 10px;
-
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 5px;
+  border-radius: 10px;
 }
 .nav_btn div {
-   font-size: .8em;
-   margin: 0 auto;
+  font-size: 0.7em;
+  margin: 0 auto;
 }
 .nav_btn:active {
-   background-color: white;
+  background-color: #ff9f0a;
 }
