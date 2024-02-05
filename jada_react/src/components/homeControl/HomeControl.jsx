@@ -3,13 +3,11 @@ import { useState } from "react";
 import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
-import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav";
 import chatbotimg from "../chatbot/nogimg.png";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 import axios from "axios";
-import { AiOutlineSmile } from "react-icons/ai";
 import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
 
@@ -23,11 +21,13 @@ function HomeControl() {
   const [userId, setUserId] = useState("");
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
+  const [userHomeId, setUserHomeId] = useState("");
   const [outdoorTemp, setOutdoorTemp] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
   const [recommendTemp, setRecommendTemp] = useState(null);
+  const [userHumanCount, setUserHumanCount] = useState(0);
 
-  //   주소 위도 경도로 바꾸기
+  // 주소 위도 경도로 바꾸기
   const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
 
   async function getAddressLatLng(address) {
@@ -47,8 +47,8 @@ function HomeControl() {
     }
   }
 
-  //   위도 경도에 맞는 날씨 가져오기
-  const API_KEY = "691b9681b64032def97f5cc8af02abb6"; // OpenWeatherMap API 키
+  // 위도 경도에 맞는 날씨 가져오기
+  const API_KEY = "c1478feb49390d6a8beedaa2c52287f3"; // OpenWeatherMap API 키
 
   async function getWeather(lat, lon) {
     try {
@@ -81,6 +81,34 @@ function HomeControl() {
     }
   }
 
+  // // 집 정보 가져오기
+  // async function getHomeDeviceData(userId) {
+  //   try {
+  //     const response = await fetch(
+  //       `${API_BASE_URL}/api/homedevice/user/${userId}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log("Home Device Data:", result); // 로그 추가
+  //       setUserHumanCount(result.humanCount);
+  //       console.log("User Human Count:", userHumanCount);
+  //     } else {
+  //       const errorData = await response.json(); // 추가: 오류 응답 내용 출력
+  //       console.log("홈 디바이스 정보 조회 실패:", errorData);
+  //       alert("오류가 발생하였습니다.");
+  //     }
+  //   } catch (error) {
+  //     console.error("서버 통신 오류", error);
+  //   }
+  // }
+
   const serverlink = async (e) => {
     // user_id를 가져오기
     const user_id = sessionStorage.getItem("user_id");
@@ -106,6 +134,13 @@ function HomeControl() {
         setUserId(result.userId);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
+        console.log(userId);
+
+        // 홈 디바이스 정보 가져오기
+        // setUserHomeId(result.userHomeId);
+        // console.log(userHomeId);
+
+        // getHomeDeviceData(userHomeId);
 
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
         const fullAddress = `${result.address1} ${result.address2}`;
