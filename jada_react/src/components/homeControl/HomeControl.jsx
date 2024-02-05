@@ -134,7 +134,7 @@ function HomeControl() {
         setUserId(result.userId);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
-        // console.log(userId);
+        console.log(userId);
 
         // 홈 디바이스 정보 가져오기
         // setUserHomeId(result.userHomeId);
