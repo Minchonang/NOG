@@ -31,12 +31,12 @@ public class HomeDeviceController {
 
   // 현재 집안에 있는 사람 수
   @PostMapping("/")
-  public ResponseEntity<String> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
+  public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
     String user_id = homeDeviceDto.getUserId();
     System.out.println("----------------------------------------"+ user_id);
 
     if (user_id == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID cannot be null");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(HomeDeviceDto.builder().errorMessage("로그인 하십시오.").build());
     }
 
     Optional<User> optionalUser = userRepository.findById(user_id);
@@ -70,18 +70,25 @@ public class HomeDeviceController {
         // 현재 가구원 수
         Integer human_count = foundUser.getHomeDevice().getHumanCount();
          // Integer를 String으로 변환
-        String humanCountString = String.valueOf(human_count);
-        System.out.println("=========human_count: " + humanCountString);
+        // String humanCountString = String.valueOf(human_count);
+        System.out.println("=========human_count: " + human_count);
         
-        // return "User Home ID: " + userHomeId;
-        return ResponseEntity.ok(humanCountString);
+        HomeDeviceDto resultDto = HomeDeviceDto.builder()
+          .light(homeDevice.getLight())
+          .heater(homeDevice.getHeater())
+          .airconditioner(homeDevice.getAirconditioner())
+          .temperatureNow(homeDevice.getTemperatureNow())
+          .setBoilerTemp(homeDevice.getSetBoilerTemp())
+          .setAirTemp(homeDevice.getSetAirTemp())
+          .humanCount(foundUser.getHomeDevice().getHumanCount())
+          .build();
+        return ResponseEntity.ok(resultDto);
       } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("HomeDevice not found for the user");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HomeDeviceDto.builder().errorMessage("homedevice 정보를 찾을 수 없습니다.").build());
       }
     } else {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with ID: " + user_id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HomeDeviceDto.builder().errorMessage("유저정보를 찾을 수 없습니다.").build());
     }
-
   }
   // @PostMapping("/")
   // public ResponseEntity<String> homedevice(@RequestBody Map<String, String> requestData){

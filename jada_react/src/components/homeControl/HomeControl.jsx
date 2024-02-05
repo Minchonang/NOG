@@ -107,8 +107,15 @@ function HomeControl() {
             if (response.ok) {
                 // 서버 응답이 성공인 경우
                 const result = await response.json();
+
                 console.log('Home Device Data:', result);
-                setUserHumanCount(result);
+                setUserHumanCount(result.humanCount);
+                setHomeLightOnOff(result.light);
+                setHomeBoilerOnOff(result.heater);
+                setHomeAirOnOff(result.airconditioner);
+                setUserHomeTemp(result.temperatureNow);
+                setHomeBoilerTemp(result.setBoilerTemp);
+                setHomeAirTemp(result.setAirTemp);
             } else {
                 const errorData = await response.json(); // 추가: 오류 응답 내용 출력
                 console.log('홈 디바이스 정보 조회 실패:', errorData);
