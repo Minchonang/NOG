@@ -113,6 +113,7 @@ function HomeControl() {
                 setUserId(result.user_id);
                 setUserAddress1(result.address1);
                 setUserAddress2(result.address2);
+                console.log(userId);
 
                 // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
                 const fullAddress = `${result.address1} ${result.address2}`;
