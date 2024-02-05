@@ -27,7 +27,7 @@ function HomeControl() {
   const [outdoorTemp, setOutdoorTemp] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
   const [recommendTemp, setRecommendTemp] = useState(null);
-  const [userHumanCount, setUserHumanCount] = useState(0);
+  const [userHumanCount, setUserHumanCount] = useState("");
 
   const [homeTemp, setUserHomeTemp] = useState("");
   const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
@@ -90,33 +90,38 @@ function HomeControl() {
     }
   }
 
-  // // 집 정보 가져오기
-  // async function getHomeDeviceData(userId) {
-  //   try {
-  //     const response = await fetch(
-  //       `${API_BASE_URL}/api/homedevice/user/${userId}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
+  // 집 정보 가져오기
+  async function getHomeDeviceData() {
+    // user_id를 가져오기
+    const user_id = sessionStorage.getItem("user_id");
 
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       console.log("Home Device Data:", result); // 로그 추가
-  //       setUserHumanCount(result.humanCount);
-  //       console.log("User Human Count:", userHumanCount);
-  //     } else {
-  //       const errorData = await response.json(); // 추가: 오류 응답 내용 출력
-  //       console.log("홈 디바이스 정보 조회 실패:", errorData);
-  //       alert("오류가 발생하였습니다.");
-  //     }
-  //   } catch (error) {
-  //     console.error("서버 통신 오류", error);
-  //   }
-  // }
+    const editUserDto = {
+      user_id: user_id,
+    };
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editUserDto),
+      });
+
+      if (response.ok) {
+        // 서버 응답이 성공인 경우
+        const result = await response.json();
+
+        console.log("Home Device Data:", result); // 로그 추가
+        setUserHumanCount(result);
+      } else {
+        const errorData = await response.json(); // 추가: 오류 응답 내용 출력
+        console.log("홈 디바이스 정보 조회 실패:", errorData);
+        alert("오류가 발생하였습니다.");
+      }
+    } catch (error) {
+      console.error("서버 통신 오류", error);
+    }
+  }
 
   const serverlink = async (e) => {
     // user_id를 가져오기
@@ -136,7 +141,7 @@ function HomeControl() {
         body: JSON.stringify(editUserDto),
       });
       if (response.ok) {
-        // // 서버 응답이 성공인 경우
+        // 서버 응답이 성공인 경우
         const result = await response.json();
 
         // 추출된 데이터 사용
@@ -144,12 +149,7 @@ function HomeControl() {
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
         console.log(userId);
-
-        // 홈 디바이스 정보 가져오기
-        // setUserHomeId(result.userHomeId);
-        // console.log(userHomeId);
-
-        // getHomeDeviceData(userHomeId);
+        getHomeDeviceData();
 
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
         const fullAddress = `${result.address1} ${result.address2}`;
