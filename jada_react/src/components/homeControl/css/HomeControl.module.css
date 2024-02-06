@@ -42,8 +42,11 @@
 }
 .title_area div {
   margin-left: 10px;
-  margin-top: 5px;
-  font-size: 0.6em;
+  font-size: 0.9em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* -------------------------- */
@@ -127,16 +130,28 @@
   justify-content: space-around;
 }
 
-/* 보일러 */
+.boiler_name,
+.airConditioner_name {
+  font-size: 20px;
+}
+
 .boiler,
 .airConditioner {
   border: 2px solid rgb(88, 189, 155);
   border-radius: 5%;
-  padding: 5%;
+  padding: 3%;
+  width: 35%;
+  height: 10%;
+}
+
+.airConditioner_temp,
+.boiler_temp {
+  margin-top: 5px;
+  font-size: 20px;
 }
 
 /* ---------------------------------------------- */
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -147,7 +162,7 @@
   opacity: 0;
   width: 0;
   height: 0;
-}
+} */
 
 .slider {
   position: absolute;
@@ -190,5 +205,21 @@ input:checked + .slider:before {
 .heartSwitch {
   display: flex;
   justify-content: center;
-  margin-top: 1em;
+}
+
+/* 토글 버튼*/
+.toggleButton {
+  background-color: #3498db;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: "Godo", serif;
+}
+
+.toggleButton:hover {
+  background-color: #2980b9;
 }

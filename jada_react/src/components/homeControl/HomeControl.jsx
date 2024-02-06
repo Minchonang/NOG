@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
@@ -19,7 +19,7 @@ function HomeControl() {
   const [airConditionerOn, setAirConditionerOn] = useState(false);
   const [boilerChecked, setBoilerChecked] = useState(false);
   const [airConditionerChecked, setAirConditionerChecked] = useState(false);
-  const [mode, setMode] = useState("dark");
+  // const [mode, setMode] = useState("");
   const [userId, setUserId] = useState("");
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
@@ -119,6 +119,7 @@ function HomeControl() {
         setUserHomeTemp(result.temperatureNow);
         setHomeBoilerTemp(result.setBoilerTemp);
         setHomeAirTemp(result.setAirTemp);
+        console.log(homeLightOnOff);
       } else {
         const errorData = await response.json(); // 추가: 오류 응답 내용 출력
         console.log("홈 디바이스 정보 조회 실패:", errorData);
@@ -173,10 +174,94 @@ function HomeControl() {
 
   serverlink();
 
+  const handleLightToggle = async () => {
+    try {
+      // Update the database with the new light status
+      const userId = sessionStorage.getItem("user_id");
+      const lightStatus = !homeLightOnOff;
+
+      const response = await fetch(`${API_BASE_URL}/api/homedevice/light`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, lightStatus }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Light 상태 업데이트 오류:", errorData);
+        alert("Light 상태 업데이트 오류");
+      } else {
+        // 서버 응답이 성공인 경우에만 homeLightOnOff 업데이트
+        setHomeLightOnOff(lightStatus);
+      }
+    } catch (error) {
+      console.error("서버 통신 오류", error);
+    }
+  };
+
+  const handleBoilerToggle = async () => {
+    try {
+      // Update the database with the new boiler status
+      const userId = sessionStorage.getItem("user_id");
+      const boilerStatus = !homeboilerOnOff;
+
+      const response = await fetch(`${API_BASE_URL}/api/homedevice/boiler`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, boilerStatus }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Boiler 상태 업데이트 오류:", errorData);
+        alert("Boiler 상태 업데이트 오류");
+      } else {
+        // Update homeBoilerOnOff only if the server response is successful
+        setHomeBoilerOnOff(boilerStatus);
+      }
+    } catch (error) {
+      console.error("서버 통신 오류", error);
+    }
+  };
+
+  const handleAirConditionerToggle = async () => {
+    try {
+      // Update the database with the new air conditioner status
+      const userId = sessionStorage.getItem("user_id");
+      const airConditionerStatus = !homeAirOnOff;
+
+      const response = await fetch(
+        `${API_BASE_URL}/api/homedevice/airconditioner`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, airConditionerStatus }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Air Conditioner 상태 업데이트 오류:", errorData);
+        alert("Air Conditioner 상태 업데이트 오류");
+      } else {
+        // Update homeAirOnOff only if the server response is successful
+        setHomeAirOnOff(airConditionerStatus);
+      }
+    } catch (error) {
+      console.error("서버 통신 오류", error);
+    }
+  };
+
   return (
     <div className={common.background}>
       <div className={style.title_area}>
-        <NavLink to="/home">NOG</NavLink>
+        <NavLink to="/analysis">NOG</NavLink>
         <div>제어 센터</div>
       </div>
 
@@ -227,33 +312,16 @@ function HomeControl() {
 
         {/*--------------------전등--------------------*/}
         <div className={style.light}>
-          {/* <div className={style.light_name}>전등</div> */}
-          {/* <label className={style.switch}>
-            <input
-              type="checkbox"
-              checked={lightOn}
-              onChange={() => setLightOn(!lightOn)}
-            />
-            <span className={`${style.slider} ${style.round}`}></span>
-          </label> */}
-          <DarkModeToggle
-            mode={mode}
-            dark="Dark"
-            light="Light"
-            size="md"
-            inactiveTrackColor="#e2e8f0"
-            inactiveTrackColorOnHover="#f8fafc"
-            inactiveTrackColorOnActive="#cbd5e1"
-            activeTrackColor="#334155"
-            activeTrackColorOnHover="#1e293b"
-            activeTrackColorOnActive="#0f172a"
-            inactiveThumbColor="#1e293b"
-            activeThumbColor="#ffd966"
-            ariaLabel="Toggle color scheme"
-            onChange={(mode) => {
-              setMode(mode);
-            }}
-          />
+          {/* Display button based on homeLightOnOff */}
+          {homeLightOnOff ? (
+            <button className={style.toggleButton} onClick={handleLightToggle}>
+              불 끄기
+            </button>
+          ) : (
+            <button className={style.toggleButton} onClick={handleLightToggle}>
+              불 켜기
+            </button>
+          )}
         </div>
 
         <div className={style.boilerAir_area}>
@@ -262,17 +330,20 @@ function HomeControl() {
             <div className={style.boiler_name}>보일러</div>
             <div className={style.boiler_temp}>
               <BiSolidDownArrow />
-              설정 온도
+              {homeBoilerTemp}
               <BiSolidUpArrow />
             </div>
-            {/* <label className={style.switch}>
-              <input
-                type="checkbox"
-                checked={boilerOn}
-                onChange={() => setBoilerOn(!boilerOn)}
-              />
-              <span className={`${style.slider} ${style.round}`}></span>
-            </label> */}
+
+            <button
+              className={`${style.toggleButton} ${
+                homeboilerOnOff ? style.active : ""
+              }`}
+              onClick={handleBoilerToggle}
+            >
+              {homeboilerOnOff ? "보일러 끄기" : "보일러 켜기"}
+            </button>
+
+            {/* 
             <div className={style.heartSwitch}>
               <HeartSwitch
                 size="md"
@@ -281,7 +352,7 @@ function HomeControl() {
                   setBoilerChecked(event.target.checked);
                 }}
               />
-            </div>
+            </div> */}
           </div>
 
           {/*--------------------에어컨--------------------*/}
@@ -289,18 +360,18 @@ function HomeControl() {
             <div className={style.airConditioner_name}>에어컨</div>
             <div className={style.airConditioner_temp}>
               <BiSolidDownArrow />
-              설정 온도
+              {homeAirTemp}
               <BiSolidUpArrow />
             </div>
-            {/* <label className={style.switch}>
-              <input
-                type="checkbox"
-                checked={airConditionerOn}
-                onChange={() => setAirConditionerOn(!airConditionerOn)}
-              />
-              <span className={`${style.slider} ${style.round}`}></span>
-            </label> */}
-            <div className={style.heartSwitch}>
+            <button
+              className={`${style.toggleButton} ${
+                homeAirOnOff ? style.active : ""
+              }`}
+              onClick={handleAirConditionerToggle}
+            >
+              {homeAirOnOff ? "에어컨 끄기" : "에어컨 켜기"}
+            </button>
+            {/* <div className={style.heartSwitch}>
               <HeartSwitch
                 size="md"
                 checked={airConditionerChecked}
@@ -310,7 +381,7 @@ function HomeControl() {
                   setAirConditionerChecked(event.target.checked);
                 }}
               />
-            </div>
+            </div> */}
           </div>
         </div>
 

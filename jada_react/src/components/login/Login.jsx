@@ -64,7 +64,7 @@ function Login() {
         console.log(responseData.userId);
         window.sessionStorage.setItem("user_id", receivedUserId);
 
-        window.location.href = "/";
+        window.location.href = "/analysis";
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패:", response.status);

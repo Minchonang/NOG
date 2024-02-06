@@ -15,7 +15,7 @@ function BottomNav({ activeHome, activeData, activeUser }) {
     window.location.href = "/homeControl"; // 집 제어 페이지 제작 시 링크 변경
   };
   const goData = () => {
-    window.location.href = "/";
+    window.location.href = "/analysis";
   };
   const goUserCheck = () => {
     window.location.href = "/check_user";
