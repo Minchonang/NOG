@@ -24,6 +24,7 @@ const MyChart = () => {
   const [graphImage, setGraphImage] = useState('');
   const [mapHtml, setMapHtml] = useState('');
   const [chartHtml, setChartHtml] = useState('');
+  const [fee, setFee] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,18 +44,19 @@ const MyChart = () => {
     const fetchData = async () => {
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get('http://127.0.0.1:8000/first/test2/');
+        const response = await axios.get('http://127.0.0.1:5001/test2');
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
-        setMapHtml(data.map_html);
-        setChartHtml(data.chart_html);
+        setUserData(data)
+        // setMapHtml(data.map_html);
+        // setChartHtml(data.chart_html);
 
-        console.log(1213321);
         // console.log(data);
         // console.log(data.map_html);
-        // console.log(data.chart_html);
-
+          
+      
+        console.log(data);
       } catch (error) {
         console.error('Error fetching graph data:', error);
       }
@@ -62,8 +64,18 @@ const MyChart = () => {
     fetchData();
   }, []);
 
-
-
+  function calculate_bill(usage){
+     let bill =0
+    if (usage <= 300){
+        bill = usage * 120.0
+      }
+    else if (usage <= 450){
+        bill = 300 * 120.0 + (usage - 300) * 214.6
+    }
+    else{
+        bill = 300 * 120.0 + 150 * 214.6 + (usage - 450) * 307.3}
+    return bill
+    }
   return (
     <div className={style.body}>
       <div className={style.container}>
@@ -92,21 +104,21 @@ const MyChart = () => {
               <span className={style.spring}></span>          
               {/* <span className={style.close} > ▲</span> */}
             </div>
-
-            {/* <DoughnutChart /> */}
-            <div>
+             <DoughnutChart data={[userData["average_total_usage"], userData["my_total_usage"]]}/>
+            
+            <div >
       {/* {graphImage && <img src={`data:image/png;base64,${graphImage}`} alt="Graph" />} */}
       {/* <div dangerouslySetInnerHTML={{ __html: mapHtml }} /> */}
-      {/* <div dangerouslySetInnerHTML={{ __html: chartHtml }} /> */}
-      <div>
-            {chartHtml && <Plot data={JSON.parse(chartHtml).data}  layout={JSON.parse(chartHtml).layout}/>}
-        </div>
+      {/* <div dangerouslySetInnerHTML={{ __html: chartHtml }} />*/}
+      {/* {chartHtml && <div dangerouslySetInnerHTML={{ __html: chartHtml }} />} */}
+
+       {/* {chartHtml && <Plot data={JSON.parse(chartHtml).data}  layout={JSON.parse(chartHtml).layout} />} */}
     </div>
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >{1}이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
-            <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
+            <p >이번달 사용량은 {userData["average_total_usage"]}kw 입니다. 이는 전달 평균 사용량 {userData["my_total_usage"]}kw의 {userData["average_total_usage"]/userData["my_total_usage"] *100}% 에 해당합니다. </p>     
+            <p>또한 현재까지의 요금은 약 {calculate_bill(userData["average_total_usage"])}원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
             <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
             </div>
 

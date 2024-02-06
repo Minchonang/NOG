@@ -2,12 +2,18 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import style from './css/MyChart.module.css';
 
-const DoughnutChart = () => {
+const DoughnutChart = ({data}) => {
+  const my = data[0]
+
+  const total = (data[1]*1.5- data[0])<=0 ?0:  data[1]*1.5 - data[0]
+  
+  const value = total
+
     const doughnutData = {
-        labels: ['사용량', '지역평균에서 차이나는 %p'],
+        labels: [`이달 사용량 ${my}kW`, `지역평균 ${data[1]}kW`],
         datasets: [
           {
-            data: [100,40],
+            data: [my, total],
             backgroundColor: [ 'rgb(250, 185, 33)', 'gray'],
             hoverBackgroundColor: ['red', 'black'],
           },

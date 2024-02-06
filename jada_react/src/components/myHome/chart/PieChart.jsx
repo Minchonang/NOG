@@ -13,7 +13,7 @@ const PieChart = () => {
     ],
     datasets: [{
       label: 'usage %',
-      data: [300, 50, 100,50],
+      data: [110, 10, 60,50],
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
