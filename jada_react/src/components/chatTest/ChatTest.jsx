@@ -115,7 +115,7 @@ const ChatTest = () => {
 													/>
 												) : (
 													// 로컬 파일인 경우
-													<a href={chat.img}>접속</a>
+													<a href={chat.img}>{`\n이동하기`}</a>
 												)
 											) : (
 												// 챗봇 텍스트

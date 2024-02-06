@@ -1,17 +1,20 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../App.js";
-import common from "../common/css/common.module.css";
-import style from "./css/HomeControl.module.css";
-import BottomNav from "../common/jsx/BottomNav";
-import axios from "axios";
 import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { BiSolidUpArrow } from "react-icons/bi";
+import axios from "axios";
+
+import common from "../common/css/common.module.css";
+import style from "./css/HomeControl.module.css";
+import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot.jsx";
 
 function HomeControl() {
+	const activeHome = true;
+
 	const [lightOn, setLightOn] = useState(false);
 	const [boilerOn, setBoilerOn] = useState(false);
 	const [airConditionerOn, setAirConditionerOn] = useState(false);
@@ -384,7 +387,7 @@ function HomeControl() {
 				</div>
 
 				<ChatBot />
-				<BottomNav />
+				<BottomNav activeHome={activeHome} />
 			</div>
 		</div>
 	);
