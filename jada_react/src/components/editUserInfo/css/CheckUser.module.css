@@ -1,0 +1,30 @@
+.password_area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin: 10% auto 0;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.password_area input {
+  width: 90%;
+  padding: 4% 10px;
+  font-size: 1em;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  font-family: "Godo";
+}
+
+.password_area input::placeholder {
+  font-size: 0.8em;
+  font-family: "Godo";
+  color: rgb(198, 198, 198);
+}
+
+.eyeIcon {
+  padding-top: 5px;
+}
