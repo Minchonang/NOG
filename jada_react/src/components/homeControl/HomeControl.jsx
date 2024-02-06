@@ -4,9 +4,6 @@ import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
 import BottomNav from "../common/jsx/BottomNav";
-import chatbotimg from "../chatbot/nogimg.png";
-import { HeartSwitch } from "@anatoliygatt/heart-switch";
-import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 import axios from "axios";
 import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
@@ -385,13 +382,6 @@ function HomeControl() {
           </div>
         </div>
 
-        <NavLink to="/chatbot">
-          <img
-            className={`${style.chatbotimg} ${style.bounce}`}
-            src={chatbotimg}
-            alt="ChatBot"
-          />
-        </NavLink>
         <BottomNav />
       </div>
     </div>
