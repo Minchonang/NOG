@@ -67,7 +67,7 @@ public class User implements Serializable {
   private String address3;
 
   // user_home_id 필드 추가
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_home_id")
   @JsonBackReference
   private HomeDevice homeDevice;

@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
 
 @Entity
@@ -50,8 +48,8 @@ public class HomeDevice implements Serializable {
     private Integer setAirTemp;
     
     // User와의 연관관계 설정
-    @OneToMany(mappedBy = "homeDevice", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<User> users;
+    // @OneToMany(mappedBy = "homeDevice", fetch = FetchType.EAGER)
+    // @JsonIgnore
+    // private List<User> users;
   
 }

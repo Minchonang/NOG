@@ -93,10 +93,10 @@ function HomeControl() {
   // 집 정보 가져오기
   async function getHomeDeviceData() {
     // user_id를 가져오기
-    const user_id = sessionStorage.getItem("user_id");
+    const userId = sessionStorage.getItem("user_id");
 
-    const editUserDto = {
-      user_id: user_id,
+    const homeDeviceDto = {
+      userId: userId,
     };
     try {
       const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
@@ -104,15 +104,21 @@ function HomeControl() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editUserDto),
+        body: JSON.stringify(homeDeviceDto),
       });
 
       if (response.ok) {
         // 서버 응답이 성공인 경우
         const result = await response.json();
 
-        console.log("Home Device Data:", result); // 로그 추가
-        setUserHumanCount(result);
+        console.log("Home Device Data:", result);
+        setUserHumanCount(result.humanCount);
+        setHomeLightOnOff(result.light);
+        setHomeBoilerOnOff(result.heater);
+        setHomeAirOnOff(result.airconditioner);
+        setUserHomeTemp(result.temperatureNow);
+        setHomeBoilerTemp(result.setBoilerTemp);
+        setHomeAirTemp(result.setAirTemp);
       } else {
         const errorData = await response.json(); // 추가: 오류 응답 내용 출력
         console.log("홈 디바이스 정보 조회 실패:", errorData);
@@ -170,7 +176,7 @@ function HomeControl() {
   return (
     <div className={common.background}>
       <div className={style.title_area}>
-        <NavLink to="/analysis">NOG</NavLink>
+        <NavLink to="/home">NOG</NavLink>
         <div>제어 센터</div>
       </div>
 
