@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
-
-import { NavLink } from "react-router-dom";
-import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/EditUserInfo.module.css";
 import BottomNav from "../common/jsx/BottomNav.jsx";
