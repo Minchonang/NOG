@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../../App.js';
 import common from '../common/css/common.module.css';
 import style from './css/EditUserInfo.module.css';
 import BottomNav from '../common/jsx/BottomNav.jsx';
+import Modal from 'react-modal';
 
 function EditUserInfo() {
     const activeUser = true;
@@ -12,6 +13,11 @@ function EditUserInfo() {
     const [selectedElement1, setSelectedElement1] = useState('');
     const [selectedElement2, setSelectedElement2] = useState('');
     const [selectedElement3, setSelectedElement3] = useState('');
+
+    // 이메일인증
+    const [emailAuth, setEmailAuth] = useState('');
+    const [authkey, setAuthkey] = useState('');
+    const [isVerified, setIsVerified] = useState(false);
 
     const options = {
         강원도: [
@@ -328,6 +334,65 @@ function EditUserInfo() {
         setEditHouseNum(true);
     };
 
+    // 이메일 인증
+    const sendEmail = () => {
+        console.log(newEmail);
+        const data = {
+            EMAIL: newEmail,
+        };
+
+        fetch(`${API_BASE_URL}/PwFind/Email`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            mode: 'cors',
+        })
+            .then((res) => res.json())
+            .then((json) => {
+                setAuthkey(json.AUTHKEY);
+                console.log(json.AUTHKEY);
+            })
+            .catch((error) => {
+                console.error('Error fetching email:', error);
+            });
+    };
+
+    // 인증번호 확인
+    const handleVerify = (e) => {
+        e.preventDefault();
+        console.log(emailAuth);
+
+        if (!authkey) {
+            alert('인증번호를 먼저 요청하세요.');
+            return;
+        }
+        if (authkey === emailAuth) {
+            setIsVerified(true);
+            alert('인증되었습니다.');
+            closeModal();
+        } else {
+            setIsVerified(false);
+            alert('인증번호가 일치하지 않습니다.');
+        }
+    };
+
+    // 모달창
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+        sendEmail();
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    Modal.setAppElement('#root');
+
+    // 회원정보 수정
     const handleEdit = async (e) => {
         e.preventDefault();
 
@@ -463,18 +528,24 @@ function EditUserInfo() {
 
                         <div className={style.info_main_detail}>
                             {editEmail ? (
-                                <input
-                                    type="text"
-                                    value={newEmail}
-                                    onChange={(e) => setNewEmail(e.target.value)}
-                                    className={style.input_new}
-                                    placeholder={userEmail}
-                                />
+                                <>
+                                    <div className={style.inputEmail_area}>
+                                        <input
+                                            type="text"
+                                            value={newEmail}
+                                            onChange={(e) => setNewEmail(e.target.value)}
+                                            className={style.input_new}
+                                            placeholder={userEmail}
+                                        />
+                                        <button onClick={openModal}>인증</button>
+                                    </div>
+                                </>
                             ) : (
-                                <div>{userEmail}</div>
+                                <>
+                                    <div>{userEmail}</div>
+                                    <button onClick={editEmailBtn}>수정</button>
+                                </>
                             )}
-                            {/* <div>asdf3y92@gmail.com</div> */}
-                            <button onClick={editEmailBtn}>수정</button>
                         </div>
                         <div className={style.info_main_detail}>
                             {editPhone ? (
@@ -606,6 +677,23 @@ function EditUserInfo() {
                 </div>
                 <BottomNav activeUser={activeUser} />
             </div>
+            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className={style.custom_modal}>
+                <span className={style.close} onClick={closeModal}>
+                    &times;
+                </span>
+                <div className={style.modal_container}>
+                    <div className={style.modal_title}>이메일 인증</div>
+                    <input
+                        className={style.email_auth}
+                        type="text"
+                        value={emailAuth}
+                        onChange={(e) => setEmailAuth(e.target.value)}
+                        placeholder="인증번호"
+                        maxLength="8"
+                    />
+                    <button onClick={handleVerify}>인증완료</button>
+                </div>
+            </Modal>
         </>
     );
 }
