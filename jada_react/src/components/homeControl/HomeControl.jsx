@@ -167,7 +167,7 @@ function HomeControl() {
 
   serverlink();
 
-  // ----------------------------------
+  // --------------- 전등 -------------------
   //  전등 온오프
   const handleLightToggle = async () => {
     try {
@@ -199,7 +199,8 @@ function HomeControl() {
     }
   };
 
-  // ----------------------------------
+  //  ---------------- 보일러 ------------------
+  // 보일러 온도조절
   //  보일러 온오프
   const handleBoilerToggle = async () => {
     try {
@@ -231,7 +232,8 @@ function HomeControl() {
     }
   };
 
-  // ----------------------------------
+  // ---------------- 에어컨 ------------------
+  // 에어컨 온도조절
   //  에어컨 온오프
   const handleAirConditionerToggle = async () => {
     try {
@@ -314,18 +316,14 @@ function HomeControl() {
           )}
         </div>
 
+        {/*--------------------보일러--------------------*/}
         <div className={style.boilerAir_area}>
-          {/*--------------------보일러--------------------*/}
           <div className={style.boiler}>
             <div className={style.boiler_name}>보일러</div>
             <div className={style.boiler_temp}>
-              <BiSolidDownArrow
-                onClick={() => setHomeBoilerTemp(homeBoilerTemp - 1)}
-              />
+              <BiSolidDownArrow />
               {homeBoilerTemp}
-              <BiSolidUpArrow
-                onClick={(e) => setHomeBoilerTemp(e.target.value + 1)}
-              />
+              <BiSolidUpArrow />
             </div>
             {homeBoilerOnOff ? (
               // TRUE
