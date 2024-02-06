@@ -29,8 +29,6 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/api/userinfo")
 public class UserController {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private final UserService userService;
