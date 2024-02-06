@@ -48,5 +48,9 @@ function App() {
 // 사용한 라이브러리:
 // react-router-dom: v. 6.21.3
 
+// npm install react-icons
+// npm install axios
+// npm install styled-components
+
 export default App;
 export { API_BASE_URL };

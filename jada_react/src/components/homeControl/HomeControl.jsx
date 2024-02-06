@@ -24,7 +24,8 @@ function HomeControl() {
 
   const [homeLightOnOff, setHomeLightOnOff] = useState("");
   const [homeAirOnOff, setHomeAirOnOff] = useState("");
-  const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
+  const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("");
+
   const [homeAirTemp, setHomeAirTemp] = useState("");
   const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
 
@@ -89,9 +90,6 @@ function HomeControl() {
 
     const homeDeviceDto = {
       userId: userId,
-      homeLightOnOff: homeLightOnOff,
-      homeAirOnOff: homeAirOnOff,
-      homeboilerOnOff: homeboilerOnOff,
     };
     try {
       const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
@@ -169,23 +167,100 @@ function HomeControl() {
 
   serverlink();
 
-  const handleLightToggle = (e) => {
-    e.preventDefault();
+  // ----------------------------------
+  //  전등 온오프
+  const handleLightToggle = async () => {
+    try {
+      const userId = sessionStorage.getItem("user_id");
 
-    setHomeLightOnOff(!homeLightOnOff);
-    console.log(homeLightOnOff);
+      // 클라이언트에서 서버로 전송할 데이터
+      const requestData = {
+        userId: userId,
+        light: !homeLightOnOff, // 토글 값 전송
+      };
+
+      // 서버의 API 엔드포인트에 POST 요청 보내기
+      const response = await axios.post(
+        `${API_BASE_URL}/api/homedevice/editLight`,
+        requestData
+      );
+
+      if (response.status === 200) {
+        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
+        setHomeLightOnOff(!homeLightOnOff);
+        console.log("데이터 전송 성공!");
+      } else {
+        console.log("데이터 전송 실패:", response.data);
+        alert("데이터 전송 실패");
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류:", error);
+      alert("데이터 전송 중 오류 발생");
+    }
   };
 
-  const handleBoilerToggle = (e) => {
-    e.preventDefault();
-    setHomeBoilerOnOff(!homeboilerOnOff);
-    console.log(homeboilerOnOff);
+  // ----------------------------------
+  //  보일러 온오프
+  const handleBoilerToggle = async () => {
+    try {
+      const userId = sessionStorage.getItem("user_id");
+
+      // 클라이언트에서 서버로 전송할 데이터
+      const requestData = {
+        userId: userId,
+        heater: !homeBoilerOnOff, // 토글 값 전송
+      };
+
+      // 서버의 API 엔드포인트에 POST 요청 보내기
+      const response = await axios.post(
+        `${API_BASE_URL}/api/homedevice/editBoiler`,
+        requestData
+      );
+
+      if (response.status === 200) {
+        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
+        setHomeBoilerOnOff(!homeBoilerOnOff);
+        console.log("데이터 전송 성공!");
+      } else {
+        console.log("데이터 전송 실패:", response.data);
+        alert("데이터 전송 실패");
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류:", error);
+      alert("데이터 전송 중 오류 발생");
+    }
   };
 
-  const handleAirConditionerToggle = (e) => {
-    e.preventDefault();
-    setHomeAirOnOff(!homeAirOnOff);
-    console.log(homeAirOnOff);
+  // ----------------------------------
+  //  에어컨 온오프
+  const handleAirConditionerToggle = async () => {
+    try {
+      const userId = sessionStorage.getItem("user_id");
+
+      // 클라이언트에서 서버로 전송할 데이터
+      const requestData = {
+        userId: userId,
+        airconditioner: !homeAirOnOff, // 토글 값 전송
+      };
+
+      // 서버의 API 엔드포인트에 POST 요청 보내기
+      const response = await axios.post(
+        `${API_BASE_URL}/api/homedevice/editAir`,
+        requestData
+      );
+
+      if (response.status === 200) {
+        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
+        setHomeAirOnOff(!homeAirOnOff);
+        console.log("데이터 전송 성공!");
+      } else {
+        console.log("데이터 전송 실패:", response.data);
+        alert("데이터 전송 실패");
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류:", error);
+      alert("데이터 전송 중 오류 발생");
+    }
   };
 
   return (
@@ -208,28 +283,12 @@ function HomeControl() {
         <div className={style.home_temp_area}>
           <div className={style.home_temp_title}>실내온도</div>
           <div className={style.home_temp}>{homeTemp}</div>
-          <FcHome
-            style={{
-              width: "2em",
-              height: "2em",
-              display: "flex",
-              justifyItems: "center",
-              marginTop: "4px",
-            }}
-          />
+          <FcHome className={style.fcHome} />
         </div>
         <div className={style.recommend_temp_area}>
           <div className={style.recommend_temp_title}>추천온도</div>
           <div className={style.recommend_temp}>{recommendTemp}</div>
-          <FcCloseUpMode
-            style={{
-              width: "2em",
-              height: "2em",
-              display: "flex",
-              justifyItems: "center",
-              marginTop: "4px",
-            }}
-          />
+          <FcCloseUpMode className={style.fcClose} />
         </div>
       </div>
 
@@ -260,19 +319,31 @@ function HomeControl() {
           <div className={style.boiler}>
             <div className={style.boiler_name}>보일러</div>
             <div className={style.boiler_temp}>
-              <BiSolidDownArrow />
+              <BiSolidDownArrow
+                onClick={() => setHomeBoilerTemp(homeBoilerTemp - 1)}
+              />
               {homeBoilerTemp}
-              <BiSolidUpArrow />
+              <BiSolidUpArrow
+                onClick={(e) => setHomeBoilerTemp(e.target.value + 1)}
+              />
             </div>
-
-            <button
-              className={`${style.toggleButton} ${
-                homeboilerOnOff ? style.active : ""
-              }`}
-              onClick={handleBoilerToggle}
-            >
-              {homeboilerOnOff ? "보일러 끄기" : "보일러 켜기"}
-            </button>
+            {homeBoilerOnOff ? (
+              // TRUE
+              <button
+                className={style.toggleButton}
+                onClick={handleBoilerToggle}
+              >
+                보일러 끄기
+              </button>
+            ) : (
+              // FALSE
+              <button
+                className={style.toggleButton}
+                onClick={handleBoilerToggle}
+              >
+                보일러 켜기
+              </button>
+            )}
           </div>
 
           {/*--------------------에어컨--------------------*/}
@@ -283,14 +354,23 @@ function HomeControl() {
               {homeAirTemp}
               <BiSolidUpArrow />
             </div>
-            <button
-              className={`${style.toggleButton} ${
-                homeAirOnOff ? style.active : ""
-              }`}
-              onClick={handleAirConditionerToggle}
-            >
-              {homeAirOnOff ? "에어컨 끄기" : "에어컨 켜기"}
-            </button>
+            {homeAirOnOff ? (
+              // TRUE
+              <button
+                className={style.toggleButton}
+                onClick={handleAirConditionerToggle}
+              >
+                에어컨 끄기
+              </button>
+            ) : (
+              // FALSE
+              <button
+                className={style.toggleButton}
+                onClick={handleAirConditionerToggle}
+              >
+                에어켠 켜기
+              </button>
+            )}
           </div>
         </div>
 
