@@ -35,7 +35,7 @@ function SampleComp() {
       if (response.ok) {
         sessionStorage.removeItem("user_id");
         console.log("로그아웃 성공");
-        window.location.href = "/home";
+        window.location.href = "/";
       } else {
         console.log("로그아웃 실패");
       }

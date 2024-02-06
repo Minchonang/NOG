@@ -4,6 +4,8 @@ import { API_BASE_URL } from "../../App.js";
 import style from "./css/Login.module.css";
 import common from "../common/css/common.module.css";
 import BottomNav from "../common/jsx/BottomNav.jsx";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 function Login() {
   // 페이지 진입 시 바로 아이디 입력(input)에 focus 실행
@@ -79,6 +81,13 @@ function Login() {
     }
   };
 
+  //   비밀번호 아이콘
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <>
       <div className={common.background}>
@@ -96,15 +105,19 @@ function Login() {
               placeholder="아이디 입력"
               maxLength="20"
             />
+
             <input
               className={common.themeBorder}
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={userPwd}
               onChange={(e) => setUserPwd(e.target.value)}
               onKeyDown={keyDownEnter}
               placeholder="비밀번호 입력"
               maxLength="25"
             />
+            <span onClick={togglePasswordVisibility} className={style.eyeIcon}>
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
           </div>
           <div className={common.btn_area}>
             <button className={common.themeBgrColor} onClick={handleLogin}>
