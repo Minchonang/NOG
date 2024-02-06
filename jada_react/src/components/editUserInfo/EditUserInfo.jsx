@@ -18,7 +18,6 @@ function EditUserInfo() {
         return `${part1}-${part2}-${part3}`;
     }
 
-    // 이메일인증
     const [emailAuth, setEmailAuth] = useState('');
     const [authkey, setAuthkey] = useState('');
     const [isVerified, setIsVerified] = useState(false);
@@ -338,6 +337,15 @@ function EditUserInfo() {
         setEditPwd(false);
     };
 
+    // 주소 수정
+    const [editAddress, setEditAddress] = useState(false);
+    const editAddressBtn = () => {
+        setEditAddress(true);
+    };
+    const cancelAddressBtn = () => {
+        setEditAddress(false);
+    };
+
     // 이메일 인증
     const sendEmail = () => {
         console.log(newEmail);
@@ -395,15 +403,6 @@ function EditUserInfo() {
     };
 
     Modal.setAppElement('#root');
-
-    // 주소 수정
-    const [editAddress, setEditAddress] = useState(false);
-    const editAddressBtn = () => {
-        setEditAddress(true);
-    };
-    const cancelAddressBtn = () => {
-        setEditAddress(false);
-    };
 
     // 가구 수 수정
     const [editHouseNum, setEditHouseNum] = useState(false);

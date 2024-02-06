@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jada.smarthome.dto.EditUserDto;
 import com.jada.smarthome.dto.HomeDeviceDto;
 import com.jada.smarthome.model.HomeDevice;
 import com.jada.smarthome.model.User;
@@ -30,12 +32,11 @@ public class HomeDeviceController {
   @Autowired
   UserRepository userRepository;
 
-
-  // 현재 집안에 있는 사람 수
   @PostMapping("/")
   public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
 
     return homeDeviceService.getHomeDevice(homeDeviceDto);
  
   }
+
 }

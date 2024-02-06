@@ -9,18 +9,21 @@ import org.springframework.stereotype.Service;
 import com.jada.smarthome.dto.HomeDeviceDto;
 import com.jada.smarthome.model.HomeDevice;
 import com.jada.smarthome.model.User;
+import com.jada.smarthome.repository.HomeDeviceRepository;
 import com.jada.smarthome.repository.UserRepository;
 
 @Service
 public class HomeDeviceService {
 
   private final UserRepository userRepository;
-
+  // private final HomeDeviceRepository homeDeviceRepository;
+  
   
   public HomeDeviceService(UserRepository userRepository) {
       this.userRepository = userRepository;
-  }
-  
+      // this.homeDeviceRepository = homeDeviceRepository;
+    }
+    
   // 홈 디바이스 정보 조회 및 변경
   public ResponseEntity<HomeDeviceDto> getHomeDevice(HomeDeviceDto homeDeviceDto){
     String userId = homeDeviceDto.getUserId();
@@ -31,6 +34,7 @@ public class HomeDeviceService {
         User foundUser = optionalUser.get();
         HomeDevice homeDevice = foundUser.getHomeDevice();
         
+       
         if(homeDevice != null){
           HomeDeviceDto resultDto = HomeDeviceDto.builder()
           .light(homeDevice.getLight())
@@ -41,6 +45,15 @@ public class HomeDeviceService {
           .setAirTemp(homeDevice.getSetAirTemp())
           .humanCount(homeDevice.getHumanCount())
           .build();
+
+          // homeDevice.setLight(homeDeviceDto.getLight());
+          // homeDevice.setAirconditioner(homeDeviceDto.getAirconditioner());
+          // homeDevice.setHeater(homeDeviceDto.getHeater());
+          // homeDevice.setSetAirTemp(homeDeviceDto.getSetAirTemp());
+          // homeDevice.setSetBoilerTemp(homeDeviceDto.getSetBoilerTemp());
+          
+          // homeDeviceRepository.save(homeDevice);
+          
 
           return ResponseEntity.ok(resultDto);
         } else {

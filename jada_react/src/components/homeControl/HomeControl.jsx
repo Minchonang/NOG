@@ -1,35 +1,30 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { API_BASE_URL } from "../../App.js";
-import common from "../common/css/common.module.css";
-import style from "./css/HomeControl.module.css";
-import BottomNav from "../common/jsx/BottomNav";
-import axios from "axios";
 import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { BiSolidUpArrow } from "react-icons/bi";
 
+import common from "../common/css/common.module.css";
+import style from "./css/HomeControl.module.css";
+import BottomNav from "../common/jsx/BottomNav";
+import axios from "axios";
+
 function HomeControl() {
-  const [lightOn, setLightOn] = useState(false);
-  const [boilerOn, setBoilerOn] = useState(false);
-  const [airConditionerOn, setAirConditionerOn] = useState(false);
-  const [boilerChecked, setBoilerChecked] = useState(false);
-  const [airConditionerChecked, setAirConditionerChecked] = useState(false);
-  // const [mode, setMode] = useState("");
   const [userId, setUserId] = useState("");
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
-  const [userHomeId, setUserHomeId] = useState("");
   const [outdoorTemp, setOutdoorTemp] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
-  const [recommendTemp, setRecommendTemp] = useState(null);
+  const [recommendTemp, setRecommendTemp] = useState("");
   const [userHumanCount, setUserHumanCount] = useState("");
 
   const [homeTemp, setUserHomeTemp] = useState("");
-  const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
-  const [homeAirOnOff, setHomeAirOnOff] = useState("");
+
   const [homeLightOnOff, setHomeLightOnOff] = useState("");
+  const [homeAirOnOff, setHomeAirOnOff] = useState("");
+  const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
   const [homeAirTemp, setHomeAirTemp] = useState("");
   const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
 
@@ -94,6 +89,9 @@ function HomeControl() {
 
     const homeDeviceDto = {
       userId: userId,
+      homeLightOnOff: homeLightOnOff,
+      homeAirOnOff: homeAirOnOff,
+      homeboilerOnOff: homeboilerOnOff,
     };
     try {
       const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
@@ -108,7 +106,7 @@ function HomeControl() {
         // 서버 응답이 성공인 경우
         const result = await response.json();
 
-        console.log("Home Device Data:", result);
+        // console.log("Home Device Data:", result);
         setUserHumanCount(result.humanCount);
         setHomeLightOnOff(result.light);
         setHomeBoilerOnOff(result.heater);
@@ -116,7 +114,7 @@ function HomeControl() {
         setUserHomeTemp(result.temperatureNow);
         setHomeBoilerTemp(result.setBoilerTemp);
         setHomeAirTemp(result.setAirTemp);
-        console.log(homeLightOnOff);
+        // console.log(homeLightOnOff);
       } else {
         const errorData = await response.json(); // 추가: 오류 응답 내용 출력
         console.log("홈 디바이스 정보 조회 실패:", errorData);
@@ -152,7 +150,7 @@ function HomeControl() {
         setUserId(result.userId);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
-        console.log(userId);
+        // console.log(userId);
         getHomeDeviceData();
 
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
@@ -171,88 +169,23 @@ function HomeControl() {
 
   serverlink();
 
-  const handleLightToggle = async () => {
-    try {
-      // Update the database with the new light status
-      const userId = sessionStorage.getItem("user_id");
-      const lightStatus = !homeLightOnOff;
+  const handleLightToggle = (e) => {
+    e.preventDefault();
 
-      const response = await fetch(`${API_BASE_URL}/api/homedevice/light`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, lightStatus }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log("Light 상태 업데이트 오류:", errorData);
-        alert("Light 상태 업데이트 오류");
-      } else {
-        // 서버 응답이 성공인 경우에만 homeLightOnOff 업데이트
-        setHomeLightOnOff(lightStatus);
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
+    setHomeLightOnOff(!homeLightOnOff);
+    console.log(homeLightOnOff);
   };
 
-  const handleBoilerToggle = async () => {
-    try {
-      // Update the database with the new boiler status
-      const userId = sessionStorage.getItem("user_id");
-      const boilerStatus = !homeboilerOnOff;
-
-      const response = await fetch(`${API_BASE_URL}/api/homedevice/boiler`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, boilerStatus }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log("Boiler 상태 업데이트 오류:", errorData);
-        alert("Boiler 상태 업데이트 오류");
-      } else {
-        // Update homeBoilerOnOff only if the server response is successful
-        setHomeBoilerOnOff(boilerStatus);
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
+  const handleBoilerToggle = (e) => {
+    e.preventDefault();
+    setHomeBoilerOnOff(!homeboilerOnOff);
+    console.log(homeboilerOnOff);
   };
 
-  const handleAirConditionerToggle = async () => {
-    try {
-      // Update the database with the new air conditioner status
-      const userId = sessionStorage.getItem("user_id");
-      const airConditionerStatus = !homeAirOnOff;
-
-      const response = await fetch(
-        `${API_BASE_URL}/api/homedevice/airconditioner`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId, airConditionerStatus }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log("Air Conditioner 상태 업데이트 오류:", errorData);
-        alert("Air Conditioner 상태 업데이트 오류");
-      } else {
-        // Update homeAirOnOff only if the server response is successful
-        setHomeAirOnOff(airConditionerStatus);
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
+  const handleAirConditionerToggle = (e) => {
+    e.preventDefault();
+    setHomeAirOnOff(!homeAirOnOff);
+    console.log(homeAirOnOff);
   };
 
   return (
@@ -309,12 +242,13 @@ function HomeControl() {
 
         {/*--------------------전등--------------------*/}
         <div className={style.light}>
-          {/* Display button based on homeLightOnOff */}
           {homeLightOnOff ? (
+            // TRUE
             <button className={style.toggleButton} onClick={handleLightToggle}>
               불 끄기
             </button>
           ) : (
+            // FALSE
             <button className={style.toggleButton} onClick={handleLightToggle}>
               불 켜기
             </button>
@@ -339,17 +273,6 @@ function HomeControl() {
             >
               {homeboilerOnOff ? "보일러 끄기" : "보일러 켜기"}
             </button>
-
-            {/* 
-            <div className={style.heartSwitch}>
-              <HeartSwitch
-                size="md"
-                checked={boilerChecked}
-                onChange={(event) => {
-                  setBoilerChecked(event.target.checked);
-                }}
-              />
-            </div> */}
           </div>
 
           {/*--------------------에어컨--------------------*/}
@@ -368,17 +291,6 @@ function HomeControl() {
             >
               {homeAirOnOff ? "에어컨 끄기" : "에어컨 켜기"}
             </button>
-            {/* <div className={style.heartSwitch}>
-              <HeartSwitch
-                size="md"
-                checked={airConditionerChecked}
-                activeTrackFillColor="#6fa8dc"
-                activeTrackStrokeColor="#6fa8dc"
-                onChange={(event) => {
-                  setAirConditionerChecked(event.target.checked);
-                }}
-              />
-            </div> */}
           </div>
         </div>
 
