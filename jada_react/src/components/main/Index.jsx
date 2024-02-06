@@ -89,10 +89,6 @@ function Index() {
 		<div className={common.background}>
 			<Header />
 			<div className={common.main_area}>
-				{/* <NavLink to="/" className={common.title_area}>
-          NOG
-        </NavLink> */}
-				{/* <SampleComp /> */}
 				<div className={style.userElectricityBill}>
 					이번 달 {userId}님의 예상 전기 요금은
 					<br />
