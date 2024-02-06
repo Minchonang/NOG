@@ -468,6 +468,7 @@ function EditUserInfo() {
                                     value={newEmail}
                                     onChange={(e) => setNewEmail(e.target.value)}
                                     className={style.input_new}
+                                    placeholder={userEmail}
                                 />
                             ) : (
                                 <div>{userEmail}</div>
