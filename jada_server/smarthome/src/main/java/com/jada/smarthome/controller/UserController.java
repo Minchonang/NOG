@@ -168,9 +168,6 @@ public class UserController {
         System.out.println("--------------------id:"+id);
         System.out.println("--------------------pwd:"+password);
 
-        // --------------지워야할 것 -----------------------------
-        String user_id = (String) session.getAttribute("user_id");
-        System.out.println("---------0-------session(user_id):"+user_id);
 
         // 서비스에서 비밀번호 확인
         boolean isPasswordMatch = userService.checkPassword(password, id, session);

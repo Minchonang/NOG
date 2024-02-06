@@ -11,8 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -62,6 +66,11 @@ public class User implements Serializable {
   @Column(name = "address3", length = 150)
   private String address3;
 
+  // user_home_id 필드 추가
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_home_id")
+  @JsonBackReference
+  private HomeDevice homeDevice;
   // @Column(name = "houseSquare", nullable = false)
   // private Integer houseSquare;
 }

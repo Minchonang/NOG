@@ -367,11 +367,18 @@ function EditUserInfo() {
             // editUserDto.phone = newPhone ? newPhone : userPhone;
             editUserDto.phone = newPhone;
         } else {
+            // alert('값이 입력되지 않아 원래값으로 설정됩니다.');
             editUserDto.phone = userPhone;
         }
 
         // 새로운 비밀번호가 있는 경우에만 추가
         if (newPwd) {
+            // 비밀번호 정규식
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+            if (!passwordRegex.test(newPwd)) {
+                alert('비밀번호 형식이 맞지않습니다.');
+                return;
+            }
             editUserDto.password = newPwd;
         } else {
             editUserDto.password = userPassword;
@@ -406,6 +413,7 @@ function EditUserInfo() {
             // editUserDto.houseNum = newHouseNum ? parseInt(newHouseNum) : userHouseNum;
             editUserDto.houseNum = parseInt(newHouseNum);
         } else {
+            // alert('값이 입력되지 않아 원래값으로 설정됩니다.');
             editUserDto.houseNum = userHouseNum;
         }
 
@@ -460,6 +468,7 @@ function EditUserInfo() {
                                     value={newEmail}
                                     onChange={(e) => setNewEmail(e.target.value)}
                                     className={style.input_new}
+                                    placeholder={userEmail}
                                 />
                             ) : (
                                 <div>{userEmail}</div>
@@ -476,6 +485,7 @@ function EditUserInfo() {
                                     onChange={(e) => setNewPhone(e.target.value)}
                                     className={style.input_new}
                                     maxLength="13"
+                                    placeholder={userPhone}
                                 />
                             ) : (
                                 <div>{userPhone}</div>
@@ -497,6 +507,7 @@ function EditUserInfo() {
                                         value={newPwd}
                                         onChange={(e) => setNewPwd(e.target.value)}
                                         className={style.input_new}
+                                        placeholder="***************"
                                     />
                                 ) : (
                                     <div>***************</div>
@@ -571,6 +582,7 @@ function EditUserInfo() {
                                     onChange={(e) => setNewHouseNum(e.target.value)}
                                     className={`${style.input_new} ${style.input_newHouseNum}`}
                                     maxLength="2"
+                                    placeholder={userHouseNum}
                                 ></input>
                             ) : (
                                 <div>{userHouseNum}</div>
