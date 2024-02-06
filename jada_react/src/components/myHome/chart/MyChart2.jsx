@@ -20,26 +20,16 @@ const MyChart = () => {
     }));
   };
 
-  const [userData, setUserData] = useState([]);
-  const [graphImage, setGraphImage] = useState('');
-  const [mapHtml, setMapHtml] = useState('');
-  const [chartHtml, setChartHtml] = useState('');
-  const [fee, setFee] = useState(0);
+  const [chartData1, setChartData1] = useState([]);
+  const [chartData2, setChartData2] = useState([]);
+  const [chartData2pattern, setChartData2pattern] = useState({});
+  const [myType, setMyType] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/myHome/test5`);
-        setUserData(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const [chartData3, setChartData3] = useState([]);
+  const [chartData4, setChartData4] = useState([]);
 
-    fetchData();
-  }, []);
-
+  
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,14 +38,29 @@ const MyChart = () => {
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
-        setUserData(data)
-        // setMapHtml(data.map_html);
-        // setChartHtml(data.chart_html);
+        setChartData1(data.data1)
+        setChartData2(data.data2)
 
-        // console.log(data);
-        // console.log(data.map_html);
-          
-      
+          // 나의 월 소비 패턴 정의
+          const my_pattern =data.data2[0];
+          const total_usage = my_pattern["usage_23_4"] + my_pattern["usage_5_10"] + my_pattern["usage_11_16"] + my_pattern["usage_17_22"];
+          const usage_23_4 = Math.round(my_pattern["usage_23_4"] / total_usage * 1000) / 10;
+          const usage_5_10 = Math.round(my_pattern["usage_5_10"] / total_usage * 1000) / 10;
+          const usage_11_16 = Math.round(my_pattern["usage_11_16"] / total_usage * 1000) / 10;
+          const usage_17_22 = Math.round(my_pattern["usage_17_22"] / total_usage * 1000) / 10;
+
+          const usageValues = [usage_23_4, usage_5_10, usage_11_16, usage_17_22];
+
+          // 최대값 찾기
+          const my_use_type= {
+            "usage_23_4": usage_23_4,
+            "usage_5_10": usage_5_10,
+            "usage_11_16": usage_11_16,
+            "usage_17_22": usage_17_22
+        }
+
+          setChartData2pattern(my_use_type)
+
         console.log(data);
       } catch (error) {
         console.error('Error fetching graph data:', error);
@@ -64,7 +69,32 @@ const MyChart = () => {
     fetchData();
   }, []);
 
-  function calculate_bill(usage){
+  function calculateType(dict) {
+    if (!dict || typeof dict !== 'object') {
+      return null; 
+    }
+
+    let maxKey = null;
+    let maxValue = 0;
+    
+    for (const [key, value] of Object.entries(dict)) {
+      if (value > maxValue) {
+        maxValue = value;
+        maxKey = key;
+      }
+    }
+    if (maxKey=="usage_23_4"){
+      return "심야,새벽"
+    }else if (maxKey=="usage_11_16"){
+      return "오후"
+    }else if (maxKey=="usage_5_10"){
+      return "아침"
+    }else if (maxKey=="usage_17_22"){
+      return "저녁"
+    }
+  }
+  // 요금 계산기
+  function calculateBill(usage){
      let bill =0
     if (usage <= 300){
         bill = usage * 120.0
@@ -76,6 +106,15 @@ const MyChart = () => {
         bill = 300 * 120.0 + 150 * 214.6 + (usage - 450) * 307.3}
     return bill
     }
+
+  
+  
+
+
+
+
+
+
   return (
     <div className={style.body}>
       <div className={style.container}>
@@ -85,13 +124,13 @@ const MyChart = () => {
         </div>
 
         <div className={style.keyword_box} onClick={()=>handleBoxClick(1)}>
-          <h1>120kw </h1>
+          <h1>{chartData1["my_total_usage"]}kw </h1>
           <span>이달 사용 전력</span>
 
-          <h1>23,500원</h1>
+          <h1>{calculateBill(chartData1["my_total_usage"]).toLocaleString('ko-KR')}원</h1>
           <span>사용요금</span>
 
-          <h1>500원</h1>
+          <h1>{(calculateBill(chartData1["my_total_usage_last"])-calculateBill(chartData1["my_total_usage"])).toLocaleString('ko-KR')}원</h1>
           <span>직전달 대비 절약 금액</span>
           <span className={style.open}> {visibleContainers['1'] ? '▲' :'▼'} </span>
         </div>
@@ -104,21 +143,16 @@ const MyChart = () => {
               <span className={style.spring}></span>          
               {/* <span className={style.close} > ▲</span> */}
             </div>
-             <DoughnutChart data={[userData["average_total_usage"], userData["my_total_usage"]]}/>
+             <DoughnutChart data1={[chartData1["average_total_usage"], chartData1["my_total_usage"]]}/>
             
             <div >
-      {/* {graphImage && <img src={`data:image/png;base64,${graphImage}`} alt="Graph" />} */}
-      {/* <div dangerouslySetInnerHTML={{ __html: mapHtml }} /> */}
-      {/* <div dangerouslySetInnerHTML={{ __html: chartHtml }} />*/}
-      {/* {chartHtml && <div dangerouslySetInnerHTML={{ __html: chartHtml }} />} */}
-
-       {/* {chartHtml && <Plot data={JSON.parse(chartHtml).data}  layout={JSON.parse(chartHtml).layout} />} */}
+    
     </div>
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >이번달 사용량은 {userData["average_total_usage"]}kw 입니다. 이는 전달 평균 사용량 {userData["my_total_usage"]}kw의 { Math.round(userData["average_total_usage"]/userData["my_total_usage"] *1000)/10}% 에 해당합니다. </p>     
-            <p>또한 현재까지의 요금은 약 {calculate_bill(userData["average_total_usage"]).toLocaleString('ko-KR')}원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
+            <p >이번달 사용량은 {chartData1["my_total_usage"]}kw 입니다. 이는 전달 지역 평균 사용량 {chartData1["average_total_usage"]}kw의 { Math.round(chartData1["my_total_usage"]/chartData1["average_total_usage"] *1000)/10}% 에 해당합니다. </p>     
+            <p>또한 현재까지의 요금은 약 {calculateBill(chartData1["my_total_usage"]).toLocaleString('ko-KR')}원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
             <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
             </div>
 
@@ -148,13 +182,16 @@ const MyChart = () => {
           {/* <span className={style.close}> ▲</span>   */}
           </div>  
 
-          <PieChart />
+          <PieChart chartData2={chartData2pattern}/>
             {/* 해설상자 */}
             <div className={style.text_box}>
-           
-            <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
-            <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-            <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+            
+            <p >회원님의 전력 소비 시간대 비율은</p>     
+            <p >- 아침 {chartData2pattern["usage_5_10"]}% </p>     
+            <p >- 오후 {chartData2pattern["usage_11_16"]}%</p>     
+            <p >- 저녁 {chartData2pattern["usage_17_22"]}% </p>     
+            <p >- 심야새벽 {chartData2pattern["usage_23_4"]}% 입니다.</p>     
+            <p>소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '{calculateType(chartData2pattern)}' 소비형입니다.</p>     
             </div>
         </div>
         </div>
