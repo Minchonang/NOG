@@ -123,7 +123,7 @@
 }
 
 .input_new {
-    width: 100%;
+    width: 70%;
     padding: 0 1px 1%;
     border: 0;
     border-bottom: 1px solid #ff9f0a;
@@ -212,9 +212,11 @@
     outline: none;
     padding: 20px;
     height: 50vh;
+    width: 80vw;
 }
 
 .modal_container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -228,11 +230,43 @@
     font-family: 'Godo', serif;
     /* border-bottom: 2px solid #ff9f0a; */
 }
+.modal_content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .email_auth {
+    width: 100%;
     outline: none;
     border: 1px solid #ff9f0a;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Godo';
+    font-size: 1em;
+    padding: 2vh;
+    margin-bottom: 2vh;
+}
+
+.btn_auth {
+    width: 100%;
+    padding: 4.5% 0;
+    margin: 0 auto;
+    color: white;
+    background: #ff9f0a;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1em;
+    font-family: 'godo';
+}
+
+.btn_auth:hover {
+    border: 2px solid #ff8742;
+    background: #ffb649;
+}
+
+.btn_auth:active {
+    background-color: #ffdeac;
 }
 
 /* 모달 닫기 버튼에 대한 스타일 */
