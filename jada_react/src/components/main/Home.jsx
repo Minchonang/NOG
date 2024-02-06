@@ -34,7 +34,7 @@ function Home() {
   return (
     <div className={style.background}>
       <div className={style.title_area}>
-        <NavLink to="/home">NOG</NavLink>
+        <NavLink to="/">NOG</NavLink>
         <NavLink to="/login">로그인</NavLink>
       </div>
       <div className={style.subtitle_area} ref={slideRef}>

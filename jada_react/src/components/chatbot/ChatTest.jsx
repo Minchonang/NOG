@@ -49,7 +49,7 @@ const ChatTest = () => {
   return (
     <div className={style.background}>
       <div className={style.title_area}>
-        <NavLink to="/home">NOG</NavLink>
+        <NavLink to="/analysis">NOG</NavLink>
         <div>Chatbot</div>
       </div>
 

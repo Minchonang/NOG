@@ -20,13 +20,13 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Home />} />
           <Route path="/chatbot" element={<ChatTest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/analysis" element={<Index />} />
           <Route path="/check_user" element={<CheckUser />} />
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
           <Route path="/delete_check" element={<DeleteCheck />} />

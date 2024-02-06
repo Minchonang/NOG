@@ -170,7 +170,7 @@ function HomeControl() {
   return (
     <div className={common.background}>
       <div className={style.title_area}>
-        <NavLink to="/home">NOG</NavLink>
+        <NavLink to="/analysis">NOG</NavLink>
         <div>제어 센터</div>
       </div>
 

@@ -80,7 +80,7 @@ function CheckUser() {
           <label className={common.guide_label}>
             회원님의 비밀번호를 다시 한번 확인합니다.
           </label>
-          <div className={style.input_area}>
+          <div className={style.password_area}>
             <input
               type={showPassword ? "text" : "password"}
               value={userPwd}

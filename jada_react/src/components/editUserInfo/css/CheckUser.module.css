@@ -1,4 +1,4 @@
-.input_area {
+.password_area {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -9,7 +9,7 @@
   margin-bottom: 5px;
 }
 
-.input_area input {
+.password_area input {
   width: 90%;
   padding: 4% 10px;
   font-size: 1em;
@@ -19,7 +19,12 @@
   font-family: "Godo";
 }
 
+.password_area input::placeholder {
+  font-size: 0.8em;
+  font-family: "Godo";
+  color: rgb(198, 198, 198);
+}
+
 .eyeIcon {
-  width: 5%;
-  height: 5%;
+  padding-top: 5px;
 }

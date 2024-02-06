@@ -102,6 +102,7 @@ function Login() {
               placeholder="아이디 입력"
               maxLength="20"
             />
+
             <input
               className={common.themeBorder}
               type={showPassword ? "text" : "password"}
