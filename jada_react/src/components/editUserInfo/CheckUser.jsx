@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { API_BASE_URL } from "../../App.js";
 
 import common from "../common/css/common.module.css";
-// import style from "./css/FindId.module.css";
-import { API_BASE_URL } from "../../App.js";
 import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function CheckUser() {
 	const activeUser = true;
 
+	// 비밀번호 input에서 엔터 누르면 확인
+	const pressEnter = (e) => {
+		if (e.key === "Enter") {
+			checkUserPwd(e);
+		}
+	};
+
+	// 페이지가 열리면 input으로 바로 focus 상태가 되게 함
 	const pwdRef = useRef();
 	useEffect(() => {
 		setTimeout(() => {
@@ -20,30 +27,33 @@ function CheckUser() {
 
 	const [userPwd, setUserPwd] = useState("");
 
+	// 비밀번호 확인
 	const checkUserPwd = async (e) => {
 		e.preventDefault();
 
 		const requestData = {
-			
-			id : sessionStorage.getItem("user_id"),
+			id: sessionStorage.getItem("user_id"),
 			password: userPwd,
 		};
 		try {
-			const response = await fetch(`${API_BASE_URL}/api/userinfo/check-password`, {
-				method: "POST",
-				credentials: 'include', // 쿠키를 요청 헤더에 포함하기 위한 설정
-				headers: {
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "ip: 8080",
-				},
-				body: JSON.stringify(requestData),
-			});
+			const response = await fetch(
+				`${API_BASE_URL}/api/userinfo/check-password`,
+				{
+					method: "POST",
+					credentials: "include", // 쿠키를 요청 헤더에 포함하기 위한 설정
+					headers: {
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "ip: 8080",
+					},
+					body: JSON.stringify(requestData),
+				}
+			);
 
 			if (response.ok) {
 				// const data = await response.json();
 				// console.log(requestData.id);
 				console.log("비밀번호 일치:");
-				alert("본인 확인이 완료되었습니다.");
+				// alert("본인 확인이 완료되었습니다.");
 				window.location.href = "/edit_userinfo";
 			} else {
 				// console.log(requestData.id);
@@ -58,6 +68,7 @@ function CheckUser() {
 			alert(`통신 오류: ${error}`);
 		}
 	};
+
 	return (
 		<>
 			<div className={common.background}>
@@ -70,9 +81,10 @@ function CheckUser() {
 					</label>
 					<div className={common.input_area}>
 						<input
-							type="text"
+							type="password"
 							value={userPwd}
 							onChange={(e) => setUserPwd(e.target.value)}
+							onKeyDown={pressEnter}
 							ref={pwdRef}
 							placeholder="비밀번호 입력"
 							maxLength="25"

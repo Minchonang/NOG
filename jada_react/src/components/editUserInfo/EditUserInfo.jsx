@@ -1,13 +1,22 @@
 import { useState } from "react";
-
 import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
+
 import common from "../common/css/common.module.css";
 import style from "./css/EditUserInfo.module.css";
 import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function EditUserInfo() {
-  const activeUser = true;
+	const activeUser = true;
+
+	// 휴대폰 번호를 010-0000 형식으로 변경
+	function formatPhone(userPhone) {
+		const part1 = userPhone.slice(0, 3);
+		const part2 = userPhone.slice(3, 7);
+		const part3 = userPhone.slice(7);
+
+		return `${part1}-${part2}-${part3}`;
+	}
 
 	const [selectedElement1, setSelectedElement1] = useState("");
 	const [selectedElement2, setSelectedElement2] = useState("");
@@ -316,23 +325,32 @@ function EditUserInfo() {
 
 	// 이메일 수정
 	const [editEmail, setEditEmail] = useState(false);
-	const [newEmail, setNewEmail] = useState(userEmail); // 추후 서버 연결 시 변수 설정
+	const [newEmail, setNewEmail] = useState(userEmail);
 	const editEmailBtn = () => {
 		setEditEmail(true);
 	};
-
-	// 비밀번호 수정
-	const [editPwd, setEditPwd] = useState(false);
-	const [newPwd, setNewPwd] = useState(""); // 추후 서버 연결 시 변수 설정
-	const editPwdBtn = () => {
-		setEditPwd(true);
+	const cancelEmailBtn = () => {
+		setEditEmail(false);
 	};
 
 	// 번호 수정
 	const [editPhone, setEditPhone] = useState(false);
-	const [newPhone, setNewPhone] = useState(userPhone); // 추후 서버 연결 시 변수 설정
+	const [newPhone, setNewPhone] = useState(userPhone);
 	const editPhoneBtn = () => {
 		setEditPhone(true);
+	};
+	const cancelPhoneBtn = () => {
+		setEditPhone(false);
+	};
+
+	// 비밀번호 수정
+	const [editPwd, setEditPwd] = useState(false);
+	const [newPwd, setNewPwd] = useState("");
+	const editPwdBtn = () => {
+		setEditPwd(true);
+	};
+	const cancelPwdBtn = () => {
+		setEditPwd(false);
 	};
 
 	// 주소 수정
@@ -340,12 +358,18 @@ function EditUserInfo() {
 	const editAddressBtn = () => {
 		setEditAddress(true);
 	};
+	const cancelAddressBtn = () => {
+		setEditAddress(false);
+	};
 
 	// 가구 수 수정
 	const [editHouseNum, setEditHouseNum] = useState(false);
 	const [newHouseNum, setNewHouseNum] = useState(userHouseNum);
 	const editHouseNumBtn = () => {
 		setEditHouseNum(true);
+	};
+	const cancelHouseNumBtn = () => {
+		setEditHouseNum(false);
 	};
 
 	const handleEdit = async (e) => {
@@ -449,10 +473,6 @@ function EditUserInfo() {
 		} catch (error) {
 			console.error("서버 통신 오류", error);
 		}
-
-		// editEmailBtn(false);
-		// editPhoneBtn(false);
-		// editHouseNumBtn(false);
 	};
 
 	return (
@@ -473,6 +493,7 @@ function EditUserInfo() {
 							<div>{userName}</div>
 						</div>
 
+						{/* 이메일 */}
 						<div className={style.info_main_detail}>
 							{editEmail ? (
 								<input
@@ -484,9 +505,10 @@ function EditUserInfo() {
 							) : (
 								<div>{userEmail}</div>
 							)}
-							{/* <div>asdf3y92@gmail.com</div> */}
 							<button onClick={editEmailBtn}>수정</button>
 						</div>
+
+						{/* 휴대폰 번호 */}
 						<div className={style.info_main_detail}>
 							{editPhone ? (
 								<input
@@ -498,16 +520,20 @@ function EditUserInfo() {
 									maxLength="13"
 								/>
 							) : (
-								<div>{userPhone}</div>
+								<div>{formatPhone(userPhone)}</div>
 							)}
-							{/* <div>010-3945-9475</div> */}
-							<button onClick={editPhoneBtn}>수정</button>
+							{!editPhone ? (
+								<button onClick={editPhoneBtn}>수정</button>
+							) : (
+								<button onClick={cancelPhoneBtn}>취소</button>
+							)}
 						</div>
 
 						<div className={style.info_main_detail}>
 							<div className={style.divLine}></div>
 						</div>
 
+						{/* 비밀번호 */}
 						<div className={style.pwd_title}>비밀번호 변경</div>
 						<div className={style.info_main_detail}>
 							<div className={style.pwdInput_area}>
@@ -521,7 +547,11 @@ function EditUserInfo() {
 								) : (
 									<div>***************</div>
 								)}
-								<button onClick={editPwdBtn}>변경</button>
+								{!editPwd ? (
+									<button onClick={editPwdBtn}>수정</button>
+								) : (
+									<button onClick={cancelPwdBtn}>취소</button>
+								)}
 							</div>
 						</div>
 					</div>
@@ -529,6 +559,7 @@ function EditUserInfo() {
 					<div className={style.info_sub}>
 						<div className={style.info_sub_title}>부가 정보</div>
 
+						{/* 주소 */}
 						<div className={style.info_sub_detail}>
 							<div className={style.addressInput_area}>
 								{editAddress ? (
@@ -558,7 +589,7 @@ function EditUserInfo() {
 															<option key={option} value={option}>
 																{option}
 															</option>
-													  ))
+														))
 													: null}
 											</select>
 										</div>
@@ -579,9 +610,14 @@ function EditUserInfo() {
 									</div>
 								)}
 							</div>
-							<button onClick={editAddressBtn}>수정</button>
+							{!editAddress ? (
+								<button onClick={editAddressBtn}>수정</button>
+							) : (
+								<button onClick={cancelAddressBtn}>취소</button>
+							)}
 						</div>
 
+						{/* 가구원 수 */}
 						<div className={style.info_sub_detail}>
 							<div style={{ marginRight: "5px" }}>가구원 수: </div>
 							{editHouseNum ? (
@@ -596,8 +632,11 @@ function EditUserInfo() {
 								<div>{userHouseNum}</div>
 							)}
 							<div>명</div>
-							{/* <div>가구원 수: {houseNum}명</div> */}
-							<button onClick={editHouseNumBtn}>수정</button>
+							{!editHouseNum ? (
+								<button onClick={editHouseNumBtn}>수정</button>
+							) : (
+								<button onClick={cancelHouseNumBtn}>취소</button>
+							)}
 						</div>
 					</div>
 
