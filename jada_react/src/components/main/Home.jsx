@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
+import { ImEnter } from "react-icons/im";
+
 import common from "../common/css/common.module.css";
 import style from "./css/Home.module.css";
 import img1 from "./img/img1.jpg";
 import img2 from "./img/img2.jpg";
-import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 
 function Home() {

@@ -3,7 +3,9 @@ import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
 import common from "../common/css/common.module.css";
 import style from "./css/EditUserInfo.module.css";
+import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav.jsx";
+import ChatBot from "../common/jsx/ChatBot.jsx";
 import Modal from "react-modal";
 
 function EditUserInfo() {
@@ -549,10 +551,11 @@ function EditUserInfo() {
   return (
     <>
       <div className={common.background}>
-        <div className={style.title_area}>
+        {/* <div className={style.title_area}>
           <NavLink to="/">NOG</NavLink>
           <div>회원정보</div>
-        </div>
+        </div> */}
+        <Header />
         <div className={style.main_area}>
           <div className={style.userId}>
             <div>{userId}</div>
@@ -754,6 +757,7 @@ function EditUserInfo() {
           </div>
         </div>
       </Modal>
+      <ChatBot />
     </>
   );
 }

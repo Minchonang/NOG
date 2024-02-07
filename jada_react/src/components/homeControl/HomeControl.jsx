@@ -8,6 +8,7 @@ import { BiSolidUpArrow } from "react-icons/bi";
 
 import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
+import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav";
 import axios from "axios";
 
@@ -15,7 +16,6 @@ function HomeControl() {
   useEffect(() => {
     serverlink();
   }, []);
-
   const [userId, setUserId] = useState("0");
   const [userAddress1, setUserAddress1] = useState("");
   const [userAddress2, setUserAddress2] = useState("");
@@ -97,7 +97,6 @@ function HomeControl() {
     const homeDeviceDto = {
       userId: userId,
     };
-
     try {
       const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
         method: "POST",
@@ -278,6 +277,7 @@ function HomeControl() {
   };
 
   // ---------------- 에어컨 ------------------
+
   // 에어컨 온도조절
   function handleAirTemp(change) {
     setHomeAirTemp((prevTemp) => {
@@ -320,11 +320,7 @@ function HomeControl() {
 
   return (
     <div className={common.background}>
-      <div className={style.title_area}>
-        <NavLink to="/analysis">NOG</NavLink>
-        <div>제어 센터</div>
-      </div>
-
+      <Header />
       {/*--------------------온도-------------------- */}
       <div className={style.temp_area}>
         <div className={style.outdoor_temp_area}>
