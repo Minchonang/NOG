@@ -147,13 +147,11 @@ select {
   margin-bottom: 10px;
 }
 
-/* 선택된 옵션의 배경색 및 텍스트 색상 변경 */
 select:focus {
   outline: none;
   border-color: #4d90fe;
 }
 
-/* 기타 이유 입력 폼 스타일링 */
 textarea {
   width: 100%;
   padding: 8px;
@@ -161,10 +159,9 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 5px;
-  resize: vertical; /* 사용자가 크기를 조절할 수 있도록 허용 */
+  resize: vertical;
 }
 
-/* 선택된 기타 이유 입력 폼의 배경색 및 텍스트 색상 변경 */
 textarea:focus {
   outline: none;
   border-color: #4d90fe;
