@@ -9,6 +9,7 @@ function DeleteCheck() {
   const activeUser = true;
   const [deletionReasonOption, setDeletionReasonOption] = useState(""); // 선택한 이유
   const [otherReason, setOtherReason] = useState(""); // 기타 이유 입력
+  const [isCheck, setIsCheck] = useState(false);
 
   // 이전 페이지로 돌아가는 기능
   const navigate = useNavigate();
@@ -51,8 +52,6 @@ function DeleteCheck() {
 
   serverlink();
 
-  const [isCheck, setIsCheck] = useState(false);
-
   // 회원탈퇴
   const handleDeletion = async () => {
     if (!isCheck) {
@@ -63,6 +62,7 @@ function DeleteCheck() {
       alert("회원탈퇴 사유를 입력해주세요.");
       return;
     }
+
     // user_id를 가져오기
     const user_id = sessionStorage.getItem("user_id");
 
@@ -116,27 +116,32 @@ function DeleteCheck() {
 
           <div className={style.reason_area}>
             <div className={style.reason_area_title}>탈퇴사유</div>
-            <select
-              id="deletion_reason"
-              value={deletionReasonOption}
-              onChange={(e) => setDeletionReasonOption(e.target.value)}
-            >
-              <option value="">-- 선택하세요 --</option>
-              <option value="unhappy">서비스 불만족</option>
-              <option value="moveToOtherService">다른 서비스로 이전</option>
-              <option value="privacyConcern">개인정보 보안 우려</option>
-              <option value="decreasedFrequency">서비스 이용빈도 감소</option>
-              <option value="other">기타</option>
-            </select>
+            <div className={style.reason_area_detail}>
+              <div className={style.reason_thx}>
+                소중한 의견이 저희에게 큰 도움이 됩니다.
+              </div>
+              <select
+                id="deletion_reason"
+                value={deletionReasonOption}
+                onChange={(e) => setDeletionReasonOption(e.target.value)}
+              >
+                <option value="">-- 선택하세요 --</option>
+                <option value="unhappy">서비스 불만족</option>
+                <option value="moveToOtherService">다른 서비스로 이전</option>
+                <option value="privacyConcern">개인정보 보안 우려</option>
+                <option value="decreasedFrequency">서비스 이용빈도 감소</option>
+                <option value="other">기타</option>
+              </select>
 
-            {deletionReasonOption === "other" && (
-              <textarea
-                id="other_reason"
-                value={otherReason}
-                onChange={(e) => setOtherReason(e.target.value)}
-                placeholder="기타 이유를 입력해주세요."
-              ></textarea>
-            )}
+              {deletionReasonOption === "other" && (
+                <textarea
+                  id="other_reason"
+                  value={otherReason}
+                  onChange={(e) => setOtherReason(e.target.value)}
+                  placeholder="기타 이유를 입력해주세요."
+                ></textarea>
+              )}
+            </div>
           </div>
 
           <div className={style.info_sub}>

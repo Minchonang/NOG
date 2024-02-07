@@ -139,6 +139,25 @@
   margin-bottom: 2%;
   color: black;
 }
+
+.reason_area_detail {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0 8px;
+  font-size: 0.9em;
+  color: gray;
+  line-height: 130%;
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+.reason_thx {
+  margin-bottom: 1rem;
+}
+
 select {
   padding: 8px;
   font-size: 14px;
@@ -149,7 +168,7 @@ select {
 
 select:focus {
   outline: none;
-  border-color: #4d90fe;
+  border-color: #ff9f0a;
 }
 
 textarea {
@@ -164,5 +183,5 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: #4d90fe;
+  border-color: #ff9f0a;
 }
