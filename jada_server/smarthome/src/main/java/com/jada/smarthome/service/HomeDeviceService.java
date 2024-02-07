@@ -143,4 +143,33 @@ public class HomeDeviceService {
         return "로그인 하십시오.";
     }
   }
+    // 온도 수정
+    public String editTemp(HomeDeviceDto homeDeviceDto) {
+      String userId = homeDeviceDto.getUserId();
+      Integer setAirTemp = homeDeviceDto.getSetAirTemp();
+      Integer setBoilerTemp = homeDeviceDto.getSetBoilerTemp();
+  
+      if (userId != null) {
+          Optional<User> optionalUser = userRepository.findById(userId);
+  
+          if (optionalUser.isPresent()) {
+              User foundUser = optionalUser.get();
+              HomeDevice homeDevice = foundUser.getHomeDevice();
+
+              if (homeDevice != null) {
+                  homeDevice.setSetAirTemp(setAirTemp);
+                  homeDevice.setSetBoilerTemp(setBoilerTemp);
+  
+                  homeDeviceRepository.save(homeDevice);
+                  return "수정이 완료되었습니다.";
+              } else {
+                  return "homedevice 정보를 찾을 수 없습니다.";
+              }
+          } else {
+              return "유저정보를 찾을 수 없습니다.";
+          }
+      } else {
+          return "로그인 하십시오.";
+      }
+    }
 }
