@@ -101,8 +101,8 @@ function Home() {
               </div>
             </div>
           </div>
+
           <ChatBot />
-          <BottomNav />
         </div>
       )}
     </>
