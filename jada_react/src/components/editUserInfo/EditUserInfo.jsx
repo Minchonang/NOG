@@ -18,7 +18,6 @@ function EditUserInfo() {
     return `${part1}-${part2}-${part3}`;
   }
 
-  // 이메일인증
   const [emailAuth, setEmailAuth] = useState("");
   const [authkey, setAuthkey] = useState("");
   const [isVerified, setIsVerified] = useState(false);
@@ -334,7 +333,6 @@ function EditUserInfo() {
   const editEmailBtn = () => {
     setEditEmail(true);
   };
-
   const cancelEmailBtn = () => {
     setEditEmail(false);
   };
@@ -559,25 +557,23 @@ function EditUserInfo() {
           <div className={style.userId}>
             <div>{userId}</div>
           </div>
-
           <div className={style.info_main}>
             <div className={style.info_main_title}>기본 정보</div>
             <div className={style.info_main_detail}>
               <div>{userName}</div>
             </div>
+
+            {/* 이메일 */}
             <div className={style.info_main_detail}>
               {editEmail ? (
                 <>
-                  <div className={style.inputEmail_area}>
-                    <input
-                      type="text"
-                      value={newEmail}
-                      onChange={(e) => setNewEmail(e.target.value)}
-                      className={style.input_new}
-                      placeholder={userEmail}
-                    />
-                    <button onClick={openModal}>인증</button>
-                  </div>
+                  <input
+                    type="text"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    className={style.input_new}
+                  />
+                  <button onClick={openModal}>인증</button>
                 </>
               ) : (
                 <>
@@ -585,38 +581,6 @@ function EditUserInfo() {
                   <button onClick={editEmailBtn}>수정</button>
                 </>
               )}
-            </div>
-            <div className={style.info_main_detail}>
-              {editPhone ? (
-                <input
-                  type="text"
-                  value={newPhone}
-                  pattern="{phoneRegex}"
-                  onChange={(e) => setNewPhone(e.target.value)}
-                  className={style.input_new}
-                  maxLength="13"
-                  placeholder={userPhone}
-                />
-              ) : (
-                <div>{userPhone}</div>
-              )}
-              {/* <div>010-3945-9475</div> */}
-              <button onClick={editPhoneBtn}>수정</button>
-            </div>
-
-            {/* 이메일 */}
-            <div className={style.info_main_detail}>
-              {editEmail ? (
-                <input
-                  type="text"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  className={style.input_new}
-                />
-              ) : (
-                <div>{userEmail}</div>
-              )}
-              <button onClick={editEmailBtn}>수정</button>
             </div>
 
             {/* 휴대폰 번호 */}
@@ -629,6 +593,7 @@ function EditUserInfo() {
                   onChange={(e) => setNewPhone(e.target.value)}
                   className={style.input_new}
                   maxLength="13"
+                  placeholder={userPhone}
                 />
               ) : (
                 <div>{formatPhone(userPhone)}</div>
@@ -764,7 +729,6 @@ function EditUserInfo() {
         </div>
         <BottomNav activeUser={activeUser} />
       </div>
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -775,15 +739,19 @@ function EditUserInfo() {
         </span>
         <div className={style.modal_container}>
           <div className={style.modal_title}>이메일 인증</div>
-          <input
-            className={style.email_auth}
-            type="text"
-            value={emailAuth}
-            onChange={(e) => setEmailAuth(e.target.value)}
-            placeholder="인증번호"
-            maxLength="8"
-          />
-          <button onClick={handleVerify}>인증완료</button>
+          <div className={style.modal_content}>
+            <input
+              className={style.email_auth}
+              type="text"
+              value={emailAuth}
+              onChange={(e) => setEmailAuth(e.target.value)}
+              placeholder="인증번호"
+              maxLength="8"
+            />
+            <button onClick={handleVerify} className={style.btn_auth}>
+              인증완료
+            </button>
+          </div>
         </div>
       </Modal>
     </>

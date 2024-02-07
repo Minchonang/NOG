@@ -36,7 +36,6 @@ public class HomeDeviceController {
   public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
 
     return homeDeviceService.getHomeDevice(homeDeviceDto);
- 
 
   }
 
@@ -55,9 +54,7 @@ public class HomeDeviceController {
       } catch (Exception e) {
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
       }
-
-  
-}
+  }
 
  // 에어컨 온오프 수정
  @CrossOrigin(origins = "http://localhost:3000")
@@ -96,5 +93,19 @@ public class HomeDeviceController {
 
  
 }
+  // 온도 수정
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/editTemp")
+  public ResponseEntity<String> editTemp(@RequestBody HomeDeviceDto homeDeviceDto){
+      try {
+  
+        String result = homeDeviceService.editTemp(homeDeviceDto);
+        System.out.println(result + "-----------------------------------------------------");
+      
+        return ResponseEntity.ok(result);
+      } catch (Exception e) {
+          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+      }
+  }
 
 }

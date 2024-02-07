@@ -24,7 +24,7 @@ public class HomeDeviceService {
       this.homeDeviceRepository = homeDeviceRepository;
     }
     
-  // 홈 디바이스 정보 조회 및 변경
+  // 홈 디바이스 정보 조회
   public ResponseEntity<HomeDeviceDto> getHomeDevice(HomeDeviceDto homeDeviceDto){
     String userId = homeDeviceDto.getUserId();
 
@@ -46,6 +46,7 @@ public class HomeDeviceService {
           .humanCount(homeDevice.getHumanCount())
           .build();
           
+
           return ResponseEntity.ok(resultDto);
         } else {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HomeDeviceDto.builder().errorMessage("homedevice 정보를 찾을 수 없습니다.").build());
@@ -142,4 +143,33 @@ public class HomeDeviceService {
         return "로그인 하십시오.";
     }
   }
+    // 온도 수정
+    public String editTemp(HomeDeviceDto homeDeviceDto) {
+      String userId = homeDeviceDto.getUserId();
+      Integer setAirTemp = homeDeviceDto.getSetAirTemp();
+      Integer setBoilerTemp = homeDeviceDto.getSetBoilerTemp();
+  
+      if (userId != null) {
+          Optional<User> optionalUser = userRepository.findById(userId);
+  
+          if (optionalUser.isPresent()) {
+              User foundUser = optionalUser.get();
+              HomeDevice homeDevice = foundUser.getHomeDevice();
+
+              if (homeDevice != null) {
+                  homeDevice.setSetAirTemp(setAirTemp);
+                  homeDevice.setSetBoilerTemp(setBoilerTemp);
+  
+                  homeDeviceRepository.save(homeDevice);
+                  return "수정이 완료되었습니다.";
+              } else {
+                  return "homedevice 정보를 찾을 수 없습니다.";
+              }
+          } else {
+              return "유저정보를 찾을 수 없습니다.";
+          }
+      } else {
+          return "로그인 하십시오.";
+      }
+    }
 }
