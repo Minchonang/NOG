@@ -101,19 +101,23 @@ function Login() {
               placeholder="아이디 입력"
               maxLength="20"
             />
-
-            <input
-              className={common.themeBorder}
-              type={showPassword ? "text" : "password"}
-              value={userPwd}
-              onChange={(e) => setUserPwd(e.target.value)}
-              onKeyDown={keyDownEnter}
-              placeholder="비밀번호 입력"
-              maxLength="25"
-            />
-            <span onClick={togglePasswordVisibility} className={style.eyeIcon}>
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </span>
+            <div className={style.pwd_area}>
+              <input
+                className={common.themeBorder}
+                type={showPassword ? "text" : "password"}
+                value={userPwd}
+                onChange={(e) => setUserPwd(e.target.value)}
+                onKeyDown={keyDownEnter}
+                placeholder="비밀번호 입력"
+                maxLength="25"
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className={style.eyeIcon}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
           </div>
           <div className={common.btn_area}>
             <button className={common.themeBgrColor} onClick={handleLogin}>
@@ -134,6 +138,7 @@ function Login() {
             </NavLink>
           </div>
         </div>
+        <BottomNav />
       </div>
     </>
   );
