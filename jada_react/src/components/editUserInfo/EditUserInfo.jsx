@@ -565,6 +565,7 @@ function EditUserInfo() {
             <div className={style.info_main_detail}>
               <div>{userName}</div>
             </div>
+
             <div className={style.info_main_detail}>
               {editEmail ? (
                 <>
@@ -585,38 +586,6 @@ function EditUserInfo() {
                   <button onClick={editEmailBtn}>수정</button>
                 </>
               )}
-            </div>
-            <div className={style.info_main_detail}>
-              {editPhone ? (
-                <input
-                  type="text"
-                  value={newPhone}
-                  pattern="{phoneRegex}"
-                  onChange={(e) => setNewPhone(e.target.value)}
-                  className={style.input_new}
-                  maxLength="13"
-                  placeholder={userPhone}
-                />
-              ) : (
-                <div>{userPhone}</div>
-              )}
-              {/* <div>010-3945-9475</div> */}
-              <button onClick={editPhoneBtn}>수정</button>
-            </div>
-
-            {/* 이메일 */}
-            <div className={style.info_main_detail}>
-              {editEmail ? (
-                <input
-                  type="text"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  className={style.input_new}
-                />
-              ) : (
-                <div>{userEmail}</div>
-              )}
-              <button onClick={editEmailBtn}>수정</button>
             </div>
 
             {/* 휴대폰 번호 */}
