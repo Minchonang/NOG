@@ -16,15 +16,15 @@ import com.jada.smarthome.repository.UserRepository;
 public class HomeDeviceService {
 
   private final UserRepository userRepository;
-  // private final HomeDeviceRepository homeDeviceRepository;
+  private final HomeDeviceRepository homeDeviceRepository;
   
   
-  public HomeDeviceService(UserRepository userRepository) {
+  public HomeDeviceService(UserRepository userRepository, HomeDeviceRepository homeDeviceRepository) {
       this.userRepository = userRepository;
-      // this.homeDeviceRepository = homeDeviceRepository;
+      this.homeDeviceRepository = homeDeviceRepository;
     }
     
-  // 홈 디바이스 정보 조회 및 변경
+  // 홈 디바이스 정보 조회
   public ResponseEntity<HomeDeviceDto> getHomeDevice(HomeDeviceDto homeDeviceDto){
     String userId = homeDeviceDto.getUserId();
 
@@ -45,14 +45,6 @@ public class HomeDeviceService {
           .setAirTemp(homeDevice.getSetAirTemp())
           .humanCount(homeDevice.getHumanCount())
           .build();
-
-          // homeDevice.setLight(homeDeviceDto.getLight());
-          // homeDevice.setAirconditioner(homeDeviceDto.getAirconditioner());
-          // homeDevice.setHeater(homeDeviceDto.getHeater());
-          // homeDevice.setSetAirTemp(homeDeviceDto.getSetAirTemp());
-          // homeDevice.setSetBoilerTemp(homeDeviceDto.getSetBoilerTemp());
-          
-          // homeDeviceRepository.save(homeDevice);
           
 
           return ResponseEntity.ok(resultDto);
@@ -66,5 +58,7 @@ public class HomeDeviceService {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(HomeDeviceDto.builder().errorMessage("로그인 하십시오.").build());
     }
   }
+
+  // 홈 디바이스 정보 수정
 
 }

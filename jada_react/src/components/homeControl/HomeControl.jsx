@@ -86,9 +86,9 @@ function HomeControl() {
 
         const homeDeviceDto = {
             userId: userId,
-            homeLightOnOff: homeLightOnOff,
-            homeAirOnOff: homeAirOnOff,
-            homeboilerOnOff: homeboilerOnOff,
+            // homeLightOnOff: homeLightOnOff,
+            // homeAirOnOff: homeAirOnOff,
+            // homeboilerOnOff: homeboilerOnOff,
         };
         try {
             const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
