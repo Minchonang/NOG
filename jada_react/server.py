@@ -2,8 +2,7 @@
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-import threading
-import json
+from server_function import dbconnection,sql_select,db_close
 import pandas as pd
 import tensorflow as tf
 import torch
@@ -32,10 +31,28 @@ try:
     print("임베딩 pt 파일 갱신 및 로드 완료..")
 except:
     print("임베딩 pt 파일 갱신 및 로드 실패..")
-
+    
 @app.route('/')
 def index():
-    return "Flask Server is running!"
+    return "Hello"
+
+@app.route('/chat_userdata', methods=['POST'])
+def chat_userdata():
+    try:
+        # 클라이언트에서 전달된 userid를 가져옴
+        data = request.json
+        cur,conn=dbconnection()
+        sql = f"SELECT daily_usage, date    FROM usage_data WHERE user_id = '{data['user_id']}' AND YEAR(DATE) = YEAR(CURDATE())"
+        df = sql_select(cur,sql)
+        db_close(cur,conn)
+        datapost = df.to_json(orient='records')
+
+        # 조회된 데이터를 JSON 형식으로 응답
+        return jsonify(datapost)
+        
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @socketio.on('message')
 def handle_message(message):
@@ -64,6 +81,7 @@ def handle_message(message):
     print(f"선택된 질문과의 유사도 = {score}")
 
     # 답변
+    login_check = df['구분'][best_sim_idx]
     answer = df['답변(Answer)'][best_sim_idx]
     img = df['답변 이미지'][best_sim_idx]
     if score < 0.3:
@@ -71,6 +89,7 @@ def handle_message(message):
 
     send_json_data_str = {
         "Query": selected_qes,
+        "Login_Check" : str(login_check),
         "Answer": answer,
         "Img" : img
     }
