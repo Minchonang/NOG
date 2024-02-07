@@ -131,8 +131,8 @@ const MyChart = () => {
     <div className={style.body}>
       <div className={style.container}>
         <div className={style.title}>
-          <h1> {user["user_name"]}님의 패턴분석 ♪</h1>
-          <span>{user["user_city"]}</span>
+          <h1> {user["user_name"]? user["user_name"]+"님의 ":""}패턴분석 ♪</h1>
+          <span>{user["user_city"]?user["user_city"]:""}</span>
         </div>
 
         <div className={style.keyword_box} onClick={()=>handleBoxClick(1)}>
@@ -151,7 +151,7 @@ const MyChart = () => {
          <div className={style.chart_box}>
             {/* 도넛 제목 박스 */}
             <div className={style.chart_title_box} onClick={()=>handleBoxClick(1)}>
-              <h1 className={style.chart_box_title}>이달 소비 전력량(kW) </h1>
+              <h1 className={style.chart_box_title}>이달 소비 전력량(kWh) </h1>
               <span className={style.spring}></span>          
               {/* <span className={style.close} > ▲</span> */}
             </div>
@@ -163,9 +163,9 @@ const MyChart = () => {
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >이번달 사용량은 {chartData1["my_total_usage"]}kw 입니다. 이는 전달 지역 평균 사용량 {chartData1["average_total_usage"]}kw의 { Math.round(chartData1["my_total_usage"]/chartData1["average_total_usage"] *1000)/10}% 에 해당합니다. </p>     
+            <p >이번달 사용량은 {chartData1["my_total_usage"]}kwh 입니다. 이는 전달 지역 평균 사용량 {chartData1["average_total_usage"]}kwh의 { Math.round(chartData1["my_total_usage"]/chartData1["average_total_usage"] *1000)/10}% 에 해당합니다. </p>     
             <p>또한 현재까지의 요금은 약 {calculateBill(chartData1["my_total_usage"]).toLocaleString('ko-KR')}원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-            <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+            <p> 이달 예상 총 사용량은 542kwh, 요금은 12344원입니다.</p>
             </div>
 
         </div>

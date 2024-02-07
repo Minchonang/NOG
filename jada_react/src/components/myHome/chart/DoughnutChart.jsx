@@ -10,7 +10,7 @@ const DoughnutChart = ({data1}) => {
   const value = total
 
     const doughnutData = {
-        labels: [`이달 사용량 ${my}kW`, `지역평균 ${data1[0]}kW`],
+        labels: [`이달 사용량 ${my}kWh`, `지역평균 ${data1[0]}kWh`],
         datasets: [
           {
             data: [my, total],
@@ -57,7 +57,7 @@ const DoughnutChart = ({data1}) => {
   return (
             <div className={style.doughnut_chart_box}>
           <Doughnut  data={doughnutData} options={doughnutOptions} className={style.doughnut_chart}/>
-          <span className={style.doughnut_value}>{my}kW</span>          
+          <span className={style.doughnut_value}>{my}kWh</span>          
           </div>
   );
 };
