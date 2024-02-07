@@ -10,6 +10,7 @@ import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
 import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav";
+import ChatBot from "../common/jsx/ChatBot";
 import axios from "axios";
 
 function HomeControl() {
@@ -320,7 +321,7 @@ function HomeControl() {
 
   return (
     <div className={common.background}>
-      <Header />
+      <Header sub_title="홈 제어" />
       {/*--------------------온도-------------------- */}
       <div className={style.temp_area}>
         <div className={style.outdoor_temp_area}>
@@ -422,8 +423,8 @@ function HomeControl() {
             )}
           </div>
         </div>
-
-        <BottomNav />
+        <BottomNav activeHome={true} />
+        <ChatBot />
       </div>
     </div>
   );

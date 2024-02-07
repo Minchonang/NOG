@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../../App.js";
 import common from "../css/common.module.css";
 import header from "../css/Header.module.css";
 
-function Header() {
+function Header({ sub_title }) {
   const go_logout = async (e) => {
     e.preventDefault();
     // 세션 스크립트: 로그아웃 시 세션 지우기
@@ -36,7 +36,7 @@ function Header() {
     <>
       <div className={header.title_area}>
         <NavLink to="/analysis">NOG</NavLink>
-        <div>House</div>
+        <div className={header.sub_title}>{sub_title}</div>
         <GiExitDoor className={header.logout} onClick={go_logout} />
       </div>
     </>

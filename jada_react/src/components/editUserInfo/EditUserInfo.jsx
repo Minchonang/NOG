@@ -555,7 +555,7 @@ function EditUserInfo() {
           <NavLink to="/">NOG</NavLink>
           <div>회원정보</div>
         </div> */}
-        <Header />
+        <Header sub_title="내 정보" />
         <div className={style.main_area}>
           <div className={style.userId}>
             <div>{userId}</div>

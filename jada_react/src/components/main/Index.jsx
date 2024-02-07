@@ -50,7 +50,7 @@ function Index() {
 
   return (
     <div className={common.background}>
-      <Header />
+      <Header sub_title="홈 분석" />
 
       <div className={common.main_area}>
         <div className={style.userElectricityBill}>

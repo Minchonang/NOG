@@ -138,7 +138,6 @@ function Login() {
             </NavLink>
           </div>
         </div>
-        <BottomNav />
       </div>
     </>
   );
