@@ -9,8 +9,7 @@ import ChatBot from '../common/jsx/ChatBot';
 import Loading from '../common/jsx/Loading';
 
 function Home() {
-    // 로딩
-    const [message, setMessage] = useState('');
+    // // 로딩
     const [isLoading, setIsLoading] = useState(true);
     // 슬라이드
     const slideRef = useRef(null);
