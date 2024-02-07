@@ -45,8 +45,6 @@ public class UserService {
         // JoinUserDto를 User 엔터티로 변환 후 저장
         User user = joinUserDto.toEntity();
         userRepository.save(user);
-
-
     }
 
     //모든 유저 정보를 조회
@@ -87,8 +85,6 @@ public class UserService {
         }
     }
 
-
-
     // 이름과 이메일로 사용자 정보를 조회하는 메서드
     public Optional<User> findUserByNameAndEmail(String name, String email) {
         return userRepository.findByNameAndEmail(name, email);
@@ -122,8 +118,6 @@ public class UserService {
         // .orElse(false);
     }
     
-
-
     // 아이디과 이메일로 사용자 정보를 조회하는 메서드
     public Optional<User> findUserByIdAndEmail(String id, String email) {
         return userRepository.findByIdAndEmail(id, email);
@@ -205,5 +199,4 @@ public class UserService {
     public void userdelete(String id) {
         userRepository.deleteById(id);
 }
-
 }

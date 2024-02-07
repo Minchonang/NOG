@@ -1,14 +1,17 @@
 import sys
 from io import StringIO
 
-# sys.stdout을 메모리 버퍼로 설정
-memory_buffer = StringIO()
-sys.stdout = memory_buffer
+# sys.stdout을 메모리 버퍼로 설정 테스트중에는 주석처리해야 합니다.
+# memory_buffer = StringIO()
+# sys.stdout = memory_buffer
+# temp_stdout = sys.stdout
+# with open('print_log.txt', 'w') as f:
+#     sys.stdout = f
 
 import torch
 import numpy as np
 import cv2
-from time import time, sleep
+from time import time
 
 # YoLo
 from ultralytics import YOLO
@@ -30,9 +33,9 @@ class ObjectDetection:
 
         self.inside_region_point = \
             [(frame_width/3,0),
-             (frame_width*2/3, 0),
-             (frame_width*2/3,frame_height),
-             (frame_width/3, frame_height)]
+            (frame_width*2/3, 0),
+            (frame_width*2/3,frame_height),
+            (frame_width/3, frame_height)]
 
         # 카메라 캡처 객체 초기화
         self.cap = cv2.VideoCapture(capture_index)
@@ -40,7 +43,7 @@ class ObjectDetection:
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
 
         # model information
-        self.model = YOLO(model = "input_yolov8m-pose.pt")
+        self.model = YOLO(model = "./controller/input_yolov8m-pose.pt")
 
         # 클래스에서 사용할 카운터 생성
         self.inside_counter = self.object_counter(self.inside_region_point)

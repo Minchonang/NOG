@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
-import style from "./css/Login.module.css";
-import common from "../common/css/common.module.css";
-import BottomNav from "../common/jsx/BottomNav.jsx";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import style from "./css/Login.module.css";
+import common from "../common/css/common.module.css";
 
 function Login() {
   // 페이지 진입 시 바로 아이디 입력(input)에 focus 실행
@@ -67,7 +66,7 @@ function Login() {
         console.log(responseData.userId);
         window.sessionStorage.setItem("user_id", receivedUserId);
 
-        window.location.href = "/";
+        window.location.href = "/analysis";
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패:", response.status);
@@ -105,19 +104,23 @@ function Login() {
               placeholder="아이디 입력"
               maxLength="20"
             />
-
-            <input
-              className={common.themeBorder}
-              type={showPassword ? "text" : "password"}
-              value={userPwd}
-              onChange={(e) => setUserPwd(e.target.value)}
-              onKeyDown={keyDownEnter}
-              placeholder="비밀번호 입력"
-              maxLength="25"
-            />
-            <span onClick={togglePasswordVisibility} className={style.eyeIcon}>
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </span>
+            <div className={style.pwd_area}>
+              <input
+                className={common.themeBorder}
+                type={showPassword ? "text" : "password"}
+                value={userPwd}
+                onChange={(e) => setUserPwd(e.target.value)}
+                onKeyDown={keyDownEnter}
+                placeholder="비밀번호 입력"
+                maxLength="25"
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className={style.eyeIcon}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
           </div>
           <div className={common.btn_area}>
             <button className={common.themeBgrColor} onClick={handleLogin}>

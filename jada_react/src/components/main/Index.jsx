@@ -1,18 +1,20 @@
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { API_BASE_URL } from "../../App.js";
-import common from "../common/css/common.module.css";
-import style from "./css/Index.module.css";
-import Header from "../common/jsx/Header";
-import BottomNav from "../common/jsx/BottomNav";
 import { FaArrowDown } from "react-icons/fa";
-import chatbotimg from "../chatbot/nogimg.png";
+
+import BottomNav from "../common/jsx/BottomNav";
+import Header from "../common/jsx/Header";
+import ChatBot from "../common/jsx/ChatBot.jsx";
+
+import style from "./css/Index.module.css";
+import common from "../common/css/common.module.css";
 
 function Index() {
   const activeData = true;
   const [userId, setUserId] = useState("");
 
-  const serverlink = async (e) => {
+  const serverLink = async (e) => {
     // user_id를 가져오기
     const user_id = sessionStorage.getItem("user_id");
 
@@ -69,16 +71,13 @@ function Index() {
     }
   };
 
-  serverlink();
+  serverLink();
 
   return (
     <div className={common.background}>
       <Header />
+
       <div className={common.main_area}>
-        {/* <NavLink to="/" className={common.title_area}>
-          NOG
-        </NavLink> */}
-        {/* <SampleComp /> */}
         <div className={style.userElectricityBill}>
           이번 달 {userId}님의 예상 전기 요금은
           <br />
@@ -102,14 +101,7 @@ function Index() {
           <div className={style.graph_title}>그래프 3</div>
           <div>그래프 3</div>
         </div>
-        <button onClick={go_logout}>로그아웃</button>
-        <NavLink to="/chatbot">
-          <img
-            className={`${style.chatbotimg} ${style.bounce}`}
-            src={chatbotimg}
-            alt="ChatBot"
-          />
-        </NavLink>
+        <ChatBot />
         <BottomNav activeData={activeData} />
       </div>
     </div>
