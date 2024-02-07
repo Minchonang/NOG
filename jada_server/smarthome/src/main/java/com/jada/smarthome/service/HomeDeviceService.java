@@ -24,7 +24,7 @@ public class HomeDeviceService {
       this.homeDeviceRepository = homeDeviceRepository;
     }
     
-  // 홈 디바이스 정보 조회 및 변경
+  // 홈 디바이스 정보 조회
   public ResponseEntity<HomeDeviceDto> getHomeDevice(HomeDeviceDto homeDeviceDto){
     String userId = homeDeviceDto.getUserId();
 
@@ -46,6 +46,7 @@ public class HomeDeviceService {
           .humanCount(homeDevice.getHumanCount())
           .build();
           
+
           return ResponseEntity.ok(resultDto);
         } else {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HomeDeviceDto.builder().errorMessage("homedevice 정보를 찾을 수 없습니다.").build());
