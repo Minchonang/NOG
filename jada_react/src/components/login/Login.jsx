@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
-import style from "./css/Login.module.css";
-import common from "../common/css/common.module.css";
-import BottomNav from "../common/jsx/BottomNav.jsx";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import style from "./css/Login.module.css";
+import common from "../common/css/common.module.css";
 
 function Login() {
   // 페이지 진입 시 바로 아이디 입력(input)에 focus 실행
@@ -135,7 +134,6 @@ function Login() {
             </NavLink>
           </div>
         </div>
-        <BottomNav />
       </div>
     </>
   );
