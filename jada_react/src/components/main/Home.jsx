@@ -9,11 +9,12 @@ import ChatBot from '../common/jsx/ChatBot';
 import Loading from '../common/jsx/Loading';
 
 function Home() {
-    // // 로딩
+    // 로딩
     const [isLoading, setIsLoading] = useState(true);
     // 슬라이드
     const slideRef = useRef(null);
 
+    // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
     useEffect(() => {
         // 로딩 시작
         setIsLoading(true);
@@ -23,8 +24,15 @@ function Home() {
             setIsLoading(false);
         }, 2000);
 
-        // 이미지 슬라이드 설정
-        if (slideRef.current) {
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, []);
+
+    // 이미지 슬라이드를 설정하는 useEffect
+    useEffect(() => {
+        if (!isLoading && slideRef.current) {
+            // 로딩이 끝난 후에만 실행되도록 조건 추가
             const slides = Array.from(slideRef.current.children); // Convert to array
             let currentSlide = 0;
 
@@ -44,10 +52,9 @@ function Home() {
 
             return () => {
                 clearInterval(slideInterval); // 컴포넌트가 언마운트되면 인터벌 제거
-                clearTimeout(timeoutId);
             };
         }
-    }, []);
+    }, [isLoading]);
 
     return (
         <>
@@ -100,7 +107,6 @@ function Home() {
                         </div>
                     </div>
                     <ChatBot />
-                    <BottomNav />
                 </div>
             )}
         </>

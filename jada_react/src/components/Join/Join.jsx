@@ -553,7 +553,6 @@ function Join() {
                     </NavLink>
                 </div>
             </div>
-            <BottomNav />
         </div>
     );
 }
