@@ -34,9 +34,7 @@ public class HomeDeviceController {
 
   @PostMapping("/")
   public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
-
     return homeDeviceService.getHomeDevice(homeDeviceDto);
-
   }
 
   // 전등 온오프 수정
@@ -57,9 +55,9 @@ public class HomeDeviceController {
   }
 
  // 에어컨 온오프 수정
- @CrossOrigin(origins = "http://localhost:3000")
- @PostMapping("/editAir")
- public ResponseEntity<String> editAir(@RequestBody HomeDeviceDto homeDeviceDto){
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/editAir")
+  public ResponseEntity<String> editAir(@RequestBody HomeDeviceDto homeDeviceDto){
      try {
  
        Boolean setAir = homeDeviceDto.getAirconditioner();
@@ -76,9 +74,9 @@ public class HomeDeviceController {
 }
 
  // 보일러 온오프 수정
- @CrossOrigin(origins = "http://localhost:3000")
- @PostMapping("/editBoiler")
- public ResponseEntity<String> editBoiler(@RequestBody HomeDeviceDto homeDeviceDto){
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/editBoiler")
+  public ResponseEntity<String> editBoiler(@RequestBody HomeDeviceDto homeDeviceDto){
      try {
  
        Boolean setBoiler = homeDeviceDto.getHeater();
@@ -91,6 +89,7 @@ public class HomeDeviceController {
          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
      }
 }
+ 
   // 온도 수정
   @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/editTemp")

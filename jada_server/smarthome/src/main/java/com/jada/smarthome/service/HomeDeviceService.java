@@ -87,7 +87,6 @@ public class HomeDeviceService {
     }
   }
 
-  
   // 에어컨 온오프 수정
   public String editAir(HomeDeviceDto homeDeviceDto, Boolean setAir) {
     String userId = homeDeviceDto.getUserId();
@@ -143,8 +142,9 @@ public class HomeDeviceService {
         return "로그인 하십시오.";
     }
   }
-    // 온도 수정
-    public String editTemp(HomeDeviceDto homeDeviceDto) {
+    
+  // 온도 수정
+  public String editTemp(HomeDeviceDto homeDeviceDto) {
       String userId = homeDeviceDto.getUserId();
       Integer setAirTemp = homeDeviceDto.getSetAirTemp();
       Integer setBoilerTemp = homeDeviceDto.getSetBoilerTemp();
