@@ -90,8 +90,6 @@ public class HomeDeviceController {
      } catch (Exception e) {
          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
      }
-
- 
 }
   // 온도 수정
   @CrossOrigin(origins = "http://localhost:3000")

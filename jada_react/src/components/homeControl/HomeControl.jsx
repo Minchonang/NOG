@@ -193,6 +193,7 @@ function HomeControl() {
             alert('데이터 전송 중 오류 발생');
         }
     };
+
     handleTemp();
 
     // --------------- 전등 -------------------
@@ -227,8 +228,8 @@ function HomeControl() {
     //  ---------------- 보일러 ------------------
     // 보일러 온도조절
     function handleBoilerTemp(change) {
-        setHomeBoilerTemp((prevTemp) => {
-            const newTemp = prevTemp + change;
+        setHomeBoilerTemp((homeBoilerTemp) => {
+            const newTemp = homeBoilerTemp + change;
             setServerBoilerTemp(newTemp); // 이 부분에서 최신값을 적용
             return newTemp;
         });
@@ -265,15 +266,12 @@ function HomeControl() {
     // ---------------- 에어컨 ------------------
     // 에어컨 온도조절
     function handleAirTemp(change) {
-        setHomeAirTemp((prevTemp) => {
-            const newTemp = prevTemp + change;
+        setHomeAirTemp((homeAirTemp) => {
+            const newTemp = homeAirTemp + change;
             setServerAirTemp(newTemp); // 이 부분에서 최신값을 적용
             return newTemp;
         });
     }
-
-    console.log(homeAirTemp);
-    console.log(serverAirTemp);
 
     //  에어컨 온오프
     const handleAirConditionerToggle = async () => {
