@@ -37,6 +37,64 @@ public class HomeDeviceController {
 
     return homeDeviceService.getHomeDevice(homeDeviceDto);
  
+
   }
+
+  // 전등 온오프 수정
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/editLight")
+  public ResponseEntity<String> editLight(@RequestBody HomeDeviceDto homeDeviceDto){
+      try {
+  
+        Boolean setLight = homeDeviceDto.getLight();
+  
+        String result = homeDeviceService.editLight(homeDeviceDto, setLight);
+        System.out.println(result + "-----------------------------------------------------");
+      
+        return ResponseEntity.ok(result);
+      } catch (Exception e) {
+          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+      }
+
+  
+}
+
+ // 에어컨 온오프 수정
+ @CrossOrigin(origins = "http://localhost:3000")
+ @PostMapping("/editAir")
+ public ResponseEntity<String> editAir(@RequestBody HomeDeviceDto homeDeviceDto){
+     try {
+ 
+       Boolean setAir = homeDeviceDto.getAirconditioner();
+ 
+       String result = homeDeviceService.editAir(homeDeviceDto, setAir);
+       System.out.println(result + "-----------------------------------------------------");
+     
+       return ResponseEntity.ok(result);
+     } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+     }
+
+ 
+}
+
+ // 보일러 온오프 수정
+ @CrossOrigin(origins = "http://localhost:3000")
+ @PostMapping("/editBoiler")
+ public ResponseEntity<String> editBoiler(@RequestBody HomeDeviceDto homeDeviceDto){
+     try {
+ 
+       Boolean setBoiler = homeDeviceDto.getHeater();
+ 
+       String result = homeDeviceService.editBoiler(homeDeviceDto, setBoiler);
+       System.out.println(result + "-----------------------------------------------------");
+     
+       return ResponseEntity.ok(result);
+     } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+     }
+
+ 
+}
 
 }
