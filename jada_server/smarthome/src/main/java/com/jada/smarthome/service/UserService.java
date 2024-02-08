@@ -188,6 +188,7 @@ public class UserService {
         userInfoDto.setAddress2(user.getAddress2());
         userInfoDto.setAddress3(user.getAddress3());
         userInfoDto.setHouseNum(user.getHouseNum());
+        userInfoDto.setHomeDevice(user.getHomeDevice());
     
             return userInfoDto;
         }else{
