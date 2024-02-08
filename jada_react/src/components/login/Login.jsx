@@ -141,7 +141,7 @@ function Login() {
             </NavLink>
           </div>
         </div>
-        <BottomNav />
+        {/* <BottomNav /> */}
       </div>
     </>
   );

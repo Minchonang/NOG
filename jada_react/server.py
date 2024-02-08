@@ -54,6 +54,21 @@ def chat_userdata():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# 연결된 클라이언트들의 user_id 저장할 딕셔너리
+connected_clients = {}
+
+@socketio.on('connect')
+def handle_connect():
+    # 연결이 성공하면 클라이언트에서 전달된 user_id를 가져와서 저장
+    user_id = request.args.get('user_id')
+    connected_clients[request.sid] = user_id
+    
+@socketio.on('disconnect')
+def handle_disconnect():
+    # 연결이 끊기면 해당 클라이언트의 user_id를 삭제
+    user_id = connected_clients.pop(request.sid,None)
+
+
 @socketio.on('message')
 def handle_message(message):
     print('Received message: ', message)
@@ -95,6 +110,20 @@ def handle_message(message):
     }
 
     emit('message', send_json_data_str)
+    
+    # 클라이언트의 user_id 가져오기
+    user_id = connected_clients.get(request.sid,None)
+    if user_id:
+        print(f'User Id : {user_id}')
+    else:
+        user_id = 'nonmember'
+        print(f'User Id : {user_id}')
+    
+    # db 저장
+    cur,conn=dbconnection()
+    sql = f"INSERT INTO chat_data(chat_time,chat_user_id,data_question, user_question,similar)VALUES(CURTIME(),'{user_id}','{selected_qes}','{query}','{score}')"
+    sql_select(cur,sql)
+    db_close(cur,conn)
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
