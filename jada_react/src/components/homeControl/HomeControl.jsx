@@ -205,27 +205,41 @@ function HomeControl() {
   handleTemp();
 
   // --------------- 전등 -------------------
-  //  전등 온오프
-  const handleLightToggle = async () => {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    console.log("userHumanCount updated:", userHumanCount);
+    if (userHumanCount === 0 && homeLightOnOff) {
+      updateLightStatus(false);
+      setMessage("불 끄고 다니세욧!");
+    }
+  }, [userHumanCount, homeLightOnOff]);
+
+  // ------------------
+  useEffect(() => {
+    console.log("userHumanCount updated:", userHumanCount);
+    if (userHumanCount === 0 && homeLightOnOff) {
+      updateLightStatus(false);
+    }
+  }, [userHumanCount, homeLightOnOff]);
+
+  const updateLightStatus = async (status) => {
     try {
       const userId = sessionStorage.getItem("user_id");
 
-      // 클라이언트에서 서버로 전송할 데이터
       const requestData = {
         userId: userId,
-        light: !homeLightOnOff, // 토글 값 전송
+        light: status,
       };
 
-      // 서버의 API 엔드포인트에 POST 요청 보내기
       const response = await axios.post(
         `${API_BASE_URL}/api/homedevice/editLight`,
         requestData
       );
 
       if (response.status === 200) {
-        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
-        setHomeLightOnOff(!homeLightOnOff);
         console.log("데이터 전송 성공!");
+        setHomeLightOnOff(status);
       } else {
         console.log("데이터 전송 실패:", response.data);
         alert("데이터 전송 실패");
@@ -234,6 +248,10 @@ function HomeControl() {
       console.error("데이터 전송 중 오류:", error);
       alert("데이터 전송 중 오류 발생");
     }
+  };
+
+  const handleLightToggle = async () => {
+    updateLightStatus(!homeLightOnOff);
   };
 
   //  ---------------- 보일러 ------------------
@@ -366,6 +384,7 @@ function HomeControl() {
               불 켜기
             </button>
           )}
+          {message && <p>{message}</p>}
         </div>
 
         {/*--------------------보일러--------------------*/}
