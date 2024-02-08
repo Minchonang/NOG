@@ -1,12 +1,10 @@
 // ChatTest.jsx
-import { useState, useEffect, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect, Fragment } from "react";
 import io from "socket.io-client";
-
-// import bot_NOG from "./bot_NOG.png";
-// import bot_NOG from "./bot_NOG.svg";
 import style from "./css/ChatTest.module.css";
 import BottomNav from "../common/jsx/BottomNav";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 // const socket = io("http://192.168.0.58:5000"); // iot_AI
 const socket = io("http://192.168.0.67:5000"); // kepko
@@ -21,19 +19,67 @@ const ChatTest = () => {
 
   const sayHello = `안녕하세요, 저는 노지입니다.😊\n저는 여러분을 돕는 것을 좋아하고\n에너지 낭비를 싫어해요.🥺\n저와 같이 에너지 절약을 통해 깨끗한 지구를 만들어 봐요.🌳\n\n무엇이든지 물어보세요.\n예시1. 넌 누구야?\n예시2. 에어컨 온도 조절 해줘`;
 
-  // const [chatImage, setChatImage] = useState('');
   const [query, setQuery] = useState("");
   const [chatHistory, setChatHistory] = useState([]); // 채팅 기록을 저장할 상태 추가
   const inputLength = query.length > 0;
+  const [userid, setuserid] = useState("");
+  const [result, setResult] = useState("");
 
-  // 채팅 내용 전송
+  // user_id를 통해 전력사용량 가져오기
+  useEffect(() => {
+    const id = sessionStorage.getItem("user_id");
+    setuserid(id);
+  }, []);
+
+  useEffect(() => {
+    // userid 상태가 업데이트될 때마다 로그 출력
+    console.log(userid);
+  }, [userid]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // userid 상태가 업데이트될 때마다 Flask 서버에 요청
+        if (userid) {
+          const response = await axios.post(
+            "http://192.168.0.67:5000/chat_userdata",
+            {
+              user_id: userid,
+            }
+          );
+
+          const resultString = response.data;
+          // result를 배열로 변환
+          const resultArray = JSON.parse(resultString);
+          console.log(resultArray); // 받아온 데이터 확인
+
+          let totalDailyUsage = 0;
+          resultArray.forEach((data) => {
+            totalDailyUsage += data.daily_usage;
+          });
+
+          const roundedTotalDailyUsage = parseFloat(totalDailyUsage.toFixed(2));
+          console.log("총 사용량:", roundedTotalDailyUsage); // 총 사용량 출력
+          setResult(roundedTotalDailyUsage);
+
+          // 받아온 데이터를 처리하거나 상태에 저장하는 로직을 추가
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, [userid]);
+
+  // 기본 챗봇 socket 기능
   const handleQuery = () => {
     if (query.trim() !== "") {
       // query 값이 비어있지 않은 경우에만 처리
       socket.emit("message", { Query: query, BotType: "TEST" });
       setChatHistory([
         ...chatHistory,
-        { question: query, answer: "", img: "" },
+        { question: query, answer: "", img: "", login_check: "" },
       ]);
       setQuery(""); // 질문 보낸 후 query 초기화
     }
@@ -54,6 +100,7 @@ const ChatTest = () => {
         ...updatedHistory[lastIndex],
         answer: data.Answer,
         img: data.Img,
+        login_check: data.Login_Check,
       };
       return updatedHistory;
     });
@@ -64,6 +111,9 @@ const ChatTest = () => {
     const chatContainer = document.getElementById("chatContainer");
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }, [chatHistory]);
+
+  console.log(userid);
+  console.log(result);
 
   return (
     <>
@@ -100,9 +150,25 @@ const ChatTest = () => {
                     alt="botIcon"
                   />
                   <div>
-                    <span>{chat.answer}</span>
+                    {/* chat.Img가 1인 경우 result 출력, 그렇지 않으면 chat.answer 출력 */}
+                    <span>
+                      {userid ? (
+                        chat.login_check === "1" ? (
+                          result
+                        ) : (
+                          chat.answer
+                        )
+                      ) : chat.login_check === "1" ? (
+                        <>
+                          <div>로그인 후 이용가능합니다</div>
+                          <NavLink to="/login">링크</NavLink>
+                        </>
+                      ) : (
+                        chat.answer
+                      )}
+                    </span>
                     {/* 사진을 보냈는지 확인하고, http/https로 시작하는지 여부 확인 */}
-                    {chat.img &&
+                    {chat.login_check !== "1" &&
                       (/(http|https):\/\//.test(chat.img) ? (
                         // https	인 경우 이미지인지 여부 확인
                         /(.jpg|.jpeg|.png|.gif)$/.test(
@@ -150,5 +216,4 @@ const ChatTest = () => {
     </>
   );
 };
-
 export default ChatTest;
