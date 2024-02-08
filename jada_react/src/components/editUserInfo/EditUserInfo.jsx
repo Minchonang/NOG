@@ -591,7 +591,6 @@ function EditUserInfo() {
                                         <input
                                             type="text"
                                             value={newPhone}
-                                            pattern="{phoneRegex}"
                                             onChange={(e) => setNewPhone(e.target.value)}
                                             className={style.input_new}
                                             maxLength="13"

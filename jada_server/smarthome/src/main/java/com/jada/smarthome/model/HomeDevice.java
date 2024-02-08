@@ -2,15 +2,11 @@ package com.jada.smarthome.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
@@ -19,6 +15,9 @@ public class HomeDevice implements Serializable {
     @Id
     @Column(name = "home_id", nullable = false, length = 50)
     private String homeId;
+
+    @Column(name = "serial_num",nullable = false, length = 50)
+    private String serialNum;
 
     @Column(name = "lastest_time")
     private LocalDateTime lastestTime;
