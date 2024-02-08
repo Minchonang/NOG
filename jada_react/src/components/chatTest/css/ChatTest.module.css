@@ -1,152 +1,151 @@
 /* 고도체 */
 @font-face {
-	font-family: "Godo";
-	font-style: normal;
-	font-weight: 700;
-	src:
-		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2")
-			format("woff2"),
-		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff")
-			format("woff");
+  font-family: "Godo";
+  font-style: normal;
+  font-weight: 700;
+  src: url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2")
+      format("woff2"),
+    url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff")
+      format("woff");
 }
 /* Pretendard */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 .background {
-	position: relative;
-	z-index: 0;
-	margin: 0;
-	padding: 0;
-	width: 100vw;
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
 }
 
 /* 상단바 */
 .title_area {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 2;
-	display: flex;
-	flex-direction: row;
-	width: 100vw;
-	padding: 2% 5%;
-	background-color: #fbf7ef;
-	font-family: "godo", serif;
-	font-size: 1.7em;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo", serif;
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 .title_area div {
-	margin-left: 10px;
-	font-size: 0.9em;
+  margin-left: 10px;
+  font-size: 0.9em;
 }
 
 /* ------------------ */
 /* 채팅 메시지 영역 */
 .chatContainer {
-	height: calc(100vh - 72px);
-	display: flex;
-	flex-direction: column;
-	margin: 10px 0 0;
-	padding: 42px 0 88px;
-	overflow-y: auto;
-	gap: 15px;
-	/* background-color: #ffcf81;  */
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0;
+  padding: 42px 0 88px;
+  overflow-y: auto;
+  gap: 15px;
+  /* background-color: #ffcf81;  */
 }
 
 .msg_area {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	border-radius: 10px;
-	font-family: "Pretendard", serif;
-	white-space: pre-wrap;
-	/* word-wrap: break-word; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 10px;
+  /* font-family: "Pretendard", serif; */
+  white-space: pre-wrap;
+  /* word-wrap: break-word; */
 }
 .msg_area div {
-	max-width: 80%;
-	padding: 15px;
-	border-radius: 15px;
-	line-height: 135%;
-	white-space: pre-wrap;
+  max-width: 80%;
+  padding: 15px;
+  border-radius: 15px;
+  line-height: 135%;
+  white-space: pre-wrap;
 }
 
 /* 봇 채팅 영역 */
 .icon_chatbot {
-	width: 40px;
-	height: 40px;
+  width: 40px;
+  height: 40px;
 }
 .botText_area {
-	padding-left: 15px;
+  padding-left: 15px;
 }
 .botText_area > div {
-	margin-top: 5px;
-	background-color: #f1f1f1;
+  margin-top: 5px;
+  background-color: #f1f1f1;
 }
 
 .botChat_img {
-	padding-top: 5px;
-	width: 100%;
-	max-height: 100%;
+  padding-top: 5px;
+  width: 100%;
+  max-height: 100%;
 }
 
 /* 유저 채팅 영역 */
 .userText_area {
-	align-items: flex-end;
-	padding-right: 15px;
+  align-items: flex-end;
+  padding-right: 15px;
 }
 .userText_area > div {
-	background-color: #ffe3b7;
-	/* text-align: right; */
+  background-color: #ffe3b7;
+  /* text-align: right; */
 }
 
 /* ------------- */
 /* 채팅 입력칸 */
 .input_area {
-	width: 100%;
-	position: fixed;
-	bottom: 74px;
-	left: 0;
-	right: 0;
-	display: flex;
-	flex-direction: row;
-	padding: 10px 15px;
-	background-color: #fbf7ef;
+  width: 100%;
+  position: fixed;
+  bottom: 74px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 15px;
+  background-color: #fbf7ef;
 }
 
 .input_area input {
-	width: 100%;
-	margin: 0 auto;
-	padding: 8px 10px;
-	outline: none;
-	border: 2px solid #d0d0d0;
-	border-radius: 10px;
-	font-family: "Godo", serif;
-	font-size: 1em;
-	font-family: "pretendard", serif;
+  width: 100%;
+  margin: 0 auto;
+  padding: 8px 10px;
+  outline: none;
+  border: 2px solid #d0d0d0;
+  border-radius: 10px;
+  font-family: "Godo", serif;
+  font-size: 1em;
+  font-family: "pretendard", serif;
 }
 .input_area input:focus {
-	border: 2px solid #ff9f0a;
+  border: 2px solid #ff9f0a;
 }
 
 .input_area button {
-	width: 60px;
-	margin-left: 10px;
-	border: 2px solid rgb(235, 235, 235);
-	border-radius: 10px;
-	font-size: 15px;
-	white-space: nowrap;
-	font-family: "godo";
-	/* color: black; */
-	/* background-color: #ff9f0a; */
+  width: 60px;
+  margin-left: 10px;
+  border: 2px solid rgb(235, 235, 235);
+  border-radius: 10px;
+  font-size: 15px;
+  white-space: nowrap;
+  font-family: "godo";
+  /* color: black; */
+  /* background-color: #ff9f0a; */
 }
 .activeBtn {
-	color: black !important;
-	background-color: #ffe3b7 !important;
-	border: 2px solid #ffd99f !important;
+  color: black !important;
+  background-color: #ffe3b7 !important;
+  border: 2px solid #ffd99f !important;
 }
 
 .deactivateBtn {
-	color: lightgray;
-	background-color: #f1f1f1;
+  color: lightgray;
+  background-color: #f1f1f1;
 }

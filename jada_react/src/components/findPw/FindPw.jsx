@@ -138,6 +138,7 @@ function FindPw() {
             console.error('비밀번호 재설정 중 오류 발생:', error);
         }
     };
+
     return (
         <>
             <div className={common.background}>
@@ -193,6 +194,7 @@ function FindPw() {
                                     placeholder="새 비밀번호 입력"
                                     maxLength="20"
                                 />
+
                                 <input
                                     type="password"
                                     value={newPwdConfirm}
@@ -200,6 +202,7 @@ function FindPw() {
                                     placeholder="비밀번호 확인"
                                     maxLength="20"
                                 />
+
                                 <div className={common.btn_area}>
                                     <button className={common.themeBgrColor} onClick={handleResetPwd}>
                                         비밀번호 재설정하기

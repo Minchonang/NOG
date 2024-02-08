@@ -13,24 +13,32 @@ import { FaRegLightbulb } from "react-icons/fa";
 import axios from "axios";
 import common from "../common/css/common.module.css";
 import style from "./css/HomeControl.module.css";
+import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav";
-import ChatBot from "../common/jsx/ChatBot.jsx";
+import ChatBot from "../common/jsx/ChatBot";
 
 function HomeControl() {
-	const [userId, setUserId] = useState("");
+	useEffect(() => {
+		serverlink();
+	}, []);
+	const [userId, setUserId] = useState("0");
 	const [userAddress1, setUserAddress1] = useState("");
 	const [userAddress2, setUserAddress2] = useState("");
-	const [outdoorTemp, setOutdoorTemp] = useState("");
-	const [weatherIcon, setWeatherIcon] = useState("");
-	const [recommendTemp, setRecommendTemp] = useState("");
-	const [userHumanCount, setUserHumanCount] = useState("");
+	const [outdoorTemp, setOutdoorTemp] = useState("0");
+	const [weatherIcon, setWeatherIcon] = useState("0");
+	const [recommendTemp, setRecommendTemp] = useState("0");
+	const [userHumanCount, setUserHumanCount] = useState("0");
 
 	const [homeTemp, setUserHomeTemp] = useState("");
+
 	const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("");
 	const [homeAirOnOff, setHomeAirOnOff] = useState("");
 	const [homeLightOnOff, setHomeLightOnOff] = useState("");
-	const [homeAirTemp, setHomeAirTemp] = useState("");
-	const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
+
+	const [homeAirTemp, setHomeAirTemp] = useState("0");
+	const [serverAirTemp, setServerAirTemp] = useState("");
+	const [homeBoilerTemp, setHomeBoilerTemp] = useState("0");
+	const [serverBoilerTemp, setServerBoilerTemp] = useState("");
 
 	// on, off 스위치 이미지
 	const onBtn =
@@ -159,73 +167,39 @@ function HomeControl() {
 				console.log(userId);
 				getHomeDeviceData();
 
-        // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
-        const fullAddress = `${result.address1} ${result.address2}`;
-        getAddressLatLng(fullAddress).then((coords) => {
-          getWeather(coords.lat, coords.lng);
-        });
-      } else {
-        console.log("회원 정보 조회 실패");
-        alert("오류가 발생하였습니다.");
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
-  };
+				// 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
+				const fullAddress = `${result.address1} ${result.address2}`;
+				getAddressLatLng(fullAddress).then((coords) => {
+					getWeather(coords.lat, coords.lng);
+				});
+			} else {
+				console.log("회원 정보 조회 실패");
+				alert("오류가 발생하였습니다.");
+			}
+		} catch (error) {
+			console.error("서버 통신 오류", error);
+		}
+	};
 
-  // --------------- 서버전달용 -------------------
-  const handleTemp = async () => {
-    try {
-      const userId = sessionStorage.getItem("user_id");
-
-      // 클라이언트에서 서버로 전송할 데이터
-      const requestData = {
-        userId: userId,
-        setBoilerTemp: serverBoilerTemp,
-        setAirTemp: serverAirTemp,
-      };
-
-      // 서버의 API 엔드포인트에 POST 요청 보내기
-      const response = await axios.post(
-        `${API_BASE_URL}/api/homedevice/editTemp`,
-        requestData
-      );
-
-      if (response.status === 200) {
-        console.log("데이터 전송 성공!");
-      } else {
-        console.log("데이터 전송 실패:", response.data);
-        alert("데이터 전송 실패");
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류:", error);
-      alert("데이터 전송 중 오류 발생");
-    }
-  };
-
-  handleTemp();
-
-	// --------------- 전등 -------------------
-	//  전등 온오프
-	const handleLightToggle = async () => {
+	// --------------- 서버전달용 -------------------
+	const handleTemp = async () => {
 		try {
 			const userId = sessionStorage.getItem("user_id");
 
 			// 클라이언트에서 서버로 전송할 데이터
 			const requestData = {
 				userId: userId,
-				light: !homeLightOnOff, // 토글 값 전송
+				setBoilerTemp: serverBoilerTemp,
+				setAirTemp: serverAirTemp,
 			};
 
 			// 서버의 API 엔드포인트에 POST 요청 보내기
 			const response = await axios.post(
-				`${API_BASE_URL}/api/homedevice/editLight`,
+				`${API_BASE_URL}/api/homedevice/editTemp`,
 				requestData
 			);
 
 			if (response.status === 200) {
-				// 성공적으로 서버에 데이터 전송 후 상태 업데이트
-				setHomeLightOnOff(!homeLightOnOff);
 				console.log("데이터 전송 성공!");
 			} else {
 				console.log("데이터 전송 실패:", response.data);
@@ -237,9 +211,69 @@ function HomeControl() {
 		}
 	};
 
+	handleTemp();
+
+	// --------------- 전등 -------------------
+	const [message, setMessage] = useState("");
+
+	useEffect(() => {
+		console.log("userHumanCount updated:", userHumanCount);
+		if (userHumanCount === 0 && homeLightOnOff) {
+			updateLightStatus(false);
+			setMessage("불 끄고 다니세욧!");
+		}
+	}, [userHumanCount, homeLightOnOff]);
+
+	// ------------------
+	useEffect(() => {
+		console.log("userHumanCount updated:", userHumanCount);
+		if (userHumanCount === 0 && homeLightOnOff) {
+			updateLightStatus(false);
+		}
+	}, [userHumanCount, homeLightOnOff]);
+
+	const updateLightStatus = async (status) => {
+		try {
+			const userId = sessionStorage.getItem("user_id");
+
+			const requestData = {
+				userId: userId,
+				light: status,
+			};
+
+			const response = await axios.post(
+				`${API_BASE_URL}/api/homedevice/editLight`,
+				requestData
+			);
+
+			if (response.status === 200) {
+				console.log("데이터 전송 성공!");
+				setHomeLightOnOff(status);
+			} else {
+				console.log("데이터 전송 실패:", response.data);
+				alert("데이터 전송 실패");
+			}
+		} catch (error) {
+			console.error("데이터 전송 중 오류:", error);
+			alert("데이터 전송 중 오류 발생");
+		}
+	};
+
+	const handleLightToggle = async () => {
+		updateLightStatus(!homeLightOnOff);
+	};
+
 	//  ---------------- 보일러 ------------------
 	// 보일러 온도조절
-	//  보일러 온오프
+	function handleBoilerTemp(change) {
+		setHomeBoilerTemp((prevTemp) => {
+			const newTemp = prevTemp + change;
+			setServerBoilerTemp(newTemp); // 이 부분에서 최신값을 적용
+			return newTemp;
+		});
+	}
+
+	// 보일러 On / Off
 	const handleBoilerToggle = async () => {
 		try {
 			const userId = sessionStorage.getItem("user_id");
@@ -254,7 +288,8 @@ function HomeControl() {
 			const response = await axios.post(
 				`${API_BASE_URL}/api/homedevice/editBoiler`,
 				requestData
-			);	if (response.status === 200) {
+			);
+			if (response.status === 200) {
 				// 성공적으로 서버에 데이터 전송 후 상태 업데이트
 				setHomeBoilerOnOff(!homeBoilerOnOff);
 				console.log("데이터 전송 성공!");
@@ -268,17 +303,15 @@ function HomeControl() {
 		}
 	};
 
-		
-
 	// ---------------- 에어컨 ------------------
 	// 에어컨 온도조절
 	function handleAirTemp(change) {
 		setHomeAirTemp((prevTemp) => {
-		  const newTemp = prevTemp + change;
-		  setServerAirTemp(newTemp); // 이 부분에서 최신값을 적용
-		  return newTemp;
+			const newTemp = prevTemp + change;
+			setServerAirTemp(newTemp); // 이 부분에서 최신값을 적용
+			return newTemp;
 		});
-	 }
+	}
 	//  에어컨 온오프
 	const handleAirConditionerToggle = async () => {
 		try {
@@ -308,14 +341,11 @@ function HomeControl() {
 			alert("데이터 전송 중 오류 발생");
 		}
 	};
-			
 
 	return (
 		<div className={common.background}>
-			<div className={style.title_area}>
-				<NavLink to="/analysis">NOG</NavLink>
-				<div>우리집</div>
-			</div>
+			<Header sub_title="홈 제어" />
+
 			{/*--------------------온도-------------------- */}
 			<div className={style.temp_area}>
 				<div className={style.outdoor_temp_area}>
@@ -393,14 +423,14 @@ function HomeControl() {
 						)}
 						{homeBoilerOnOff ? (
 							<div className={style.boiler_temp}>
-								<div className={style.minusBtn_area}>
-									<BiMinus />
+								<div className={style.minusBtn_area} onClick={() => handleBoilerTemp(-1)}>
+									<BiMinus  />
 								</div>
 								<div
 									className={style.boilerAirTemp}
 								>{`${homeBoilerTemp}˚C`}</div>
-								<div className={style.plusBtn_area}>
-									<BiPlus />
+								<div className={style.plusBtn_area} onClick={() => handleBoilerTemp(1)}>
+									<BiPlus  />
 								</div>
 							</div>
 						) : (
@@ -443,11 +473,17 @@ function HomeControl() {
 						)}
 						{homeAirOnOff ? (
 							<div className={style.airConditioner_temp}>
-								<div className={style.minusBtn_area}>
+								<div
+									className={style.minusBtn_area}
+									onClick={() => handleAirTemp(-1)}
+								>
 									<BiMinus />
 								</div>
 								<div className={style.boilerAirTemp}>{`${homeAirTemp}˚C`}</div>
-								<div className={style.plusBtn_area}>
+								<div
+									className={style.plusBtn_area}
+									onClick={() => handleAirTemp(1)}
+								>
 									<BiPlus />
 								</div>
 							</div>

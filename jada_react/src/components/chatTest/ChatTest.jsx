@@ -9,8 +9,8 @@ import style from "./css/ChatTest.module.css";
 import BottomNav from "../common/jsx/BottomNav";
 
 // const socket = io("http://192.168.0.58:5000"); // iot_AI
-// const socket = io("http://192.168.0.67:5000"); // kepko
-const socket = io("http://192.168.0.58:5000"); // 희성
+const socket = io("http://192.168.0.67:5000"); // kepko
+// const socket = io('http://192.168.0.67:5000'); // 희성
 // const socket = io("172.20.10.5");
 // 오늘 점심 -> 이미지 테스트
 // 전기 요금 계산 -> 링크
