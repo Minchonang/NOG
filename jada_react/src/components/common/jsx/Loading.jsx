@@ -5,7 +5,15 @@ const Loading = () => {
     return (
         <>
             <div className={style.loading_box}>
-                <img className={`${style.chatbotImg} ${style.bounce}`} src={icon_bot} alt="ChatBot" />
+                <div className={style.logo_box}>
+                    <div className={style.logo}>
+                        <div className={style.logo_nog}>NOG</div>
+                        <div className={style.logo_text}>New Our Global.</div>
+                    </div>
+                </div>
+                <div className={style.chatbot_box}>
+                    <img className={`${style.chatbotImg} ${style.bounce}`} src={icon_bot} alt="ChatBot" />
+                </div>
             </div>
         </>
     );

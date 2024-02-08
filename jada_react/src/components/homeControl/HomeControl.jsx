@@ -31,9 +31,9 @@ function HomeControl() {
   const [homeAirOnOff, setHomeAirOnOff] = useState("false");
   const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("false");
 
-  const [homeAirTemp, setHomeAirTemp] = useState(0);
+  const [homeAirTemp, setHomeAirTemp] = useState("0");
   const [serverAirTemp, setServerAirTemp] = useState("");
-  const [homeBoilerTemp, setHomeBoilerTemp] = useState(0);
+  const [homeBoilerTemp, setHomeBoilerTemp] = useState("0");
   const [serverBoilerTemp, setServerBoilerTemp] = useState("");
 
   // 주소 위도 경도로 바꾸기
@@ -336,7 +336,6 @@ function HomeControl() {
       alert("데이터 전송 중 오류 발생");
     }
   };
-
   return (
     <div className={common.background}>
       <Header sub_title="홈 제어" />
