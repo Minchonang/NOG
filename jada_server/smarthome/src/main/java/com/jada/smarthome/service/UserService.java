@@ -195,8 +195,4 @@ public class UserService {
         }
         }
 
-    // 회원정보 삭제
-    public void userdelete(String id) {
-        userRepository.deleteById(id);
-}
 }

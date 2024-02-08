@@ -3,8 +3,10 @@ package com.jada.smarthome.controller;
 import com.jada.smarthome.dto.EditUserDto;
 import com.jada.smarthome.dto.JoinUserDto;
 import com.jada.smarthome.dto.LoginUserDto;
+import com.jada.smarthome.dto.UserExitDto;
 import com.jada.smarthome.dto.UserInfoDto;
 import com.jada.smarthome.model.User;
+import com.jada.smarthome.service.UserExitService;
 import com.jada.smarthome.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/api/userinfo")
 public class UserController {
 
-    @Autowired
+    
     private final UserService userService;
+    private final UserExitService userExitService;
 
     private static final String DUPLICATE_ID = "가입불가 - 중복된 아이디";
 
@@ -39,8 +42,9 @@ public class UserController {
 	HttpSession session;
 
 
-    public UserController(UserService userService) {
-        this.userService = userService;        
+    public UserController(UserService userService, UserExitService userExitService) {
+        this.userService = userService;
+        this.userExitService = userExitService;    
     }
 
     // 회원가입
@@ -243,33 +247,50 @@ public class UserController {
     }
 
     // 회원탈퇴
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/userdelete")
-    public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
-        // 세션에서 현재 사용자 정보 가져오기
-        // User currentUser = (User) session.getAttribute("user_info");
-        // System.out.println("-------------------"+currentUser);
-        String id = requestData.get("user_id");
-        System.out.println("----------------------------------------"+ id);
+    // @CrossOrigin(origins = "http://localhost:3000")
+    // @PostMapping("/userdelete")
+    // public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
 
+    //     String id = requestData.get("user_id");
 
-        // if (id == null) {
-        //     // 세션이 유효하지 않으면 로그인 페이지로 리다이렉트
-        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션이 유효하지 않습니다.");
+    //     try {
+    //         // 회원 정보 삭제
+    //         userService.userdelete(id);
+    //         // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
+    //         session.invalidate(); // 세션 무효화
+
+    //         return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
+    //     }
+
+    // }
+
+    // // 회원탈퇴
+    // @CrossOrigin(origins = "http://localhost:3000")
+    // @PostMapping("/userdelete")
+    // public ResponseEntity<String> exitAccount(@RequestBody UserExitDto userExitDto) {
+    //     boolean result = userExitService.setExitContent(userExitDto);
+    //     if (result) {
+    //         return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
+    //     } else {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    //                              .body("회원탈퇴 중 오류가 발생했습니다.");
+    //     }
+        // String id = requestData.get("user_id");
+
+        // try {
+        //     // 회원 정보 삭제
+        //     userService.userdelete(id);
+        //     // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
+        //     session.invalidate(); // 세션 무효화
+
+        //     return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
+        // } catch (Exception e) {
+        //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
         // }
 
-        try {
-            // 회원 정보 삭제
-            userService.userdelete(id);
-            // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
-            session.invalidate(); // 세션 무효화
-
-            return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
-        }
-
-    }
+    // }
 
 
 }
