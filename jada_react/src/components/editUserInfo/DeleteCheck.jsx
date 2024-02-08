@@ -133,7 +133,7 @@ function DeleteCheck() {
                                 <option value="unhappy">서비스 불만족</option>
                                 <option value="moveToOtherService">다른 서비스로 이전</option>
                                 <option value="privacyConcern">개인정보 보안 우려</option>
-                                <option value="decreasedFrequency">서비스 이용빈도 감소</option>
+                                <option value="decreasedFrequency">서비스 이용 빈도 감소</option>
                                 <option value="other">기타</option>
                             </select>
 
@@ -142,7 +142,7 @@ function DeleteCheck() {
                                     id="other_reason"
                                     value={otherReason}
                                     onChange={(e) => setOtherReason(e.target.value)}
-                                    placeholder="기타 이유를 입력해주세요."
+                                    placeholder="이유를 입력해주세요."
                                 ></textarea>
                             )}
                         </div>

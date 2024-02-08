@@ -97,6 +97,7 @@
   margin-right: auto;
 }
 .checkbox_area input {
+  margin-left: 0;
   margin-right: 5px;
 }
 .checkbox_area label {
@@ -178,7 +179,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 5px;
-  resize: vertical;
+  resize: none;
 }
 
 textarea:focus {
