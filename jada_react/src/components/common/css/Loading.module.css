@@ -52,25 +52,31 @@
     }
 }
 
+.logo_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .logo {
     font-family: logo;
     font-size: 2rem;
     position: relative;
-}
-
-body {
-    overflow: hidden;
+    display: flex;
 }
 
 .logo_nog {
+    position: relative;
     animation: driveIn 2s forwards 1;
 }
 
 .logo_text {
+    position: relative;
     animation: driveOut 2s forwards 1;
 }
 /* 챗봇 아이콘 */
-.loading_box {
+.chatbot_box {
     display: flex;
     justify-content: center;
     align-items: center;
