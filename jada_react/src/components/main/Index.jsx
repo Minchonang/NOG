@@ -11,7 +11,6 @@ import style from "./css/Index.module.css";
 import common from "../common/css/common.module.css";
 
 function Index() {
-  const activeData = true;
   const [userId, setUserId] = useState("");
 
   const serverLink = async (e) => {
@@ -77,7 +76,7 @@ function Index() {
           <div>그래프 3</div>
         </div>
         <ChatBot />
-        <BottomNav activeData={activeData} />
+        <BottomNav activeData={true} />
       </div>
     </div>
   );
