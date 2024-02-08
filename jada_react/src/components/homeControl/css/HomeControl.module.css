@@ -243,6 +243,7 @@
   flex-direction: column;
   align-content: center;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .modal_title {
@@ -252,10 +253,16 @@
   font-family: "Godo", serif;
   /* border-bottom: 2px solid #ff9f0a; */
 }
+
 .modal_content {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
   font-family: "Godo", serif;
+  font-size: 1em;
   color: #ff9f0a;
+  width: 60%;
+  background: none;
+  border: none;
+  align-items: center;
 }
