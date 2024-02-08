@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { API_BASE_URL } from '../../App.js';
 import common from '../common/css/common.module.css';
@@ -6,9 +6,27 @@ import style from './css/EditUserInfo.module.css';
 import Header from '../common/jsx/Header';
 import BottomNav from '../common/jsx/BottomNav.jsx';
 import ChatBot from '../common/jsx/ChatBot.jsx';
+import LoadingNog from '../common/jsx/LoadingNog';
 import Modal from 'react-modal';
 
 function EditUserInfo() {
+    // 로딩
+    const [isLoading, setIsLoading] = useState(true);
+    // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
+    useEffect(() => {
+        // 로딩 시작
+        setIsLoading(true);
+
+        // 2초 후에 로딩 완료
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, []);
+
     // 휴대폰 번호를 010-0000 형식으로 변경
     function formatPhone(userPhone) {
         const part1 = userPhone.slice(0, 3);
@@ -527,210 +545,220 @@ function EditUserInfo() {
 
     return (
         <>
-            <div className={common.background}>
-                {/* <div className={style.title_area}>
+            {isLoading ? (
+                <LoadingNog />
+            ) : (
+                <>
+                    <div className={common.background}>
+                        {/* <div className={style.title_area}>
           <NavLink to="/">NOG</NavLink>
           <div>회원정보</div>
         </div> */}
-                <Header sub_title="내 정보" />
-                <div className={style.main_area}>
-                    <div className={style.userId}>
-                        <div>{userId}</div>
-                    </div>
-                    <div className={style.info_main}>
-                        <div className={style.info_main_title}>기본 정보</div>
-                        <div className={style.info_main_detail}>
-                            <div>{userName}</div>
-                        </div>
-
-                        {/* 이메일 */}
-                        <div className={style.info_main_detail}>
-                            {editEmail ? (
-                                <>
-                                    <input
-                                        type="text"
-                                        value={newEmail}
-                                        onChange={(e) => setNewEmail(e.target.value)}
-                                        className={style.input_new}
-                                    />
-                                    <button onClick={openModal}>인증</button>
-                                </>
-                            ) : (
-                                <>
-                                    <div>{userEmail}</div>
-                                    <button onClick={editEmailBtn}>수정</button>
-                                </>
-                            )}
-                        </div>
-
-                        {/* 휴대폰 번호 */}
-                        <div className={style.info_main_detail}>
-                            {editPhone ? (
-                                <input
-                                    type="text"
-                                    value={newPhone}
-                                    pattern="{phoneRegex}"
-                                    onChange={(e) => setNewPhone(e.target.value)}
-                                    className={style.input_new}
-                                    maxLength="13"
-                                    placeholder={userPhone}
-                                />
-                            ) : (
-                                <div>{formatPhone(userPhone)}</div>
-                            )}
-                            {!editPhone ? (
-                                <button onClick={editPhoneBtn}>수정</button>
-                            ) : (
-                                <button onClick={cancelPhoneBtn}>취소</button>
-                            )}
-                        </div>
-
-                        <div className={style.info_main_detail}>
-                            <div className={style.divLine}></div>
-                        </div>
-
-                        {/* 비밀번호 */}
-                        <div className={style.pwd_title}>비밀번호 변경</div>
-                        <div className={style.info_main_detail}>
-                            <div className={style.pwdInput_area}>
-                                {editPwd ? (
-                                    <input
-                                        type="password"
-                                        value={newPwd}
-                                        onChange={(e) => setNewPwd(e.target.value)}
-                                        className={style.input_new}
-                                    />
-                                ) : (
-                                    <div>***************</div>
-                                )}
-                                {!editPwd ? (
-                                    <button onClick={editPwdBtn}>수정</button>
-                                ) : (
-                                    <button onClick={cancelPwdBtn}>취소</button>
-                                )}
+                        <Header sub_title="내 정보" />
+                        <div className={style.main_area}>
+                            <div className={style.userId}>
+                                <div>{userId}</div>
                             </div>
-                        </div>
-                    </div>
+                            <div className={style.info_main}>
+                                <div className={style.info_main_title}>기본 정보</div>
+                                <div className={style.info_main_detail}>
+                                    <div>{userName}</div>
+                                </div>
 
-                    <div className={style.info_sub}>
-                        <div className={style.info_sub_title}>부가 정보</div>
-
-                        {/* 주소 */}
-                        <div className={style.info_sub_detail}>
-                            <div className={style.addressInput_area}>
-                                {editAddress ? (
-                                    <div className={style.addressInput_area}>
-                                        <div className={style.address_fisrt_second_area}>
-                                            <select
-                                                className={style.addressInput}
-                                                onChange={handleChangeElement1}
-                                                value={selectedElement1}
-                                            >
-                                                <option value="">시/도</option>
-                                                {Object.keys(options).map((option) => (
-                                                    <option key={option} value={option}>
-                                                        {option}
-                                                    </option>
-                                                ))}
-                                            </select>
-
-                                            <select
-                                                className={style.addressInput}
-                                                onChange={(e) => setSelectedElement2(e.target.value)}
-                                                value={selectedElement2}
-                                            >
-                                                <option value="">시/군/구</option>
-                                                {selectedElement1
-                                                    ? options[selectedElement1].map((option) => (
-                                                          <option key={option} value={option}>
-                                                              {option}
-                                                          </option>
-                                                      ))
-                                                    : null}
-                                            </select>
-                                        </div>
-
-                                        <div className={style.address_third_area}>
+                                {/* 이메일 */}
+                                <div className={style.info_main_detail}>
+                                    {editEmail ? (
+                                        <>
                                             <input
                                                 type="text"
-                                                name="address3"
-                                                placeholder="상세주소"
-                                                value={selectedElement3}
-                                                onChange={(e) => setSelectedElement3(e.target.value)}
+                                                value={newEmail}
+                                                onChange={(e) => setNewEmail(e.target.value)}
+                                                className={style.input_new}
                                             />
-                                        </div>
+                                            <button onClick={openModal}>인증</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div>{userEmail}</div>
+                                            <button onClick={editEmailBtn}>수정</button>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* 휴대폰 번호 */}
+                                <div className={style.info_main_detail}>
+                                    {editPhone ? (
+                                        <input
+                                            type="text"
+                                            value={newPhone}
+                                            pattern="{phoneRegex}"
+                                            onChange={(e) => setNewPhone(e.target.value)}
+                                            className={style.input_new}
+                                            maxLength="13"
+                                            placeholder={userPhone}
+                                        />
+                                    ) : (
+                                        <div>{formatPhone(userPhone)}</div>
+                                    )}
+                                    {!editPhone ? (
+                                        <button onClick={editPhoneBtn}>수정</button>
+                                    ) : (
+                                        <button onClick={cancelPhoneBtn}>취소</button>
+                                    )}
+                                </div>
+
+                                <div className={style.info_main_detail}>
+                                    <div className={style.divLine}></div>
+                                </div>
+
+                                {/* 비밀번호 */}
+                                <div className={style.pwd_title}>비밀번호 변경</div>
+                                <div className={style.info_main_detail}>
+                                    <div className={style.pwdInput_area}>
+                                        {editPwd ? (
+                                            <input
+                                                type="password"
+                                                value={newPwd}
+                                                onChange={(e) => setNewPwd(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        ) : (
+                                            <div>***************</div>
+                                        )}
+                                        {!editPwd ? (
+                                            <button onClick={editPwdBtn}>수정</button>
+                                        ) : (
+                                            <button onClick={cancelPwdBtn}>취소</button>
+                                        )}
                                     </div>
-                                ) : (
-                                    <div>
-                                        {userAddress1} {userAddress2} {userAddress3}
-                                    </div>
-                                )}
+                                </div>
                             </div>
-                            {!editAddress ? (
-                                <button onClick={editAddressBtn}>수정</button>
-                            ) : (
-                                <button onClick={cancelAddressBtn}>취소</button>
-                            )}
-                        </div>
 
-                        {/* 가구원 수 */}
-                        <div className={style.info_sub_detail}>
-                            <div style={{ marginRight: '5px' }}>가구원 수: </div>
-                            {editHouseNum ? (
+                            <div className={style.info_sub}>
+                                <div className={style.info_sub_title}>부가 정보</div>
+
+                                {/* 주소 */}
+                                <div className={style.info_sub_detail}>
+                                    <div className={style.addressInput_area}>
+                                        {editAddress ? (
+                                            <div className={style.addressInput_area}>
+                                                <div className={style.address_fisrt_second_area}>
+                                                    <select
+                                                        className={style.addressInput}
+                                                        onChange={handleChangeElement1}
+                                                        value={selectedElement1}
+                                                    >
+                                                        <option value="">시/도</option>
+                                                        {Object.keys(options).map((option) => (
+                                                            <option key={option} value={option}>
+                                                                {option}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+
+                                                    <select
+                                                        className={style.addressInput}
+                                                        onChange={(e) => setSelectedElement2(e.target.value)}
+                                                        value={selectedElement2}
+                                                    >
+                                                        <option value="">시/군/구</option>
+                                                        {selectedElement1
+                                                            ? options[selectedElement1].map((option) => (
+                                                                  <option key={option} value={option}>
+                                                                      {option}
+                                                                  </option>
+                                                              ))
+                                                            : null}
+                                                    </select>
+                                                </div>
+
+                                                <div className={style.address_third_area}>
+                                                    <input
+                                                        type="text"
+                                                        name="address3"
+                                                        placeholder="상세주소"
+                                                        value={selectedElement3}
+                                                        onChange={(e) => setSelectedElement3(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {userAddress1} {userAddress2} {userAddress3}
+                                            </div>
+                                        )}
+                                    </div>
+                                    {!editAddress ? (
+                                        <button onClick={editAddressBtn}>수정</button>
+                                    ) : (
+                                        <button onClick={cancelAddressBtn}>취소</button>
+                                    )}
+                                </div>
+
+                                {/* 가구원 수 */}
+                                <div className={style.info_sub_detail}>
+                                    <div style={{ marginRight: '5px' }}>가구원 수: </div>
+                                    {editHouseNum ? (
+                                        <input
+                                            type="text"
+                                            value={newHouseNum}
+                                            onChange={(e) => setNewHouseNum(e.target.value)}
+                                            className={`${style.input_new} ${style.input_newHouseNum}`}
+                                            maxLength="2"
+                                        ></input>
+                                    ) : (
+                                        <div>{userHouseNum}</div>
+                                    )}
+                                    <div>명</div>
+                                    {!editHouseNum ? (
+                                        <button onClick={editHouseNumBtn}>수정</button>
+                                    ) : (
+                                        <button onClick={cancelHouseNumBtn}>취소</button>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* 정보 수정 완료 */}
+                            <div className={common.btn_area}>
+                                <button className={common.themeBgrColor} onClick={handleEdit}>
+                                    확인
+                                </button>
+                            </div>
+                            {/* 회원탈퇴 */}
+                            <div className={style.delete_account}>
+                                <NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
+                            </div>
+                        </div>
+                        <BottomNav activeUser={true} />
+                    </div>
+                    <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={() => setModalIsOpen(false)}
+                        className={style.custom_modal}
+                    >
+                        <span className={style.close} onClick={closeModal}>
+                            &times;
+                        </span>
+                        <div className={style.modal_container}>
+                            <div className={style.modal_title}>이메일 인증</div>
+                            <div className={style.modal_content}>
                                 <input
+                                    className={style.email_auth}
                                     type="text"
-                                    value={newHouseNum}
-                                    onChange={(e) => setNewHouseNum(e.target.value)}
-                                    className={`${style.input_new} ${style.input_newHouseNum}`}
-                                    maxLength="2"
-                                ></input>
-                            ) : (
-                                <div>{userHouseNum}</div>
-                            )}
-                            <div>명</div>
-                            {!editHouseNum ? (
-                                <button onClick={editHouseNumBtn}>수정</button>
-                            ) : (
-                                <button onClick={cancelHouseNumBtn}>취소</button>
-                            )}
+                                    value={emailAuth}
+                                    onChange={(e) => setEmailAuth(e.target.value)}
+                                    placeholder="인증번호"
+                                    maxLength="8"
+                                />
+                                <button onClick={handleVerify} className={style.btn_auth}>
+                                    인증완료
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-                    {/* 정보 수정 완료 */}
-                    <div className={common.btn_area}>
-                        <button className={common.themeBgrColor} onClick={handleEdit}>
-                            확인
-                        </button>
-                    </div>
-                    {/* 회원탈퇴 */}
-                    <div className={style.delete_account}>
-                        <NavLink to="/delete_check">{`회원탈퇴 >`}</NavLink>
-                    </div>
-                </div>
-                <BottomNav activeUser={true} />
-            </div>
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className={style.custom_modal}>
-                <span className={style.close} onClick={closeModal}>
-                    &times;
-                </span>
-                <div className={style.modal_container}>
-                    <div className={style.modal_title}>이메일 인증</div>
-                    <div className={style.modal_content}>
-                        <input
-                            className={style.email_auth}
-                            type="text"
-                            value={emailAuth}
-                            onChange={(e) => setEmailAuth(e.target.value)}
-                            placeholder="인증번호"
-                            maxLength="8"
-                        />
-                        <button onClick={handleVerify} className={style.btn_auth}>
-                            인증완료
-                        </button>
-                    </div>
-                </div>
-            </Modal>
-            <ChatBot />
+                    </Modal>
+                    <ChatBot />
+                </>
+            )}
         </>
     );
 }
