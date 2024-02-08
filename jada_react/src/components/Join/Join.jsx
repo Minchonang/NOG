@@ -5,6 +5,8 @@ import styles from './css/Join.module.css';
 import common from '../common/css/common.module.css';
 import { API_BASE_URL } from '../../App.js';
 import BottomNav from '../common/jsx/BottomNav.jsx';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 
 function Join() {
     const [selectedElement1, setSelectedElement1] = useState('');
@@ -393,6 +395,13 @@ function Join() {
         }
     };
 
+    //   비밀번호 아이콘
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
     return (
         <div className={common.background}>
             <div className={common.main_area} onSubmit={handleJoin}>
@@ -413,15 +422,18 @@ function Join() {
                                 중복확인
                             </button>
                         </div>
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                        />
-
+                        <div className={styles.pwd_area}>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                            />
+                            <span onClick={togglePasswordVisibility} className={styles.eyeIcon}>
+                                {showPassword ? <FaEye /> : <FaEyeSlash />}
+                            </span>
+                        </div>
                         <div className={styles.inputWithBtn}>
                             <input
                                 type="text"
@@ -541,7 +553,6 @@ function Join() {
                     </NavLink>
                 </div>
             </div>
-            <BottomNav />
         </div>
     );
 }
