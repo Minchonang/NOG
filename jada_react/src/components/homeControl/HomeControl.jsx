@@ -5,6 +5,10 @@ import { FcHome } from "react-icons/fc";
 import { FcCloseUpMode } from "react-icons/fc";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { BiSolidUpArrow } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
+import { BiMinus } from "react-icons/bi";
+import { FaLightbulb } from "react-icons/fa";
+import { FaRegLightbulb } from "react-icons/fa";
 
 import axios from "axios";
 import common from "../common/css/common.module.css";
@@ -13,365 +17,421 @@ import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot.jsx";
 
 function HomeControl() {
-  const [userId, setUserId] = useState("");
-  const [userAddress1, setUserAddress1] = useState("");
-  const [userAddress2, setUserAddress2] = useState("");
-  const [outdoorTemp, setOutdoorTemp] = useState("");
-  const [weatherIcon, setWeatherIcon] = useState("");
-  const [recommendTemp, setRecommendTemp] = useState("");
-  const [userHumanCount, setUserHumanCount] = useState("");
+	const [userId, setUserId] = useState("");
+	const [userAddress1, setUserAddress1] = useState("");
+	const [userAddress2, setUserAddress2] = useState("");
+	const [outdoorTemp, setOutdoorTemp] = useState("");
+	const [weatherIcon, setWeatherIcon] = useState("");
+	const [recommendTemp, setRecommendTemp] = useState("");
+	const [userHumanCount, setUserHumanCount] = useState("");
 
-  const [homeTemp, setUserHomeTemp] = useState("");
-  const [homeboilerOnOff, setHomeBoilerOnOff] = useState("");
-  const [homeAirOnOff, setHomeAirOnOff] = useState("");
-  const [homeLightOnOff, setHomeLightOnOff] = useState("");
-  const [homeAirTemp, setHomeAirTemp] = useState("");
-  const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
+	const [homeTemp, setUserHomeTemp] = useState("");
+	const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("");
+	const [homeAirOnOff, setHomeAirOnOff] = useState("");
+	const [homeLightOnOff, setHomeLightOnOff] = useState("");
+	const [homeAirTemp, setHomeAirTemp] = useState("");
+	const [homeBoilerTemp, setHomeBoilerTemp] = useState("");
 
-  // 주소 위도 경도로 바꾸기
-  const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
+	// on, off 스위치 이미지
+	const onBtn =
+		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2F1843f095-ad9e-4428-b3c8-c5c9286400ee%2FUntitled.png?table=block&id=853660a2-2827-4ac8-82b8-3b410c60aa33&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
+	const offBtn =
+		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Fd83a0b09-21ae-4a3f-8b40-a064402acf3b%2FUntitled.png?table=block&id=4f2d8ba0-ca30-40b4-924d-40960b1edf87&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
 
-  async function getAddressLatLng(address) {
-    try {
-      const response = await axios.get(
-        `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
-        {
-          headers: {
-            Authorization: `KakaoAK ${KAKAO_API_KEY}`,
-          },
-        }
-      );
-      const { x, y } = response.data.documents[0].address;
-      return { lat: y, lng: x };
-    } catch (error) {
-      console.error(error);
-    }
-  }
+	// 주소 위도 경도로 바꾸기
+	const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
 
-  // 위도 경도에 맞는 날씨 가져오기
-  const API_KEY = "c1478feb49390d6a8beedaa2c52287f3"; // OpenWeatherMap API 키
+	async function getAddressLatLng(address) {
+		try {
+			const response = await axios.get(
+				`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
+				{
+					headers: {
+						Authorization: `KakaoAK ${KAKAO_API_KEY}`,
+					},
+				}
+			);
+			const { x, y } = response.data.documents[0].address;
+			return { lat: y, lng: x };
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
-  async function getWeather(lat, lon) {
-    try {
-      const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
-      );
+	// 위도 경도에 맞는 날씨 가져오기
+	const API_KEY = "c1478feb49390d6a8beedaa2c52287f3"; // OpenWeatherMap API 키
 
-      // 온도 정보 저장
-      const outdoorTemp = response.data.main.temp;
-      setOutdoorTemp(outdoorTemp);
-      const weatherIcon = response.data.weather[0].icon;
-      setWeatherIcon(weatherIcon);
+	async function getWeather(lat, lon) {
+		try {
+			const response = await axios.get(
+				`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+			);
 
-      // 추천 온도 설정
-      let recommendTemp;
-      if (outdoorTemp < -10) {
-        recommendTemp = "20~22";
-      } else if (outdoorTemp < 10) {
-        recommendTemp = "20~22";
-      } else if (outdoorTemp < 20) {
-        recommendTemp = "22~24";
-      } else if (outdoorTemp < 30) {
-        recommendTemp = "24~26";
-      } else {
-        recommendTemp = "26~28";
-      }
-      setRecommendTemp(recommendTemp);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+			// 온도 정보 저장
+			const outdoorTemp = response.data.main.temp;
+			setOutdoorTemp(outdoorTemp);
+			const weatherIcon = response.data.weather[0].icon;
+			setWeatherIcon(weatherIcon);
 
-  // 집 정보 가져오기
-  async function getHomeDeviceData() {
-    // user_id를 가져오기
-    const userId = sessionStorage.getItem("user_id");
+			// 추천 온도 설정
+			let recommendTemp;
+			if (outdoorTemp < -10) {
+				recommendTemp = "20~22";
+			} else if (outdoorTemp < 10) {
+				recommendTemp = "20~22";
+			} else if (outdoorTemp < 20) {
+				recommendTemp = "22~24";
+			} else if (outdoorTemp < 30) {
+				recommendTemp = "24~26";
+			} else {
+				recommendTemp = "26~28";
+			}
+			setRecommendTemp(recommendTemp);
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
-    const homeDeviceDto = {
-      userId: userId,
-    };
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(homeDeviceDto),
-      });
+	// 집 정보 가져오기
+	async function getHomeDeviceData() {
+		// user_id를 가져오기
+		const userId = sessionStorage.getItem("user_id");
 
-      if (response.ok) {
-        // 서버 응답이 성공인 경우
-        const result = await response.json();
+		const homeDeviceDto = {
+			userId: userId,
+		};
+		try {
+			const response = await fetch(`${API_BASE_URL}/api/homedevice/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(homeDeviceDto),
+			});
 
-        console.log("Home Device Data:", result);
-        setUserHumanCount(result.humanCount);
-        setHomeLightOnOff(result.light);
-        setHomeBoilerOnOff(result.heater);
-        setHomeAirOnOff(result.airconditioner);
-        setUserHomeTemp(result.temperatureNow);
-        setHomeBoilerTemp(result.setBoilerTemp);
-        setHomeAirTemp(result.setAirTemp);
-        console.log(homeLightOnOff);
-      } else {
-        const errorData = await response.json(); // 추가: 오류 응답 내용 출력
-        console.log("홈 디바이스 정보 조회 실패:", errorData);
-        alert("오류가 발생하였습니다.");
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
-  }
+			if (response.ok) {
+				// 서버 응답이 성공인 경우
+				const result = await response.json();
 
-  const serverlink = async (e) => {
-    // user_id를 가져오기
-    const user_id = sessionStorage.getItem("user_id");
+				console.log("Home Device Data:", result);
+				setUserHumanCount(result.humanCount);
+				setHomeLightOnOff(result.light);
+				setHomeBoilerOnOff(result.heater);
+				setHomeAirOnOff(result.airconditioner);
+				setUserHomeTemp(result.temperatureNow);
+				setHomeBoilerTemp(result.setBoilerTemp);
+				setHomeAirTemp(result.setAirTemp);
+				console.log(homeLightOnOff);
+			} else {
+				const errorData = await response.json(); // 추가: 오류 응답 내용 출력
+				console.log("홈 디바이스 정보 조회 실패:", errorData);
+				alert("오류가 발생하였습니다.");
+			}
+		} catch (error) {
+			console.error("서버 통신 오류", error);
+		}
+	}
 
-    const editUserDto = {
-      user_id: user_id,
-    };
+	const serverlink = async (e) => {
+		// user_id를 가져오기
+		const user_id = sessionStorage.getItem("user_id");
 
-    try {
-      // 서버로 데이터 전송 - 경로 수정 필요
-      const response = await fetch(`${API_BASE_URL}/api/userinfo/userfind`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editUserDto),
-      });
-      if (response.ok) {
-        // 서버 응답이 성공인 경우
-        const result = await response.json();
+		const editUserDto = {
+			user_id: user_id,
+		};
 
-        // 추출된 데이터 사용
-        setUserId(result.userId);
-        setUserAddress1(result.address1);
-        setUserAddress2(result.address2);
-        console.log(userId);
-        getHomeDeviceData();
+		try {
+			// 서버로 데이터 전송 - 경로 수정 필요
+			const response = await fetch(`${API_BASE_URL}/api/userinfo/userfind`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(editUserDto),
+			});
+			if (response.ok) {
+				// 서버 응답이 성공인 경우
+				const result = await response.json();
 
-        // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
-        const fullAddress = `${result.address1} ${result.address2}`;
-        getAddressLatLng(fullAddress).then((coords) => {
-          getWeather(coords.lat, coords.lng);
-        });
-      } else {
-        console.log("회원 정보 조회 실패");
-        alert("오류가 발생하였습니다.");
-      }
-    } catch (error) {
-      console.error("서버 통신 오류", error);
-    }
-  };
-  serverlink();
-  // --------------- 전등 -------------------
-  //  전등 온오프
-  const handleLightToggle = async () => {
-    try {
-      const userId = sessionStorage.getItem("user_id");
+				// 추출된 데이터 사용
+				setUserId(result.userId);
+				setUserAddress1(result.address1);
+				setUserAddress2(result.address2);
+				console.log(userId);
+				getHomeDeviceData();
 
-      // 클라이언트에서 서버로 전송할 데이터
-      const requestData = {
-        userId: userId,
-        light: !homeLightOnOff, // 토글 값 전송
-      };
+				// 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
+				const fullAddress = `${result.address1} ${result.address2}`;
+				getAddressLatLng(fullAddress).then((coords) => {
+					getWeather(coords.lat, coords.lng);
+				});
+			} else {
+				console.log("회원 정보 조회 실패");
+				alert("오류가 발생하였습니다.");
+			}
+		} catch (error) {
+			console.error("서버 통신 오류", error);
+		}
+	};
+	serverlink();
+	// --------------- 전등 -------------------
+	//  전등 온오프
+	const handleLightToggle = async () => {
+		try {
+			const userId = sessionStorage.getItem("user_id");
 
-      // 서버의 API 엔드포인트에 POST 요청 보내기
-      const response = await axios.post(
-        `${API_BASE_URL}/api/homedevice/editLight`,
-        requestData
-      );
+			// 클라이언트에서 서버로 전송할 데이터
+			const requestData = {
+				userId: userId,
+				light: !homeLightOnOff, // 토글 값 전송
+			};
 
-      if (response.status === 200) {
-        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
-        setHomeLightOnOff(!homeLightOnOff);
-        console.log("데이터 전송 성공!");
-      } else {
-        console.log("데이터 전송 실패:", response.data);
-        alert("데이터 전송 실패");
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류:", error);
-      alert("데이터 전송 중 오류 발생");
-    }
-  };
+			// 서버의 API 엔드포인트에 POST 요청 보내기
+			const response = await axios.post(
+				`${API_BASE_URL}/api/homedevice/editLight`,
+				requestData
+			);
 
-  //  ---------------- 보일러 ------------------
-  // 보일러 온도조절
-  //  보일러 온오프
-  const handleBoilerToggle = async () => {
-    try {
-      const userId = sessionStorage.getItem("user_id");
+			if (response.status === 200) {
+				// 성공적으로 서버에 데이터 전송 후 상태 업데이트
+				setHomeLightOnOff(!homeLightOnOff);
+				console.log("데이터 전송 성공!");
+			} else {
+				console.log("데이터 전송 실패:", response.data);
+				alert("데이터 전송 실패");
+			}
+		} catch (error) {
+			console.error("데이터 전송 중 오류:", error);
+			alert("데이터 전송 중 오류 발생");
+		}
+	};
 
-      // 클라이언트에서 서버로 전송할 데이터
-      const requestData = {
-        userId: userId,
-        heater: !homeBoilerOnOff, // 토글 값 전송
-      };
+	//  ---------------- 보일러 ------------------
+	// 보일러 온도조절
+	//  보일러 온오프
+	const handleBoilerToggle = async () => {
+		try {
+			const userId = sessionStorage.getItem("user_id");
 
-      // 서버의 API 엔드포인트에 POST 요청 보내기
-      const response = await axios.post(
-        `${API_BASE_URL}/api/homedevice/editBoiler`,
-        requestData
-      );
+			// 클라이언트에서 서버로 전송할 데이터
+			const requestData = {
+				userId: userId,
+				heater: !homeBoilerOnOff, // 토글 값 전송
+			};
 
-      if (response.status === 200) {
-        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
-        setHomeBoilerOnOff(!homeBoilerOnOff);
-        console.log("데이터 전송 성공!");
-      } else {
-        console.log("데이터 전송 실패:", response.data);
-        alert("데이터 전송 실패");
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류:", error);
-      alert("데이터 전송 중 오류 발생");
-    }
-  };
+			// 서버의 API 엔드포인트에 POST 요청 보내기
+			const response = await axios.post(
+				`${API_BASE_URL}/api/homedevice/editBoiler`,
+				requestData
+			);
 
-  // ---------------- 에어컨 ------------------
-  // 에어컨 온도조절
-  //  에어컨 온오프
-  const handleAirConditionerToggle = async () => {
-    try {
-      const userId = sessionStorage.getItem("user_id");
+			if (response.status === 200) {
+				// 성공적으로 서버에 데이터 전송 후 상태 업데이트
+				setHomeBoilerOnOff(!homeBoilerOnOff);
+				console.log("데이터 전송 성공!");
+			} else {
+				console.log("데이터 전송 실패:", response.data);
+				alert("데이터 전송 실패");
+			}
+		} catch (error) {
+			console.error("데이터 전송 중 오류:", error);
+			alert("데이터 전송 중 오류 발생");
+		}
+	};
 
-      // 클라이언트에서 서버로 전송할 데이터
-      const requestData = {
-        userId: userId,
-        airconditioner: !homeAirOnOff, // 토글 값 전송
-      };
+	// ---------------- 에어컨 ------------------
+	// 에어컨 온도조절
+	//  에어컨 온오프
+	const handleAirConditionerToggle = async () => {
+		try {
+			const userId = sessionStorage.getItem("user_id");
 
-      // 서버의 API 엔드포인트에 POST 요청 보내기
-      const response = await axios.post(
-        `${API_BASE_URL}/api/homedevice/editAir`,
-        requestData
-      );
+			// 클라이언트에서 서버로 전송할 데이터
+			const requestData = {
+				userId: userId,
+				airconditioner: !homeAirOnOff, // 토글 값 전송
+			};
 
-      if (response.status === 200) {
-        // 성공적으로 서버에 데이터 전송 후 상태 업데이트
-        setHomeAirOnOff(!homeAirOnOff);
-        console.log("데이터 전송 성공!");
-      } else {
-        console.log("데이터 전송 실패:", response.data);
-        alert("데이터 전송 실패");
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류:", error);
-      alert("데이터 전송 중 오류 발생");
-    }
-  };
+			// 서버의 API 엔드포인트에 POST 요청 보내기
+			const response = await axios.post(
+				`${API_BASE_URL}/api/homedevice/editAir`,
+				requestData
+			);
 
-  return (
-    <div className={common.background}>
-      <div className={style.title_area}>
-        <NavLink to="/analysis">NOG</NavLink>
-        <div>제어 센터</div>
-      </div>
-      {/*--------------------온도-------------------- */}
-      <div className={style.temp_area}>
-        <div className={style.outdoor_temp_area}>
-          <div className={style.outdoor_temp_title}>실외온도</div>
-          <div className={style.outdoor_temp}>{outdoorTemp}</div>
-          <img
-            className={style.outdoor_temp_icon}
-            src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
-          ></img>
-        </div>
-        <div className={style.home_temp_area}>
-          <div className={style.home_temp_title}>실내온도</div>
-          <div className={style.home_temp}>{homeTemp}</div>
-          <FcHome className={style.fcHome} />
-        </div>
-        <div className={style.recommend_temp_area}>
-          <div className={style.recommend_temp_title}>추천온도</div>
-          <div className={style.recommend_temp}>{recommendTemp}</div>
-          <FcCloseUpMode className={style.fcClose} />
-        </div>
-      </div>
+			if (response.status === 200) {
+				// 성공적으로 서버에 데이터 전송 후 상태 업데이트
+				setHomeAirOnOff(!homeAirOnOff);
+				console.log("데이터 전송 성공!");
+			} else {
+				console.log("데이터 전송 실패:", response.data);
+				alert("데이터 전송 실패");
+			}
+		} catch (error) {
+			console.error("데이터 전송 중 오류:", error);
+			alert("데이터 전송 중 오류 발생");
+		}
+	};
 
-      <div className={style.main_area}>
-        {/*--------------------집 인원--------------------*/}
-        <div className={style.homeCount}>
-          <div className={style.homeCount_name}>{userId}님의 집</div>
-          <div className={style.count}>현재 {userHumanCount}명</div>
-        </div>
+	return (
+		<div className={common.background}>
+			<div className={style.title_area}>
+				<NavLink to="/analysis">NOG</NavLink>
+				<div>우리집</div>
+			</div>
+			{/*--------------------온도-------------------- */}
+			<div className={style.temp_area}>
+				<div className={style.outdoor_temp_area}>
+					<div className={style.outdoor_temp_title}>실외 온도</div>
+					<div className={style.outdoor_temp}>{`${outdoorTemp}˚C`}</div>
+					<img
+						className={style.outdoor_temp_icon}
+						src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
+						alt="outTemp"
+					/>
+				</div>
+				<div className={style.home_temp_area}>
+					<div className={style.home_temp_title}>실내 온도</div>
+					<div className={style.home_temp}>{`${homeTemp}˚C`}</div>
+					<FcHome className={style.fcHome} />
+				</div>
+				<div className={style.recommend_temp_area}>
+					<div className={style.recommend_temp_title}>추천 온도</div>
+					<div className={style.recommend_temp}>{`${recommendTemp}˚C`}</div>
+					<FcCloseUpMode className={style.fcClose} />
+				</div>
+			</div>
 
-        {/*--------------------전등--------------------*/}
-        <div className={style.light}>
-          {homeLightOnOff ? (
-            // TRUE
-            <button className={style.toggleButton} onClick={handleLightToggle}>
-              불 끄기
-            </button>
-          ) : (
-            // FALSE
-            <button className={style.toggleButton} onClick={handleLightToggle}>
-              불 켜기
-            </button>
-          )}
-        </div>
+			<div className={style.main_area}>
+				{/*--------------------집 인원 & 전등--------------------*/}
+				<div className={style.countLight_area}>
+					<div className={style.homeCount}>
+						<div className={style.homeCount_name}>{userId}님의 집</div>
+						<div className={style.count}>{userHumanCount}명</div>
+					</div>
 
-        {/*--------------------보일러--------------------*/}
-        <div className={style.boilerAir_area}>
-          <div className={style.boiler}>
-            <div className={style.boiler_name}>보일러</div>
-            <div className={style.boiler_temp}>
-              <BiSolidDownArrow />
-              {homeBoilerTemp}
-              <BiSolidUpArrow />
-            </div>
-            {homeBoilerOnOff ? (
-              // TRUE
-              <button
-                className={style.toggleButton}
-                onClick={handleBoilerToggle}
-              >
-                보일러 끄기
-              </button>
-            ) : (
-              // FALSE
-              <button
-                className={style.toggleButton}
-                onClick={handleBoilerToggle}
-              >
-                보일러 켜기
-              </button>
-            )}
-          </div>
+					{homeLightOnOff ? (
+						// TRUE
+						<div className={style.lightBtn_on} onClick={handleLightToggle}>
+							<div className={style.light_name}>조명</div>
+							<div className={style.light}>
+								<FaLightbulb color="ff9f0a" size="4em" />
+							</div>
+						</div>
+					) : (
+						// FALSE
+						<div className={style.lightBtn_off} onClick={handleLightToggle}>
+							<div className={style.light_name}>조명</div>
+							<div className={style.light}>
+								<FaLightbulb color="black" size="4em" />
+							</div>
+						</div>
+					)}
+				</div>
 
-          {/*--------------------에어컨--------------------*/}
-          <div className={style.airConditioner}>
-            <div className={style.airConditioner_name}>에어컨</div>
-            <div className={style.airConditioner_temp}>
-              <BiSolidDownArrow />
-              {homeAirTemp}
-              <BiSolidUpArrow />
-            </div>
-            {homeAirOnOff ? (
-              // TRUE
-              <button
-                className={style.toggleButton}
-                onClick={handleAirConditionerToggle}
-              >
-                에어컨 끄기
-              </button>
-            ) : (
-              // FALSE
-              <button
-                className={style.toggleButton}
-                onClick={handleAirConditionerToggle}
-              >
-                에어켠 켜기
-              </button>
-            )}
-          </div>
-        </div>
+				<div className={style.boilerAir_area}>
+					{/*--------------------보일러--------------------*/}
+					<div
+						className={
+							homeBoilerOnOff
+								? `${style.boiler} ${style.boilerOn}`
+								: style.boiler
+						}
+					>
+						<div className={style.boiler_name}>보일러</div>
+						{homeBoilerOnOff ? (
+							<img
+								src={onBtn}
+								className={style.onOff_img}
+								onClick={handleBoilerToggle}
+								alt="onBtn"
+							/>
+						) : (
+							<img
+								src={offBtn}
+								className={style.onOff_img}
+								onClick={handleBoilerToggle}
+								alt="offBtn"
+							/>
+						)}
+						{homeBoilerOnOff ? (
+							<div className={style.boiler_temp}>
+								<div className={style.minusBtn_area}>
+									<BiMinus />
+								</div>
+								<div
+									className={style.boilerAirTemp}
+								>{`${homeBoilerTemp}˚C`}</div>
+								<div className={style.plusBtn_area}>
+									<BiPlus />
+								</div>
+							</div>
+						) : (
+							<div className={style.boiler_temp}>
+								<div className={`${style.minusBtn_area} ${style.hidden}`}>
+									<BiMinus />
+								</div>
+								<div className={style.boilerAirTemp}>꺼짐</div>
+								<div className={`${style.plusBtn_area} ${style.hidden}`}>
+									<BiPlus />
+								</div>
+							</div>
+						)}
+					</div>
 
-        <BottomNav />
-      </div>
-    </div>
-  );
+					{/*--------------------에어컨--------------------*/}
+					<div
+						className={
+							homeAirOnOff
+								? `${style.airConditioner} ${style.airconOn}`
+								: style.airConditioner
+						}
+					>
+						<div className={style.airConditioner_name}>에어컨</div>
+
+						{homeAirOnOff ? (
+							<img
+								src={onBtn}
+								className={style.onOff_img}
+								onClick={handleAirConditionerToggle}
+								alt="onBtn"
+							/>
+						) : (
+							<img
+								src={offBtn}
+								className={style.onOff_img}
+								onClick={handleAirConditionerToggle}
+								alt="offBtn"
+							/>
+						)}
+						{homeAirOnOff ? (
+							<div className={style.airConditioner_temp}>
+								<div className={style.minusBtn_area}>
+									<BiMinus />
+								</div>
+								<div className={style.boilerAirTemp}>{`${homeAirTemp}˚C`}</div>
+								<div className={style.plusBtn_area}>
+									<BiPlus />
+								</div>
+							</div>
+						) : (
+							<div className={style.airConditioner_temp}>
+								<div className={`${style.minusBtn_area} ${style.hidden}`}>
+									<BiMinus />
+								</div>
+								<div className={style.boilerAirTemp}>꺼짐</div>
+								<div className={`${style.plusBtn_area} ${style.hidden}`}>
+									<BiPlus />
+								</div>
+							</div>
+						)}
+					</div>
+				</div>
+
+				<ChatBot />
+				<BottomNav activeHome={true} />
+			</div>
+		</div>
+	);
 }
 
 export default HomeControl;
