@@ -37,7 +37,6 @@ function UserList() {
   //   회원상세정보
   const handleUserClick = (user) => {
     setSelectedUser(user);
-    setSelectedUserId(user.id);
   };
 
   const handleCloseModal = () => {
@@ -65,40 +64,48 @@ function UserList() {
   };
 
   //   ----------------------------------
-  //   회원삭제
+  // 회원삭제
   const handleDeletion = async () => {
-    // user_id를 가져오기
-    const user_id = selectedUserId;
+    if (selectedUser) {
+      // user_id를 가져오기
+      const user_id = selectedUser.id;
 
-    const editUserDto = {
-      user_id: user_id,
-    };
+      const editUserDto = {
+        user_id: user_id,
+      };
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/userinfo/userdelete`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editUserDto),
-      });
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/userinfo/userdelete`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editUserDto),
+          }
+        );
 
-      if (response.ok) {
-        alert("회원삭제가 완료되었습니다.");
-        handleCloseModal();
-        axios
-          .get(`${API_BASE_URL}/api/userinfo/get`)
-          .then((response) => {
-            setUsers(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching data: ", error);
-          });
-      } else {
-        alert("회원삭제에 실패했습니다. 다시 시도해주세요.");
+        if (response.ok) {
+          alert("회원삭제가 완료되었습니다.");
+          handleCloseModal();
+          axios
+            .get(`${API_BASE_URL}/api/userinfo/get`)
+            .then((response) => {
+              setUsers(response.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching data: ", error);
+            });
+        } else {
+          alert("회원삭제에 실패했습니다. 다시 시도해주세요.");
+        }
+      } catch (error) {
+        console.error("회원삭제 중 오류가 발생했습니다.", error);
       }
-    } catch (error) {
-      console.error("회원삭제 중 오류가 발생했습니다.", error);
+    } else {
+      // Handle the case where selectedUser is null
+      console.error("Selected user is null. Cannot delete.");
     }
   };
 

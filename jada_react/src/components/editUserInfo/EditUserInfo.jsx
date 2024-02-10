@@ -302,6 +302,7 @@ function EditUserInfo() {
   const [userAddress2, setUserAddress2] = useState("");
   const [userAddress3, setUserAddress3] = useState("");
   const [userHouseNum, setUserHouseNum] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   const serverlink = async (e) => {
     // user_id를 가져오기
@@ -333,6 +334,7 @@ function EditUserInfo() {
         setUserAddress2(result.address2);
         setUserAddress3(result.address3);
         setUserHouseNum(result.houseNum);
+        setUserRole(result.role);
       } else {
         console.log("회원 정보 조회 실패");
         alert("오류가 발생하였습니다.");
