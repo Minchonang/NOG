@@ -68,7 +68,7 @@ function CheckUser() {
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
 				// console.log(errorMessage)
-				alert("일치하는 회원이 없습니다.");
+				alert("비밀번호가 일치하지 않습니다.");
 			}
 		} catch (error) {
 			console.log(requestData.id);

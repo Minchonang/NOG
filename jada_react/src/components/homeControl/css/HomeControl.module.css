@@ -64,6 +64,10 @@
   align-items: center;
 }
 
+/* .outdoor_temp_icon {
+	margin: 5px 0;
+} */
+
 .fcHome,
 .fcClose {
   width: 2em;
@@ -78,60 +82,187 @@
   position: absolute;
   z-index: 1;
   width: 100%;
-  padding: 20% 10% 70px;
+  padding: 20% 5% 0;
   display: flex;
   flex-direction: column;
+  margin-top: 12em;
   font-family: "Godo", serif;
   font-weight: lighter;
-  margin-top: 12em;
   text-align: center;
 }
 
 /* --------------------- */
-/* 집 인원 */
-.homeCount {
-  border-left: 2px solid rgb(88, 189, 155);
-  border-right: 2px solid rgb(88, 189, 155);
-  margin-bottom: 2em;
+.countLight_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.homeCount_name {
-  font-size: 1.2em;
+/* 집 인원 */
+.homeCount {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  background-color: #fbf7ef;
   margin-bottom: 10px;
+}
+
+.homeCount_name,
+.light_name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.count {
+  margin: auto 0;
+  font-size: 2em;
 }
 
 /* -------------- */
 /* 전등 */
+.lightBtn_on,
+.lightBtn_off {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.lightBtn_on {
+  background-color: #f7dfbb;
+}
+.lightBtn_off {
+  background-color: #ececec;
+}
+
 .light {
-  border: 2px solid rgb(88, 189, 155);
-  border-radius: 10em;
-  padding: 5%;
-  margin-bottom: 2em;
+  margin: auto 0;
 }
 
 /* ------------------------- */
 /* 보일러 및 에어컨 구역 */
 .boilerAir_area {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.boiler,
+.airConditioner {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  padding: 15px 5px;
+  border: 0;
+  /* border: 2px solid rgb(88, 189, 155); */
+  border-radius: 20px;
+  background-color: #fbf7ef;
+}
+
+.boilerOn {
+  background-color: #f31e5a24;
+}
+.airconOn {
+  background-color: #02bccd36;
 }
 
 .boiler_name,
 .airConditioner_name {
   font-size: 20px;
-}
-
-.boiler,
-.airConditioner {
-  border: 2px solid rgb(88, 189, 155);
-  border-radius: 5%;
-  padding: 3%;
-  width: 35%;
-  height: 10%;
+  margin: 5px auto;
 }
 
 .airConditioner_temp,
 .boiler_temp {
-  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px auto;
   font-size: 20px;
+}
+
+.toggleButton {
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
+  padding: 0;
+  /* background-color: white; */
+  border: 0;
+}
+
+.boilerAirTemp {
+  margin: 0 20px;
+}
+
+.plusBtn_area,
+.minusBtn_area {
+  display: flex;
+  padding: 5px;
+  border: 0;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+}
+
+.onOff_img {
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* 모달창 */
+.custom_modal {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  background: #fff;
+  overflow: auto;
+  outline: none;
+  padding: 15px;
+  height: 40vh;
+  width: 80vw;
+  border-radius: 5%;
+  border: 2px solid #ff9f0a;
+  text-align: center;
+}
+
+.modal_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.modal_title {
+  padding: 0 10px;
+  margin: 40px auto;
+  font-size: 2em;
+  font-family: "Godo", serif;
+  /* border-bottom: 2px solid #ff9f0a; */
+}
+
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  font-family: "Godo", serif;
+  font-size: 1em;
+  color: #ff9f0a;
+  width: 60%;
+  background: none;
+  border: none;
+  align-items: center;
 }

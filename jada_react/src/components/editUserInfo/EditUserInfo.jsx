@@ -364,6 +364,16 @@ function EditUserInfo() {
         setEditAddress(false);
     };
 
+    // 시리얼 넘버 수정
+    const [editSerialNum, setEditSerialNum] = useState(false);
+    const [newSerialNum, setNewSerialNum] = useState('');
+    const editSerialNumBtn = () => {
+        setEditSerialNum(true);
+    };
+    const cancelSerialNumBtn = () => {
+        setEditSerialNum(false);
+    };
+
     // 이메일 인증
     const sendEmail = () => {
         console.log(newEmail);
@@ -389,7 +399,7 @@ function EditUserInfo() {
             });
     };
 
-    // 인증번호 확인
+    // 이메일 인증번호 확인
     const handleVerify = (e) => {
         e.preventDefault();
         console.log(emailAuth);
@@ -432,11 +442,23 @@ function EditUserInfo() {
         setEditHouseNum(false);
     };
 
+    // 회원정보 수정
     const handleEdit = async (e) => {
         e.preventDefault();
 
         // user_id를 가져오기
         const userIdFromSession = sessionStorage.getItem('user_id');
+
+        // const editUserDto = {
+        // 	user_id: userIdFromSession,
+        // 	email: newEmail,
+        // 	phone: newPhone,
+        // 	password: newPwd,
+        // 	address1: selectedElement1,
+        // 	address2: selectedElement2,
+        // 	address3: selectedElement3,
+        // 	houseNum: parseInt(newHouseNum),
+        // };
 
         const editUserDto = {
             user_id: userIdFromSession,
@@ -604,6 +626,7 @@ function EditUserInfo() {
                                     )}
                                 </div>
 
+                                {/* 분리선 */}
                                 <div className={style.info_main_detail}>
                                     <div className={style.divLine}></div>
                                 </div>
@@ -626,6 +649,33 @@ function EditUserInfo() {
                                             <button onClick={editPwdBtn}>수정</button>
                                         ) : (
                                             <button onClick={cancelPwdBtn}>취소</button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* 분리선 */}
+                                <div className={style.info_main_detail}>
+                                    <div className={style.divLine}></div>
+                                </div>
+
+                                <div className={style.serialNum_title}>시리얼 번호 번경</div>
+                                <div className={style.info_main_detail}>
+                                    <div className={style.serialNumInput_area}>
+                                        {editSerialNum ? (
+                                            <input
+                                                type="text"
+                                                value={newSerialNum}
+                                                onChange={(e) => setNewSerialNum(e.target.value)}
+                                                className={style.input_new}
+                                                maxLength="13"
+                                            />
+                                        ) : (
+                                            <div>ABCDEFGHIJK</div>
+                                        )}
+                                        {!editSerialNum ? (
+                                            <button onClick={editSerialNumBtn}>수정</button>
+                                        ) : (
+                                            <button onClick={cancelSerialNumBtn}>취소</button>
                                         )}
                                     </div>
                                 </div>
