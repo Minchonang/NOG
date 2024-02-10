@@ -438,24 +438,18 @@ function EditUserInfo() {
         // user_id를 가져오기
         const userIdFromSession = sessionStorage.getItem('user_id');
 
-        // const editUserDto = {
-        // 	user_id: userIdFromSession,
-        // 	email: newEmail,
-        // 	phone: newPhone,
-        // 	password: newPwd,
-        // 	address1: selectedElement1,
-        // 	address2: selectedElement2,
-        // 	address3: selectedElement3,
-        // 	houseNum: parseInt(newHouseNum),
-        // };
-
         const editUserDto = {
             user_id: userIdFromSession,
         };
 
         // 새로운 이메일이 있는 경우에만 추가
         if (newEmail) {
-            editUserDto.email = newEmail;
+            if (isVerified) {
+                editUserDto.email = newEmail;
+            } else {
+                alert('이메일 인증이 필요합니다.');
+                handleVerify(e);
+            }
         } else {
             editUserDto.email = userEmail;
         }
@@ -550,10 +544,6 @@ function EditUserInfo() {
             ) : (
                 <>
                     <div className={common.background}>
-                        {/* <div className={style.title_area}>
-          <NavLink to="/">NOG</NavLink>
-          <div>회원정보</div>
-        </div> */}
                         <Header sub_title="내 정보" />
                         <div className={style.main_area}>
                             <div className={style.userId}>
@@ -572,10 +562,18 @@ function EditUserInfo() {
                                             <input
                                                 type="text"
                                                 value={newEmail}
+                                                placeholder={userEmail}
                                                 onChange={(e) => setNewEmail(e.target.value)}
                                                 className={style.input_new}
                                             />
-                                            <button onClick={openModal}>인증</button>
+                                            {/* <button onClick={openModal}>인증</button> */}
+                                            <button
+                                                onClick={
+                                                    newEmail ? openModal : () => alert('이메일 인증이 필요합니다.')
+                                                }
+                                            >
+                                                인증
+                                            </button>
                                         </>
                                     ) : (
                                         <>
