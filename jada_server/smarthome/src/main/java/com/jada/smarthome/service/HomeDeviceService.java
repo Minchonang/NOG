@@ -1,5 +1,6 @@
 package com.jada.smarthome.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,7 @@ public class HomeDeviceService {
       Optional<User> optionalUser = userRepository.findById(userId);
       if(optionalUser.isPresent()){
         User foundUser = optionalUser.get();
-        HomeDevice homeDevice = foundUser.getHomeDevice();
-        
+        HomeDevice homeDevice = foundUser.getHomeDevice();        
        
         if(homeDevice != null){
           HomeDeviceDto resultDto = HomeDeviceDto.builder()
@@ -46,7 +46,6 @@ public class HomeDeviceService {
           .humanCount(homeDevice.getHumanCount())
           .build();
           
-
           return ResponseEntity.ok(resultDto);
         } else {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HomeDeviceDto.builder().errorMessage("homedevice 정보를 찾을 수 없습니다.").build());
@@ -129,7 +128,6 @@ public class HomeDeviceService {
             if (homeDevice != null) {
            
                 homeDevice.setHeater(setBoiler);
-
                 homeDeviceRepository.save(homeDevice);
                 return "수정이 완료되었습니다.";
             } else {
@@ -172,4 +170,54 @@ public class HomeDeviceService {
           return "로그인 하십시오.";
       }
     }
+
+    // 시리얼 넘버 조회
+    public String serialCheck(String userId, String serialNum){
+
+        if (userId != null) {
+            Optional<User> optionalUser = userRepository.findById(userId);
+
+            if (optionalUser.isPresent()) {
+                User foundUser = optionalUser.get();
+
+                HomeDevice userHomeDevice = foundUser.getHomeDevice();
+
+                if (userHomeDevice == null) {
+                    List<HomeDevice> homeDevices= homeDeviceRepository.findBySerialNum(serialNum);
+
+                    if(homeDevices != null){
+                        HomeDevice homeDevice = homeDevices.get(0);
+                        // Integer userHomeId = homeDevice.getHomeId();
+                        
+                        foundUser.setHomeDevice(homeDevice);
+                        userRepository.save(foundUser);
+
+                        return "인증이 완료되었습니다.";
+                    }else{
+                        return "해당하는 시리얼 번호가 존재하지 않습니다.";
+                    }
+                } else {
+                    // homeId 변경
+                    System.out.println("====================userHomeDevice : "+ userHomeDevice);
+                    List<HomeDevice> homeDevices= homeDeviceRepository.findBySerialNum(serialNum);
+
+                    if(homeDevices != null){
+                        HomeDevice homeDevice = homeDevices.get(0);
+
+                        foundUser.setHomeDevice(homeDevice);
+                        userRepository.save(foundUser);
+
+                        return "시리얼 번호 변경이 완료되었습니다.";
+                    }else{
+                        return "해당하는 시리얼 번호가 존재하지 않습니다.";
+                    }
+                }
+            } else {
+                return "유저정보를 찾을 수 없습니다.";
+            }
+        } else {
+            return "로그인 하십시오.";
+        }
+    }
+    
 }

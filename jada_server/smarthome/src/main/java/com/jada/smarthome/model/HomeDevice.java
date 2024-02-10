@@ -14,7 +14,7 @@ import lombok.Data;
 public class HomeDevice implements Serializable {
     @Id
     @Column(name = "home_id", nullable = false, length = 50)
-    private String homeId;
+    private Integer homeId;
 
     @Column(name = "serial_num",nullable = false, length = 50)
     private String serialNum;

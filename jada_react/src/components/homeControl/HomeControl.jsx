@@ -123,7 +123,6 @@ function HomeControl() {
     async function getHomeDeviceData() {
         // user_id를 가져오기
         const userId = sessionStorage.getItem('user_id');
-
         const homeDeviceDto = {
             userId: userId,
         };
@@ -151,7 +150,6 @@ function HomeControl() {
                 setHomeBoilerTemp(result.setBoilerTemp);
                 setServerAirTemp(result.setAirTemp);
                 setHomeAirTemp(result.setAirTemp);
-                console.log(homeLightOnOff);
             } else {
                 const errorData = await response.json();
                 console.log('홈 디바이스 정보 조회 실패:', errorData);
@@ -162,7 +160,7 @@ function HomeControl() {
         }
     }
 
-    const serverlink = async (e) => {
+    const serverlink = async () => {
         // user_id를 가져오기
         const user_id = sessionStorage.getItem('user_id');
 
@@ -190,7 +188,7 @@ function HomeControl() {
                 setUserId(result.userId);
                 setUserAddress1(result.address1);
                 setUserAddress2(result.address2);
-                console.log(userId);
+                // console.log(userId);
                 getHomeDeviceData();
 
                 // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
@@ -208,15 +206,15 @@ function HomeControl() {
     };
 
     // --------------- 서버전달용 -------------------
-    const handleTemp = async () => {
+    const handleTemp = async (newBoilerTemp, newAirTemp) => {
         try {
             const userId = sessionStorage.getItem('user_id');
 
             // 클라이언트에서 서버로 전송할 데이터
             const requestData = {
                 userId: userId,
-                setBoilerTemp: serverBoilerTemp,
-                setAirTemp: serverAirTemp,
+                setBoilerTemp: newBoilerTemp,
+                setAirTemp: newAirTemp,
             };
 
             // 서버의 API 엔드포인트에 POST 요청 보내기
@@ -233,8 +231,6 @@ function HomeControl() {
             alert('데이터 전송 중 오류 발생');
         }
     };
-
-    handleTemp();
 
     // --------------- 전등 -------------------
     const [message, setMessage] = useState('');
@@ -288,7 +284,8 @@ function HomeControl() {
     function handleBoilerTemp(change) {
         setHomeBoilerTemp((prevTemp) => {
             const newTemp = prevTemp + change;
-            setServerBoilerTemp(newTemp); // 이 부분에서 최신값을 적용
+            setServerBoilerTemp(newTemp);
+            handleTemp(newTemp, homeAirTemp);
             return newTemp;
         });
     }
@@ -325,10 +322,12 @@ function HomeControl() {
     function handleAirTemp(change) {
         setHomeAirTemp((prevTemp) => {
             const newTemp = prevTemp + change;
-            setServerAirTemp(newTemp); // 이 부분에서 최신값을 적용
+            setServerAirTemp(newTemp);
+            handleTemp(homeBoilerTemp, newTemp);
             return newTemp;
         });
     }
+
     //  에어컨 온오프
     const handleAirConditionerToggle = async () => {
         try {

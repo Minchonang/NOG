@@ -287,7 +287,6 @@ function EditUserInfo() {
         // user_id를 가져오기
         const user_id = sessionStorage.getItem('user_id');
 
-        // 주소 추가 필요
         const editUserDto = {
             user_id: user_id,
         };
@@ -559,6 +558,40 @@ function EditUserInfo() {
         }
     };
 
+    const user_id = sessionStorage.getItem('user_id');
+
+    // 시리얼 넘버 조회
+    const serialCheck = async () => {
+        const serialCheck = {
+            userId: user_id,
+            serialNum: newSerialNum,
+        };
+
+        try {
+            // 서버로 데이터 전송 - 경로 수정 필요
+            const response = await fetch(`${API_BASE_URL}/api/homedevice/serialCheck`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(serialCheck),
+            });
+            if (response.ok) {
+                // // 서버 응답이 성공인 경우
+                const result = await response.json();
+                alert(result.message);
+                // 추출된 데이터 사용
+                // setEditSerialNum(result.serialNum);
+            } else {
+                console.log('시리얼 번호 조회 실패');
+                const result = await response.json();
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('서버 통신 오류', error);
+        }
+    };
+
     return (
         <>
             {isLoading ? (
@@ -591,7 +624,7 @@ function EditUserInfo() {
                                             {/* <button onClick={openModal}>인증</button> */}
                                             <button
                                                 onClick={
-                                                    newEmail ? openModal : () => alert('이메일 인증이 필요합니다.')
+                                                    newEmail ? openModal : () => alert('변경할 이메일을 적어주십시오.')
                                                 }
                                             >
                                                 인증
@@ -675,7 +708,18 @@ function EditUserInfo() {
                                         {!editSerialNum ? (
                                             <button onClick={editSerialNumBtn}>수정</button>
                                         ) : (
-                                            <button onClick={cancelSerialNumBtn}>취소</button>
+                                            <>
+                                                <button
+                                                    onClick={
+                                                        newSerialNum
+                                                            ? serialCheck
+                                                            : () => alert('변경할 시리얼번호를 적어주십시오.')
+                                                    }
+                                                >
+                                                    인증
+                                                </button>
+                                                {/* <button onClick={cancelSerialNumBtn}>취소</button> */}
+                                            </>
                                         )}
                                     </div>
                                 </div>

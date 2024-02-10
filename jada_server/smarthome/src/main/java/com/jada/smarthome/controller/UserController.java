@@ -59,8 +59,7 @@ public class UserController {
         // 가입 가능한 경우,비밀번호 암호화 및 회원가입 진행
         userService.saveUser(joinUserDto);
 
-        System.out.println("=================");
-        System.out.println(joinUserDto);
+        // System.out.println("================="+ joinUserDto);
 
         return ResponseEntity.ok("User information saved successfully");
     }
@@ -78,7 +77,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(@RequestBody LoginUserDto loginUserDto) {
-        System.out.println(loginUserDto);
+        
         // 컨트롤러에서 서비스로 DTO 전달
         String loginResult = userService.loginUser(loginUserDto, session);
 
@@ -110,7 +109,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(@RequestBody String userid, HttpServletResponse response) {
-        System.out.println(session.getAttribute(userid));
+        // System.out.println(session.getAttribute(userid));
         session.invalidate();
 
         // 세션 쿠키 제거
@@ -167,8 +166,6 @@ public class UserController {
     public ResponseEntity<String> checkPassword(@RequestBody Map<String, String> requestData, HttpSession session) {
         String password = requestData.get("password");
         String id = requestData.get("id");
-        System.out.println("--------------------id:"+id);
-        System.out.println("--------------------pwd:"+password);
 
 
         // 서비스에서 비밀번호 확인
@@ -209,7 +206,7 @@ public class UserController {
     @PostMapping("/userfind")
     public ResponseEntity<?> getUserInfo(@RequestBody  Map<String, String> requestData) {
         String id = requestData.get("user_id");
-        System.out.println("----------------------------------------"+ id);
+
         // userId를 기반으로 회원 정보를 조회
         UserInfoDto userInfo = userService.getUserInfo(id);
 
@@ -245,52 +242,6 @@ public class UserController {
         }
 
     }
-
-    // 회원탈퇴
-    // @CrossOrigin(origins = "http://localhost:3000")
-    // @PostMapping("/userdelete")
-    // public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
-
-    //     String id = requestData.get("user_id");
-
-    //     try {
-    //         // 회원 정보 삭제
-    //         userService.userdelete(id);
-    //         // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
-    //         session.invalidate(); // 세션 무효화
-
-    //         return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
-    //     }
-
-    // }
-
-    // // 회원탈퇴
-    // @CrossOrigin(origins = "http://localhost:3000")
-    // @PostMapping("/userdelete")
-    // public ResponseEntity<String> exitAccount(@RequestBody UserExitDto userExitDto) {
-    //     boolean result = userExitService.setExitContent(userExitDto);
-    //     if (result) {
-    //         return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //                              .body("회원탈퇴 중 오류가 발생했습니다.");
-    //     }
-        // String id = requestData.get("user_id");
-
-        // try {
-        //     // 회원 정보 삭제
-        //     userService.userdelete(id);
-        //     // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
-        //     session.invalidate(); // 세션 무효화
-
-        //     return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
-        // } catch (Exception e) {
-        //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 중 오류가 발생했습니다.");
-        // }
-
-    // }
 
 
 }
