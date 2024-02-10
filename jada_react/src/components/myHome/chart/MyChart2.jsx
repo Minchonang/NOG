@@ -31,17 +31,19 @@ const MyChart = () => {
   const [chartData3, setChartData3] = useState([]);
   const [chartData4, setChartData4] = useState([]);
   const [user, setUser] = useState({});
-  
+  const [searchDate, setSearchDate] = useState("")
+  const [load, setLoad] = useState(false)
  
   useEffect(() => {
-    sessionStorage.setItem("userId", "test5");
+    sessionStorage.setItem("userId", "testId70");
     const id = sessionStorage.getItem("userId");
     
     const fetchData = async () => {
-      
+      if (load==true){
+      setLoad(false)}
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/test2?user_id=${id}`);
+        const response = await axios.get(`http://127.0.0.1:5001/test2?user_id=${id}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
@@ -77,9 +79,46 @@ const MyChart = () => {
       } catch (error) {
         console.error('Error fetching graph data:', error);
       }
+      finally{
+        setLoad(true)
+      }
     };
     fetchData();
-  }, []);
+  }, [searchDate]);
+
+
+  // 회원 정보로 검색 완료된 후 예측
+  useEffect(() => {
+    sessionStorage.setItem("userId", "test5");
+    const id = sessionStorage.getItem("userId");
+    
+    const fetchPred = async () => {
+      try {
+        // axios로 GET 요청 보내기
+        const response = await axios.get(`http://127.0.0.1:5001/pred?user_id=${id}${searchDate?'&date='+searchDate:""}`);
+        
+        // 응답에서 데이터 추출하고 상태 업데이트
+        const data = response.data;
+        console.log(data.total[0])
+        setUser({ "user_id" : user["user_id" ],
+                "user_name"  : user["user_name"],
+                "user_city" : user["user_city"],
+                "user_pred" : data.total[0]
+              }    
+                )
+   
+      } catch (error) {
+        console.error('Error fetching graph data:', error);
+      }
+      finally{
+      }
+    };
+    if (load) {
+      fetchPred();
+    }
+  }, [load]);
+
+
 
   function calculateType(dict) {
     if (!dict || typeof dict !== 'object') {
@@ -116,7 +155,7 @@ const MyChart = () => {
     }
     else{
         bill = 300 * 120.0 + 150 * 214.6 + (usage - 450) * 307.3}
-    return bill
+    return  Math.round(bill,0)
     }
 
   
@@ -163,9 +202,9 @@ const MyChart = () => {
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >이번달 사용량은 {chartData1["my_total_usage"]}kwh 입니다. 이는 전달 지역 평균 사용량 {chartData1["average_total_usage"]}kwh의 { Math.round(chartData1["my_total_usage"]/chartData1["average_total_usage"] *1000)/10}% 에 해당합니다. </p>     
+            <p >이번달 사용량은 {chartData1["my_total_usage"]?chartData1["my_total_usage"]:0}kwh 입니다. 이는 전달 지역 평균 사용량 {chartData1["average_total_usage"]}kwh의 { Math.round(chartData1["my_total_usage"]/chartData1["average_total_usage"] *1000)/10}% 에 해당합니다. </p>     
             <p>또한 현재까지의 요금은 약 {calculateBill(chartData1["my_total_usage"]).toLocaleString('ko-KR')}원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-            <p> 이달 예상 총 사용량은 542kwh, 요금은 12344원입니다.</p>
+            <p> 이달 예상 총 사용량은 {user["user_pred"]?user["user_pred"]:0}kwh, 요금은 {user["user_pred"]?calculateBill(user["user_pred"]).toLocaleString('ko-KR'):0}원입니다.</p>
             </div>
 
         </div>
