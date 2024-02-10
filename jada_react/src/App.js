@@ -13,6 +13,7 @@ import DeleteCheck from "./components/editUserInfo/DeleteCheck";
 import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
+import Board from "./components/board/Board";
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -32,7 +33,8 @@ function App() {
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
           <Route path="/delete_check" element={<DeleteCheck />} />
           <Route path="/homeControl" element={<HomeControl />} />
-          <Route path="admin" element={<Admin />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/board" element={<Board />} />
         </Routes>
       </BrowserRouter>
     </>
