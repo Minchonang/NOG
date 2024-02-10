@@ -1,6 +1,7 @@
 package com.jada.smarthome.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,9 +55,8 @@ public class UserService {
 
     // id 중복체크
     public boolean isIdDuplicate(String id) {
-        // System.out.println(id);
         User user = userRepository.findById(id).orElse(null);
-        // System.out.println("user정보불러오기"+user);
+
         return user != null;
     }
 
@@ -94,9 +94,9 @@ public class UserService {
     public boolean checkPassword(String password, String id, HttpSession session) {
         // UserRepository를 이용하여 현재 로그인된 사용자의 정보 조회
         Optional<User> userOptional = userRepository.findById(id);
-        System.out.println("-------------------"+userOptional);
+        // System.out.println("-------------------"+userOptional);
         String enrollpwd = userOptional.get().getPassword();
-        System.out.println(enrollpwd);
+        // System.out.println(enrollpwd);
 
         // 세션
         // System.out.println("----------1------"+session);

@@ -18,11 +18,30 @@ import Header from "../common/jsx/Header";
 import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 import Modal from "react-modal";
+import LoadingNog from "../common/jsx/LoadingNog";
 
 function HomeControl() {
+  // 로딩
+  const [isLoading, setIsLoading] = useState(true);
+  // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
+  useEffect(() => {
+    // 로딩 시작
+    setIsLoading(true);
+
+    // 2초 후에 로딩 완료
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   useEffect(() => {
     serverlink();
   }, []);
+
   const [userHomeId, setUserHomeId] = useState("");
   const [userId, setUserId] = useState("0");
   const [userAddress1, setUserAddress1] = useState("");
@@ -32,11 +51,11 @@ function HomeControl() {
   const [recommendTemp, setRecommendTemp] = useState("0");
   const [userHumanCount, setUserHumanCount] = useState("0");
 
-  const [homeTemp, setUserHomeTemp] = useState("0");
+  const [homeTemp, setUserHomeTemp] = useState("");
 
-  const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("false");
-  const [homeAirOnOff, setHomeAirOnOff] = useState("false");
-  const [homeLightOnOff, setHomeLightOnOff] = useState("false");
+  const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("");
+  const [homeAirOnOff, setHomeAirOnOff] = useState("");
+  const [homeLightOnOff, setHomeLightOnOff] = useState("");
 
   const [homeAirTemp, setHomeAirTemp] = useState("0");
   const [serverAirTemp, setServerAirTemp] = useState("");
@@ -107,7 +126,6 @@ function HomeControl() {
   async function getHomeDeviceData() {
     // user_id를 가져오기
     const userId = sessionStorage.getItem("user_id");
-
     const homeDeviceDto = {
       userId: userId,
     };
@@ -123,24 +141,29 @@ function HomeControl() {
       if (response.ok) {
         // 서버 응답이 성공인 경우
         const result = await response.json();
+
+        console.log("Home Device Data:", result);
+
         setUserHumanCount(result.humanCount);
         setHomeLightOnOff(result.light);
         setHomeBoilerOnOff(result.heater);
         setHomeAirOnOff(result.airconditioner);
         setUserHomeTemp(result.temperatureNow);
+        setServerBoilerTemp(result.setBoilerTemp);
         setHomeBoilerTemp(result.setBoilerTemp);
+        setServerAirTemp(result.setAirTemp);
         setHomeAirTemp(result.setAirTemp);
       } else {
-        const errorData = await response.json(); // 추가: 오류 응답 내용 출력
+        const errorData = await response.json();
         console.log("홈 디바이스 정보 조회 실패:", errorData);
-        // alert("오류가 발생하였습니다.");
+        alert("오류가 발생하였습니다.");
       }
     } catch (error) {
       console.error("서버 통신 오류", error);
     }
   }
 
-  const serverlink = async (e) => {
+  const serverlink = async () => {
     // user_id를 가져오기
     const user_id = sessionStorage.getItem("user_id");
 
@@ -186,15 +209,15 @@ function HomeControl() {
   };
 
   // --------------- 서버전달용 -------------------
-  const handleTemp = async () => {
+  const handleTemp = async (newBoilerTemp, newAirTemp) => {
     try {
       const userId = sessionStorage.getItem("user_id");
 
       // 클라이언트에서 서버로 전송할 데이터
       const requestData = {
         userId: userId,
-        setBoilerTemp: serverBoilerTemp,
-        setAirTemp: serverAirTemp,
+        setBoilerTemp: newBoilerTemp,
+        setAirTemp: newAirTemp,
       };
 
       // 서버의 API 엔드포인트에 POST 요청 보내기
@@ -214,8 +237,6 @@ function HomeControl() {
       alert("데이터 전송 중 오류 발생");
     }
   };
-
-  handleTemp();
 
   // --------------- 전등 -------------------
   const [message, setMessage] = useState("");
@@ -272,7 +293,8 @@ function HomeControl() {
   function handleBoilerTemp(change) {
     setHomeBoilerTemp((prevTemp) => {
       const newTemp = prevTemp + change;
-      setServerBoilerTemp(newTemp); // 이 부분에서 최신값을 적용
+      setServerBoilerTemp(newTemp);
+      handleTemp(newTemp, homeAirTemp);
       return newTemp;
     });
   }
@@ -312,10 +334,12 @@ function HomeControl() {
   function handleAirTemp(change) {
     setHomeAirTemp((prevTemp) => {
       const newTemp = prevTemp + change;
-      setServerAirTemp(newTemp); // 이 부분에서 최신값을 적용
+      setServerAirTemp(newTemp);
+      handleTemp(homeBoilerTemp, newTemp);
       return newTemp;
     });
   }
+
   //  에어컨 온오프
   const handleAirConditionerToggle = async () => {
     try {
@@ -357,195 +381,204 @@ function HomeControl() {
   Modal.setAppElement("#root");
 
   return (
-    <div className={common.background}>
-      <Header sub_title="홈 제어" />
+    <>
+      {isLoading ? (
+        <LoadingNog />
+      ) : (
+        <div className={common.background}>
+          <Header sub_title="홈 제어" />
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        shouldCloseOnOverlayClick={false}
-        className={style.custom_modal}
-      >
-        <div className={style.modal_container}>
-          <FcHighPriority size="1.8em" />
-          <div className={style.modal_title}>기기를 등록하고 사용해주세요</div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={() => setModalIsOpen(false)}
+            shouldCloseOnOverlayClick={false}
+            className={style.custom_modal}
+          >
+            <div className={style.modal_container}>
+              <FcHighPriority size="1.8em" />
+              <div className={style.modal_title}>
+                기기를 등록하고 사용해주세요
+              </div>
 
-          <button className={style.modal_content}>
-            <NavLink to="/check_user">등록하러 가기</NavLink>
-          </button>
+              <button className={style.modal_content}>
+                <NavLink to="/check_user">등록하러 가기</NavLink>
+              </button>
 
-          <button className={style.modal_content}>
-            <NavLink to="/analysis">이전으로 돌아가기</NavLink>
-          </button>
-        </div>
-      </Modal>
+              <button className={style.modal_content}>
+                <NavLink to="/analysis">이전으로 돌아가기</NavLink>
+              </button>
+            </div>
+          </Modal>
 
-      {/*--------------------온도-------------------- */}
-      <div className={style.temp_area}>
-        <div className={style.outdoor_temp_area}>
-          <div className={style.outdoor_temp_title}>실외 온도</div>
-          <div className={style.outdoor_temp}>{`${outdoorTemp}˚C`}</div>
-          <img
-            className={style.outdoor_temp_icon}
-            src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
-            alt="outTemp"
-          />
-        </div>
-        <div className={style.home_temp_area}>
-          <div className={style.home_temp_title}>실내 온도</div>
-          <div className={style.home_temp}>{`${homeTemp}˚C`}</div>
-          <FcHome className={style.fcHome} />
-        </div>
-        <div className={style.recommend_temp_area}>
-          <div className={style.recommend_temp_title}>추천 온도</div>
-          <div className={style.recommend_temp}>{`${recommendTemp}˚C`}</div>
-          <FcCloseUpMode className={style.fcClose} />
-        </div>
-      </div>
-
-      <div className={style.main_area}>
-        {/*--------------------집 인원 & 전등--------------------*/}
-        <div className={style.countLight_area}>
-          <div className={style.homeCount}>
-            <div className={style.homeCount_name}>{userId}님의 집</div>
-            <div className={style.count}>{userHumanCount}명</div>
+          {/*--------------------온도-------------------- */}
+          <div className={style.temp_area}>
+            <div className={style.outdoor_temp_area}>
+              <div className={style.outdoor_temp_title}>실외 온도</div>
+              <div className={style.outdoor_temp}>{`${outdoorTemp}˚C`}</div>
+              <img
+                className={style.outdoor_temp_icon}
+                src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
+                alt="outTemp"
+              />
+            </div>
+            <div className={style.home_temp_area}>
+              <div className={style.home_temp_title}>실내 온도</div>
+              <div className={style.home_temp}>{`${homeTemp}˚C`}</div>
+              <FcHome className={style.fcHome} />
+            </div>
+            <div className={style.recommend_temp_area}>
+              <div className={style.recommend_temp_title}>추천 온도</div>
+              <div className={style.recommend_temp}>{`${recommendTemp}˚C`}</div>
+              <FcCloseUpMode className={style.fcClose} />
+            </div>
           </div>
 
-          {homeLightOnOff ? (
-            // TRUE
-            <div className={style.lightBtn_on} onClick={handleLightToggle}>
-              <div className={style.light_name}>조명</div>
-              <div className={style.light}>
-                <FaLightbulb color="ff9f0a" size="4em" />
+          <div className={style.main_area}>
+            {/*--------------------집 인원 & 전등--------------------*/}
+            <div className={style.countLight_area}>
+              <div className={style.homeCount}>
+                <div className={style.homeCount_name}>{userId}님의 집</div>
+                <div className={style.count}>{userHumanCount}명</div>
+              </div>
+
+              {homeLightOnOff ? (
+                // TRUE
+                <div className={style.lightBtn_on} onClick={handleLightToggle}>
+                  <div className={style.light_name}>조명</div>
+                  <div className={style.light}>
+                    <FaLightbulb color="ff9f0a" size="4em" />
+                  </div>
+                </div>
+              ) : (
+                // FALSE
+                <div className={style.lightBtn_off} onClick={handleLightToggle}>
+                  <div className={style.light_name}>조명</div>
+                  <div className={style.light}>
+                    <FaLightbulb color="black" size="4em" />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className={style.boilerAir_area}>
+              {/*--------------------보일러--------------------*/}
+              <div
+                className={
+                  homeBoilerOnOff
+                    ? `${style.boiler} ${style.boilerOn}`
+                    : style.boiler
+                }
+              >
+                <div className={style.boiler_name}>보일러</div>
+                {homeBoilerOnOff ? (
+                  <img
+                    src={onBtn}
+                    className={style.onOff_img}
+                    onClick={handleBoilerToggle}
+                    alt="onBtn"
+                  />
+                ) : (
+                  <img
+                    src={offBtn}
+                    className={style.onOff_img}
+                    onClick={handleBoilerToggle}
+                    alt="offBtn"
+                  />
+                )}
+                {homeBoilerOnOff ? (
+                  <div className={style.boiler_temp}>
+                    <div
+                      className={style.minusBtn_area}
+                      onClick={() => handleBoilerTemp(-1)}
+                    >
+                      <BiMinus />
+                    </div>
+                    <div
+                      className={style.boilerAirTemp}
+                    >{`${homeBoilerTemp}˚C`}</div>
+                    <div
+                      className={style.plusBtn_area}
+                      onClick={() => handleBoilerTemp(1)}
+                    >
+                      <BiPlus />
+                    </div>
+                  </div>
+                ) : (
+                  <div className={style.boiler_temp}>
+                    <div className={`${style.minusBtn_area} ${style.hidden}`}>
+                      <BiMinus />
+                    </div>
+                    <div className={style.boilerAirTemp}>꺼짐</div>
+                    <div className={`${style.plusBtn_area} ${style.hidden}`}>
+                      <BiPlus />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/*--------------------에어컨--------------------*/}
+              <div
+                className={
+                  homeAirOnOff
+                    ? `${style.airConditioner} ${style.airconOn}`
+                    : style.airConditioner
+                }
+              >
+                <div className={style.airConditioner_name}>에어컨</div>
+
+                {homeAirOnOff ? (
+                  <img
+                    src={onBtn}
+                    className={style.onOff_img}
+                    onClick={handleAirConditionerToggle}
+                    alt="onBtn"
+                  />
+                ) : (
+                  <img
+                    src={offBtn}
+                    className={style.onOff_img}
+                    onClick={handleAirConditionerToggle}
+                    alt="offBtn"
+                  />
+                )}
+                {homeAirOnOff ? (
+                  <div className={style.airConditioner_temp}>
+                    <div
+                      className={style.minusBtn_area}
+                      onClick={() => handleAirTemp(-1)}
+                    >
+                      <BiMinus />
+                    </div>
+                    <div
+                      className={style.boilerAirTemp}
+                    >{`${homeAirTemp}˚C`}</div>
+                    <div
+                      className={style.plusBtn_area}
+                      onClick={() => handleAirTemp(1)}
+                    >
+                      <BiPlus />
+                    </div>
+                  </div>
+                ) : (
+                  <div className={style.airConditioner_temp}>
+                    <div className={`${style.minusBtn_area} ${style.hidden}`}>
+                      <BiMinus />
+                    </div>
+                    <div className={style.boilerAirTemp}>꺼짐</div>
+                    <div className={`${style.plusBtn_area} ${style.hidden}`}>
+                      <BiPlus />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          ) : (
-            // FALSE
-            <div className={style.lightBtn_off} onClick={handleLightToggle}>
-              <div className={style.light_name}>조명</div>
-              <div className={style.light}>
-                <FaLightbulb color="black" size="4em" />
-              </div>
-              {message && <p>{message}</p>}
-            </div>
-          )}
-        </div>
 
-        <div className={style.boilerAir_area}>
-          {/*--------------------보일러--------------------*/}
-          <div
-            className={
-              homeBoilerOnOff
-                ? `${style.boiler} ${style.boilerOn}`
-                : style.boiler
-            }
-          >
-            <div className={style.boiler_name}>보일러</div>
-            {homeBoilerOnOff ? (
-              <img
-                src={onBtn}
-                className={style.onOff_img}
-                onClick={handleBoilerToggle}
-                alt="onBtn"
-              />
-            ) : (
-              <img
-                src={offBtn}
-                className={style.onOff_img}
-                onClick={handleBoilerToggle}
-                alt="offBtn"
-              />
-            )}
-            {homeBoilerOnOff ? (
-              <div className={style.boiler_temp}>
-                <div
-                  className={style.minusBtn_area}
-                  onClick={() => handleBoilerTemp(-1)}
-                >
-                  <BiMinus />
-                </div>
-                <div
-                  className={style.boilerAirTemp}
-                >{`${homeBoilerTemp}˚C`}</div>
-                <div
-                  className={style.plusBtn_area}
-                  onClick={() => handleBoilerTemp(1)}
-                >
-                  <BiPlus />
-                </div>
-              </div>
-            ) : (
-              <div className={style.boiler_temp}>
-                <div className={`${style.minusBtn_area} ${style.hidden}`}>
-                  <BiMinus />
-                </div>
-                <div className={style.boilerAirTemp}>꺼짐</div>
-                <div className={`${style.plusBtn_area} ${style.hidden}`}>
-                  <BiPlus />
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/*--------------------에어컨--------------------*/}
-          <div
-            className={
-              homeAirOnOff
-                ? `${style.airConditioner} ${style.airconOn}`
-                : style.airConditioner
-            }
-          >
-            <div className={style.airConditioner_name}>에어컨</div>
-
-            {homeAirOnOff ? (
-              <img
-                src={onBtn}
-                className={style.onOff_img}
-                onClick={handleAirConditionerToggle}
-                alt="onBtn"
-              />
-            ) : (
-              <img
-                src={offBtn}
-                className={style.onOff_img}
-                onClick={handleAirConditionerToggle}
-                alt="offBtn"
-              />
-            )}
-            {homeAirOnOff ? (
-              <div className={style.airConditioner_temp}>
-                <div
-                  className={style.minusBtn_area}
-                  onClick={() => handleAirTemp(-1)}
-                >
-                  <BiMinus />
-                </div>
-                <div className={style.boilerAirTemp}>{`${homeAirTemp}˚C`}</div>
-                <div
-                  className={style.plusBtn_area}
-                  onClick={() => handleAirTemp(1)}
-                >
-                  <BiPlus />
-                </div>
-              </div>
-            ) : (
-              <div className={style.airConditioner_temp}>
-                <div className={`${style.minusBtn_area} ${style.hidden}`}>
-                  <BiMinus />
-                </div>
-                <div className={style.boilerAirTemp}>꺼짐</div>
-                <div className={`${style.plusBtn_area} ${style.hidden}`}>
-                  <BiPlus />
-                </div>
-              </div>
-            )}
+            <ChatBot />
+            <BottomNav activeHome={true} />
           </div>
         </div>
-
-        <ChatBot />
-        <BottomNav activeHome={true} />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
