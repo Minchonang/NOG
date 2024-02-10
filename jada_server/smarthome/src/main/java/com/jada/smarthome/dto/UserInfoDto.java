@@ -17,4 +17,5 @@ public class UserInfoDto {
     private String address3;
     private Integer houseNum;
     private HomeDevice homeDevice;
+    private Integer role;
 }

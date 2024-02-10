@@ -32,11 +32,11 @@ function HomeControl() {
   const [recommendTemp, setRecommendTemp] = useState("0");
   const [userHumanCount, setUserHumanCount] = useState("0");
 
-  const [homeTemp, setUserHomeTemp] = useState("");
+  const [homeTemp, setUserHomeTemp] = useState("0");
 
-  const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("");
-  const [homeAirOnOff, setHomeAirOnOff] = useState("");
-  const [homeLightOnOff, setHomeLightOnOff] = useState("");
+  const [homeBoilerOnOff, setHomeBoilerOnOff] = useState("false");
+  const [homeAirOnOff, setHomeAirOnOff] = useState("false");
+  const [homeLightOnOff, setHomeLightOnOff] = useState("false");
 
   const [homeAirTemp, setHomeAirTemp] = useState("0");
   const [serverAirTemp, setServerAirTemp] = useState("");
@@ -123,8 +123,6 @@ function HomeControl() {
       if (response.ok) {
         // 서버 응답이 성공인 경우
         const result = await response.json();
-
-        console.log("Home Device Data:", result);
         setUserHumanCount(result.humanCount);
         setHomeLightOnOff(result.light);
         setHomeBoilerOnOff(result.heater);
@@ -132,7 +130,6 @@ function HomeControl() {
         setUserHomeTemp(result.temperatureNow);
         setHomeBoilerTemp(result.setBoilerTemp);
         setHomeAirTemp(result.setAirTemp);
-        console.log(homeLightOnOff);
       } else {
         const errorData = await response.json(); // 추가: 오류 응답 내용 출력
         console.log("홈 디바이스 정보 조회 실패:", errorData);
@@ -171,7 +168,7 @@ function HomeControl() {
         setUserId(result.userId);
         setUserAddress1(result.address1);
         setUserAddress2(result.address2);
-        console.log(userId);
+        // console.log(userId);
         getHomeDeviceData();
 
         // 주소를 위도와 경도로 변환하고, 날씨 정보 가져오기
@@ -227,7 +224,7 @@ function HomeControl() {
     console.log("userHumanCount updated:", userHumanCount);
     if (userHumanCount === 0 && homeLightOnOff) {
       updateLightStatus(false);
-      setMessage("불 끄고 다니세욧!");
+      setMessage("절전모드");
     }
   }, [userHumanCount, homeLightOnOff]);
 
@@ -429,6 +426,7 @@ function HomeControl() {
               <div className={style.light}>
                 <FaLightbulb color="black" size="4em" />
               </div>
+              {message && <p>{message}</p>}
             </div>
           )}
         </div>

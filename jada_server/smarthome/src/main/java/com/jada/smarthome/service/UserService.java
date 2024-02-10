@@ -189,7 +189,8 @@ public class UserService {
         userInfoDto.setAddress3(user.getAddress3());
         userInfoDto.setHouseNum(user.getHouseNum());
         userInfoDto.setHomeDevice(user.getHomeDevice());
-    
+        userInfoDto.setRole(user.getRole());
+
             return userInfoDto;
         }else{
             return null;
@@ -199,5 +200,11 @@ public class UserService {
     // 회원정보 삭제
     public void userdelete(String id) {
         userRepository.deleteById(id);
-}
+    }
+
+    // 전체 회원 수 조회 메서드
+    public Long getUserCount() {
+        return userRepository.count();
+    }
+
 }

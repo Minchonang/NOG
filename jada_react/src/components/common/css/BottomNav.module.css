@@ -38,3 +38,10 @@
 .nav_btn:active {
   background-color: #ff9f0a;
 }
+
+.navImg {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 5px;
+  border-radius: 10px;
+}

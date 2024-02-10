@@ -136,6 +136,7 @@ public class UserController {
                     .address2(user.getAddress2())
                     .address3(user.getAddress3())
                     .houseNum(user.getHouseNum())
+                    .creDateTime(user.getCreDateTime())
                     .build())
             .collect(Collectors.toList());
 
@@ -271,6 +272,11 @@ public class UserController {
 
     }
 
-
+    // 전체 회원 수 조회
+    @GetMapping("/count")
+    public ResponseEntity<Long> getUserCount() {
+        Long userCount = userService.getUserCount(); // userService에서 전체 회원 수 조회하는 메서드 호출
+        return ResponseEntity.ok(userCount);
+    }
 }
 
