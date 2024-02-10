@@ -35,7 +35,7 @@ const MyChart = () => {
  
   useEffect(() => {
     sessionStorage.setItem("userId", "test5");
-    const id = sessionStorage.getItem("userId")
+    const id = sessionStorage.getItem("userId");
     
     const fetchData = async () => {
       
