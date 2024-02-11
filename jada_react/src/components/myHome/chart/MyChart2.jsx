@@ -8,6 +8,7 @@ import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
 import Plot from 'react-plotly.js';
+import BarChartDay from './BarChartDay';
 
 const MyChart = () => {
   
@@ -25,17 +26,17 @@ const MyChart = () => {
 
   const [chartData1, setChartData1] = useState([]);
   const [chartData2, setChartData2] = useState([]);
+  const [chartData3, setChartData3] = useState([]);
   const [chartData2pattern, setChartData2pattern] = useState({});
   const [myType, setMyType] = useState({});
   const [userData ,setMyCity] = useState("")
-  const [chartData3, setChartData3] = useState([]);
   const [chartData4, setChartData4] = useState([]);
   const [user, setUser] = useState({});
   const [searchDate, setSearchDate] = useState("")
   const [load, setLoad] = useState(false)
  
   useEffect(() => {
-    sessionStorage.setItem("userId", "testId70");
+    sessionStorage.setItem("userId", "test5");
     const id = sessionStorage.getItem("userId");
     
     const fetchData = async () => {
@@ -43,12 +44,14 @@ const MyChart = () => {
       setLoad(false)}
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/test2?user_id=${id}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://127.0.0.1:5001/my_home?user_id=${id}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
         setChartData1(data.data1)
         setChartData2(data.data2)
+        setChartData3(data.data3)
+
         setUser({
           "user_id" : id,
           "user_name"  : data.data2[0]["user_info"],
@@ -62,8 +65,6 @@ const MyChart = () => {
           const usage_11_16 = Math.round(my_pattern["usage_11_16"] / total_usage * 1000) / 10;
           const usage_17_22 = Math.round(my_pattern["usage_17_22"] / total_usage * 1000) / 10;
 
-          const usageValues = [usage_23_4, usage_5_10, usage_11_16, usage_17_22];
-
           // 최대값 찾기
           const my_use_type= {
             "usage_23_4": usage_23_4,
@@ -76,6 +77,9 @@ const MyChart = () => {
 
         console.log(data);
         console.log(id);
+
+
+
       } catch (error) {
         console.error('Error fetching graph data:', error);
       }
@@ -89,13 +93,12 @@ const MyChart = () => {
 
   // 회원 정보로 검색 완료된 후 예측
   useEffect(() => {
-    sessionStorage.setItem("userId", "test5");
-    const id = sessionStorage.getItem("userId");
+
     
     const fetchPred = async () => {
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/pred?user_id=${id}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://127.0.0.1:5001/pred?user_id=${user["user_id"]}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
@@ -158,7 +161,33 @@ const MyChart = () => {
     return  Math.round(bill,0)
     }
 
-  
+    function calculateDay(object){
+        let maxValue = Number.MIN_SAFE_INTEGER;
+        let maxKey = null;
+      
+        for (const key in object) {
+            const value = object[key];
+            if (value > maxValue) {
+              maxValue = value;
+              maxKey = key;
+            }
+        }
+        
+        const ko ={
+          "Monday": "월요일",
+          "Tuesday": "화요일",
+          "Wednesday": "수요일",
+          "Thursday": "목요일",
+          "Friday": "금요일",
+          "Saturday": "토요일",
+          "Sunday": "일요일",
+        }
+        
+        return ko[maxKey];
+      }
+      
+        
+ 
   
 
 
@@ -247,7 +276,7 @@ const MyChart = () => {
         </div>
         </div>
         <div className={style.keyword_box} onClick={()=>handleBoxClick(3)}>
-          <h1>금요일</h1>
+          <h1>{calculateDay(chartData3["weekly_my_usage_sum"])?calculateDay(chartData3["weekly_my_usage_sum"]):"월요일"}</h1>
           <span>소비량이 가장 많은 요일</span>
           <span className={style.open}> {visibleContainers['3'] ? '▲' :'▼'}</span>
 
@@ -263,20 +292,19 @@ const MyChart = () => {
   <span className={style.spring}></span>     
           {/* <span className={style.close} > ▲</span>   */}
           </div>      
-  <LineChart></LineChart>
+  <LineChart data3={chartData3}></LineChart>
     {/* 해설상자 */}
     <div className={style.text_box}>
            
-           <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
-           <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-           <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+           <p >회원님은 이번 달 "{calculateDay(chartData3["weekly_my_usage_sum"])}"에 가장 많은 전력 소비를 한 것을 확인됩니다.</p>     
+           <p>또한, {user["user_city"]?user["user_city"]:"같은 도시"}의 이웃들은 평균적으로 "{calculateDay(chartData3["weekly_city_usage_sum"])}"에 가장 많은 전력 소비를 하는 것으로 확인됩니다. </p>     
            </div>
 </div>
 </div>
 
 
 
-
+{/* 네번째줄 */}
         <div className={style.keyword_box} onClick={()=>handleBoxClick(4)}>
           <h1>13일</h1>
           <span>이달 가장 사용량이 많았던 날</span>
@@ -296,7 +324,7 @@ const MyChart = () => {
   <span className={style.spring}></span>     
           {/* <span className={style.close} > ▲</span>   */}
           </div>       
-  <LineChart></LineChart>
+  <BarChartDay></BarChartDay>
     {/* 해설상자 */}
     <div className={style.text_box}>
            
@@ -325,7 +353,7 @@ const MyChart = () => {
           {/* <span className={style.close} > ▲</span>     */}
         </div>
 
-          <LineChart></LineChart>
+          {/* <LineChart></LineChart> */}
             {/* 해설상자 */}
             <div className={style.text_box}>
            

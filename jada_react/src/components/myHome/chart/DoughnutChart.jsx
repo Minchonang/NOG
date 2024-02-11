@@ -8,7 +8,7 @@ const DoughnutChart = ({data1}) => {
   const total = (data1[0]*1.5- data1[1])<=0 ?0:  data1[0]*1.5 - data1[1]
   
   const value = total
-
+  console.log("도넛",data1)
     const doughnutData = {
         labels: [`이달 사용량 ${my}kWh`, `지역평균 ${data1[0]}kWh`],
         datasets: [
