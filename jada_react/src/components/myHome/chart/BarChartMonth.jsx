@@ -107,6 +107,8 @@ const BarChartMonth = ({data5}) => {
             font: { // 범례의 폰트 스타일도 지정할 수 있습니다.
               family: "'Noto Sans KR', 'serif'",
               lineHeight: 1,
+            size: 10,
+
             },
           },
          

@@ -63,6 +63,7 @@ const LineChart = ({data3}) => {
             family: "'Noto Sans KR', 'serif'",
             lineHeight: 1,
           },
+     
         },
        
         display: true,
