@@ -9,6 +9,7 @@ import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
 import Plot from 'react-plotly.js';
 import BarChartDay from './BarChartDay';
+import BarChartMonth from './BarChartMonth';
 
 const MyChart = () => {
   
@@ -306,7 +307,7 @@ const MyChart = () => {
 
 {/* 네번째줄 */}
         <div className={style.keyword_box} onClick={()=>handleBoxClick(4)}>
-          <h1>13일</h1>
+          <h1>{chartData3 && chartData3["max"] && chartData3["max"][0]?chartData3["max"][0]:1}일</h1>
           <span>이달 가장 사용량이 많았던 날</span>
           <span className={style.open}> {visibleContainers['4'] ? '▲' :'▼'}</span>
 
@@ -324,18 +325,17 @@ const MyChart = () => {
   <span className={style.spring}></span>     
           {/* <span className={style.close} > ▲</span>   */}
           </div>       
-  <BarChartDay></BarChartDay>
+  <BarChartMonth data5={[chartData3["my_month_use"], chartData3["city_month_use"]]}></BarChartMonth>
     {/* 해설상자 */}
     <div className={style.text_box}>
            
-           <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
-           <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-           <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+           <p >이달 가장 많은 전력을 소비한 날은 {chartData3['max'][0]}일, {chartData3['my_month_use'][chartData3['max'][0]]}kWh 입니다. </p>     
+           <p>또한, 지역 평균적으로는 이달 {chartData3['max'][1]}일이 {chartData3['my_month_use'][chartData3['max'][1]]}kWh로 소비 전력 소비량이 가장 많았던 것으로 집계 되었습니다.</p>     
            </div>
 </div>
 </div>
         <div className={style.keyword_box} onClick={()=>handleBoxClick(5)}>
-          <h1>4kW</h1>
+          <h1>{chartData3 && chartData3["average"] && chartData3["average"][0] ? chartData3["average"][0]:0}kW</h1>
           <span>하루 평균 사용량</span>
           <span className={style.open}> {visibleContainers['5'] ? '▲' :'▼'}</span>
 
@@ -354,12 +354,16 @@ const MyChart = () => {
         </div>
 
           {/* <LineChart></LineChart> */}
+          <BarChartDay data4={ chartData3["average"] }></BarChartDay>
+          
             {/* 해설상자 */}
             <div className={style.text_box}>
            
-            <p >이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량 356kw의 56%에 해당합니다. </p>     
-            <p>또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한</p>     
-            <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+            {/* <p>이번달 일일 평균 사용량은 {chartData3["average"][0]}kw 입니다.</p> */}
+            <p>이번달 일일 평균 사용량은 {chartData3 && chartData3["average"] && chartData3["average"][0]}kw 입니다.</p>
+     
+            <p>또한, {user["user_city"]?user["user_city"]:"같은 도시"}의 지역 평균 사용량은 {chartData3 && chartData3["average"] && chartData3["average"][1]}kw 입니다.</p>     
+            <p>회원님은 지역 평균 보다 약 {chartData3 && chartData3["average"]&&(Math.round((chartData3["average"][0] - chartData3["average"][1]) * -100 / 100))*-1}kWh 만큼 사용하는 편입니다.</p>
             </div>
         </div>
         </div>
