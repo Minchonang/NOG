@@ -329,8 +329,8 @@ const MyChart = () => {
     {/* 해설상자 */}
     <div className={style.text_box}>
            
-           <p >이달 가장 많은 전력을 소비한 날은 {chartData3['max'][0]}일, {chartData3['my_month_use'][chartData3['max'][0]]}kWh 입니다. </p>     
-           <p>또한, 지역 평균적으로는 이달 {chartData3['max'][1]}일이 {chartData3['my_month_use'][chartData3['max'][1]]}kWh로 소비 전력 소비량이 가장 많았던 것으로 집계 되었습니다.</p>     
+           <p >이달 가장 많은 전력을 소비한 날은 {chartData3 && chartData3["max"] && chartData3["max"][0]}일, {chartData3 && chartData3["max"] && chartData3["max"][0]?chartData3['my_month_use'][chartData3['max'][0]]:0}kWh 입니다. </p>     
+           <p>또한, 지역 평균적으로는 이달 {chartData3 && chartData3["max"] && chartData3["max"][1]}일이 {chartData3 && chartData3["max"] && chartData3["max"][1]?chartData3['city_month_use'][chartData3['max'][1]]:0}kWh로 소비 전력 소비량이 가장 많았던 것으로 집계 되었습니다.</p>     
            </div>
 </div>
 </div>

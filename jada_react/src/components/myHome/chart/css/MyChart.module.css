@@ -120,7 +120,7 @@ margin-right: 0.25rem;
 }
 
 .doughnut_chart{
-    background-color: rgb(185, 185, 249);
+    background-color:rgba(219, 227, 254, 0.673);
     /* position: relative; */
     width: 20%;
     /* overflow: hidden; */
@@ -128,19 +128,19 @@ margin-right: 0.25rem;
 }
 .radar_chart{
     /* flex: 1; */
-    background-color: rgb(42, 65, 54);
+    background-color: rgb(218, 210, 162);
     
     width: 20%;
 }
 .pie_chart{
-    background-color: rgb(42, 65, 54);
+    background-color: rgba(219, 227, 254, 0.673);
     
     width: 20%;
 
 }
 
 .line_chart{
-    background-color: rgb(42, 65, 54);
+    /* background-color: rgba(219, 227, 254, 0.673); */
     
     width: 20%;
 }
