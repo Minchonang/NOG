@@ -66,12 +66,15 @@ public class User implements Serializable {
   @Column(name = "address3", length = 150)
   private String address3;
 
-  // user_home_id 필드 추가
-  @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+  // homeDevice모델에서 user_home_id 필드 추가
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "user_home_id")
   @JsonBackReference
   private HomeDevice homeDevice;
-  // @Column(name = "houseSquare", nullable = false)
-  // private Integer houseSquare;
+
+  // board모델에서 writer와 연관관계
+  @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<Board> boards;
+
 }
 

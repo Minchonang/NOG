@@ -8,52 +8,62 @@ import common from "../common/css/common.module.css";
 import style from "./css/Board.module.css";
 
 function Board() {
-  const [userId, setUserId] = useState("");
-
-  const serverLink = async (e) => {
-    // user_id를 가져오기
+  useEffect(() => {
     const user_id = sessionStorage.getItem("user_id");
+    setUserId(user_id);
+  }, []);
+  const [userId, setUserId] = useState("");
+  const [boardCategory, setBoardCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-    // 주소 추가 필요
-    const editUserDto = {
-      user_id: user_id,
+  const serverlink = async () => {
+    const boardDto = {
+      userId: userId,
+      boardCategory: boardCategory,
+      title: title,
+      content: content,
     };
 
     try {
       // 서버로 데이터 전송 - 경로 수정 필요
-      const response = await fetch(`${API_BASE_URL}/api/userinfo/userfind`, {
+      const response = await fetch(`${API_BASE_URL}/api/board/write`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editUserDto),
+        body: JSON.stringify(boardDto),
       });
+
+      const result = await response.json();
+
       if (response.ok) {
-        // // 서버 응답이 성공인 경우
-        const result = await response.json();
-        // 추출된 데이터 사용
-        setUserId(result.userId);
+        alert(result.message);
+        window.location.href = "/analysis";
       } else {
-        console.log("회원 정보 조회 실패");
-        alert("오류가 발생하였습니다.");
+        console.log("문의사항 저장 실패");
+        alert(result.error);
       }
     } catch (error) {
       console.error("서버 통신 오류", error);
     }
   };
 
-  serverLink();
   return (
     <div className={common.background}>
-      <Header sub_title="" />
+      <Header sub_title="문의사항" />
 
       <div className={common.main_area}>
         <div className={style.boardContainer}>
           <div className={style.boardTitle}>
             <div>문의사항</div>
           </div>
-          <select className={style.boardSelect}>
-            <option value="" disabled selected>
+          <select
+            className={style.boardSelect}
+            value={boardCategory}
+            onChange={(e) => setBoardCategory(e.target.value)}
+          >
+            <option value="" disabled>
               카테고리를 선택해주세요
             </option>
             <option value="서비스 이용 문의">서비스 이용 문의</option>
@@ -62,12 +72,22 @@ function Board() {
             <option value="기타 문의">기타 문의</option>
           </select>
           <div className={style.boardUser}>작성자 : {userId}</div>
-          <input type="text" placeholder="제목" className={style.inputTitle} />
+          <input
+            type="text"
+            placeholder="제목"
+            className={style.inputTitle}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <textarea
             placeholder="내용을 입력해주세요."
             className={style.inputField}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
-          <button className={style.submitButton}>제출하기</button>
+          <button className={style.submitButton} onClick={serverlink}>
+            제출하기
+          </button>
         </div>
         <BottomNav />
       </div>
