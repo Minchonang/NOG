@@ -1,5 +1,6 @@
 package com.jada.smarthome.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,8 +33,11 @@ public class HomeDeviceController {
   @Autowired
   UserRepository userRepository;
 
+  // 홈 디바이스 정보 조회
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/")
   public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
+
     return homeDeviceService.getHomeDevice(homeDeviceDto);
   }
 
@@ -46,7 +50,6 @@ public class HomeDeviceController {
         Boolean setLight = homeDeviceDto.getLight();
   
         String result = homeDeviceService.editLight(homeDeviceDto, setLight);
-        System.out.println(result + "-----------------------------------------------------");
       
         return ResponseEntity.ok(result);
       } catch (Exception e) {
@@ -63,8 +66,7 @@ public class HomeDeviceController {
        Boolean setAir = homeDeviceDto.getAirconditioner();
  
        String result = homeDeviceService.editAir(homeDeviceDto, setAir);
-       System.out.println(result + "-----------------------------------------------------");
-     
+
        return ResponseEntity.ok(result);
      } catch (Exception e) {
          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
@@ -82,7 +84,6 @@ public class HomeDeviceController {
        Boolean setBoiler = homeDeviceDto.getHeater();
  
        String result = homeDeviceService.editBoiler(homeDeviceDto, setBoiler);
-       System.out.println(result + "-----------------------------------------------------");
      
        return ResponseEntity.ok(result);
      } catch (Exception e) {
@@ -97,11 +98,33 @@ public class HomeDeviceController {
       try {
   
         String result = homeDeviceService.editTemp(homeDeviceDto);
-        System.out.println(result + "-----------------------------------------------------");
       
         return ResponseEntity.ok(result);
       } catch (Exception e) {
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+      }
+  }
+
+  // 시리얼 넘버 조회
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/serialCheck")
+  public ResponseEntity<Map<String, String>> serialCheck(@RequestBody Map<String, String> serialCheck){
+      try {
+          String userId = serialCheck.get("userId");
+          String serialNum = serialCheck.get("serialNum");
+
+          String result = homeDeviceService.serialCheck(userId, serialNum);
+          System.out.println("===================result :" + result);
+
+          Map<String, String> body = new HashMap<>();
+        body.put("message", result);
+
+          return ResponseEntity.ok(body);
+          
+      } catch (Exception e) {
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("error", "시리얼 번호 변경에 실패하였습니다.");
+          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
       }
   }
 

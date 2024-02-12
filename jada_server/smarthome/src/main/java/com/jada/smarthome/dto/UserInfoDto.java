@@ -1,5 +1,7 @@
 package com.jada.smarthome.dto;
 
+import com.jada.smarthome.model.HomeDevice;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,5 +16,6 @@ public class UserInfoDto {
     private String address2;
     private String address3;
     private Integer houseNum;
-    
+    private HomeDevice homeDevice;
+    private Integer role;
 }

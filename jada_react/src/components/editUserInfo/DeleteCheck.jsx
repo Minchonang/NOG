@@ -20,7 +20,7 @@ function DeleteCheck() {
     // 서버에서 받아온 유저 정보
     const [userId, setUserId] = useState('');
 
-    const serverlink = async (e) => {
+    const serverlink = async () => {
         // user_id를 가져오기
         const user_id = sessionStorage.getItem('user_id');
 
@@ -61,22 +61,22 @@ function DeleteCheck() {
                 // user_id를 가져오기
                 const user_id = sessionStorage.getItem('user_id');
 
-                const editUserDto = {
-                    user_id: user_id,
+                const userExitDto = {
+                    userId: user_id,
+                    exitContent: deletionReasonOption,
                 };
 
                 try {
-                    const response = await fetch(`${API_BASE_URL}/api/userinfo/userdelete`, {
+                    const response = await fetch(`${API_BASE_URL}/api/userexit/userdelete`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(editUserDto),
+                        body: JSON.stringify(userExitDto),
                     });
 
                     if (response.ok) {
                         alert('회원탈퇴가 완료되었습니다.');
-                        // 로그아웃 등의 추가 작업이 필요하다면 여기에 추가할 수 있습니다.
                         window.location.href = '/';
                     } else {
                         console.log(user_id);
@@ -87,11 +87,6 @@ function DeleteCheck() {
                 }
             }
         }
-
-        // if (!deletionReasonOption) {
-        //     alert('회원탈퇴 사유를 입력해주세요.');
-        //     return;
-        // }
     };
 
     useEffect(() => {
@@ -133,7 +128,7 @@ function DeleteCheck() {
                                 <option value="unhappy">서비스 불만족</option>
                                 <option value="moveToOtherService">다른 서비스로 이전</option>
                                 <option value="privacyConcern">개인정보 보안 우려</option>
-                                <option value="decreasedFrequency">서비스 이용빈도 감소</option>
+                                <option value="decreasedFrequency">서비스 이용 빈도 감소</option>
                                 <option value="other">기타</option>
                             </select>
 
@@ -142,7 +137,7 @@ function DeleteCheck() {
                                     id="other_reason"
                                     value={otherReason}
                                     onChange={(e) => setOtherReason(e.target.value)}
-                                    placeholder="기타 이유를 입력해주세요."
+                                    placeholder="이유를 입력해주세요."
                                 ></textarea>
                             )}
                         </div>
