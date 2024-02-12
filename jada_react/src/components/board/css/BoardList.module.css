@@ -1,0 +1,37 @@
+.boardTitle {
+  display: flex;
+  margin: 15% auto 14%;
+}
+
+.boardTitle div {
+  padding: 0 10px;
+  font-size: 2em;
+  border-bottom: 5px solid #ff9f0a;
+}
+
+.boardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px;
+  width: 100%;
+}
+
+/* 글쓰기버튼 */
+.writeButton {
+  font-family: "godo";
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: #ff9f0a;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.writeButton:hover {
+  background-color: #fbcd87;
+}

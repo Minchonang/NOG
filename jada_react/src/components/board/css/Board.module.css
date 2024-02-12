@@ -9,7 +9,6 @@
   border-bottom: 5px solid #ff9f0a;
 }
 
-/* --------------------------------- */
 .boardContainer {
   display: flex;
   flex-direction: column;
@@ -20,6 +19,7 @@
   width: 100%;
 }
 
+/* --------------------------------- */
 /* 옵션선택 */
 .boardSelect {
   font-family: "godo";
