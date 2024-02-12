@@ -8,7 +8,7 @@ import Inquiry from "./Inquiry";
 import NogiAnalysis from "./NogiAnalysis";
 
 function Admin() {
-  const [currentTab, setCurrentTab] = useState("회원정보");
+  const [currentTab, setCurrentTab] = useState("문의사항");
 
   const handleTabChange = (tab) => {
     setCurrentTab(tab);
