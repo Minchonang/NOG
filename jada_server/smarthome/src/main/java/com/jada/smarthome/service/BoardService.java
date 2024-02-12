@@ -3,6 +3,8 @@ package com.jada.smarthome.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +53,7 @@ public class BoardService {
         return boardRepository.findAll();
     }
   
+    public List<Board> getBoardListByUserId(String userId) {
+      return boardRepository.findByWriterId(userId);
+  }
 }

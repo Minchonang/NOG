@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../App.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import BottomNav from "../common/jsx/BottomNav";
@@ -7,44 +8,78 @@ import common from "../common/css/common.module.css";
 import style from "./css/BoardList.module.css";
 
 function BoardList() {
-  const [boards, setBoards] = useState([]);
-
   useEffect(() => {
-    fetchBoards();
+    getBoardList();
   }, []);
 
-  const fetchBoards = async () => {
+  //   const [userId, setUserId] = useState("");
+  const [boards, setBoards] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState(null);
+
+  //  ------- 게시글 list 가져오기 -------
+  const getBoardList = async () => {
     try {
-      const response = await axios.get("서버 API 주소");
-      setBoards(response.data);
+      const userId = sessionStorage.getItem("user_id");
+
+      // 서버로 데이터 전송
+      const response = await fetch(
+        `${API_BASE_URL}/api/board/boardList/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        // 서버 응답이 성공인 경우
+        const result = await response.json();
+        // 추출된 데이터 사용
+        setBoards(result);
+      } else {
+        console.log("문의사항 조회 실패");
+        alert("오류가 발생하였습니다.");
+      }
     } catch (error) {
-      console.error("문의글을 불러오는데 실패했습니다", error);
+      console.error("서버 통신 오류", error);
     }
   };
 
   return (
     <div className={common.background}>
-      <Header sub_title="" />
+      <Header sub_title="내 정보" />
 
-      <div className={common.main_area}>
-        <div className={style.boardContainer}>
-          <div className={style.boardTitle}>
-            <div>문의사항</div>
-          </div>
-
-          {boards.map((board, index) => (
-            <div className={style.boardItem} key={index}>
-              <h2 className={style.boardItemTitle}>{board.title}</h2>
-              <p className={style.boardItemContent}>{board.content}</p>
-            </div>
-          ))}
-
-          <Link to="/board">
-            <button className={style.writeButton}> 문의글 쓰기 </button>
-          </Link>
+      <div className={style.main_area}>
+        <div className={style.title}>
+          <div>문의사항</div>
         </div>
-        <BottomNav />
+        <div className={style.list}>
+          <div className={style.boardList_table}>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>카테고리</th>
+                  <th>제목</th>
+                </tr>
+              </thead>
+              <tbody>
+                {boards.map((board) => (
+                  <tr key={board.boardId}>
+                    <td>{board.boardId}</td>
+                    <td>{board.boardCategory}</td>
+                    <td>{board.title}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <Link to="/board">
+          <button className={style.writeButton}> 문의글 쓰기 </button>
+        </Link>
       </div>
+      <BottomNav />
     </div>
   );
 }
