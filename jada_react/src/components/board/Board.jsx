@@ -45,7 +45,7 @@ function Board() {
   serverLink();
   return (
     <div className={common.background}>
-      <Header sub_title="문의사항" />
+      <Header sub_title="" />
 
       <div className={common.main_area}>
         <div className={style.boardContainer}>
