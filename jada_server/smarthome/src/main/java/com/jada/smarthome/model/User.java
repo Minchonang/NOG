@@ -73,7 +73,7 @@ public class User implements Serializable {
   private HomeDevice homeDevice;
 
   // board모델에서 writer와 연관관계
-  @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Board> boards;
 
 }

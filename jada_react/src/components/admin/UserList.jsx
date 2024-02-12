@@ -128,7 +128,7 @@ function UserList() {
                 <div className={style.userList_title}>
                     <div>ID</div>
                     <div>이름</div>
-                    <div>주소</div>
+                    <div>기기 정보</div>
                 </div>
                 <div className={style.userList_table}>
                     <table>
@@ -137,7 +137,7 @@ function UserList() {
                                 <tr key={user.id} onClick={() => handleUserClick(user)}>
                                     <td>{user.id}</td>
                                     <td>{user.name}</td>
-                                    <td>{user.address1}</td>
+                                    <td>{user.homeId}</td>
                                 </tr>
                             ))}
                         </tbody>

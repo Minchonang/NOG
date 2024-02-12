@@ -53,8 +53,7 @@ public class BoardController {
                                     .writeDate(board.getWriteDate())
                                     .build())
                                   .collect(Collectors.toList());
-
-
+    
     return ResponseEntity.ok(boardListDtos);
   }
   
