@@ -7,8 +7,8 @@ import 'chart.js/auto';
 
 const LineChart = ({data3}) => {
  
-  const my_usage = data3["weekly_my_usage_sum"]
-  const city_usage = data3["weekly_city_usage_sum"]
+  const my_usage = data3&&data3["weekly_my_usage_sum"]?data3["weekly_my_usage_sum"]:0 
+  const city_usage = data3&&data3["weekly_city_usage_sum"]?data3["weekly_city_usage_sum"]:0
   
   const lineData = {
     labels: ['월', '화', '수', '목', '금', '토', '일'],

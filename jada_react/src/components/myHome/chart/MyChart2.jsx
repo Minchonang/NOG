@@ -37,7 +37,7 @@ const MyChart = () => {
   const [load, setLoad] = useState(false)
  
   useEffect(() => {
-    sessionStorage.setItem("userId", "test5");
+    sessionStorage.setItem("userId", "testId50");
     const id = sessionStorage.getItem("userId");
     
     const fetchData = async () => {
@@ -143,7 +143,7 @@ const MyChart = () => {
     }else if (maxKey=="usage_11_16"){
       return "오후"
     }else if (maxKey=="usage_5_10"){
-      return "아침"
+      return "오전"
     }else if (maxKey=="usage_17_22"){
       return "저녁"
     }
@@ -268,16 +268,16 @@ const MyChart = () => {
             <div className={style.text_box}>
             
             <p >회원님의 전력 소비 시간대 비율은</p>     
-            <p >- 아침 {chartData2pattern["usage_5_10"]}% </p>     
-            <p >- 오후 {chartData2pattern["usage_11_16"]}%</p>     
-            <p >- 저녁 {chartData2pattern["usage_17_22"]}% </p>     
-            <p >- 심야새벽 {chartData2pattern["usage_23_4"]}% 입니다.</p>     
-            <p>소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '{calculateType(chartData2pattern)}' 소비형입니다.</p>     
+            <p >- 아침 {chartData2pattern["usage_5_10"]?chartData2pattern["usage_5_10"]:25}% </p>     
+            <p >- 오후 {chartData2pattern["usage_11_16"]?chartData2pattern["usage_11_16"]:25}%</p>     
+            <p >- 저녁 {chartData2pattern["usage_17_22"]?chartData2pattern["usage_17_22"]:25}% </p>     
+            <p >- 심야새벽 {chartData2pattern["usage_23_4"]?chartData2pattern["usage_23_4"]:25}% 입니다.</p>     
+            <p>소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '{calculateType(chartData2pattern)?calculateType(chartData2pattern):"오전"}' 소비형입니다.</p>     
             </div>
         </div>
         </div>
         <div className={style.keyword_box} onClick={()=>handleBoxClick(3)}>
-          <h1>{calculateDay(chartData3["weekly_my_usage_sum"])?calculateDay(chartData3["weekly_my_usage_sum"]):"월요일"}</h1>
+          <h1>{chartData3&&chartData3["weekly_my_usage_sum"]&&calculateDay(chartData3["weekly_my_usage_sum"])?calculateDay(chartData3["weekly_my_usage_sum"]):"월요일"}</h1>
           <span>소비량이 가장 많은 요일</span>
           <span className={style.open}> {visibleContainers['3'] ? '▲' :'▼'}</span>
 
@@ -297,8 +297,8 @@ const MyChart = () => {
     {/* 해설상자 */}
     <div className={style.text_box}>
            
-           <p >회원님은 이번 달 "{calculateDay(chartData3["weekly_my_usage_sum"])}"에 가장 많은 전력 소비를 한 것을 확인됩니다.</p>     
-           <p>또한, {user["user_city"]?user["user_city"]:"같은 도시"}의 이웃들은 평균적으로 "{calculateDay(chartData3["weekly_city_usage_sum"])}"에 가장 많은 전력 소비를 하는 것으로 확인됩니다. </p>     
+           <p >회원님은 이번 달 "{chartData3&&chartData3["weekly_my_usage_sum"]&&calculateDay(chartData3["weekly_my_usage_sum"])}"에 가장 많은 전력 소비를 한 것을 확인됩니다.</p>     
+           <p>또한, {user["user_city"]?user["user_city"]:"같은 도시"}의 이웃들은 평균적으로 "{chartData3&&chartData3["weekly_my_usage_sum"]&&calculateDay(chartData3["weekly_city_usage_sum"])}"에 가장 많은 전력 소비를 하는 것으로 확인됩니다. </p>     
            </div>
 </div>
 </div>
@@ -325,7 +325,7 @@ const MyChart = () => {
   <span className={style.spring}></span>     
           {/* <span className={style.close} > ▲</span>   */}
           </div>       
-  <BarChartMonth data5={[chartData3["my_month_use"], chartData3["city_month_use"]]}></BarChartMonth>
+  <BarChartMonth data5={chartData3&&chartData3["my_month_use"]&&[chartData3["my_month_use"], chartData3&&chartData3["city_month_use"]&&chartData3["city_month_use"]]}></BarChartMonth>
     {/* 해설상자 */}
     <div className={style.text_box}>
            
@@ -354,7 +354,7 @@ const MyChart = () => {
         </div>
 
           {/* <LineChart></LineChart> */}
-          <BarChartDay data4={ chartData3["average"] }></BarChartDay>
+          <BarChartDay data4={ chartData3&&chartData3["average"]&&chartData3["average"] }></BarChartDay>
           
             {/* 해설상자 */}
             <div className={style.text_box}>

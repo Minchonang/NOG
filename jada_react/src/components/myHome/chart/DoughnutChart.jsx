@@ -57,7 +57,7 @@ const DoughnutChart = ({data1}) => {
   return (
             <div className={style.doughnut_chart_box}>
           <Doughnut  data={doughnutData} options={doughnutOptions} className={style.doughnut_chart}/>
-          <span className={style.doughnut_value}>{my}kWh</span>          
+          <span className={style.doughnut_value}>{my?my:0}kWh</span>          
           </div>
   );
 };

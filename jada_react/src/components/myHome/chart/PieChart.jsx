@@ -20,14 +20,14 @@ const PieChart = ({chart_Data2}) => {
 
   const data = {
     labels: [
-      '아침',
+      '오전',
       '오후',
       '저녁',
       '심야,새벽'
     ],
     datasets: [{
       label: '비율%',
-      data: [usage_5_10, usage_11_16 , usage_17_22, usage_23_4],
+      data: [usage_5_10?usage_5_10:1, usage_11_16?usage_11_16:1 , usage_17_22?usage_17_22:1, usage_23_4?usage_23_4:1],
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
