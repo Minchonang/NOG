@@ -2,8 +2,8 @@ import sys
 from io import StringIO
 
 # sys.stdout을 메모리 버퍼로 설정 테스트중에는 주석처리해야 합니다.
-# memory_buffer = StringIO()
-# sys.stdout = memory_buffer
+memory_buffer = StringIO()
+sys.stdout = memory_buffer
 # temp_stdout = sys.stdout
 # with open('print_log.txt', 'w') as f:
 #     sys.stdout = f
