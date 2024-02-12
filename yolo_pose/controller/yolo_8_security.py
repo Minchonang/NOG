@@ -92,7 +92,7 @@ class ObjectDetection:
 
     def object_counter(self, region_points):
         counter = object_counter.ObjectCounter()
-        counter.set_args(view_img=False,
+        counter.set_args(view_img=True,
                          view_in_counts=False,
                          view_out_counts=False,
                          line_thickness=1,
