@@ -1,14 +1,24 @@
+/* .main_container{
+    position: relative;
+} */
 .body{
     
     background-color: rgb(255, 255, 255);
     height: 100%;
     width: 100%;
-    margin-top: 15%;
+    /* margin-top: 15%; */
     /* padding:    0.5rem  1rem  0.5rem 0; */
     font-family: "Godo";
+    /* background-color: red; */
 
 }
+.body>.container{
+    /* margin-top: 15%; */
+    padding-top: 3.3rem;
+    background-color: #fee9d1;
+    padding-bottom: 5rem;
 
+}
 .body>.container>.keyword_box{
     position: relative;
     background-color: rgb(255, 255, 255);
@@ -40,7 +50,7 @@
 
 .body>.container>.title{
     background-color: rgb(255, 241, 169);
-    background-image: linear-gradient(to bottom, rgb(62, 234, 74), #3ce06d, rgb(31, 141, 48)  , rgb(34, 120, 85),rgb(14, 96, 55) );
+    background-image: linear-gradient(to bottom, rgb(62, 171, 234), #3ca4e0, rgb(31, 90, 141)  , rgb(34, 91, 120),rgb(14, 66, 96) );
     padding: 1rem;
     margin-bottom: 0.5rem;
     border: 0.3rem solid rgb(255, 255, 255);

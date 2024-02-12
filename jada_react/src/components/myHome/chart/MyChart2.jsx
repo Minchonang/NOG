@@ -10,6 +10,10 @@ import DoughnutChart from './DoughnutChart';
 import Plot from 'react-plotly.js';
 import BarChartDay from './BarChartDay';
 import BarChartMonth from './BarChartMonth';
+import Header from '../../common/jsx/Header';
+import ChatBot from '../../common/jsx/ChatBot';
+import BottomNav from '../../common/jsx/BottomNav';
+import LoadingNog from '../../common/jsx/LoadingNog';
 
 const MyChart = () => {
   
@@ -37,8 +41,8 @@ const MyChart = () => {
   const [load, setLoad] = useState(false)
  
   useEffect(() => {
-    sessionStorage.setItem("userId", "testId50");
-    const id = sessionStorage.getItem("userId");
+    // sessionStorage.setItem("userId", "testId50");
+    const id = sessionStorage.getItem("user_id");
     
     const fetchData = async () => {
       if (load==true){
@@ -187,17 +191,18 @@ const MyChart = () => {
         return ko[maxKey];
       }
       
-        
- 
-  
-
-
-
-
-
+      
 
   return (
+    <>
+    {load==false? (
+      <LoadingNog />
+  ) : (
+    <>
     <div className={style.body}>
+    <Header sub_title="홈 분석" />
+    
+      
       <div className={style.container}>
         <div className={style.title}>
           <h1> {user["user_name"]? user["user_name"]+"님의 ":""}패턴분석 ♪</h1>
@@ -437,8 +442,17 @@ const MyChart = () => {
 
 
       </div>
+            <ChatBot />
+            <BottomNav activeData={true} />
     </div>
-  );
+</>
+
+
+  )}</> )
+
 };
+
+
+
 
 export default MyChart;

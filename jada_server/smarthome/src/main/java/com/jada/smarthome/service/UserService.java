@@ -29,7 +29,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-	HttpSession session;
+   HttpSession session;
     
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -50,7 +50,9 @@ public class UserService {
 
     //모든 유저 정보를 조회
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+
+        return users;
     }
 
     // id 중복체크
@@ -148,17 +150,18 @@ public class UserService {
 
     // 회원정보 수정
     public String editUser(String user_id, String newEmail, String newPhone, String newPwd, Integer newhouserNum, String newAddress1, String newAddress2, String newAddress3){
-        System.out.println("=====userid:"+ user_id);
+    
        Optional<User> userOptional = userRepository.findById(user_id);
-       System.out.println("user레파지토리 정보 :"+ userOptional);
 
        if (userOptional.isPresent()) {
         User user = userOptional.get();
 
         user.setEmail(newEmail);
         user.setPhone(newPhone);
-        String enPassword = passwordEncoder.encode(newPwd);
-        user.setPassword(enPassword);
+        if (newPwd != null) {
+            String enPassword = passwordEncoder.encode(newPwd);
+            user.setPassword(enPassword);
+        }
         user.setAddress1(newAddress1);
         user.setAddress2(newAddress2);
         user.setAddress3(newAddress3);
@@ -166,13 +169,10 @@ public class UserService {
         
         // 저장된 값을 다시 userRepository를 통해 저장
         userRepository.save(user);
+        return "수정이 완료되었습니다.";
+        } 
 
-        System.out.println("사용자 정보 수정 완료");
-        } else {
-        System.out.println("사용자 정보가 존재하지 않습니다.");
-        }
-
-        return "수정 결과 메시지";
+        return "사용자 정보가 존재하지 않습니다.";
     }
 
     // 회원정보 조회
