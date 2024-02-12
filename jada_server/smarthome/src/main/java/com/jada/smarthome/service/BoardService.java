@@ -2,6 +2,7 @@ package com.jada.smarthome.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -55,5 +56,11 @@ public class BoardService {
   
     public List<Board> getBoardListByUserId(String userId) {
       return boardRepository.findByWriterId(userId);
+  }
+
+    public Optional<Board> getBoardById(Long boardId) {
+      System.out.println(boardId +"---------------Service------------------------");
+      Optional<Board> userBoard = boardRepository.findById(boardId);
+      return userBoard;
   }
 }

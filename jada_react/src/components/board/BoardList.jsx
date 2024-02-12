@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../App.js";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import BottomNav from "../common/jsx/BottomNav";
 import Header from "../common/jsx/Header";
@@ -68,7 +68,9 @@ function BoardList() {
                   <tr key={board.boardId}>
                     <td>{board.boardId}</td>
                     <td>{board.boardCategory}</td>
-                    <td>{board.title}</td>
+                    <NavLink to={`/boardDetail/${board.boardId}`}>
+                      <td>{board.title}</td>
+                    </NavLink>
                   </tr>
                 ))}
               </tbody>

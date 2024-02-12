@@ -39,7 +39,7 @@ function Board() {
 
       if (response.ok) {
         alert(result.message);
-        window.location.href = "/analysis";
+        window.location.href = "/boardList";
       } else {
         console.log("문의사항 저장 실패");
         alert(result.error);
