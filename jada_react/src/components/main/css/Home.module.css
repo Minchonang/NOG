@@ -1,3 +1,68 @@
+.background {
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+}
+
+/* 상단바 */
+.title_area {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo";
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  align-items: center;
+}
+.title_area a:nth-child(2) {
+  font-size: 0.7em;
+  color: #555;
+}
+
+/* ------------------------ */
+/* 이미지 슬라이드 */
+.subtitle_area {
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin-top: 17%;
+  margin-left: 5%;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease; /* Add a smooth transition effect */
+}
+
+.slide:first-child {
+  display: block;
+}
+
+.subtitle_area div {
+  position: absolute;
+  width: 90vw;
+  height: 55vw;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지 비율 유지를 위해 추가 */
+  border-radius: 10px;
+}
+
+/* ---------------- */
+/* 상세설명 부분 */
 .main_area {
   position: absolute;
   z-index: 1;
@@ -45,8 +110,15 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
+.content_title > div {
+  white-space: pre-wrap;
+  line-height: 130%;
+}
 
 .content_text {
   font-size: 1rem;
   color: #555;
+}
+.join_btn:active {
+  background-color: #fbb244;
 }

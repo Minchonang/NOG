@@ -1,124 +1,188 @@
 .main_area {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	padding: 5% 5%;
-	display: flex;
-	flex-direction: column;
-	font-family: "Godo", serif;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 5% 5% 70px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Godo", serif;
 }
 
 .title_area {
-	position: absolute;
-	z-index: 2;
-	display: flex;
-	flex-direction: row;
-	width: 100vw;
-	padding: 2% 5%;
-	background-color: #fbf7ef;
-	font-family: "godo";
-	font-size: 1.7em;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo";
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 .title_area div {
-	margin-left: 10px;
-	font-size: 0.9em;
+  margin-left: 10px;
+  font-size: 0.9em;
 }
 
 .topGuide_area {
-	display: flex;
-	margin-top: 16%;
+  display: flex;
+  margin-top: 16%;
 }
 .topGuide_area li {
-	color: gray;
-	font-size: 0.9em;
-	list-style: square;
+  color: gray;
+  font-size: 0.9em;
+  list-style: square;
 }
 
 .userId {
-	color: #ff9f0a;
+  color: #ff9f0a;
 }
 
 .info_main {
-	width: 100%;
-	margin: 10% auto 5%;
-	padding: 5%;
-	border: 1px solid #ff9f0a;
-	border-radius: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 10% auto 5%;
+  padding: 5%;
+  border: 1px solid #ff9f0a;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .info_main_title {
-	font-size: 1.3em;
-	margin-bottom: 2%;
-	color: black;
-	/* color: #ff9f0a; */
+  font-size: 1.3em;
+  margin-bottom: 2%;
+  color: black;
+  /* color: #ff9f0a; */
 }
 
 .info_sub {
-	width: 100%;
-	margin: 0 auto 5%;
-	padding: 5%;
-	border: 1px solid lightgray;
-	border-radius: 10px;
-	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto 5%;
+  padding: 5%;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .info_sub_title {
-	font-size: 1.1em;
-	margin-bottom: 2%;
-	color: black;
+  font-size: 1.1em;
+  margin-bottom: 2%;
+  color: black;
 }
 .info_main_detail,
 .info_sub_detail {
-	position: relative;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	padding: 8px 0 8px;
-	font-size: 0.8em;
-	color: gray;
-	line-height: 130%;
-	white-space: normal;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 0 8px;
+  font-size: 0.9em;
+  color: gray;
+  line-height: 130%;
+  white-space: normal;
 }
 .info_main_detail:last-child,
 .info_sub_detail:last-child {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .info_sub_detail {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .checkbox_area {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-top: 5%;
-	margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5%;
+  margin-right: auto;
 }
 .checkbox_area input {
-	margin-right: 5px;
+  margin-left: 0;
+  margin-right: 5px;
 }
 .checkbox_area label {
-	color: black;
+  color: black;
 }
 
 .deleteBtn_area {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .deleteBtn_area button:first-child {
-	background-color: rgb(234, 234, 234) !important;
-	color: black;
+  background-color: rgb(234, 234, 234) !important;
+  color: black;
 }
 .deleteBtn_area button:first-child:active {
-	background-color: lightgray !important;
+  background-color: lightgray !important;
 }
 .deleteBtn_area button {
-	width: 48% !important;
-	background-color: red !important;
+  width: 48% !important;
+  background-color: red !important;
 }
 .deleteBtn_area button:active {
-	background-color: rgb(210, 0, 0) !important;
+  background-color: rgb(210, 0, 0) !important;
+}
+
+/* ------------------------------- */
+/* 탈퇴사유 */
+.reason_area {
+  width: 100%;
+  margin: 0 auto 5%;
+  padding: 5%;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reason_area_title {
+  font-size: 1.1em;
+  margin-bottom: 2%;
+  color: black;
+}
+
+.reason_area_detail {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0 8px;
+  font-size: 0.9em;
+  color: gray;
+  line-height: 130%;
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+.reason_thx {
+  margin-bottom: 1rem;
+}
+
+select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #ff9f0a;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #ff9f0a;
 }

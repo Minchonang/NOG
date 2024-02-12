@@ -1,6 +1,7 @@
 package com.jada.smarthome.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +46,6 @@ public class UserService {
         // JoinUserDto를 User 엔터티로 변환 후 저장
         User user = joinUserDto.toEntity();
         userRepository.save(user);
-
-
     }
 
     //모든 유저 정보를 조회
@@ -56,9 +55,8 @@ public class UserService {
 
     // id 중복체크
     public boolean isIdDuplicate(String id) {
-        // System.out.println(id);
         User user = userRepository.findById(id).orElse(null);
-        // System.out.println("user정보불러오기"+user);
+
         return user != null;
     }
 
@@ -87,8 +85,6 @@ public class UserService {
         }
     }
 
-
-
     // 이름과 이메일로 사용자 정보를 조회하는 메서드
     public Optional<User> findUserByNameAndEmail(String name, String email) {
         return userRepository.findByNameAndEmail(name, email);
@@ -98,9 +94,9 @@ public class UserService {
     public boolean checkPassword(String password, String id, HttpSession session) {
         // UserRepository를 이용하여 현재 로그인된 사용자의 정보 조회
         Optional<User> userOptional = userRepository.findById(id);
-        System.out.println("-------------------"+userOptional);
+        // System.out.println("-------------------"+userOptional);
         String enrollpwd = userOptional.get().getPassword();
-        System.out.println(enrollpwd);
+        // System.out.println(enrollpwd);
 
         // 세션
         // System.out.println("----------1------"+session);
@@ -122,8 +118,6 @@ public class UserService {
         // .orElse(false);
     }
     
-
-
     // 아이디과 이메일로 사용자 정보를 조회하는 메서드
     public Optional<User> findUserByIdAndEmail(String id, String email) {
         return userRepository.findByIdAndEmail(id, email);
@@ -196,7 +190,9 @@ public class UserService {
         userInfoDto.setAddress2(user.getAddress2());
         userInfoDto.setAddress3(user.getAddress3());
         userInfoDto.setHouseNum(user.getHouseNum());
-    
+        userInfoDto.setHomeDevice(user.getHomeDevice());
+        userInfoDto.setRole(user.getRole());
+
             return userInfoDto;
         }else{
             return null;
@@ -206,6 +202,11 @@ public class UserService {
     // 회원정보 삭제
     public void userdelete(String id) {
         userRepository.deleteById(id);
-}
+    }
+
+    // 전체 회원 수 조회 메서드
+    public Long getUserCount() {
+        return userRepository.count();
+    }
 
 }

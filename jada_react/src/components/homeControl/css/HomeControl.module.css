@@ -1,28 +1,3 @@
-/* ------------------ */
-/* 챗봇 */
-.chatbotimg {
-  position: fixed;
-  bottom: 80px;
-  right: 24px;
-  width: 50px;
-  height: 50px;
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-.bounce {
-  animation: bounce 1s infinite;
-}
-
 /* --------------------- */
 /* 상단바 */
 .title_area {
@@ -42,8 +17,11 @@
 }
 .title_area div {
   margin-left: 10px;
-  margin-top: 5px;
-  font-size: 0.6em;
+  font-size: 0.9em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* -------------------------- */
@@ -86,109 +64,205 @@
   align-items: center;
 }
 
+/* .outdoor_temp_icon {
+	margin: 5px 0;
+} */
+
+.fcHome,
+.fcClose {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-items: center;
+  margin-top: 4px;
+}
+
 /* ----------------------------------- */
 .main_area {
   position: absolute;
   z-index: 1;
   width: 100%;
-  padding: 20% 10% 70px;
+  padding: 20% 5% 0;
   display: flex;
   flex-direction: column;
+  margin-top: 12em;
   font-family: "Godo", serif;
   font-weight: lighter;
-  margin-top: 12em;
   text-align: center;
 }
 
 /* --------------------- */
+.countLight_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
 /* 집 인원 */
 .homeCount {
-  border-left: 2px solid rgb(88, 189, 155);
-  border-right: 2px solid rgb(88, 189, 155);
-  margin-bottom: 2em;
-}
-.homeCount_name {
-  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  background-color: #fbf7ef;
   margin-bottom: 10px;
+}
+
+.homeCount_name,
+.light_name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.count {
+  margin: auto 0;
+  font-size: 2em;
 }
 
 /* -------------- */
 /* 전등 */
-.light {
-  border: 2px solid rgb(88, 189, 155);
-  border-radius: 10em;
-  padding: 5%;
-  margin-bottom: 2em;
+.lightBtn_on,
+.lightBtn_off {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
+.lightBtn_on {
+  background-color: #f7dfbb;
+}
+.lightBtn_off {
+  background-color: #ececec;
+}
+
+.light {
+  margin: auto 0;
+}
+
 /* ------------------------- */
 /* 보일러 및 에어컨 구역 */
 .boilerAir_area {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
 }
 
-/* 보일러 */
 .boiler,
 .airConditioner {
-  border: 2px solid rgb(88, 189, 155);
-  border-radius: 5%;
-  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  padding: 15px 5px;
+  border: 0;
+  /* border: 2px solid rgb(88, 189, 155); */
+  border-radius: 20px;
+  background-color: #fbf7ef;
 }
 
-/* ---------------------------------------------- */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+.boilerOn {
+  background-color: #f31e5a24;
+}
+.airconOn {
+  background-color: #02bccd36;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.boiler_name,
+.airConditioner_name {
+  font-size: 20px;
+  margin: 5px auto;
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
+.airConditioner_temp,
+.boiler_temp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px auto;
+  font-size: 20px;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
+.toggleButton {
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
+  padding: 0;
+  /* background-color: white; */
+  border: 0;
 }
 
-input:checked + .slider {
-  background-color: #2196f3;
+.boilerAirTemp {
+  margin: 0 20px;
 }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
+.plusBtn_area,
+.minusBtn_area {
+  display: flex;
+  padding: 5px;
+  border: 0;
+  background-color: #f8f8f8;
   border-radius: 50%;
 }
 
-.heartSwitch {
+.onOff_img {
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* 모달창 */
+.custom_modal {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  background: #fff;
+  overflow: auto;
+  outline: none;
+  padding: 15px;
+  height: 40vh;
+  width: 80vw;
+  border-radius: 5%;
+  border: 2px solid #ff9f0a;
+  text-align: center;
+}
+
+.modal_container {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  margin-top: 1em;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.modal_title {
+  padding: 0 10px;
+  margin: 40px auto;
+  font-size: 2em;
+  font-family: "Godo", serif;
+  /* border-bottom: 2px solid #ff9f0a; */
+}
+
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  font-family: "Godo", serif;
+  font-size: 1em;
+  color: #ff9f0a;
+  width: 60%;
+  background: none;
+  border: none;
+  align-items: center;
 }

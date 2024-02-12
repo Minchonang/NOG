@@ -35,11 +35,23 @@
   font-size: 0.9em;
 }
 
+.main_area {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 10% 5% 70px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Godo", serif;
+}
+
+/* ----------------------------------- */
 /* 유저 아이디 */
 .userId {
   display: flex;
   margin: 15% auto 14%;
 }
+
 .userId div {
   padding: 0 10px;
   font-size: 2em;
@@ -58,6 +70,17 @@
   font-size: 1.3em;
   margin-bottom: 5%;
   color: #ff9f0a;
+}
+
+.info_main_admin_detail {
+  display: flex;
+  font-size: 1.1em;
+  justify-content: space-between;
+}
+
+.info_admin_title {
+  font-size: 0.8em;
+  color: #4b4b4b;
 }
 
 .info_main_detail,
@@ -116,8 +139,10 @@
   background-color: rgb(237, 237, 237);
 }
 
+/* ----------------------------- */
 /* 비밀번호 변경 */
-.pwd_title {
+.pwd_title,
+.serialNum_title {
   display: flex;
   margin: 2% 0 5%;
   font-size: 0.9em;
@@ -125,7 +150,7 @@
 }
 
 .input_new {
-  width: 77%;
+  /* width: 70%; */
   padding: 0 1px 1%;
   border: 0;
   border-bottom: 1px solid #ff9f0a;
@@ -143,12 +168,12 @@
 .delete_account {
   display: flex;
   position: relative;
-  margin: 6% 0;
+  margin: 8% 0;
 }
 .delete_account a {
   position: absolute;
   top: 0;
-  right: 3px;
+
   border: 0;
   color: gray;
   font-size: 0.7em;
@@ -158,23 +183,18 @@
   color: black;
 }
 
-/* 주소입력 구역 */
-/* .addressInput_area {
-  border: 2px solid hsl(36, 100%, 52%);
-  border-radius: 10px;
-  margin-bottom: 1em;
-} */
-
+/* ------------------------------------- */
+/* 부가정보 주소 */
 .addressInput_area input {
-  border: 0;
-  padding: 4% 10px;
   width: 100%;
-  margin-bottom: 0;
-  border: 1px solid #ff9f0a;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  font-size: 0.8em;
-  font-family: "Godo";
+  padding: 0 5px 1%;
+  border: 0;
+  border-bottom: 1px solid #ff9f0a;
+  border-radius: 0;
+  outline: none;
+  font-size: 0.9em;
+  font-family: "godo";
+  transition-duration: 0.3s;
 }
 
 .address_fisrt_second_area {
@@ -182,9 +202,8 @@
   justify-content: space-around;
   width: 100%;
   font-family: "Godo";
-  font-size: 1em;
+  font-size: 0.9em;
   border-radius: 10px 10px 0 0;
-  padding: 3% 10px;
   border: 0;
 }
 
@@ -196,8 +215,88 @@
   padding: 2%;
 }
 
-/* .address_label {
-  color: rgb(198, 198, 198);
-  font-size: 0.8em;
-  margin: 6px 17% 0 0;
-} */
+/* ------------------------------------------------ */
+/* 모달 창*/
+.custom_modal {
+  position: absolute;
+  top: 20%;
+  left: 40px;
+  right: 40px;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  outline: none;
+  padding: 20px;
+  height: 50vh;
+  width: 80vw;
+}
+
+.modal_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.modal_title {
+  padding: 0 10px;
+  margin: 50px auto;
+  font-size: 2em;
+  font-family: "Godo", serif;
+  /* border-bottom: 2px solid #ff9f0a; */
+}
+.modal_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.email_auth {
+  width: 100%;
+  outline: none;
+  border: 1px solid #ff9f0a;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Godo";
+  font-size: 1em;
+  padding: 2vh;
+  margin-bottom: 2vh;
+}
+
+.btn_auth {
+  width: 100%;
+  padding: 4.5% 0;
+  margin: 0 auto;
+  color: white;
+  background: #ff9f0a;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+  font-size: 1em;
+  font-family: "godo";
+}
+
+.btn_auth:hover {
+  border: 2px solid #ff8742;
+  background: #ffb649;
+}
+
+.btn_auth:active {
+  background-color: #ffdeac;
+}
+
+/* 모달 닫기 버튼에 대한 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
