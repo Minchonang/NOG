@@ -670,7 +670,7 @@ function EditUserInfo() {
                   ) : (
                     <>
                       <div>{userEmail}</div>
-                      <button onClick={editEmailBtn}>수정</button>
+                      <button onClick={editEmailBtn}>변경</button>
                     </>
                   )}
                 </div>
@@ -690,7 +690,7 @@ function EditUserInfo() {
                     <div>{formatPhone(userPhone)}</div>
                   )}
                   {!editPhone ? (
-                    <button onClick={editPhoneBtn}>수정</button>
+                    <button onClick={editPhoneBtn}>변경</button>
                   ) : (
                     <button onClick={cancelPhoneBtn}>취소</button>
                   )}
@@ -716,7 +716,7 @@ function EditUserInfo() {
                       <div>***************</div>
                     )}
                     {!editPwd ? (
-                      <button onClick={editPwdBtn}>수정</button>
+                      <button onClick={editPwdBtn}>변경</button>
                     ) : (
                       <button onClick={cancelPwdBtn}>취소</button>
                     )}
@@ -743,7 +743,7 @@ function EditUserInfo() {
                       <div>ABCDEFGHIJK</div>
                     )}
                     {!editSerialNum ? (
-                      <button onClick={editSerialNumBtn}>수정</button>
+                      <button onClick={editSerialNumBtn}>변경</button>
                     ) : (
                       <>
                         <button
@@ -821,7 +821,7 @@ function EditUserInfo() {
                     )}
                   </div>
                   {!editAddress ? (
-                    <button onClick={editAddressBtn}>수정</button>
+                    <button onClick={editAddressBtn}>변경</button>
                   ) : (
                     <button onClick={cancelAddressBtn}>취소</button>
                   )}
@@ -843,7 +843,7 @@ function EditUserInfo() {
                   )}
                   <div>명</div>
                   {!editHouseNum ? (
-                    <button onClick={editHouseNumBtn}>수정</button>
+                    <button onClick={editHouseNumBtn}>변경</button>
                   ) : (
                     <button onClick={cancelHouseNumBtn}>취소</button>
                   )}
