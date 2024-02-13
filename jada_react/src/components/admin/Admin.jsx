@@ -13,6 +13,7 @@ function Admin() {
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
+    // 컴포넌트가 마운트될 때 한 번만 호출되도록 useEffect 사용
     getUserRole();
   }, []);
 
@@ -20,8 +21,9 @@ function Admin() {
     setCurrentTab(tab);
   };
 
+  const userId = sessionStorage.getItem("user_id");
+
   const getUserRole = async () => {
-    const userId = sessionStorage.getItem("user_id");
     try {
       const response = await fetch(`${API_BASE_URL}/api/userinfo/getRole`, {
         method: "POST",
@@ -33,7 +35,14 @@ function Admin() {
 
       if (response.ok) {
         const result = await response.json();
+        console.log("Response Data(role):", result.role);
         setUserRole(result.role);
+
+        if (result.role !== 1) {
+          // userRole이 "1"이 아닌 경우 알림 창 띄우고 접근 차단
+          alert("접근 권한이 없습니다.");
+          window.location.href = "/analysis"; // 혹은 다른 페이지로 리다이렉트
+        }
       } else {
         console.log("서버 오류");
       }
@@ -42,20 +51,20 @@ function Admin() {
     }
   };
 
-  if (userRole !== "1") {
-    alert("접근 권한이 없습니다.");
-    window.location.href = "/analysis";
-    return null;
-  }
-
   return (
     <div className={common.background}>
-      <Header sub_title="관리자" />
-      <AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
+      {userRole === 1 && (
+        <>
+          <Header sub_title="관리자" />
+          <AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
 
-      {currentTab === "회원정보" && <UserList currentTab={currentTab} />}
-      {currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}
-      {currentTab === "유저분석" && <NogiAnalysis currentTab={currentTab} />}
+          {currentTab === "회원정보" && <UserList currentTab={currentTab} />}
+          {currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}
+          {currentTab === "유저분석" && (
+            <NogiAnalysis currentTab={currentTab} />
+          )}
+        </>
+      )}
     </div>
   );
 }
