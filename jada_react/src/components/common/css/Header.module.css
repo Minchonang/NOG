@@ -27,5 +27,7 @@
 }
 
 .logout {
-  margin-left: 57%;
+  position: absolute;
+  z-index: 2;
+  right: 10px;
 }
