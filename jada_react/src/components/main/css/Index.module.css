@@ -1,21 +1,21 @@
 .userElectricityBill {
 	text-align: center;
 	font-size: 16px;
-}
-
-.nextbar {
+ }
+ 
+ .nextbar {
 	font-size: 20px;
 	color: #1b9393;
 	text-align: center;
 	padding: 10px 0 10px 0;
-}
-
-/* ---------------------------- */
-/* 그래프박스 */
-.graph_box {
+ }
+ 
+ /* ---------------------------- */
+ /* 그래프박스 */
+ .graph_box {
 	text-align: center;
-}
-
-.graph_title {
+ }
+ 
+ .graph_title {
 	font-size: 2em;
-}
+ }

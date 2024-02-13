@@ -12,12 +12,12 @@ app/__pycahe__
 /.pnp
 .pnp.js
 
-# jupyter notebook
-.ipynb_checkpoints/
 
 # ignore model file
 *.pt
 yolo_pose/output/
+your_script.spec
+
 # testing
 /coverage
 

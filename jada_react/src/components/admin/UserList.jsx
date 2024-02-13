@@ -10,6 +10,15 @@ function UserList() {
     const [selectedUserId, setSelectedUserId] = useState('');
     const [totalUsers, setTotalUsers] = useState('');
 
+    // 휴대폰 번호를 010-0000 형식으로 변경
+    function formatPhone(userPhone) {
+        const part1 = userPhone.slice(0, 3);
+        const part2 = userPhone.slice(3, 7);
+        const part3 = userPhone.slice(7);
+
+        return `${part1}-${part2}-${part3}`;
+    }
+
     //   ----------------------------------
     //   회원정보 가져오기
     useEffect(() => {
@@ -118,6 +127,7 @@ function UserList() {
                     className={style.searchInput}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="ID 검색"
                 />
                 <button className={style.searchButton} onClick={handleSearch}>
                     검색
@@ -125,25 +135,27 @@ function UserList() {
             </div>
 
             <div className={style.userList_container}>
-                <div className={style.userList_title}>
-                    <div>ID</div>
-                    <div>이름</div>
-                    <div>기기 정보</div>
-                </div>
                 <div className={style.userList_table}>
                     <table>
                         <tbody>
+                            <tr className={style.userList_title}>
+                                <td>ID</td>
+                                <td>이름</td>
+                                <td>주소</td>
+                            </tr>
                             {users.map((user) => (
                                 <tr key={user.id} onClick={() => handleUserClick(user)}>
                                     <td>{user.id}</td>
                                     <td>{user.name}</td>
-                                    <td>{user.homeId}</td>
+                                    <td>{user.address1}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-                <div style={{ textAlign: 'center' }}>전체 회원 수: {totalUsers}</div>
+                <div className={style.totalMember} style={{ textAlign: 'center' }}>
+                    전체 회원 수: {totalUsers}명
+                </div>
             </div>
             {selectedUser && (
                 <div className={style.custom_modal}>
@@ -151,11 +163,11 @@ function UserList() {
                         <div className={style.modal_title}>{selectedUser.id}의 정보</div>
                         <div className={style.modal_content}>
                             <p>이름: {selectedUser.name}</p>
-                            <p>
-                                주소: {selectedUser.address1} {selectedUser.address2} {selectedUser.address3}
-                            </p>
                             <p>이메일: {selectedUser.email}</p>
-                            <p>번호 : {selectedUser.phone}</p>
+                            <p>번호: {formatPhone(selectedUser.phone)}</p>
+                            <p>
+                                지역: {selectedUser.address1} {selectedUser.address2}
+                            </p>
                             <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
                         </div>
                         <button className={style.close_btn} onClick={handleCloseModal}>

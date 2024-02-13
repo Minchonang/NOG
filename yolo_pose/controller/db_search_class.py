@@ -19,7 +19,7 @@ class PowerClass:
                                         charset = "utf8",
                                         autocommit = True,
                                         cursorclass = pymysql.cursors.DictCursor)
-            print("DB 접속 성공", self.conn)
+            # print("DB 접속 성공", self.conn)
         except:
             print("DBserver check...")
         self.cur = self.conn.cursor()

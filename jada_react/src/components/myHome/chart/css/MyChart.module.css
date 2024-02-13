@@ -1,0 +1,209 @@
+/* .main_container{
+    position: relative;
+} */
+.body{
+    
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    width: 100%;
+    /* margin-top: 15%; */
+    /* padding:    0.5rem  1rem  0.5rem 0; */
+    font-family: "Godo";
+    /* background-color: red; */
+
+}
+.body>.container{
+    /* margin-top: 15%; */
+    padding-top: 3.3rem;
+    background-color: #fee9d1;
+    padding-bottom: 5rem;
+
+}
+.body>.container>.keyword_box{
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    padding:2rem 1rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    /* font-size: 1rem; */
+    color: rgb(255, 216, 154);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* flex-direction: column; */
+    border-radius: 0.1rem;
+    /* align-items: center; */
+    /* margin-top: 0.5rem; */
+    /* margin-bottom: 0.25rem; */
+    cursor: pointer;
+    border: 0.3rem solid rgb(250, 185, 33);
+    box-shadow: 1px 1px 2px rgb(152, 152, 151);
+    text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black;
+
+}
+.body>.container>.keyword_box>h1,
+.body>.container>.title>h1
+{
+    font-size: 2rem;
+
+}
+
+
+.body>.container>.title{
+    background-color: rgb(255, 241, 169);
+    background-image: linear-gradient(to bottom, rgb(62, 171, 234), #3ca4e0, rgb(31, 90, 141)  , rgb(34, 91, 120),rgb(14, 66, 96) );
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border: 0.3rem solid rgb(255, 255, 255);
+    /* border-radius: 0.3rem ; */
+    box-shadow: 0px 1px 2px rgb(155, 154, 154);
+    color: white;
+    text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black;
+
+
+}
+
+.body>.container>.title>h1{
+    margin-bottom: 0.5rem;
+
+}
+
+
+
+
+
+/* 차트 제목 */
+.chart_box_title{
+/* position: absolute; */
+/* top: 0; */
+/* background-color: red; */
+/* width: 100%; */
+/* background-color: rgb(120, 120, 177); */
+padding: 0.5rem;
+font-size: 1rem;
+color: rgb(0, 0, 0);
+}
+
+
+
+
+/* 차트부모: 한 횡 */
+
+.box_container>.chart_box{
+    max-height:100rem;
+    transition-property: max-height;
+    transition-duration: 0.5s;
+    border: 1px rgba(0, 0, 0, 0.205) solid;
+
+
+}
+
+.box_container_close>.chart_box {
+    max-height: 0;
+    overflow: hidden;
+    transition-property: max-height;
+    transition-duration: 0.2s;
+box-shadow: none;
+
+}
+
+
+/* 개별 차트 하나 */
+.chart_box{
+margin-top: 0.25rem;
+margin-bottom: 0.25rem;
+margin-left: 1rem;
+margin-right: 0.25rem;
+/* box-sizing: border-box; */
+/* box-shadow: 1px 1px 1px 0.1rem rgb(161, 161, 161); */
+    border-radius: 1rem;
+    /* width: 10%; */
+    background-color: rgb(255, 255, 255);
+    /* padding: 1rem; */
+    /* margin-top: 0.5rem; */
+     /* position: relative; */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    flex: 1;
+    /* width: 100%; */
+    
+}
+
+.doughnut_chart{
+    background-color:rgba(219, 227, 254, 0.673);
+    /* position: relative; */
+    width: 20%;
+    /* overflow: hidden; */
+    /* border: 1rem black solid; */
+}
+.radar_chart{
+    /* flex: 1; */
+    background-color: rgb(218, 210, 162);
+    
+    width: 20%;
+}
+.pie_chart{
+    background-color: rgba(219, 227, 254, 0.673);
+    
+    width: 20%;
+
+}
+
+.line_chart{
+    /* background-color: rgba(219, 227, 254, 0.673); */
+    
+    width: 20%;
+}
+
+.doughnut_chart_box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+/* 도넛 차트 사용량 */
+.doughnut_value{
+    position: absolute;
+    
+    transform: translateX(50%);
+    /* transform: translateY(50%); */
+    
+    right: 50%;
+    bottom:  0%;
+    font-size: 2rem;
+    color: rgb(95, 95, 95);
+    }
+
+.text_box{
+    padding: 1rem;
+}
+
+.chart_title_box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.spring{
+    flex: 1;
+}
+
+.close{
+    padding: 0 1rem;
+    /* position: absolute;
+    right: 50%; */
+
+}
+.open{
+    position: absolute;
+    right: 2%;
+    bottom: 50%;
+    /* transform: translateX(50%); */
+    transform: translateY(50%);
+    text-shadow:none;
+
+    color: rgb(214, 131, 43);
+}
+
+.aa {
+    background-color: red;
+}
