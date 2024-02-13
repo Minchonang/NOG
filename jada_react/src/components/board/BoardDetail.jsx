@@ -10,8 +10,10 @@ function BoardDetail() {
   const [board, setBoard] = useState(null);
   const { boardId } = useParams();
   const [comment, setComment] = useState("");
+  const [content, setContent] = useState("");
 
   const userId = sessionStorage.getItem("user_id");
+
   useEffect(() => {
     // boardId가 유효한 경우에만 요청을 보냄
     if (boardId !== undefined) {
@@ -19,6 +21,7 @@ function BoardDetail() {
     }
   }, [boardId]);
 
+  // 게시글 상세정보 조회
   const getBoardDetail = async () => {
     try {
       const response = await fetch(
@@ -48,10 +51,11 @@ function BoardDetail() {
     }
   };
 
+  // 댓글 저장 및 리스트 조회
   const serverlink = async () => {
     const commentDto = {
       userId: userId,
-      content: comment,
+      content: content,
       boardId: boardId,
     };
     try {
@@ -64,19 +68,19 @@ function BoardDetail() {
         body: JSON.stringify(commentDto),
       });
 
-      const result = await response.json();
-
       if (response.ok) {
-        alert(result.message);
+        alert("댓글 작성이 완료되었습니다.");
+        const result = await response.json();
+        setComment(result);
       } else {
-        console.log("문의사항 저장 실패");
-        alert(result.error);
+        console.log("댓글달기 실패");
+        alert("댓글달기 실패");
       }
     } catch (error) {
       console.error("서버 통신 오류", error);
     }
   };
-
+  console.log(comment);
   return (
     <div className={common.background}>
       <Header sub_title="내 문의사항 정보" />
@@ -106,13 +110,34 @@ function BoardDetail() {
                 <input
                   type="text"
                   className={style.input}
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                 />
               </div>
               <div className={style.btn_area}>
                 <button onClick={serverlink}>댓글달기</button>
               </div>
+            </div>
+            <div className={style.commentList}>
+              <table className={style.commentTable}>
+                <thead>
+                  <tr className={style.commentTitle}>
+                    <th>No</th>
+                    <th>댓글</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comment.map((comment) => (
+                    <tr
+                      className={style.commentContent}
+                      key={comment.commentId}
+                    >
+                      <td>{comment.commentId}</td>
+                      <td>{comment.content}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </>
         ) : (

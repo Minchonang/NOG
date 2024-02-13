@@ -11,5 +11,5 @@ public class CommentDto {
   private String userId;
   private Long commentId;
   private String content;
-  private Board board;
+  private Long boardId;
 }
