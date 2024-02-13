@@ -28,9 +28,6 @@ const MyChart = () => {
   const [chartData1, setChartData1] = useState([]);
   const [chartData2, setChartData2] = useState([]);
   const [chartData3, setChartData3] = useState([]);
-  const [chartData2pattern, setChartData2pattern] = useState({});
-  const [myType, setMyType] = useState({});
-  const [userData, setMyCity] = useState("");
   const [chartData4, setChartData4] = useState([]);
   const [user, setUser] = useState({});
   const [searchDate, setSearchDate] = useState("");
@@ -57,7 +54,7 @@ const MyChart = () => {
         setChartData1(data.data1);
         setChartData2(data.data2);
         setChartData3(data.data3);
-
+        setChartData4(data.data4);
         setUser({
           user_id: id,
           user_name: data.data2["user_name"],
@@ -685,18 +682,71 @@ const MyChart = () => {
                     {/* <span className={style.close} > ▲</span>     */}
                   </div>
 
-                  <BarChart></BarChart>
+                  <BarChart data6={[chartData1, chartData4]}></BarChart>
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량
-                      356kw의 56%에 해당합니다.{" "}
+                      이번 달의 지난달, 전년동월의 전력소모량을 같은 지역 평균
+                      데이터와 비교해 보았습니다.
                     </p>
-                    <p>
-                      또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가
-                      계속 되었을때 NGO가 평가한
-                    </p>
-                    <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>측정(월)</th>
+
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>이번 달</th>
+                          <td>
+                            {chartData1["my_total_usage"]
+                              ? chartData1["my_total_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData4
+                              ? chartData4["city_average_daily_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>지난 달</th>
+                          <td>
+                            {chartData1["my_total_usage_last"]
+                              ? chartData1["my_total_usage_last"]
+                              : 0}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData1["average_total_usage"]
+                              ? chartData1["average_total_usage"]
+                              : 0}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>전년동월</th>
+                          <td>
+                            {chartData4
+                              ? chartData4["user_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData4
+                              ? chartData4["city_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
