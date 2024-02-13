@@ -45,6 +45,9 @@ function BoardList() {
     }
   };
 
+  const goDetail = (boardId) => {
+    window.location.href = `/boardDetail/${boardId}`;
+  };
   return (
     <div className={common.background}>
       <Header sub_title="내 정보" />
@@ -63,7 +66,10 @@ function BoardList() {
                   <td>제목</td>
                 </tr>
                 {boards.map((board) => (
-                  <tr key={board.boardId}>
+                  <tr
+                    key={board.boardId}
+                    onClick={() => goDetail(board.boardId)}
+                  >
                     <td>{board.boardId}</td>
                     <td>{board.boardCategory}</td>
                     <td>

@@ -10,12 +10,12 @@ import LoadingNog from "../common/jsx/LoadingNog";
 import Modal from "react-modal";
 
 function EditUserInfo() {
-    // 로딩
-    const [isLoading, setIsLoading] = useState(true);
-    // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
-    useEffect(() => {
-        // 로딩 시작
-        setIsLoading(true);
+  // 로딩
+  const [isLoading, setIsLoading] = useState(true);
+  // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
+  useEffect(() => {
+    // 로딩 시작
+    setIsLoading(true);
 
     // 2초 후에 로딩 완료
     const timeoutId = setTimeout(() => {
@@ -303,6 +303,7 @@ function EditUserInfo() {
   const [userAddress3, setUserAddress3] = useState("");
   const [userHouseNum, setUserHouseNum] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [userSerialNum, setUserSerialNum] = useState("");
 
   const serverlink = async (e) => {
     // user_id를 가져오기
@@ -388,6 +389,7 @@ function EditUserInfo() {
   // 시리얼 넘버 수정
   const [editSerialNum, setEditSerialNum] = useState(false);
   const [newSerialNum, setNewSerialNum] = useState("");
+
   const editSerialNumBtn = () => {
     setEditSerialNum(true);
   };
@@ -704,6 +706,7 @@ function EditUserInfo() {
 
                 {/* 비밀번호 */}
                 <div className={style.pwd_title}>비밀번호 변경</div>
+                <div className={style.info_main_detail}>
                   <div className={style.pwdInput_area}>
                     {editPwd ? (
                       <input
@@ -727,50 +730,49 @@ function EditUserInfo() {
                 <div className={style.info_main_detail}>
                   <div className={style.divLine}></div>
                 </div>
+                {/* 시리얼번호 */}
+                <div className={style.serialNum_title}>시리얼 번호 번경</div>
+                <div className={style.info_main_detail}>
+                  <div className={style.serialNumInput_area}>
+                    {editSerialNum ? (
+                      <input
+                        type="text"
+                        value={newSerialNum}
+                        onChange={(e) => setNewSerialNum(e.target.value)}
+                        className={style.input_new}
+                        maxLength="13"
+                      />
+                    ) : (
+                      <>
+                        {userSerialNum ? (
+                          <div>{userSerialNum}</div>
+                        ) : (
+                          <div>등록된 기기가 없습니다.</div>
+                        )}
+                      </>
+                    )}
+                    {!editSerialNum ? (
+                      <button onClick={editSerialNumBtn}>수정</button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={
+                            newSerialNum
+                              ? serialCheck
+                              : () => alert("변경할 시리얼번호를 적어주십시오.")
+                          }
+                        >
+                          등록
+                        </button>
+                        {/* <button onClick={cancelSerialNumBtn}>취소</button> */}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
 
-                     {/* 시리얼번호 */}
-                     <div className={style.serialNum_title}>시리얼 번호 번경</div>
-                                <div className={style.info_main_detail}>
-                                    <div className={style.serialNumInput_area}>
-                                        {editSerialNum ? (
-                                            <input
-                                                type="text"
-                                                value={newSerialNum}
-                                                onChange={(e) => setNewSerialNum(e.target.value)}
-                                                className={style.input_new}
-                                                maxLength="13"
-                                            />
-                                        ) : (
-                                            <>
-                                                {userSerialNum ? (
-                                                    <div>{userSerialNum}</div>
-                                                ) : (
-                                                    <div>등록된 기기가 없습니다.</div>
-                                                )}
-                                            </>
-                                        )}
-                                        {!editSerialNum ? (
-                                            <button onClick={editSerialNumBtn}>수정</button>
-                                        ) : (
-                                            <>
-                                                <button
-                                                    onClick={
-                                                        newSerialNum
-                                                            ? serialCheck
-                                                            : () => alert('변경할 시리얼번호를 적어주십시오.')
-                                                    }
-                                                >
-                                                    등록
-                                                </button>
-                                                {/* <button onClick={cancelSerialNumBtn}>취소</button> */}
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className={style.info_sub}>
-                                <div className={style.info_sub_title}>부가 정보</div>
+              <div className={style.info_sub}>
+                <div className={style.info_sub_title}>부가 정보</div>
 
                 {/* 주소 */}
                 <div className={style.info_sub_detail}>
