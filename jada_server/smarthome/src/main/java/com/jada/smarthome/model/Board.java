@@ -23,7 +23,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-// @ToString(exclude = "writer")
+@ToString(exclude = "writer")
 public class Board implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

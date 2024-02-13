@@ -54,13 +54,14 @@ public class BoardService {
         return boardRepository.findAll();
     }
   
+    // 문의사항 유저정보 조회
     public List<Board> getBoardListByUserId(String userId) {
       return boardRepository.findByWriterId(userId);
   }
 
+  // 문의사항 상세정보 조회
     public Optional<Board> getBoardById(Long boardId) {
-      System.out.println(boardId +"---------------Service------------------------");
-      Optional<Board> userBoard = boardRepository.findById(boardId);
-      return userBoard;
+      Optional<Board> boardOptional = boardRepository.findByBoardId(boardId);
+      return boardOptional;
   }
 }
