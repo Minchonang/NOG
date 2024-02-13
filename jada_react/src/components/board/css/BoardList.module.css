@@ -30,7 +30,6 @@
 	font-size: 1.2em;
 }
 
-
 .boardList_table {
 	border: 2px solid #ff9f0a;
 	border-radius: 10px;
@@ -41,18 +40,13 @@
 	text-align: center;
 	margin-bottom: 5px;
 }
+.boardList_table tr:nth-child(n + 2):active {
+	background-color: #faf3e5;
+}
 
 table {
 	width: 100%;
-  border-radius: 10px;
-}
-
-th {
-	font-size: 1.3em;
-	width: 33.33%;
-	text-align: center;
-	padding: 2vh 0;
-	border-bottom: 1px solid #ff9f0a;
+	border-radius: 10px;
 }
 
 td {
@@ -60,7 +54,7 @@ td {
 	border-bottom: 1px solid lightgray;
 }
 td:first-child {
-  padding: 0 15px;
+	padding: 0 15px;
 }
 
 /* 글쓰기버튼 */
