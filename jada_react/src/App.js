@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
 import Index from "./components/main/Index";
@@ -21,29 +22,61 @@ import BoardDetail from "./components/board/BoardDetail";
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
-	return (
-		<>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/chatbot" element={<ChatTest />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/find_id" element={<FindId />} />
-					<Route path="/find_pw" element={<FindPw />} />
-					<Route path="/join" element={<Join />} />
-					<Route path="/analysis" element={<MyChart2 />} />
-					<Route path="/check_user" element={<CheckUser />} />
-					<Route path="/edit_userinfo" element={<EditUserInfo />} />
-					<Route path="/delete_check" element={<DeleteCheck />} />
-					<Route path="/homeControl" element={<HomeControl />} />
-					<Route path="/admin" element={<Admin />} />
-					<Route path="/board" element={<Board />} />
-					<Route path="/boardList" element={<BoardList />} />
-					<Route path="/boardDetail/:boardId" element={<BoardDetail />} />
-				</Routes>
-			</BrowserRouter>
-		</>
-	);
+  const userId = sessionStorage.getItem("user_id");
+
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/chatbot"
+            element={userId ? <ChatTest /> : <Navigate to="/login" />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/find_id" element={<FindId />} />
+          <Route path="/find_pw" element={<FindPw />} />
+          <Route path="/join" element={<Join />} />
+          <Route
+            path="/analysis"
+            element={userId ? <MyChart2 /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/check_user"
+            element={userId ? <CheckUser /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/edit_userinfo"
+            element={userId ? <EditUserInfo /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/delete_check"
+            element={userId ? <DeleteCheck /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/homeControl"
+            element={userId ? <HomeControl /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin"
+            element={userId ? <Admin /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/board"
+            element={userId ? <Board /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/boardList"
+            element={userId ? <BoardList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/boardDetail/:boardId"
+            element={userId ? <BoardDetail /> : <Navigate to="/login" />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
