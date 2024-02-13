@@ -49,6 +49,8 @@ function App() {
   );
 }
 
+export default App;
+export { API_BASE_URL };
 // Github에서 repository 복제한 후,
 // cd jada_react (터미널에서 React 경로 이동 필요)
 // npm install
