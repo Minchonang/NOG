@@ -46,3 +46,16 @@ def db_close(cur,conn):
         conn.close()
     except:
         print("이미 모든 커서와 접속정보가 반납되었습니다")
+
+def analysis_data(df,condition):
+    df_count = df[condition].value_counts()
+    data = {
+    'labels' : [i for i in df_count.index],
+    'datasets':[{
+    'label' :'빈도수',
+    'data' : [i for i in df_count.values],
+    'backgroundColor':'white',
+    'borderColer' : 'rgba(75, 192, 192, 1)',
+    'borderWidth' :1
+    }]}
+    return data
