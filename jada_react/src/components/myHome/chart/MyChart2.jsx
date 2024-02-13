@@ -600,10 +600,12 @@ const MyChart = () => {
                     </p>
                     <table>
                       <thead>
-                        <th>시간대</th>
+                        <tr>
+                          <th>시간대</th>
 
-                        <th>{user["user_name"]}님</th>
-                        <th>지역평균</th>
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
                       </thead>
                       <tbody>
                         <tr>
