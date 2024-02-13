@@ -182,12 +182,13 @@ function Home() {
                 >
                   <div className={style.modal_container}>
                     <div className={style.modal_title}>
-                      앗! 집에 아무도 없는데 불을 켜고 나왔다?
+                      앗! 집에 아무도 없는데 <br /> 불을 켜고 나왔다?
                     </div>
 
                     <div className={style.modal_sub_title}>
-                      원격제어 시스템으로 집안의 에어컨, 보일러, 조명을
-                      조절하세요!
+                      NOG만의 인체 감지 시스템과 <br />
+                      원격 제어 시스템으로 <br />집 안에 몇 명이 있는지 확인하고
+                      <br /> 에어컨, 보일러, 조명을 조절하세요.
                     </div>
                     <div className={style.modal_content}></div>
                     <img
@@ -227,10 +228,15 @@ function Home() {
               >
                 <div className={style.modal_container}>
                   <div className={style.modal_title}>
-                    NOG에서 개발한 챗봇인 노지와 대화해보세요!
+                    NOG에서 개발한 <br />
+                    스마트 챗봇
+                    <br /> 노지와 대화해보세요!
                   </div>
 
-                  <div className={style.modal_sub_title}>노지는 똑똑해요!</div>
+                  <div className={style.modal_sub_title}>
+                    NOG 및 에너지 절약에 대한 설명과 <br />
+                    각종 기능 사용을 도와드립니다.
+                  </div>
                   <div className={style.modal_content}></div>
                   <img
                     src={cap3}
