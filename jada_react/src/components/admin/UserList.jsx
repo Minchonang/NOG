@@ -130,7 +130,7 @@ function UserList() {
           className={style.searchInput}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="ID 검색"
+          placeholder="ID 또는 이름 검색"
         />
         <button className={style.searchButton} onClick={handleSearch}>
           검색
