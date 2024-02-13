@@ -7,7 +7,6 @@ import PieChart from './PieChart';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
-
 import BarChartDay from './BarChartDay';
 import BarChartMonth from './BarChartMonth';
 import Header from '../../common/jsx/Header';
@@ -49,7 +48,7 @@ const MyChart = () => {
       setLoad(false)}
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/my_home?user_id=${id}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://192.168.0.84:5001/my_home?user_id=${id}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
@@ -103,7 +102,7 @@ const MyChart = () => {
     const fetchPred = async () => {
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/pred?user_id=${user["user_id"]}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
@@ -277,7 +276,7 @@ const MyChart = () => {
             <p >- 오후 {chartData2pattern["usage_11_16"]?chartData2pattern["usage_11_16"]:25}%</p>     
             <p >- 저녁 {chartData2pattern["usage_17_22"]?chartData2pattern["usage_17_22"]:25}% </p>     
             <p >- 심야새벽 {chartData2pattern["usage_23_4"]?chartData2pattern["usage_23_4"]:25}% 입니다.</p>     
-            <p>소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '{calculateType(chartData2pattern)?calculateType(chartData2pattern):"오전"}' 소비형입니다.</p>     
+            <p>소중한 소비 데이터로 NOG가 평가한 고객님의 소비 유형은 '{calculateType(chartData2pattern)?calculateType(chartData2pattern):"오전"}' 소비형입니다.</p>     
             </div>
         </div>
         </div>
