@@ -41,7 +41,7 @@ const MyChart = () => {
 		const id = sessionStorage.getItem("user_id");
 
 		const fetchData = async () => {
-			if (load == true) {
+			if (load === true) {
 				setLoad(false);
 			}
 			try {
@@ -144,13 +144,13 @@ const MyChart = () => {
 				maxKey = key;
 			}
 		}
-		if (maxKey == "usage_23_4") {
+		if (maxKey === "usage_23_4") {
 			return "심야,새벽";
-		} else if (maxKey == "usage_11_16") {
+		} else if (maxKey === "usage_11_16") {
 			return "오후";
-		} else if (maxKey == "usage_5_10") {
+		} else if (maxKey === "usage_5_10") {
 			return "오전";
-		} else if (maxKey == "usage_17_22") {
+		} else if (maxKey === "usage_17_22") {
 			return "저녁";
 		}
 	}
@@ -194,7 +194,7 @@ const MyChart = () => {
 
 	return (
 		<>
-			{load == false ? (
+			{load === false ? (
 				<LoadingNog />
 			) : (
 				<>
