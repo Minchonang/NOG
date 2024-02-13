@@ -10,20 +10,20 @@ import NogiAnalysis from "./NogiAnalysis";
 function Admin() {
   const [currentTab, setCurrentTab] = useState("문의사항");
 
-	const handleTabChange = (tab) => {
-		setCurrentTab(tab);
-	};
+  const handleTabChange = (tab) => {
+    setCurrentTab(tab);
+  };
 
-	return (
-		<div className={common.background}>
-			<Header sub_title="관리자" />
-			<AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
+  return (
+    <div className={common.background}>
+      <Header sub_title="관리자" />
+      <AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
 
-			{currentTab === "회원정보" && <UserList currentTab={currentTab} />}
-			{currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}
-			{currentTab === "노지분석" && <NogiAnalysis currentTab={currentTab} />}
-		</div>
-	);
+      {currentTab === "회원정보" && <UserList currentTab={currentTab} />}
+      {currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}
+      {currentTab === "유저분석" && <NogiAnalysis currentTab={currentTab} />}
+    </div>
+  );
 }
 
 export default Admin;

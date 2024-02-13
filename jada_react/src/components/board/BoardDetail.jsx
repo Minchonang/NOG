@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../App.js';
 import BottomNav from '../common/jsx/BottomNav';
 import Header from '../common/jsx/Header';
@@ -13,6 +13,12 @@ function BoardDetail() {
     const [content, setContent] = useState('');
     const [num, setNum] = useState('');
 
+    // 이전 페이지로 돌아가는 기능
+    const navigate = useNavigate();
+    const goBack = () => {
+        navigate(-1);
+    };
+
     const userId = sessionStorage.getItem('user_id');
 
     useEffect(() => {
@@ -22,7 +28,6 @@ function BoardDetail() {
         }
     }, [boardId]);
 
-    // 게시글 상세정보 조회
     const getBoardDetail = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/board/boardDetail?boardId=${boardId}`, {
@@ -33,7 +38,6 @@ function BoardDetail() {
             });
 
             console.log('Response Status:', response.status);
-
             if (response.ok) {
                 console.log(boardId);
                 const result = await response.json();
@@ -81,7 +85,7 @@ function BoardDetail() {
             console.error('서버 통신 오류', error);
         }
     };
-    console.log(comment);
+
     return (
         <div className={common.background}>
             <Header sub_title="내 문의사항 정보" />
@@ -89,35 +93,49 @@ function BoardDetail() {
             <div className={style.main_area}>
                 {board ? (
                     <>
+                        {/* 문의사항 */}
                         <div className={style.boardContainer}>
                             <div className={style.title}>
-                                <div>{board.title}</div>
+                                <div
+                                    style={{
+                                        fontSize: board.title.length > 12 ? '1.6em' : '2em',
+                                    }}
+                                >
+                                    {board.title}
+                                </div>
                             </div>
                             <div className={style.subtitle}>
                                 <div>NO : {board.boardId}</div>
                                 <div>작성자 : {userId}</div>
-                                <div>{new Date(board.writeDate).toLocaleDateString('ko-KR')}</div>
+                                <div>{`${''} ${new Date(board.writeDate).toLocaleDateString('ko-KR')}`}</div>
                             </div>
                             <div className={style.content}>
-                                <div>{board.boardCategory}</div>
+                                {/* <div>{board.boardCategory}</div> */}
                                 <div>{board.content}</div>
                             </div>
                         </div>
-                        <div className={style.line}>{/* <div>댓글</div> */}</div>
+
+                        {/* 구분선 */}
+                        <div className={style.line}></div>
+
+                        {/* 답변 영역 */}
                         <div className={style.commentContainer}>
+                            <div className={style.reply}>답변하기</div>
                             <div className={style.input_area}>
-                                <input
+                                <textarea
                                     type="text"
-                                    className={style.input}
-                                    value={content}
-                                    placeholder="댓글을 입력해주세요."
-                                    onChange={(e) => setContent(e.target.value)}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="내용을 입력하세요."
                                 />
                             </div>
                             <div className={style.btn_area}>
-                                <button onClick={serverlink}>댓글달기</button>
+                                <div className={style.goBackBtn} onClick={goBack}>{`< 뒤로가기`}</div>
+                                <button onClick={serverlink}>완료</button>
                             </div>
                         </div>
+
+                        {/* 답변목록 */}
                         {comment ? (
                             <div className={style.commentList}>
                                 <table className={style.commentTable}>
