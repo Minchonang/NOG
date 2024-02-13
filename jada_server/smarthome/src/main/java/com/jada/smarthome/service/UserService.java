@@ -209,4 +209,17 @@ public class UserService {
         return userRepository.count();
     }
 
+    // 회원역할 조회
+    public UserInfoDto getUserRole(String userId){
+       Optional<User> users = userRepository.findById(userId);
+       Integer userRole = users.get().getRole();
+
+       if(users.isPresent()) {
+            UserInfoDto userInfoDto = new UserInfoDto();
+            userInfoDto.setRole(userRole);
+            return userInfoDto;
+        } else {
+            return null;
+        }
+    }
 }

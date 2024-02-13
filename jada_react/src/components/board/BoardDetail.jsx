@@ -12,6 +12,7 @@ function BoardDetail() {
     const [comment, setComment] = useState('');
     const [content, setContent] = useState('');
     const [num, setNum] = useState('');
+    const [userRole, setUserRole] = useState('');
 
     // 이전 페이지로 돌아가는 기능
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ function BoardDetail() {
         // boardId가 유효한 경우에만 요청을 보냄
         if (boardId !== undefined) {
             getBoardDetail();
+            getUserRole();
         }
     }, [boardId]);
 
@@ -86,6 +88,30 @@ function BoardDetail() {
         }
     };
 
+    const getUserRole = async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/userinfo/getRole`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: userId,
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Response Data(role):', result.role);
+                setUserRole(result.role);
+            } else {
+                console.log('서버 오류');
+                alert('서버 오류가 발생했습니다.');
+            }
+        } catch (error) {
+            console.error('서버 통신 오류', error);
+            alert('서버 통신 중 오류가 발생했습니다.');
+        }
+    };
+
     return (
         <div className={common.background}>
             <Header sub_title="내 문의사항 정보" />
@@ -118,24 +144,7 @@ function BoardDetail() {
                         {/* 구분선 */}
                         <div className={style.line}></div>
 
-                        {/* 답변 영역 */}
-                        <div className={style.commentContainer}>
-                            <div className={style.reply}>답변하기</div>
-                            <div className={style.input_area}>
-                                <textarea
-                                    type="text"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                    placeholder="내용을 입력하세요."
-                                />
-                            </div>
-                            <div className={style.btn_area}>
-                                <div className={style.goBackBtn} onClick={goBack}>{`< 뒤로가기`}</div>
-                                <button onClick={serverlink}>완료</button>
-                            </div>
-                        </div>
-
-                        {/* 답변목록 */}
+                        {/* 답변 목록 */}
                         {comment ? (
                             <div className={style.commentList}>
                                 <table className={style.commentTable}>
@@ -156,7 +165,25 @@ function BoardDetail() {
                                 </table>
                             </div>
                         ) : (
-                            <></>
+                            <>
+                                {/* {userRole===1 ? (                        ) : ()} */}
+                                {/* 답변 영역 */}
+                                <div className={style.commentContainer}>
+                                    <div className={style.reply}>답변하기</div>
+                                    <div className={style.input_area}>
+                                        <textarea
+                                            type="text"
+                                            value={content}
+                                            onChange={(e) => setContent(e.target.value)}
+                                            placeholder="내용을 입력하세요."
+                                        />
+                                    </div>
+                                    <div className={style.btn_area}>
+                                        <div className={style.goBackBtn} onClick={goBack}>{`< 뒤로가기`}</div>
+                                        <button onClick={serverlink}>완료</button>
+                                    </div>
+                                </div>
+                            </>
                         )}
                     </>
                 ) : (
