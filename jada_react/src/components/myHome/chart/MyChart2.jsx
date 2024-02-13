@@ -48,7 +48,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://127.0.0.1:5001/my_home?user_id=${id}${
+          `http://192.168.0.84:5001/my_home?user_id=${id}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );
@@ -107,7 +107,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://127.0.0.1:5001/pred?user_id=${user["user_id"]}${
+          `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );

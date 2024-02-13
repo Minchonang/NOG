@@ -42,6 +42,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/board" element={<Board />} />
           <Route path="/boardList" element={<BoardList />} />
+          <Route path="/boardDetail/:boardId" element={<BoardDetail />} />
         </Routes>
       </BrowserRouter>
     </>
