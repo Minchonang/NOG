@@ -20,28 +20,17 @@ class HomeApp(QWidget, ):
         # 수정된 setup video capture
         self.detector = ObjectDetection(capture_index=0, frame_width=640, frame_height=480)
         
-        # update_frame을 30ms마다 호출
-        self.timer_for_update_frame = QTimer(self)
-        self.timer_for_update_frame.timeout.connect(self.update_frame)
-        # self.timer_for_update_frame.timeout.connect(self.set_current_time_box)
-        self.timer_for_update_frame.start(150)
 
-        # # # set_1sec_timer_func_box 를 1s마다 호출 
+        # # # set_1sec_timer_func_box 를 1s마다 호출  # model_count
         self.timer_per_second = QTimer(self)
         self.timer_per_second.timeout.connect(self.set_1sec_timer_func_box)
         self.timer_per_second.start(1000)
 
         
-        # default_search (human_count 포함)를 30s마다 호출
+        # (human_count, default_search, nput_defalt_value 포함)를 10s마다 호출
         self.timer_per_thirty_seconds = QTimer(self)
-        self.timer_per_thirty_seconds.timeout.connect(self.default_search)
+        self.timer_per_thirty_seconds.timeout.connect(self.timer_per_thirty_seconds_func)
         self.timer_per_thirty_seconds.start(10000) # 10초마다 호출
-
-
-        ## input_defalt_value 를 10s마다 호출
-        self.timer_for_input_defalt_value = QTimer(self)
-        self.timer_for_input_defalt_value.timeout.connect(self.input_defalt_value)
-        self.timer_for_input_defalt_value.start(10000)
         
 
     def initUI(self):
@@ -55,8 +44,6 @@ class HomeApp(QWidget, ):
         self.user_id_box.setMinimumSize(2,1)
 
         self.grid.addWidget(self.user_id_box, 1, 2)
-
-
         
         self.grid.addWidget(QLabel('현재 전력량'), 1, 3)
         self.now_elec_box = QLineEdit()
@@ -170,36 +157,24 @@ class HomeApp(QWidget, ):
         ### 로직추가
         # incount, outcount로 incount-outcount 가 <=0 이면 전등 off로직 구현 
 
-    ### 2.5변경 : 프레임을 굳이 pyqt내부로 넣지 말고 기본 yolo화면을 사용합니다.
-    def update_frame(self):
-        ret, frame = self.detector.cap.read()
-        if not ret:
-            return  # 프레임을 읽지 못하면 함수 종료
-        # 생성된 카운터 클래스로 다시 모델 카운트 하기
-        in_counts, out_counts, processed_frame = self.detector.model_count()
-        
-        # text_box도 업데이트하기
-        self.in_counts_box.setText(str(in_counts))
-        self.out_counts_box.setText(str(out_counts))
-        # 남은사람도 업데이트 하기
-        remain_counts = in_counts - out_counts
-        self.remain_counts_box.setText(str(remain_counts))
-
-        # if processed_frame is not None:
-            # height, width, channel = processed_frame.shape
-            # qimage = QImage(processed_frame.data, width, height, QImage.Format_RGB888).rgbSwapped()
-            # self.video_label.setPixmap(QPixmap.fromImage(qimage))
 
 
     ###############################db에 전달 기능입니다.##################
-
+    
+    def timer_per_thirty_seconds_func(self):
+        self.default_search()
+        self.input_defalt_value()
+    
+    
     def default_search(self):
         # 선택된 날짜 및 시간을 문자열 형식으로 변환
         # MariaDB에서 상태 가져오기
         try:
             rs = self.dbsearch.select(f"""
-                    select airconditioner, heater, light, set_air_temp, set_boiler_temp from home_device
-                    where device = "{self.user_id_box.text()}";
+                    select airconditioner, heater, light, set_air_temp, set_boiler_temp from home_device 
+                    where home_id like ( select user_home_id 
+                                        from `user` 
+                                        where id = '{self.user_id_box.text()}');
             """)
             # 에어컨 상태 설정
             if rs['airconditioner'][0] == True:
@@ -240,10 +215,9 @@ class HomeApp(QWidget, ):
         ## usage_data에 업데이트하는 sql문
         try:
             sql = f"""
-            INSERT INTO usage_data (`user_id`, daily_usage, temperature, `date`) 
-            VALUES ('{self.user_id_box.text()}'
+            INSERT INTO usage_data (`user_id`, daily_usage, `date`) 
+            VALUES ('{self.user_id_box.text()}' 
             , {self.now_elec_box.text()} 
-            , {self.temperature_box.text()}
             , "{selected_datetime}");
             """
             
@@ -296,14 +270,31 @@ class HomeApp(QWidget, ):
         else: input_set = set
         try:
             self.dbsearch.update(f"""
-                update home_device
-                set {column} = {input_set}
-                where device ="{id}";
+                update home_device 
+                set {column} = {input_set} 
+                where home_id like ( select user_home_id 
+                                    from `user` 
+                                    where id = '{id}');
             """)
         except Exception as e:
             print(f"update_todb error : ", e)
         
     def set_1sec_timer_func_box(self):
+        
+        ret, frame = self.detector.cap.read()
+        if not ret:
+            return  # 프레임을 읽지 못하면 함수 종료
+        # 생성된 카운터 클래스로 다시 모델 카운트 하기
+        in_counts, out_counts, processed_frame = self.detector.model_count()
+        
+        # text_box도 업데이트하기
+        self.in_counts_box.setText(str(in_counts))
+        self.out_counts_box.setText(str(out_counts))
+        # 남은사람도 업데이트 하기
+        remain_counts = in_counts - out_counts
+        self.remain_counts_box.setText(str(remain_counts))
+        
+        
         Qtime = QDateTime.currentDateTime()
         # datetimebox 1초마다 설정
         self.datetimeedit.setDateTime(Qtime)
