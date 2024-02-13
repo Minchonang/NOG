@@ -719,13 +719,13 @@ const MyChart = () => {
                           <td>
                             {chartData1["my_total_usage_last"]
                               ? chartData1["my_total_usage_last"]
-                              : 0}
+                              : 0}{" "}
                             kWh
                           </td>
                           <td>
                             {chartData1["average_total_usage"]
                               ? chartData1["average_total_usage"]
-                              : 0}
+                              : 0}{" "}
                             kWh
                           </td>
                         </tr>
