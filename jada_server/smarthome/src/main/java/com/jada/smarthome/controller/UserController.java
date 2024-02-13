@@ -127,20 +127,6 @@ public class UserController {
     @GetMapping("/get")
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
     List<User> users = userService.getAllUsers();
-    // List<JoinUserDto> joinUserDtos = users.stream()
-    //         .map(user -> JoinUserDto.builder()
-    //                 .email(user.getEmail())
-    //                 .id(user.getId())
-    //                 .name(user.getName())
-    //                 .phone(user.getPhone())
-    //                 .address1(user.getAddress1())
-    //                 .address2(user.getAddress2())
-    //                 .address3(user.getAddress3())
-    //                 .houseNum(user.getHouseNum())
-    //                 .creDateTime(user.getCreDateTime())
-    //                 .homeId(user.getHomeDevice().getHomeId())
-    //                 .build())
-    //                 .collect(Collectors.toList());
     List<JoinUserDto> joinUserDtos = users.stream()
     .map(user -> {
         Integer homeId = null;
