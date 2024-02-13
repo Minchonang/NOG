@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jada.smarthome.dto.BoardDto;
-import com.jada.smarthome.dto.JoinUserDto;
 import com.jada.smarthome.model.Board;
 import com.jada.smarthome.service.BoardService;
 
@@ -88,13 +87,15 @@ public class BoardController {
      // 특정 게시글의 상세 정보 조회
      @GetMapping("/boardDetail")
      public ResponseEntity<?> getBoardDetail(@RequestParam(name = "boardId", defaultValue = "1") Long boardId) {
-         try {
-             Optional<Board> boardOptional = boardService.getBoardById(boardId);
-     
+
+        try {
+            Optional<Board> boardOptional = boardService.getBoardById(boardId);
+             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardOptional : "+boardOptional);
+            
              if (boardOptional.isPresent()) {
                  Board board = boardOptional.get();
                  System.out.println(board + "-------------------------------------------------");
-                 return ResponseEntity.ok(board);
+                 return ResponseEntity.ok(boardOptional);
              } else {
                  return ResponseEntity.notFound().build();
              }
