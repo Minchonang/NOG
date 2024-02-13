@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jada.smarthome.dto.BoardDto;
+import com.jada.smarthome.dto.CommentDto;
 import com.jada.smarthome.model.Board;
 import com.jada.smarthome.service.BoardService;
 
@@ -107,4 +108,16 @@ public class BoardController {
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
          }
      }
+
+       // 댓글 저장
+  @PostMapping("/getComment")
+  public ResponseEntity<Map<String, Object>> saveComment(@RequestBody CommentDto commentDto){
+   String result = boardService.saveComment(commentDto); 
+   
+    if (result != null) {
+        return ResponseEntity.ok(Collections.singletonMap("message" ,result));
+    } else {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error","저장에 실패했습니다."));
+    }
+  }
 }
