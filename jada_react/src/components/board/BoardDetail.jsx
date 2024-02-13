@@ -10,6 +10,7 @@ function BoardDetail() {
     const [board, setBoard] = useState(null);
     const { boardId } = useParams();
 
+    const userId = sessionStorage.getItem('user_id');
     useEffect(() => {
         // boardId가 유효한 경우에만 요청을 보냄
         if (boardId !== undefined) {
@@ -45,23 +46,38 @@ function BoardDetail() {
 
     return (
         <div className={common.background}>
-            <Header sub_title="내 정보" />
+            <Header sub_title="내 문의사항 정보" />
 
             <div className={style.main_area}>
-                <div className={style.title}>
-                    <div>게시글 상세 정보</div>
-                </div>
-                <div className={style.content}>
-                    {board ? (
-                        <>
-                            <h1>{board.title}</h1>
-                            <p>{board.content}</p>
-                            {/* Additional information */}
-                        </>
-                    ) : (
-                        <p>Loading...</p>
-                    )}
-                </div>
+                {board ? (
+                    <>
+                        <div className={style.boardContainer}>
+                            <div className={style.title}>
+                                <div>{board.title}</div>
+                            </div>
+                            <div className={style.subtitle}>
+                                <div>NO : {board.boardId}</div>
+                                <div>작성자 : {userId}</div>
+                                <div>{new Date(board.writeDate).toLocaleDateString('ko-KR')}</div>
+                            </div>
+                            <div className={style.content}>
+                                <div>{board.boardCategory}</div>
+                                <div>{board.content}</div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div className={style.commentContainer}>
+                            <div className={common.input_area}>
+                                <input type="text" className={style.input} />
+                            </div>
+                            <div className={common.btn_area}>
+                                <button type="submit">댓글달기</button>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
             </div>
             <BottomNav />
         </div>
