@@ -47,7 +47,9 @@ const MyChart = () => {
 			try {
 				// axios로 GET 요청 보내기
 				const response = await axios.get(
-					`http://192.168.0.84:5001/my_home?user_id=${id}${searchDate ? "&date=" + searchDate : ""}`
+					`http://192.168.0.84:5001/my_home?user_id=${id}${
+						searchDate ? "&date=" + searchDate : ""
+					}`
 				);
 
 				// 응답에서 데이터 추출하고 상태 업데이트
@@ -104,7 +106,9 @@ const MyChart = () => {
 			try {
 				// axios로 GET 요청 보내기
 				const response = await axios.get(
-					`http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${searchDate ? "&date=" + searchDate : ""}`
+					`http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${
+						searchDate ? "&date=" + searchDate : ""
+					}`
 				);
 
 				// 응답에서 데이터 추출하고 상태 업데이트
@@ -223,7 +227,7 @@ const MyChart = () => {
 									{chartData1["my_total_usage"]
 										? calculateBill(
 												chartData1["my_total_usage"]
-											).toLocaleString("ko-KR")
+										  ).toLocaleString("ko-KR")
 										: 0}
 									원
 								</h1>
@@ -234,7 +238,7 @@ const MyChart = () => {
 										? (
 												calculateBill(chartData1["my_total_usage_last"]) -
 												calculateBill(chartData1["my_total_usage"])
-											).toLocaleString("ko-KR")
+										  ).toLocaleString("ko-KR")
 										: 0}
 									원
 								</h1>
@@ -279,21 +283,27 @@ const MyChart = () => {
 											{chartData1["my_total_usage"]
 												? chartData1["my_total_usage"]
 												: 0}
-											kwh 입니다. 이는 전달 지역 평균 사용량{" "}
-											{chartData1["average_total_usage"]}kwh의{" "}
-											{Math.round(
-												(chartData1["my_total_usage"] /
-													chartData1["average_total_usage"]) *
-													1000
-											) / 10}
-											% 에 해당합니다.{" "}
+											kwh 입니다.
+										</p>
+										<p>
+											{`
+											이는 전달 지역 평균 사용량${" "}
+											${chartData1["average_total_usage"]}kwh의${" "}
+											${
+												Math.round(
+													(chartData1["my_total_usage"] /
+														chartData1["average_total_usage"]) *
+														1000
+												) / 10
+											}
+											% 에 해당합니다.${" "}`}
 										</p>
 										<p>
 											또한 현재까지의 요금은 약{" "}
 											{calculateBill(
 												chartData1["my_total_usage"]
 											).toLocaleString("ko-KR")}
-											원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한
+											원 이며, 이 패턴의 소비가 계속 되었을때 NOG가 평가한
 										</p>
 										<p>
 											{" "}
@@ -302,7 +312,7 @@ const MyChart = () => {
 											{user["user_pred"]
 												? calculateBill(user["user_pred"]).toLocaleString(
 														"ko-KR"
-													)
+												  )
 												: 0}
 											원입니다.
 										</p>
@@ -378,7 +388,7 @@ const MyChart = () => {
 											% 입니다.
 										</p>
 										<p>
-											소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '
+											소중한 소비 데이터로 NOG가 평가한 고객님의 소비 유형은 '
 											{calculateType(chartData2pattern)
 												? calculateType(chartData2pattern)
 												: "오전"}
@@ -639,7 +649,7 @@ const MyChart = () => {
 										</p>
 										<p>
 											또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가
-											계속 되었을때 NGO가 평가한
+											계속 되었을때 NOG가 평가한
 										</p>
 										<p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
 									</div>
@@ -664,7 +674,7 @@ const MyChart = () => {
 										</p>
 										<p>
 											또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가
-											계속 되었을때 NGO가 평가한
+											계속 되었을때 NOG가 평가한
 										</p>
 										<p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
 									</div>
