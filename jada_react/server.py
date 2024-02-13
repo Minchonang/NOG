@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-from server_function import dbconnection,sql_select,db_close
+from server_function import dbconnection,sql_select,db_close,analysis_data
 import pandas as pd
 import tensorflow as tf
 import torch
@@ -36,6 +36,7 @@ except:
 def index():
     return "Hello"
 
+# user 사용전력량 가져오기
 @app.route('/chat_userdata', methods=['POST'])
 def chat_userdata():
     try:
@@ -50,8 +51,39 @@ def chat_userdata():
         # 조회된 데이터를 JSON 형식으로 응답
         return jsonify(datapost)
         
-
     except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+# int64인 객체를 json으로 직렬화 하는 문제 해결
+def analysis_data(df, column_name):
+    df_count = df[column_name].value_counts()
+    data = {
+        "labels": df_count.index.tolist(),
+        "count": df_count.values.tolist()
+    }
+    return data
+  
+# chatdata 분석데이터
+@app.route('/nog_analysis', methods=['POST'])
+def nog_analysis():
+    try:
+        cur,conn=dbconnection()
+        sql1 = f"SELECT chat_time,chat_user_id , data_question, user_question,similar    FROM chat_data"
+        sql2 = f"SELECT exit_content, exit_date, user_address   FROM user_exit"
+        sql3 = f"SELECT chat_time,chat_user_id , data_question, user_question,similar    FROM chat_data"
+        df1 = sql_select(cur,sql1)
+        df2 = sql_select(cur,sql2)
+        df3 = sql_select(cur,sql2)
+        db_close(cur,conn)
+        chartdata1 = analysis_data(df1,'data_question')
+        chartdata2 = analysis_data(df2,'exit_content')
+        df_json = df.to_json(orient='records')
+
+        # 조회된 데이터를 JSON 형식으로 응답
+        return jsonify({'chartdata1' : chartdata1,'chartdata2' : chartdata2 , 'similardata' : df_json})
+        
+    except Exception as e:
+        print("Error in /nog_analysis:", str(e))
         return jsonify({'error': str(e)}), 500
 
 # 연결된 클라이언트들의 user_id 저장할 딕셔너리
@@ -99,7 +131,7 @@ def handle_message(message):
     login_check = df['구분'][best_sim_idx]
     answer = df['답변(Answer)'][best_sim_idx]
     img = df['답변 이미지'][best_sim_idx]
-    if score < 0.3:
+    if score < 0.5:
         answer = "부정확한 질문이거나 답변할 수 없습니다.\n 수일 내로 답변을 업데이트하겠습니다.\n 죄송합니다 :("
 
     send_json_data_str = {
