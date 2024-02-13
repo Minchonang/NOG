@@ -179,8 +179,12 @@ const ChatTest = () => {
                             className={style.botChat_img}
                             alt="chatImage"
                           />
+                        ) : // 링크인 경우(http 제거/ 제거 안하는 것)
+                        chat.img.startsWith("http/") ? (
+                          <NavLink
+                            to={chat.img.split("/").slice(3).join("/")}
+                          >{`\n\n바로가기`}</NavLink>
                         ) : (
-                          // 링크인 경우
                           <a href={chat.img}>{`\n\n바로가기`}</a>
                         )
                       ) : (

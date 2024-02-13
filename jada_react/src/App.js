@@ -14,6 +14,8 @@ import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
 import Board from "./components/board/Board";
+import BoardList from "./components/board/BoardList";
+import BoardDetail from "./components/board/BoardDetail";
 
 const API_BASE_URL = "http://localhost:8080";
 
@@ -35,6 +37,8 @@ function App() {
           <Route path="/homeControl" element={<HomeControl />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/board" element={<Board />} />
+          <Route path="/boardList" element={<BoardList />} />
+          <Route path="/boardDetail/:boardId" element={<BoardDetail />} />
         </Routes>
       </BrowserRouter>
     </>

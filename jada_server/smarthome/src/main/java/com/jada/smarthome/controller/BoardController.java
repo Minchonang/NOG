@@ -3,14 +3,19 @@ package com.jada.smarthome.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jada.smarthome.dto.BoardDto;
@@ -57,4 +62,48 @@ public class BoardController {
     return ResponseEntity.ok(boardListDtos);
   }
   
+  // 특정 사용자의 문의사항 리스트 조회
+  @GetMapping("/boardList/{userId}")
+  public ResponseEntity<List<BoardDto>> getUserBoardList(@PathVariable String userId) {
+      try {
+          List<Board> boards = boardService.getBoardListByUserId(userId);
+          List<BoardDto> boardListDtos = boards.stream()
+                  .map(board -> BoardDto.builder()
+                          .userId(board.getWriter().getId())
+                          .boardId(board.getBoardId())
+                          .boardCategory(board.getBoardCategory())
+                          .title(board.getTitle())
+                          .content(board.getContent())
+                          .writeDate(board.getWriteDate())
+                          .build())
+                  .collect(Collectors.toList());
+
+          return ResponseEntity.ok(boardListDtos);
+      } catch (Exception e) {
+          // 예외 처리
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+    }
+
+     // 특정 게시글의 상세 정보 조회
+     @GetMapping("/boardDetail")
+     public ResponseEntity<?> getBoardDetail(@RequestParam(name = "boardId", defaultValue = "1") Long boardId) {
+         try {
+             Optional<Board> boardOptional = boardService.getBoardById(boardId);
+     
+             if (boardOptional.isPresent()) {
+                 Board board = boardOptional.get();
+                 System.out.println(board + "-------------------------------------------------");
+                 return ResponseEntity.ok(board);
+             } else {
+                 return ResponseEntity.notFound().build();
+             }
+         } catch (EntityNotFoundException e) {
+             // 해당 게시글이 없는 경우
+             return ResponseEntity.notFound().build();
+         } catch (Exception e) {
+             // 기타 예외 처리
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
+         }
+     }
 }
