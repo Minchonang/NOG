@@ -9,6 +9,7 @@ import style from './css/BoardDetail.module.css';
 function BoardDetail() {
     const [board, setBoard] = useState(null);
     const { boardId } = useParams();
+    const [comment, setComment] = useState('');
 
     const userId = sessionStorage.getItem('user_id');
     useEffect(() => {
@@ -44,6 +45,35 @@ function BoardDetail() {
         }
     };
 
+    const serverlink = async () => {
+        const commentDto = {
+            userId: userId,
+            content: comment,
+            boardId: boardId,
+        };
+        try {
+            // 서버로 데이터 전송 - 경로 수정 필요
+            const response = await fetch(`${API_BASE_URL}/api/board/getComment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(commentDto),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+            } else {
+                console.log('문의사항 저장 실패');
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('서버 통신 오류', error);
+        }
+    };
+
     return (
         <div className={common.background}>
             <Header sub_title="내 문의사항 정보" />
@@ -65,13 +95,18 @@ function BoardDetail() {
                                 <div>{board.content}</div>
                             </div>
                         </div>
-                        <hr />
+                        {/* <hr className={style.line} /> */}
                         <div className={style.commentContainer}>
-                            <div className={common.input_area}>
-                                <input type="text" className={style.input} />
+                            <div className={style.input_area}>
+                                <input
+                                    type="text"
+                                    className={style.input}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                />
                             </div>
-                            <div className={common.btn_area}>
-                                <button type="submit">댓글달기</button>
+                            <div className={style.btn_area}>
+                                <button onClick={serverlink}>댓글달기</button>
                             </div>
                         </div>
                     </>

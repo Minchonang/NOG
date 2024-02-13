@@ -33,7 +33,7 @@ function App() {
                     <Route path="/find_id" element={<FindId />} />
                     <Route path="/find_pw" element={<FindPw />} />
                     <Route path="/join" element={<Join />} />
-                    <Route path="/analysis" element={<Index />} />
+                    <Route path="/analysis" element={<MyChart2 />} />
                     <Route path="/check_user" element={<CheckUser />} />
                     <Route path="/edit_userinfo" element={<EditUserInfo />} />
                     <Route path="/delete_check" element={<DeleteCheck />} />

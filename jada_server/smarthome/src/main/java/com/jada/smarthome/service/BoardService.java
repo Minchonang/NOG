@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jada.smarthome.dto.BoardDto;
+import com.jada.smarthome.dto.CommentDto;
 import com.jada.smarthome.model.Board;
 import com.jada.smarthome.model.User;
 import com.jada.smarthome.repository.BoardRepository;
@@ -63,5 +64,29 @@ public class BoardService {
     public Optional<Board> getBoardById(Long boardId) {
       Optional<Board> boardOptional = boardRepository.findByBoardId(boardId);
       return boardOptional;
+  }
+
+  // 댓글 저장
+  public String saveComment(CommentDto commentDto){
+    String userId = commentDto.getUserId();
+    // Long commentId = commentDto.getCommentId();
+    Long boardId = commentDto.getBoard().getBoardId();
+    String content = commentDto.getContent();
+
+    // // 사용자 ID를 이용하여 사용자 객체 조회
+    // User user = userRepository.findById(userId)
+    //                           .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+    // Board board = new Board();
+    // board.setWriter(user);
+    // board.setBoardCategory(boardCategory);
+    // board.setTitle(title);
+    // board.setContent(content);
+    // board.setWriteDate(LocalDateTime.now());
+    
+    // boardRepository.save(board);
+
+    return "문의사항 접수가 완료되었습니다.";
+
   }
 }
