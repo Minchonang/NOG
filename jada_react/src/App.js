@@ -33,7 +33,6 @@ function App() {
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
           <Route path="/join" element={<Join />} />
-          {/* <Route path="/analysis" element={<Index />} /> */}
           <Route path="/analysis" element={<MyChart2 />} />
           <Route path="/check_user" element={<CheckUser />} />
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
@@ -51,7 +50,6 @@ function App() {
 
 export default App;
 export { API_BASE_URL };
-
 // Github에서 repository 복제한 후,
 // cd jada_react (터미널에서 React 경로 이동 필요)
 // npm install

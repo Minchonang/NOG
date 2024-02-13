@@ -303,6 +303,7 @@ function EditUserInfo() {
   const [userAddress3, setUserAddress3] = useState("");
   const [userHouseNum, setUserHouseNum] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [userSerialNum, setUserSerialNum] = useState("");
 
   const serverlink = async (e) => {
     // user_id를 가져오기
@@ -388,6 +389,7 @@ function EditUserInfo() {
   // 시리얼 넘버 수정
   const [editSerialNum, setEditSerialNum] = useState(false);
   const [newSerialNum, setNewSerialNum] = useState("");
+
   const editSerialNumBtn = () => {
     setEditSerialNum(true);
   };
@@ -728,7 +730,7 @@ function EditUserInfo() {
                 <div className={style.info_main_detail}>
                   <div className={style.divLine}></div>
                 </div>
-
+                {/* 시리얼번호 */}
                 <div className={style.serialNum_title}>시리얼 번호 번경</div>
                 <div className={style.info_main_detail}>
                   <div className={style.serialNumInput_area}>
@@ -741,10 +743,16 @@ function EditUserInfo() {
                         maxLength="13"
                       />
                     ) : (
-                      <div>ABCDEFGHIJK</div>
+                      <>
+                        {userSerialNum ? (
+                          <div>{userSerialNum}</div>
+                        ) : (
+                          <div>등록된 기기가 없습니다.</div>
+                        )}
+                      </>
                     )}
                     {!editSerialNum ? (
-                      <button onClick={editSerialNumBtn}>변경</button>
+                      <button onClick={editSerialNumBtn}>수정</button>
                     ) : (
                       <>
                         <button
@@ -754,7 +762,7 @@ function EditUserInfo() {
                               : () => alert("변경할 시리얼번호를 적어주십시오.")
                           }
                         >
-                          인증
+                          등록
                         </button>
                         {/* <button onClick={cancelSerialNumBtn}>취소</button> */}
                       </>
