@@ -7,7 +7,7 @@ import PieChart from './PieChart';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
-import Plot from 'react-plotly.js';
+
 import BarChartDay from './BarChartDay';
 import BarChartMonth from './BarChartMonth';
 import Header from '../../common/jsx/Header';
