@@ -283,5 +283,18 @@ public class UserController {
         Long userCount = userService.getUserCount(); // userService에서 전체 회원 수 조회하는 메서드 호출
         return ResponseEntity.ok(userCount);
     }
+
+    // 회원 역할 조회
+    @PostMapping("/getRole")
+    public ResponseEntity<?> getUserRole(@RequestBody String userId){
+        
+        UserInfoDto result = userService.getUserRole(userId);
+
+        try {
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 역할 조회 중 오류가 발생했습니다.");
+        }
+    }
 }
 

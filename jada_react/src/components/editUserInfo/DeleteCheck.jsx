@@ -61,10 +61,16 @@ function DeleteCheck() {
       } else {
         // user_id를 가져오기
         const user_id = sessionStorage.getItem("user_id");
+        let exitContent = deletionReasonOption;
+
+        // deletionReasonOption이 'other'일 때만 otherReason 값을 exitContent에 할당
+        if (deletionReasonOption === "other") {
+          exitContent = otherReason;
+        }
 
         const userExitDto = {
           userId: user_id,
-          exitContent: deletionReasonOption,
+          exitContent: exitContent,
         };
 
         try {
