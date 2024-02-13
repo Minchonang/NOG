@@ -10,6 +10,9 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
+import MyChart from "./components/myHome/chart/MyChart";
+import MyChart2 from "./components/myHome/chart/MyChart2";
+import RadarChart from "./components/myHome/chart/RadarChart_ori";
 import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
@@ -30,7 +33,8 @@ function App() {
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/analysis" element={<Index />} />
+          {/* <Route path="/analysis" element={<Index />} /> */}
+          <Route path="/analysis" element={<MyChart2 />} />
           <Route path="/check_user" element={<CheckUser />} />
           <Route path="/edit_userinfo" element={<EditUserInfo />} />
           <Route path="/delete_check" element={<DeleteCheck />} />
@@ -38,7 +42,6 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/board" element={<Board />} />
           <Route path="/boardList" element={<BoardList />} />
-          <Route path="/boardDetail/:boardId" element={<BoardDetail />} />
         </Routes>
       </BrowserRouter>
     </>

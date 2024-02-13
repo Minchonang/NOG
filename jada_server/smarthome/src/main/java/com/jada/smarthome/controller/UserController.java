@@ -47,6 +47,14 @@ public class UserController {
         this.userExitService = userExitService;    
     }
 
+    // 아이디 중복 체크
+    @GetMapping("/id-check")
+    @ResponseBody
+    public String idCheck(@RequestParam String id) {
+        boolean isDuplicate = userService.isIdDuplicate(id);
+        return isDuplicate ? DUPLICATE_ID : "가입가능";
+    }
+
     // 회원가입
     @PostMapping("/join")
     public ResponseEntity<String> saveUserInfo(@RequestBody JoinUserDto joinUserDto) {
@@ -64,14 +72,6 @@ public class UserController {
         return ResponseEntity.ok("User information saved successfully");
     }
 
-    // 아이디 중복 체크
-    @GetMapping("/id-check")
-    @ResponseBody
-    public String idCheck(@RequestParam String id) {
-        boolean isDuplicate = userService.isIdDuplicate(id);
-        return isDuplicate ? DUPLICATE_ID : "가입가능";
-    }
-
     // 로그인
     // @CrossOrigin(origins = "http://192.168.0.70:3000")
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
@@ -87,22 +87,20 @@ public class UserController {
         
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("userId", userId);
-
             // --------------지워야할 것 -----------------------------
             String user_id = (String) session.getAttribute("user_id");
             System.out.println("---------0-------session(user_id)"+user_id);
 
             return ResponseEntity.ok(responseMap);
-
+            // return ResponseEntity.ok("로그인 성공, user_id: " + userId);
+            // return ResponseEntity.ok("로그인 성공");
         } else if (loginResult.equals("비밀번호 불일치")) {
             return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));
-        } else {
-            return ResponseEntity
-            .status(HttpStatus.UNAUTHORIZED)
-            .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));
-        }
+            .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        } else {
+                return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        }
     }
 
     // 로그아웃
@@ -214,7 +212,7 @@ public class UserController {
                  .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 사용자를 찾을 수 없습니다."));
      }
 
-    // 비밀번호 변경
+    
      @CrossOrigin(origins = "http://localhost:3000")
      @PostMapping("/pwdforget")
      @ResponseBody
@@ -235,7 +233,7 @@ public class UserController {
 
             return ResponseEntity.ok(userInfo);
         }else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("일치하는 사용자를 찾을 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
         }
     }
 

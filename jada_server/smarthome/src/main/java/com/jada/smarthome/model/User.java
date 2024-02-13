@@ -77,4 +77,3 @@ public class User implements Serializable {
   private List<Board> boards;
 
 }
-

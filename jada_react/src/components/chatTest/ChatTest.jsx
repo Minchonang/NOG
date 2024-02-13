@@ -153,24 +153,30 @@ const ChatTest = () => {
                     {/* chat.Img가 1인 경우 result 출력, 그렇지 않으면 chat.answer 출력 */}
                     <span>
                       {userid ? (
-                        chat.login_check === "1" ? (
-                          result
-                        ) : (
-                          chat.answer
-                        )
-                      ) : chat.login_check === "1" ? (
+                        chat.answer
+                      ) : chat.login_check !== "1" ? (
+                        chat.answer
+                      ) : (
                         <>
                           <div>로그인 후 이용가능합니다</div>
                           <NavLink to="/login">링크</NavLink>
                         </>
-                      ) : (
-                        chat.answer
                       )}
                     </span>
-                    {/* 사진을 보냈는지 확인하고, http/https로 시작하는지 여부 확인 */}
-                    {chat.login_check !== "1" &&
-                      (/(http|https):\/\//.test(chat.img) ? (
-                        // https	인 경우 이미지인지 여부 확인
+                    {userid ? (
+                      // userid가 있을때
+                      chat.login_check === "1" ? (
+                        // 로그인 상태일 때
+                        chat.img.startsWith("/") ? (
+                          // navlink
+                          <NavLink to={chat.img}>{`\n\n바로가기`}</NavLink>
+                        ) : (
+                          // 안보여주기
+                          <span>{chat.img}</span>
+                        )
+                      ) : // 로그인 상태이지만 login_check가 1이 아닐 때
+                      /(http|https):\/\//.test(chat.img) ? (
+                        // 이미지 확인
                         /(.jpg|.jpeg|.png|.gif)$/.test(
                           chat.img.toLowerCase()
                         ) ? (
@@ -188,9 +194,34 @@ const ChatTest = () => {
                           <a href={chat.img}>{`\n\n바로가기`}</a>
                         )
                       ) : (
-                        // 챗봇 텍스트
+                        // 텍스트
                         <span>{chat.img}</span>
-                      ))}
+                      )
+                    ) : // userid가 없을 때
+                    chat.login_check === "1" ? (
+                      // login_check가 1일 때
+                      " "
+                    ) : // userid가 없고 login_check도 1이 아닐 때
+                    /(http|https):\/\//.test(chat.img) ? (
+                      // 이미지 확인
+                      /(.jpg|.jpeg|.png|.gif)$/.test(chat.img.toLowerCase()) ? (
+                        <img
+                          src={chat.img}
+                          className={style.botChat_img}
+                          alt="chatImage"
+                        />
+                      ) : // 링크인 경우(http 제거/ 제거 안하는 것)
+                      chat.img.startsWith("http/") ? (
+                        <NavLink
+                          to={chat.img.split("/").slice(3).join("/")}
+                        >{`\n\n바로가기`}</NavLink>
+                      ) : (
+                        <a href={chat.img}>{`\n\n바로가기`}</a>
+                      )
+                    ) : (
+                      // 텍스트
+                      <span>{chat.img}</span>
+                    )}
                   </div>
                 </div>
               )}
