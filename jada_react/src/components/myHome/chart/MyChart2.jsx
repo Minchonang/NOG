@@ -60,34 +60,9 @@ const MyChart = () => {
 
         setUser({
           user_id: id,
-          user_name: data.data2[0]["user_info"],
-          user_city: data.data2[1]["user_info"],
+          user_name: data.data2["user_name"],
+          user_city: data.data2["city_name"],
         });
-        // 나의 월 소비 패턴 정의
-        const my_pattern = data.data2[0];
-        const total_usage =
-          my_pattern["usage_23_4"] +
-          my_pattern["usage_5_10"] +
-          my_pattern["usage_11_16"] +
-          my_pattern["usage_17_22"];
-        const usage_23_4 =
-          Math.round((my_pattern["usage_23_4"] / total_usage) * 1000) / 10;
-        const usage_5_10 =
-          Math.round((my_pattern["usage_5_10"] / total_usage) * 1000) / 10;
-        const usage_11_16 =
-          Math.round((my_pattern["usage_11_16"] / total_usage) * 1000) / 10;
-        const usage_17_22 =
-          Math.round((my_pattern["usage_17_22"] / total_usage) * 1000) / 10;
-
-        // 최대값 찾기
-        const my_use_type = {
-          usage_23_4: usage_23_4,
-          usage_5_10: usage_5_10,
-          usage_11_16: usage_11_16,
-          usage_17_22: usage_17_22,
-        };
-
-        setChartData2pattern(my_use_type);
 
         console.log(data);
         console.log(id);
@@ -130,30 +105,6 @@ const MyChart = () => {
     }
   }, [load]);
 
-  function calculateType(dict) {
-    if (!dict || typeof dict !== "object") {
-      return null;
-    }
-
-    let maxKey = null;
-    let maxValue = 0;
-
-    for (const [key, value] of Object.entries(dict)) {
-      if (value > maxValue) {
-        maxValue = value;
-        maxKey = key;
-      }
-    }
-    if (maxKey == "usage_23_4") {
-      return "심야,새벽";
-    } else if (maxKey == "usage_11_16") {
-      return "오후";
-    } else if (maxKey == "usage_5_10") {
-      return "오전";
-    } else if (maxKey == "usage_17_22") {
-      return "저녁";
-    }
-  }
   // 요금 계산기
   function calculateBill(usage) {
     let bill = 0;
@@ -206,7 +157,6 @@ const MyChart = () => {
                 <h1>
                   {" "}
                   {user["user_name"] ? user["user_name"] + "님의 " : ""}패턴분석
-                  ♪
                 </h1>
                 <span>{user["user_city"] ? user["user_city"] : ""}</span>
               </div>
@@ -297,7 +247,7 @@ const MyChart = () => {
                       {calculateBill(
                         chartData1["my_total_usage"]
                       ).toLocaleString("ko-KR")}
-                      원 이며, 이 패턴의 소비가 계속 되었을때 NGO가 평가한
+                      원 이며, 이 패턴의 소비가 계속 되었을때 NOG가 평가한
                     </p>
                     <p>
                       {" "}
@@ -319,9 +269,7 @@ const MyChart = () => {
                 onClick={() => handleBoxClick(2)}
               >
                 <h1>
-                  {calculateType(chartData2pattern)
-                    ? calculateType(chartData2pattern)
-                    : "오전"}{" "}
+                  {chartData2["user_type"] ? chartData2["user_type"] : "오전"}{" "}
                   소비 유형
                 </h1>
                 <span>가장 많은 소비시간대</span>
@@ -349,42 +297,42 @@ const MyChart = () => {
                     {/* <span className={style.close}> ▲</span>   */}
                   </div>
 
-                  <PieChart chart_Data2={chartData2pattern} />
+                  <PieChart chart_Data2={chartData2["usage_percentage"]} />
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>회원님의 전력 소비 시간대 비율은</p>
                     <p>
-                      - 아침{" "}
-                      {chartData2pattern["usage_5_10"]
-                        ? chartData2pattern["usage_5_10"]
+                      - 오전:{" "}
+                      {chartData2["usage_percentage"]
+                        ? chartData2["usage_percentage"]["오전"]
                         : 25}
                       %{" "}
                     </p>
                     <p>
-                      - 오후{" "}
-                      {chartData2pattern["usage_11_16"]
-                        ? chartData2pattern["usage_11_16"]
+                      - 오후:{" "}
+                      {chartData2["usage_percentage"]
+                        ? chartData2["usage_percentage"]["오후"]
                         : 25}
                       %
                     </p>
                     <p>
-                      - 저녁{" "}
-                      {chartData2pattern["usage_17_22"]
-                        ? chartData2pattern["usage_17_22"]
+                      - 저녁:{" "}
+                      {chartData2["usage_percentage"]
+                        ? chartData2["usage_percentage"]["저녁"]
                         : 25}
                       %{" "}
                     </p>
                     <p>
-                      - 심야새벽{" "}
-                      {chartData2pattern["usage_23_4"]
-                        ? chartData2pattern["usage_23_4"]
+                      - 심야,새벽:{" "}
+                      {chartData2["usage_percentage"]
+                        ? chartData2["usage_percentage"]["심야,새벽"]
                         : 25}
                       % 입니다.
                     </p>
                     <p>
-                      소중한 소비 데이터로 NGO가 평가한 고객님의 소비 유형은 '
-                      {calculateType(chartData2pattern)
-                        ? calculateType(chartData2pattern)
+                      소중한 소비 데이터로 NOG가 평가한 고객님의 소비 유형은 '
+                      {chartData2["user_type"]
+                        ? chartData2["user_type"]
                         : "오전"}
                       ' 소비형입니다.
                     </p>
@@ -608,7 +556,14 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(6)}
               >
-                <h1>54%</h1>
+                <h1>
+                  {Math.round(
+                    (chartData1["my_total_usage"] /
+                      chartData1["average_total_usage"]) *
+                      1000
+                  ) / 10}
+                  %{" "}
+                </h1>
                 <span>지역주민 대비 사용량</span>
                 <span className={style.open}>
                   {" "}
@@ -634,18 +589,87 @@ const MyChart = () => {
                     <span className={style.spring}></span>
                     {/* <span className={style.close} > ▲</span>     */}
                   </div>
-                  <RadarChart />
+                  <RadarChart
+                    data5={[chartData2["city_usage"], chartData2["my_usage"]]}
+                  />
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량
-                      356kw의 56%에 해당합니다.{" "}
+                      이달의 시간대 별 사용량과 지난 달 같은 지역의 시간대 별
+                      평균 사용량과의 비교 입니다.
                     </p>
-                    <p>
-                      또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가
-                      계속 되었을때 NGO가 평가한
-                    </p>
-                    <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+                    <table>
+                      <thead>
+                        <th>시간대</th>
+
+                        <th>{user["user_name"]}님</th>
+                        <th>지역평균</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>오전</th>
+                          <td>
+                            {chartData2
+                              ? chartData2["my_usage"]["usage_5_10"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2
+                              ? chartData2["city_usage"]["usage_5_10"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>오후</th>
+                          <td>
+                            {chartData2
+                              ? chartData2["my_usage"]["usage_11_16"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2
+                              ? chartData2["city_usage"]["usage_11_16"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>저녁</th>
+                          <td>
+                            {chartData2
+                              ? chartData2["my_usage"]["usage_17_22"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData2
+                              ? chartData2["city_usage"]["usage_17_22"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>심야,새벽</th>
+                          <td>
+                            {chartData2
+                              ? chartData2["my_usage"]["usage_23_4"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData2
+                              ? chartData2["city_usage"]["usage_23_4"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 
