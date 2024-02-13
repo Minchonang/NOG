@@ -22,59 +22,42 @@
 /* -------------------------------------------------- */
 /* 테이블 */
 .userList_title {
-	display: flex;
-	/* justify-content: space-around; */
 	width: 100%;
-	padding: 3% 0 3% 0;
+	padding: 3% 0;
 	background-color: #fbd17c;
-	border: 2px solid #ff9f0a;
-	border-bottom: 1px solid #ff9f0a;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	font-size: 1.3em;
-}
-.userList_title div:first-child {
-	padding: 0 13px;
-}
-.userList_title div:nth-child(2) {
-	padding: 0 12px;
-}
-.userList_title div:nth-child(3) {
-	padding: 0 83px;
+	border-bottom: 2px solid #ff9f0a;
+	font-size: 1.2em;
 }
 
 .boardList_table {
-	border: 2px solid #ff9f0a;
-	border-top: 0;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
 	display: block;
+	height: 61vh;
+	margin-bottom: 5px;
 	overflow-y: auto;
 	overflow-x: auto;
-	height: 61vh;
+	border: 2px solid #ff9f0a;
+	border-radius: 10px;
 	text-align: center;
-	margin-bottom: 5px;
 }
 
-table {
+.boardList_table table {
 	width: 100%;
+	border-radius: 10px;
 }
-
-th {
+.boardList_table th {
 	font-size: 1.3em;
 	width: 33.33%;
 	text-align: center;
 	padding: 2vh 0;
 	border-bottom: 1px solid #ff9f0a;
 }
-
-td {
+.boardList_table td {
 	padding: 1vh 0;
 	border-bottom: 1px solid lightgray;
 }
-td:first-child {
+/* .boardList_table td:first-child {
 	padding: 0 15px;
-}
+} */
 
 /* -------------------------------------------------- */
 /* 모달창 */

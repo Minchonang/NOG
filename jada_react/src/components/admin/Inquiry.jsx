@@ -54,14 +54,14 @@ function Inquiry() {
 					<div>문의사항</div>
 				</div>
 				<div className={style.list}>
-					<div className={style.userList_title}>
-						<div>No.</div>
-						<div>카테고리</div>
-						<div>제목</div>
-					</div>
 					<div className={style.boardList_table}>
 						<table>
 							<tbody>
+								<tr className={style.userList_title}>
+									<td>No.</td>
+									<td>카테고리</td>
+									<td>제목</td>
+								</tr>
 								{boards.map((board) => (
 									<tr
 										key={board.boardId}
@@ -69,7 +69,11 @@ function Inquiry() {
 									>
 										<td>{board.boardId}</td>
 										<td>{board.boardCategory}</td>
-										<td>{board.title}</td>
+										<td>
+											{board.title.length > 11
+												? `${board.title.substring(0, 11)}...`
+												: board.title}
+										</td>
 									</tr>
 								))}
 							</tbody>
@@ -88,14 +92,14 @@ function Inquiry() {
 								<p>카테고리: {selectedBoard.boardCategory}</p>
 								<p>
 									제목:{" "}
-									{selectedBoard.title.length > 18
-										? `${selectedBoard.title.substring(0, 18)}...`
+									{selectedBoard.title.length > 15
+										? `${selectedBoard.title.substring(0, 15)}...`
 										: selectedBoard.title}
 								</p>
 								<p>
 									내용:{" "}
-									{selectedBoard.content.length > 18
-										? `${selectedBoard.content.substring(0, 18)}...`
+									{selectedBoard.content.length > 15
+										? `${selectedBoard.content.substring(0, 15)}...`
 										: selectedBoard.content}
 								</p>
 								<p>
@@ -103,13 +107,10 @@ function Inquiry() {
 									{new Date(selectedBoard.writeDate).toLocaleString("ko-KR")}
 								</p>
 							</div>
-                            <button className={style.reply_btn}>답변하기</button>
+							<button className={style.reply_btn}>답변하기</button>
 							<button className={style.close_btn} onClick={handleCloseModal}>
 								닫기
 							</button>
-							{/* <button className={style.delete_btn} onClick={handleDeletion}>
-                                회원삭제
-                            </button> */}
 						</div>
 					</div>
 				)}
