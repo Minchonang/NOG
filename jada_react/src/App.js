@@ -10,38 +10,47 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
+import MyChart from "./components/myHome/chart/MyChart";
+import MyChart2 from "./components/myHome/chart/MyChart2";
+import RadarChart from "./components/myHome/chart/RadarChart_ori";
 import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
 import Board from "./components/board/Board";
 import BoardList from "./components/board/BoardList";
-
 const API_BASE_URL = "http://localhost:8080";
 
+
+
+
+
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/chatbot" element={<ChatTest />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/find_id" element={<FindId />} />
-          <Route path="/find_pw" element={<FindPw />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/analysis" element={<Index />} />
-          <Route path="/check_user" element={<CheckUser />} />
-          <Route path="/edit_userinfo" element={<EditUserInfo />} />
-          <Route path="/delete_check" element={<DeleteCheck />} />
-          <Route path="/homeControl" element={<HomeControl />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/boardList" element={<BoardList />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-}
+	return (
+		<>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/chatbot" element={<ChatTest />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/find_id" element={<FindId />} />
+					<Route path="/find_pw" element={<FindPw />} />
+					<Route path="/join" element={<Join />} />
+					{/* <Route path="/analysis" element={<Index />} /> */}
+					<Route path="/analysis" element={< MyChart2/>} />
+					<Route path="/check_user" element={<CheckUser />} />
+					<Route path="/edit_userinfo" element={<EditUserInfo />} />
+					<Route path="/delete_check" element={<DeleteCheck />} />
+					<Route path="/homeControl" element={<HomeControl />} />
+					<Route path="/admin" element={<Admin />} />
+					<Route path="/board" element={<Board />} />
+					<Route path="/boardList" element={<BoardList />} />
+					</Routes>
+				</BrowserRouter>
+			
+		</>
+	);
+
+	}
 
 // Github에서 repository 복제한 후,
 // cd jada_react (터미널에서 React 경로 이동 필요)

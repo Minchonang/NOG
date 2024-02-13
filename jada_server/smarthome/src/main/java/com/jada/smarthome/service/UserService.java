@@ -29,7 +29,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-	HttpSession session;
+   HttpSession session;
     
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -50,7 +50,9 @@ public class UserService {
 
     //모든 유저 정보를 조회
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+
+        return users;
     }
 
     // id 중복체크
