@@ -21,10 +21,7 @@ public class HomeDevice implements Serializable {
 
     @Column(name = "lastest_time")
     private LocalDateTime lastestTime;
-
-    @Column(name = "device", length = 100)
-    private String device;
-
+    
     @Column(name = "airconditioner", columnDefinition = "BOOL DEFAULT false")
     private Boolean airconditioner;
 
