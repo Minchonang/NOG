@@ -26,8 +26,15 @@
   cursor: pointer;
 }
 
+.inquiry {
+  position: absolute;
+  z-index: 2;
+  right: 45px;
+}
+
 .logout {
   position: absolute;
   z-index: 2;
   right: 10px;
+  color: #ff9f0a;
 }
