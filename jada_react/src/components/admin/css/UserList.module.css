@@ -62,41 +62,40 @@
 }
 
 .userList_title {
-	display: flex;
-	justify-content: space-around;
 	width: 100%;
-	padding: 3% 0 3% 0;
+	padding: 3% 0;
 	background-color: #fbd17c;
-	border: 2px solid #ff9f0a;
-	border-bottom: 1px solid #ff9f0a;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	font-size: 1.3em;
+	border-bottom: 2px solid #ff9f0a;
+	font-size: 1.2em;
 }
 
 .userList_table {
 	display: block;
-	overflow-y: auto;
-	height: 50vh;
-	text-align: center;
+	height: 56vh;
 	margin-bottom: 5px;
+	overflow-y: auto;
+	overflow-x: auto;
 	border: 2px solid #ff9f0a;
-	border-top: 0;
 	border-radius: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+	text-align: center;
 }
 
-.userList_table tbody tr {
+table {
+	width: 100%;
+	border-radius: 10px;
+}
+
+/* .userList_table tbody tr {
 	display: table;
 	width: 100%;
 	table-layout: fixed;
 	border-bottom: 1px solid;
-}
-.userList_table tbody tr td {
+} */
+/* .userList_table tbody tr td {
 	padding: 3% 0 3% 0;
-}
+} */
 
+/* 전체 회원 수 */
 .totalMember {
 	margin: 15px 0;
 	text-align: center;

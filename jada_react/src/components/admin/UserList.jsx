@@ -138,14 +138,14 @@ function UserList() {
       </div>
 
       <div className={style.userList_container}>
-        <div className={style.userList_title}>
-          <div>ID</div>
-          <div>이름</div>
-          <div>주소</div>
-        </div>
         <div className={style.userList_table}>
           <table>
             <tbody>
+              <tr className={style.userList_title}>
+                <td>ID</td>
+                <td>이름</td>
+                <td>주소</td>
+              </tr>
               {users.map((user) => (
                 <tr key={user.id} onClick={() => handleUserClick(user)}>
                   <td>{user.id}</td>

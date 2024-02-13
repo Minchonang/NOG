@@ -53,19 +53,15 @@ function App() {
 // cd jada_react (터미널에서 React 경로 이동 필요)
 // npm install
 // npm install react-router-dom
-// npm start 또는 npm run start (실행하기)
-
-// 소원
 // npm install react-modal
+// npm install react-icons
+// npm install axios
+// npm install styled-components
+// npm install react-chartjs-2
+
+// npm start 또는 npm run start (실행하기)
 
 // node.js 버전(nvm install 18.17.1):
 // 18.17.1
 // 사용한 라이브러리:
 // react-router-dom: v. 6.21.3
-
-// npm install react-icons
-// npm install axios
-// npm install styled-components
-
-export default App;
-export { API_BASE_URL };

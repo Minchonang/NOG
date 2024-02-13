@@ -303,7 +303,6 @@ function EditUserInfo() {
   const [userAddress3, setUserAddress3] = useState("");
   const [userHouseNum, setUserHouseNum] = useState("");
   const [userRole, setUserRole] = useState("");
-  const [userSerialNum, setUserSerialNum] = useState("");
 
   const serverlink = async (e) => {
     // user_id를 가져오기
@@ -336,7 +335,6 @@ function EditUserInfo() {
         setUserAddress3(result.address3);
         setUserHouseNum(result.houseNum);
         setUserRole(result.role);
-        setUserSerialNum(result.homeDevice.serialNum);
       } else {
         console.log("회원 정보 조회 실패");
         alert("오류가 발생하였습니다.");
@@ -638,7 +636,8 @@ function EditUserInfo() {
                   {userRole === 1 && (
                     <NavLink to="/admin">
                       <div className={style.info_admin_title}>
-                        관리자 페이지로 이동
+                        {`
+                        관리자 페이지 >`}
                       </div>
                     </NavLink>
                   )}
@@ -672,7 +671,7 @@ function EditUserInfo() {
                   ) : (
                     <>
                       <div>{userEmail}</div>
-                      <button onClick={editEmailBtn}>수정</button>
+                      <button onClick={editEmailBtn}>변경</button>
                     </>
                   )}
                 </div>
@@ -692,7 +691,7 @@ function EditUserInfo() {
                     <div>{formatPhone(userPhone)}</div>
                   )}
                   {!editPhone ? (
-                    <button onClick={editPhoneBtn}>수정</button>
+                    <button onClick={editPhoneBtn}>변경</button>
                   ) : (
                     <button onClick={cancelPhoneBtn}>취소</button>
                   )}
@@ -718,7 +717,7 @@ function EditUserInfo() {
                       <div>***************</div>
                     )}
                     {!editPwd ? (
-                      <button onClick={editPwdBtn}>수정</button>
+                      <button onClick={editPwdBtn}>변경</button>
                     ) : (
                       <button onClick={cancelPwdBtn}>취소</button>
                     )}
@@ -730,7 +729,7 @@ function EditUserInfo() {
                   <div className={style.divLine}></div>
                 </div>
 
-                <div className={style.serialNum_title}>시리얼 번호 변경</div>
+                <div className={style.serialNum_title}>시리얼 번호 번경</div>
                 <div className={style.info_main_detail}>
                   <div className={style.serialNumInput_area}>
                     {editSerialNum ? (
@@ -742,16 +741,10 @@ function EditUserInfo() {
                         maxLength="13"
                       />
                     ) : (
-                      <>
-                        {userSerialNum ? (
-                          <div>{userSerialNum}</div>
-                        ) : (
-                          <div>등록된 기기가 없습니다.</div>
-                        )}
-                      </>
+                      <div>ABCDEFGHIJK</div>
                     )}
                     {!editSerialNum ? (
-                      <button onClick={editSerialNumBtn}>수정</button>
+                      <button onClick={editSerialNumBtn}>변경</button>
                     ) : (
                       <>
                         <button
@@ -761,7 +754,7 @@ function EditUserInfo() {
                               : () => alert("변경할 시리얼번호를 적어주십시오.")
                           }
                         >
-                          등록
+                          인증
                         </button>
                         {/* <button onClick={cancelSerialNumBtn}>취소</button> */}
                       </>
@@ -829,7 +822,7 @@ function EditUserInfo() {
                     )}
                   </div>
                   {!editAddress ? (
-                    <button onClick={editAddressBtn}>수정</button>
+                    <button onClick={editAddressBtn}>변경</button>
                   ) : (
                     <button onClick={cancelAddressBtn}>취소</button>
                   )}
@@ -851,7 +844,7 @@ function EditUserInfo() {
                   )}
                   <div>명</div>
                   {!editHouseNum ? (
-                    <button onClick={editHouseNumBtn}>수정</button>
+                    <button onClick={editHouseNumBtn}>변경</button>
                   ) : (
                     <button onClick={cancelHouseNumBtn}>취소</button>
                   )}
