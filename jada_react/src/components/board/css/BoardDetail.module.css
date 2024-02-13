@@ -12,7 +12,7 @@
 .title {
     display: flex;
     justify-content: center;
-    margin: 10% auto 5%;
+    margin: 15% auto 5%;
 }
 
 .title div {
@@ -50,23 +50,23 @@
     letter-spacing: 2px;
 }
 
+/* 하트 수평선 */
 .line {
     width: 100%;
-    border: 0px;
-    height: 1px;
-    background: linear-gradient(to left, transparent, rgb(49, 40, 10), transparent);
-    /* border-top: 4px double #bbb; */
+    border-top: 2px double #bbb;
+    margin: 2vh 0;
 }
-/* .line::after {
-    content: '\002665';
+.line::after {
+    content: '답변\002665';
     display: inline-block;
     position: relative;
-    top: -15px;
+    top: -7px;
+    right: -40%;
     padding: 0 10px;
-    background: #f0f0f0;
+    background: #ffffff;
     color: #bbb;
     font-size: 1em;
-} */
+}
 
 /* 댓글 */
 .commentContainer {
@@ -87,7 +87,7 @@
     margin-bottom: 10px;
     font-size: 1em;
     outline: none;
-    border: 2px solid #ff9f0a;
+    border: 2px solid #bbb;
     border-radius: 10px;
     font-family: 'Godo';
 }
@@ -121,12 +121,14 @@
 .commentTable {
     margin-top: 2vh;
 }
+
 .commentTitle th {
     font-size: 15px;
     padding: 5px;
+    width: 0;
 }
 .commentContent td {
-    font-size: 10px;
+    font-size: 13px;
 }
 .commentContent td:first-child {
     text-align: center;

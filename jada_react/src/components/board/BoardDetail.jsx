@@ -11,6 +11,7 @@ function BoardDetail() {
     const { boardId } = useParams();
     const [comment, setComment] = useState('');
     const [content, setContent] = useState('');
+    const [num, setNum] = useState('');
 
     const userId = sessionStorage.getItem('user_id');
 
@@ -69,6 +70,9 @@ function BoardDetail() {
                 alert('댓글 작성이 완료되었습니다.');
                 const result = await response.json();
                 setComment(result);
+                // 입력값 초기화
+                setContent('');
+                setNum(num + 1);
             } else {
                 console.log('댓글달기 실패');
                 alert('댓글달기 실패');
@@ -99,13 +103,14 @@ function BoardDetail() {
                                 <div>{board.content}</div>
                             </div>
                         </div>
-                        {/* <hr className={style.line} /> */}
+                        <div className={style.line}>{/* <div>댓글</div> */}</div>
                         <div className={style.commentContainer}>
                             <div className={style.input_area}>
                                 <input
                                     type="text"
                                     className={style.input}
                                     value={content}
+                                    placeholder="댓글을 입력해주세요."
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                             </div>
@@ -113,24 +118,28 @@ function BoardDetail() {
                                 <button onClick={serverlink}>댓글달기</button>
                             </div>
                         </div>
-                        <div className={style.commentList}>
-                            <table className={style.commentTable}>
-                                <thead>
-                                    <tr className={style.commentTitle}>
-                                        <th>No</th>
-                                        <th>댓글</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {comment.map((comment) => (
-                                        <tr className={style.commentContent} key={comment.commentId}>
-                                            <td>{comment.commentId}</td>
-                                            <td>{comment.content}</td>
+                        {comment ? (
+                            <div className={style.commentList}>
+                                <table className={style.commentTable}>
+                                    <thead>
+                                        <tr className={style.commentTitle}>
+                                            {/* <th>No</th> */}
+                                            <th>답변 {comment.length}</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        {comment.map((comment) => (
+                                            <tr className={style.commentContent} key={comment.commentId}>
+                                                <td>{num}</td>
+                                                <td>{comment.content}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </>
                 ) : (
                     <p>Loading...</p>
