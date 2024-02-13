@@ -8,6 +8,7 @@ import tensorflow as tf
 import torch
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -70,17 +71,22 @@ def nog_analysis():
         cur,conn=dbconnection()
         sql1 = f"SELECT chat_time,chat_user_id , data_question, user_question,similar    FROM chat_data"
         sql2 = f"SELECT exit_content, exit_date, user_address   FROM user_exit"
-        sql3 = f"SELECT chat_time,chat_user_id , data_question, user_question,similar    FROM chat_data"
+        sql3 = f"SELECT chat_time,chat_user_id , data_question, user_question,similar   FROM chat_data ORDER BY similar   LIMIT 30"
+        sql4 = f"SELECT exit_content,exit_date, user_address    FROM user_exit"
         df1 = sql_select(cur,sql1)
         df2 = sql_select(cur,sql2)
-        df3 = sql_select(cur,sql2)
+        df3 = sql_select(cur,sql3)
+        df4 = sql_select(cur,sql4)
         db_close(cur,conn)
+        df3['chat_time'] = df3['chat_time'].apply(lambda x: int(datetime.timestamp(x) * 1000))
+        df4['exit_date'] = df4['exit_date'].apply(lambda x: int(datetime.timestamp(x) * 1000))
         chartdata1 = analysis_data(df1,'data_question')
         chartdata2 = analysis_data(df2,'exit_content')
-        df_json = df.to_json(orient='records')
+        df_json1 = df3.to_json(orient='index',force_ascii=False)
+        df_json2 = df4.to_json(orient='index',force_ascii=False)
 
         # 조회된 데이터를 JSON 형식으로 응답
-        return jsonify({'chartdata1' : chartdata1,'chartdata2' : chartdata2 , 'similardata' : df_json})
+        return jsonify({'chartdata1' : chartdata1,'chartdata2' : chartdata2 , 'similardata' : df_json1, 'exitdata' : df_json2})
         
     except Exception as e:
         print("Error in /nog_analysis:", str(e))
@@ -131,9 +137,9 @@ def handle_message(message):
     login_check = df['구분'][best_sim_idx]
     answer = df['답변(Answer)'][best_sim_idx]
     img = df['답변 이미지'][best_sim_idx]
-    if score < 0.5:
+    if score < 0.6:
         answer = "부정확한 질문이거나 답변할 수 없습니다.\n 수일 내로 답변을 업데이트하겠습니다.\n 죄송합니다 :("
-
+        img = '  '
     send_json_data_str = {
         "Query": selected_qes,
         "Login_Check" : str(login_check),
