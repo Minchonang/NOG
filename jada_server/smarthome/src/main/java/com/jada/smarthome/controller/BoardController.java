@@ -3,7 +3,10 @@ package com.jada.smarthome.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jada.smarthome.dto.BoardDto;
-import com.jada.smarthome.dto.JoinUserDto;
+import com.jada.smarthome.dto.CommentDto;
 import com.jada.smarthome.model.Board;
 import com.jada.smarthome.service.BoardService;
 
@@ -54,8 +58,7 @@ public class BoardController {
                                     .writeDate(board.getWriteDate())
                                     .build())
                                   .collect(Collectors.toList());
-
-
+    
     return ResponseEntity.ok(boardListDtos);
   }
   
@@ -80,5 +83,41 @@ public class BoardController {
           // 예외 처리
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
+    }
+
+     // 특정 게시글의 상세 정보 조회
+     @GetMapping("/boardDetail")
+     public ResponseEntity<?> getBoardDetail(@RequestParam(name = "boardId", defaultValue = "1") Long boardId) {
+
+        try {
+            Optional<Board> boardOptional = boardService.getBoardById(boardId);
+             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardOptional : "+boardOptional);
+            
+             if (boardOptional.isPresent()) {
+                 Board board = boardOptional.get();
+                 System.out.println(board + "-------------------------------------------------");
+                 return ResponseEntity.ok(boardOptional);
+             } else {
+                 return ResponseEntity.notFound().build();
+             }
+         } catch (EntityNotFoundException e) {
+             // 해당 게시글이 없는 경우
+             return ResponseEntity.notFound().build();
+         } catch (Exception e) {
+             // 기타 예외 처리
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
+         }
+     }
+
+       // 댓글 저장
+  @PostMapping("/getComment")
+  public ResponseEntity<Map<String, Object>> saveComment(@RequestBody CommentDto commentDto){
+   String result = boardService.saveComment(commentDto); 
+   
+    if (result != null) {
+        return ResponseEntity.ok(Collections.singletonMap("message" ,result));
+    } else {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error","저장에 실패했습니다."));
+    }
   }
 }

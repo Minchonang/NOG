@@ -230,7 +230,7 @@
   overflow: auto;
   outline: none;
   padding: 15px;
-  height: 40vh;
+  height: 30vh;
   width: 80vw;
   border-radius: 5%;
   border: 2px solid #ff9f0a;
@@ -249,7 +249,7 @@
 .modal_title {
   padding: 0 10px;
   margin: 40px auto;
-  font-size: 2em;
+  font-size: 1.6em;
   font-family: "Godo", serif;
   /* border-bottom: 2px solid #ff9f0a; */
 }

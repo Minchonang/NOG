@@ -192,7 +192,7 @@ public class HomeDeviceService {
                         foundUser.setHomeDevice(homeDevice);
                         userRepository.save(foundUser);
 
-                        return "인증이 완료되었습니다.";
+                        return "내 기기 등록이 완료되었습니다.";
                     }else{
                         return "해당하는 시리얼 번호가 존재하지 않습니다.";
                     }

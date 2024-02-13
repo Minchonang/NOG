@@ -397,11 +397,11 @@ function HomeControl() {
             <div className={style.modal_container}>
               <FcHighPriority size="1.8em" />
               <div className={style.modal_title}>
-                기기를 등록하고 사용해주세요
+                등록된 제품이 없습니다.
               </div>
 
               <button className={style.modal_content}>
-                <NavLink to="/check_user">등록하러 가기</NavLink>
+                <NavLink to="/check_user">등록하기</NavLink>
               </button>
 
               <button className={style.modal_content}>

@@ -126,21 +126,27 @@ public class UserController {
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
     List<User> users = userService.getAllUsers();
     List<JoinUserDto> joinUserDtos = users.stream()
-            .map(user -> JoinUserDto.builder()
-                    .email(user.getEmail())
-                    .id(user.getId())
-                    // 비밀번호 제외
-                    // .password(user.getPassword())
-                    .name(user.getName())
-                    .phone(user.getPhone())
-                    .address1(user.getAddress1())
-                    .address2(user.getAddress2())
-                    .address3(user.getAddress3())
-                    .houseNum(user.getHouseNum())
-                    .creDateTime(user.getCreDateTime())
-                    .build())
-            .collect(Collectors.toList());
+    .map(user -> {
+        Integer homeId = null;
+        if (user.getHomeDevice() != null) {
+            homeId = user.getHomeDevice().getHomeId();
+        }
+        return JoinUserDto.builder()
+                .email(user.getEmail())
+                .id(user.getId())
+                .name(user.getName())
+                .phone(user.getPhone())
+                .address1(user.getAddress1())
+                .address2(user.getAddress2())
+                .address3(user.getAddress3())
+                .houseNum(user.getHouseNum())
+                .creDateTime(user.getCreDateTime())
+                .homeId(homeId)
+                .build();
+    })
+    .collect(Collectors.toList());
 
+                    
     return ResponseEntity.ok(joinUserDtos);
     }
 

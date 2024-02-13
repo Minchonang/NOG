@@ -1,9 +1,7 @@
 package com.jada.smarthome.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,9 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -73,6 +71,7 @@ public class User implements Serializable {
   private HomeDevice homeDevice;
 
   // board모델에서 writer와 연관관계
+  @JsonIgnore
   @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Board> boards;
 

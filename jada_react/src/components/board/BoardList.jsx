@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../App.js";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import BottomNav from "../common/jsx/BottomNav";
 import Header from "../common/jsx/Header";
@@ -45,6 +45,9 @@ function BoardList() {
     }
   };
 
+  const goDetail = (boardId) => {
+    window.location.href = `/boardDetail/${boardId}`;
+  };
   return (
     <div className={common.background}>
       <Header sub_title="내 정보" />
@@ -56,28 +59,33 @@ function BoardList() {
         <div className={style.list}>
           <div className={style.boardList_table}>
             <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>카테고리</th>
-                  <th>제목</th>
-                </tr>
-              </thead>
               <tbody>
+                <tr className={style.boardList_title}>
+                  <td>No.</td>
+                  <td>카테고리</td>
+                  <td>제목</td>
+                </tr>
                 {boards.map((board) => (
-                  <tr key={board.boardId}>
+                  <tr
+                    key={board.boardId}
+                    onClick={() => goDetail(board.boardId)}
+                  >
                     <td>{board.boardId}</td>
                     <td>{board.boardCategory}</td>
-                    <td>{board.title}</td>
+                    <td>
+                      {board.title.length > 11
+                        ? `${board.title.substring(0, 11)}...`
+                        : board.title}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          <Link to="/board">
+            <button className={style.writeButton}>문의하기</button>
+          </Link>
         </div>
-        <Link to="/board">
-          <button className={style.writeButton}> 문의글 쓰기 </button>
-        </Link>
       </div>
       <BottomNav />
     </div>
