@@ -7,7 +7,6 @@ import PieChart from './PieChart';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import DoughnutChart from './DoughnutChart';
-import Plot from 'react-plotly.js';
 import BarChartDay from './BarChartDay';
 import BarChartMonth from './BarChartMonth';
 import Header from '../../common/jsx/Header';
@@ -49,7 +48,7 @@ const MyChart = () => {
       setLoad(false)}
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/my_home?user_id=${id}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://192.168.0.84:5001/my_home?user_id=${id}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
@@ -103,7 +102,7 @@ const MyChart = () => {
     const fetchPred = async () => {
       try {
         // axios로 GET 요청 보내기
-        const response = await axios.get(`http://127.0.0.1:5001/pred?user_id=${user["user_id"]}${searchDate?'&date='+searchDate:""}`);
+        const response = await axios.get(`http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${searchDate?'&date='+searchDate:""}`);
         
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
