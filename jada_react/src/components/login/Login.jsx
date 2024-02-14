@@ -104,7 +104,7 @@ function Login() {
             />
             <div className={style.pwd_area}>
               <input
-                className={common.themeBorder}
+                // className={common.themeBorder}
                 type={showPassword ? "text" : "password"}
                 value={userPwd}
                 onChange={(e) => setUserPwd(e.target.value)}
