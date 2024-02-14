@@ -135,10 +135,10 @@ function DeleteCheck() {
                 onChange={(e) => setDeletionReasonOption(e.target.value)}
               >
                 <option value="">-- 선택하세요 --</option>
-                <option value="unhappy">서비스 불만족</option>
-                <option value="moveToOtherService">다른 서비스로 이전</option>
-                <option value="privacyConcern">개인정보 보안 우려</option>
-                <option value="decreasedFrequency">
+                <option value="서비스 불만족">서비스 불만족</option>
+                <option value="다른 서비스로 이전">다른 서비스로 이전</option>
+                <option value="개인정보 보안 우려">개인정보 보안 우려</option>
+                <option value="서비스 이용 빈도 감소">
                   서비스 이용 빈도 감소
                 </option>
                 <option value="other">기타</option>

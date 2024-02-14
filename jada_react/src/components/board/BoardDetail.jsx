@@ -30,6 +30,7 @@ function BoardDetail() {
     }
   }, [boardId]);
 
+  // 게시글 상세정보 조회
   const getBoardDetail = async () => {
     try {
       const response = await fetch(
