@@ -81,6 +81,7 @@ function BoardDetail() {
                 // 입력값 초기화
                 setContent('');
                 console.log(result);
+                window.location.reload(true);
             } else {
                 console.log('댓글달기 실패');
                 alert('댓글달기 실패');
