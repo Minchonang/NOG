@@ -170,24 +170,7 @@ function NogiAnalysis() {
               className={style.chart_title_box}
               onClick={() => handleBoxClick("chatbot")}
             >
-              <div className={style.list}>
-                <div className={style.boardList_title}>
-                  <div>질문 빈도수 그래프</div>
-                </div>
-                <div className={style.boardList_table}>
-                  <table>
-                    <tbody>
-                      <canvas
-                        className={style.canvas1}
-                        ref={chartRef1}
-                        width={400}
-                        height={400}
-                      ></canvas>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
+              {/* 챗봇 대화 표 */}
               <div className={style.list}>
                 <div className={style.boardList_title}>
                   <div>User question</div>
@@ -210,6 +193,24 @@ function NogiAnalysis() {
                               <td>{value.similar}</td>
                             </tr>
                           ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* 챗봇 대화 그래프 */}
+              <div className={style.list}>
+                <div className={style.boardList_title}>
+                  <div>질문 빈도수 그래프</div>
+                </div>
+                <div className={style.boardList_table}>
+                  <table>
+                    <tbody>
+                      <canvas
+                        className={style.canvas1}
+                        ref={chartRef1}
+                        width={400}
+                        height={400}
+                      ></canvas>
                     </tbody>
                   </table>
                 </div>
@@ -262,7 +263,6 @@ function NogiAnalysis() {
 
         {/*탈퇴사유 파트  */}
 
-        {/* Visible 컨테이너 2 - 탈퇴사유 표와 분석 그래프 */}
         <div
           className={
             visibleContainers["withdrawl"]
@@ -275,24 +275,7 @@ function NogiAnalysis() {
               className={style.chart_title_box}
               onClick={() => handleBoxClick("withdrawl")}
             >
-              <div className={style.list}>
-                <div className={style.boardList_title}>
-                  <div>탈퇴사유 빈도수 그래프</div>
-                </div>
-                <div className={style.boardList_table}>
-                  <table>
-                    <tbody>
-                      <canvas
-                        className={style.canvas2}
-                        ref={chartRef2}
-                        width={200}
-                        height={200}
-                      ></canvas>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
+              {/* 탈퇴사유 표 */}
               <div className={style.list}>
                 <div className={style.boardList_title}>
                   <div>탈퇴일자</div>
@@ -331,13 +314,30 @@ function NogiAnalysis() {
                   </table>
                 </div>
               </div>
+              {/* 탈퇴사유 그래프 */}
+              <div className={style.list}>
+                <div className={style.boardList_title}>
+                  <div>탈퇴사유 빈도수 그래프</div>
+                </div>
+                <div className={style.boardList_table}>
+                  <table>
+                    <tbody>
+                      <canvas
+                        className={style.canvas2}
+                        ref={chartRef2}
+                        width={200}
+                        height={200}
+                      ></canvas>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
               {selectedBoard2 && (
                 <div className={style.custom_modal}>
                   <div className={style.modal_container}>
                     <hr className={style.bookends} />
                     <div className={style.modal_title}>챗봇 대화</div>
                     <div className={style.modal_content}>
-                      <p>id: {selectedBoard2.id}</p>
                       <p>탈퇴 회원 거주지역: {selectedBoard2.user_address}</p>
                       <p>
                         탈퇴 사유: {""}
