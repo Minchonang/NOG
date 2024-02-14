@@ -297,5 +297,29 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 역할 조회 중 오류가 발생했습니다.");
         }
     }
+
+        // 관리자 회원정보 수정
+        @CrossOrigin(origins = "http://localhost:3000")
+        @PostMapping("/admineditUser")
+        public ResponseEntity<String> admineditUser(@RequestBody EditUserDto editUserDto){
+            try {
+                String user_id = editUserDto.getUser_id();
+                String newName= editUserDto.getName();
+                String newEmail = editUserDto.getEmail();
+                String newPhone = editUserDto.getPhone();
+                String newAddress1 = editUserDto.getAddress1();
+                String newAddress2 = editUserDto.getAddress2();
+         
+        
+                String result = userService.admineditUser(user_id,newName, newEmail, newPhone,newAddress1,newAddress2);
+                System.out.println("============수정된값:"+result);
+                return ResponseEntity.ok(result);
+                
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+            }
+    
+        }
+    
 }
 
