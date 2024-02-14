@@ -22,14 +22,6 @@ function UserList() {
     //   ----------------------------------
     //   회원정보 가져오기
     useEffect(() => {
-        axios
-            .get(`${API_BASE_URL}/api/userinfo/get`)
-            .then((response) => {
-                // setUsers(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching data: ', error);
-            });
         // 전체 회원 수 가져오기
         axios
             .get(`${API_BASE_URL}/api/userinfo/count`)
@@ -41,20 +33,14 @@ function UserList() {
             });
 
         // 유저 회원 정보 가져오기
-        // async function fetchUsers() {
-        //     try {
-        //         const response = await fetch('/api/userinfo/allusers');
-        //         if (response.ok) {
-        //             const data = await response.json();
-        //             setUsers(data);
-        //         } else {
-        //             console.error('서버 연결 실패');
-        //         }
-        //     } catch (error) {
-        //         console.error('네트워크 문제:', error);
-        //     }
-        // }
-        // fetchUsers();
+        axios
+            .get(`${API_BASE_URL}/api/userinfo/allusers`)
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data: ', error);
+            });
     }, []);
 
     //   ----------------------------------
@@ -162,7 +148,7 @@ function UserList() {
                                 <tr key={user.id} onClick={() => handleUserClick(user)}>
                                     <td>{user.id}</td>
                                     <td>{user.name}</td>
-                                    <td>{user.homeId}</td>
+                                    <td>{user.homeDevice ? user.homeDevice.homeId : ''}</td>
                                 </tr>
                             ))}
                         </tbody>

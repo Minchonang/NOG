@@ -42,7 +42,7 @@ function BoardList() {
             console.error('서버 통신 오류', error);
         }
     };
-    console.log(boards);
+    // console.log(boards);
 
     const goDetail = (boardId) => {
         window.location.href = `/boardDetail/${boardId}`;

@@ -20,7 +20,7 @@ public class BoardDto {
   private String title;
   private String content;
   private LocalDateTime writeDate;
-  @JsonIgnore
+
   private Comment comment;
 
   public Comment getComment() {

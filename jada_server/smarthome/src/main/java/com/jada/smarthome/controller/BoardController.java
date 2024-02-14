@@ -57,6 +57,7 @@ public class BoardController {
                                     .title(board.getTitle())
                                     .content(board.getContent())
                                     .writeDate(board.getWriteDate())
+                                    .comment(board.getComments().isEmpty() ? null : board.getComments().get(0) )
                                     .build())
                                   .collect(Collectors.toList());
     
@@ -68,7 +69,6 @@ public class BoardController {
   public ResponseEntity<List<BoardDto>> getUserBoardList(@PathVariable String userId) {
       try {
           List<Board> boards = boardService.getBoardListByUserId(userId);
-          System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boards : " + boards);
           List<BoardDto> boardListDtos = boards.stream()
           .map(board -> {
             BoardDto boardDto = BoardDto.builder()
@@ -81,11 +81,6 @@ public class BoardController {
                 .comment(board.getComments().isEmpty() ? null : board.getComments().get(0) )
                 .build();
             
-            // Comment 정보를 설정
-            if (!board.getComments().isEmpty()) {
-                Comment comment = board.getComments().get(0);
-                boardDto.setComment(comment);
-              }
               return boardDto;
           })
           .collect(Collectors.toList());
@@ -97,6 +92,8 @@ public class BoardController {
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
     }
+
+
 
      // 특정 게시글의 상세 정보 조회
      @GetMapping("/boardDetail")
