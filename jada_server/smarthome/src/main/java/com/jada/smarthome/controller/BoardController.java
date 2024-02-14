@@ -68,19 +68,30 @@ public class BoardController {
   public ResponseEntity<List<BoardDto>> getUserBoardList(@PathVariable String userId) {
       try {
           List<Board> boards = boardService.getBoardListByUserId(userId);
+          System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boards : " + boards);
           List<BoardDto> boardListDtos = boards.stream()
-                  .map(board -> BoardDto.builder()
-                          .userId(board.getWriter().getId())
-                          .boardId(board.getBoardId())
-                          .boardCategory(board.getBoardCategory())
-                          .title(board.getTitle())
-                          .content(board.getContent())
-                          .writeDate(board.getWriteDate())
-                          .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
-                          .build())
-                  .collect(Collectors.toList());
+          .map(board -> {
+            BoardDto boardDto = BoardDto.builder()
+                .userId(board.getWriter().getId())
+                .boardId(board.getBoardId())
+                .boardCategory(board.getBoardCategory())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writeDate(board.getWriteDate())
+                .comment(board.getComments().isEmpty() ? null : board.getComments().get(0) )
+                .build();
+            
+            // Comment 정보를 설정
+            if (!board.getComments().isEmpty()) {
+                Comment comment = board.getComments().get(0);
+                boardDto.setComment(comment);
+              }
+              return boardDto;
+          })
+          .collect(Collectors.toList());
+                  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardListDtos : " + boardListDtos);
 
-          return ResponseEntity.ok(boardListDtos);
+         return ResponseEntity.ok(boardListDtos);
       } catch (Exception e) {
           // 예외 처리
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -133,4 +144,16 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonList("저장에 실패했습니다."));
     }
   }
+
+  // 댓글 정보 조회
+  @PostMapping("/commentInfo")
+  public ResponseEntity <List<CommentDto>> commentInfo(@RequestBody CommentDto commentDto){
+    List<CommentDto>  result =  boardService.commentInfo(commentDto);
+    if (result != null) {
+      return ResponseEntity.ok(result);
+    } else {
+      return ResponseEntity.notFound().build();
+    }
+  }
+
 }
