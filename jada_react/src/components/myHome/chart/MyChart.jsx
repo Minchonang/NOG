@@ -291,7 +291,7 @@ const MyChart = () => {
                   >
                     <span className={style.chart_box_title}>소비 유형 </span>
                     <span className={style.spring}></span>
-                    {/* <span className={style.close}> ▲</span>   */}
+                    {/* <span className={style.close}> ▲</span> */}
                   </div>
 
                   <PieChart chart_Data2={chartData2["usage_percentage"]} />

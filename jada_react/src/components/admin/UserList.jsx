@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../App.js";
 import axios from "axios";
 import style from "./css/UserList.module.css";
+import LoadingNog from "../common/jsx/LoadingNog";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -9,6 +10,7 @@ function UserList() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [totalUsers, setTotalUsers] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const [editMode, setEditMode] = useState(false);
   const [updatedName, setUpdatedName] = useState("");
@@ -17,20 +19,30 @@ function UserList() {
   const [updatedAddress1, setUpdatedAddress1] = useState("");
   const [updatedAddress2, setUpdatedAddress2] = useState("");
 
+  //   ----------------------------------
+  // 2초 후에 로딩 완료
+  const timeoutId = setTimeout(() => {
+    setIsLoading(false);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+  //   ----------------------------------
   // 휴대폰 번호를 010-0000 형식으로 변경
-  function formatPhone(userPhone) {
+  const formatPhone = (userPhone) => {
     const part1 = userPhone.slice(0, 3);
     const part2 = userPhone.slice(3, 7);
     const part3 = userPhone.slice(7);
 
     return `${part1}-${part2}-${part3}`;
-  }
+  };
 
   //   ----------------------------------
   //   회원정보 가져오기
   useEffect(() => {
     axios
-
       .get(`${API_BASE_URL}/api/userinfo/get`)
       .then((response) => {
         setUsers(response.data);
@@ -55,7 +67,6 @@ function UserList() {
     setSelectedUser(user);
     setEditMode(false);
   };
-
   const handleCloseModal = () => {
     setSelectedUser(null);
   };
@@ -74,6 +85,7 @@ function UserList() {
     setEditMode(false);
     // Optionally, you may want to reset the updated values as well.
   };
+
   //   ----------------------------------
   //   회원검색
   const handleSearch = async () => {
