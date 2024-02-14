@@ -5,6 +5,8 @@ import BottomNav from '../common/jsx/BottomNav';
 import Header from '../common/jsx/Header';
 import common from '../common/css/common.module.css';
 import style from './css/BoardDetail.module.css';
+import LoadingNog from '../common/jsx/LoadingNog';
+import admin from './img/admin.png';
 
 function BoardDetail() {
     const [board, setBoard] = useState(null);
@@ -41,10 +43,11 @@ function BoardDetail() {
 
             console.log('Response Status:', response.status);
             if (response.ok) {
-                console.log(boardId);
                 const result = await response.json();
                 console.log('Response Data:', result); // Add this line
                 setBoard(result);
+                console.log(result.comment);
+                setComment(result.comment);
             } else {
                 // console.log("Server error:", await response.text());
                 alert('게시글 조회 중 서버 오류가 발생했습니다.');
@@ -55,7 +58,7 @@ function BoardDetail() {
         }
     };
 
-    // 댓글 저장 및 리스트 조회
+    // 댓글 저장
     const serverlink = async () => {
         const commentDto = {
             userId: userId,
