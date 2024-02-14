@@ -142,7 +142,7 @@ function HomeControl() {
         // 서버 응답이 성공인 경우
         const result = await response.json();
 
-        console.log("Home Device Data:", result);
+        // console.log("Home Device Data:", result);
 
         setUserHumanCount(result.humanCount);
         setHomeLightOnOff(result.light);
@@ -207,7 +207,7 @@ function HomeControl() {
       console.error("서버 통신 오류", error);
     }
   };
-
+  serverlink();
   // --------------- 서버전달용 -------------------
   const handleTemp = async (newBoilerTemp, newAirTemp) => {
     try {
@@ -396,9 +396,7 @@ function HomeControl() {
           >
             <div className={style.modal_container}>
               <FcHighPriority size="1.8em" />
-              <div className={style.modal_title}>
-                등록된 제품이 없습니다.
-              </div>
+              <div className={style.modal_title}>등록된 제품이 없습니다.</div>
 
               <button className={style.modal_content}>
                 <NavLink to="/check_user">등록하기</NavLink>
@@ -456,6 +454,7 @@ function HomeControl() {
                   <div className={style.light}>
                     <FaLightbulb color="black" size="4em" />
                   </div>
+                  {message && <p>{message}</p>}
                 </div>
               )}
             </div>
