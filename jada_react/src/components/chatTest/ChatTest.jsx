@@ -122,11 +122,6 @@ const ChatTest = () => {
 		<>
 			<div className={common.background}>
 				<Header sub_title="ChatBot" />
-				{/* <div className={style.title_area}>
-          <NavLink to="/">NOG</NavLink>
-          <div>Chatbot</div>
-        </div> */}
-
 				<div className={style.chatContainer} id="chatContainer">
 					{/* 챗봇 첫인사 */}
 					<div className={`${style.msg_area} ${style.botText_area}`}>
