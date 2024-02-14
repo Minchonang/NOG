@@ -46,6 +46,6 @@ public class Board implements Serializable {
 
   //board랑 comment랑 양방향
   @JsonIgnore
-  @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
   private List<Comment> comments;
 }
