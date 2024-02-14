@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
+
+import Index from "./components/main/Index";
 import Login from "./components/login/Login";
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
@@ -9,7 +11,7 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
-import MyChart from "./components/myHome/chart/MyChart";
+import MyChart2 from "./components/myHome/chart/MyChart2";
 import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
@@ -17,10 +19,10 @@ import Board from "./components/board/Board";
 import BoardList from "./components/board/BoardList";
 import BoardDetail from "./components/board/BoardDetail";
 
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "http://54.180.132.149:8080";
 
 function App() {
-	const userId = sessionStorage.getItem("user_id");
+  const userId = sessionStorage.getItem("user_id");
 
   return (
     <>

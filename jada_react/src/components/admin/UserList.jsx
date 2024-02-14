@@ -50,6 +50,7 @@ function UserList() {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
+
     // 전체 회원 수 가져오기
     axios
       .get(`${API_BASE_URL}/api/userinfo/count`)
