@@ -6,7 +6,7 @@ import com.jada.smarthome.dto.LoginUserDto;
 import com.jada.smarthome.dto.UserExitDto;
 import com.jada.smarthome.dto.UserInfoDto;
 import com.jada.smarthome.model.User;
-import com.jada.smarthome.repository.JdbcRepository.JdbcUserRepository;
+// import com.jada.smarthome.repository.JdbcRepository.JdbcUserRepository;
 import com.jada.smarthome.service.UserExitService;
 import com.jada.smarthome.service.UserService;
 
@@ -37,7 +37,7 @@ public class UserController {
     
     private final UserService userService;
     private final UserExitService userExitService;
-    private final JdbcUserRepository jdbcUserRepository;
+    // private final JdbcUserRepository jdbcUserRepository;
 
     private static final String DUPLICATE_ID = "가입불가 - 중복된 아이디";
 
@@ -45,10 +45,10 @@ public class UserController {
 	HttpSession session;
 
 
-    public UserController(UserService userService, UserExitService userExitService, JdbcUserRepository jdbcUserRepository) {
+    public UserController(UserService userService, UserExitService userExitService) {
         this.userService = userService;
         this.userExitService = userExitService;    
-        this.jdbcUserRepository = jdbcUserRepository;
+        // this.jdbcUserRepository = jdbcUserRepository;
     }
 
     // 아이디 중복 체크
@@ -159,10 +159,10 @@ public class UserController {
     }
 
     // 유저 정보 전체 조회(jdbc)
-    @GetMapping("/allusers")
-    public List<User> allUsers() {
-        return jdbcUserRepository.findAll();
-    }
+    // @GetMapping("/allusers")
+    // public List<User> allUsers() {
+    //     return jdbcUserRepository.findAll();
+    // }
 
     
 

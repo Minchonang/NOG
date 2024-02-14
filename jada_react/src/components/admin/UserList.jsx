@@ -25,7 +25,7 @@ function UserList() {
         axios
             .get(`${API_BASE_URL}/api/userinfo/get`)
             .then((response) => {
-                setUsers(response.data);
+                // setUsers(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching data: ', error);
@@ -39,6 +39,22 @@ function UserList() {
             .catch((error) => {
                 console.error('Error fetching user count: ', error);
             });
+
+        // 유저 회원 정보 가져오기
+        // async function fetchUsers() {
+        //     try {
+        //         const response = await fetch('/api/userinfo/allusers');
+        //         if (response.ok) {
+        //             const data = await response.json();
+        //             setUsers(data);
+        //         } else {
+        //             console.error('서버 연결 실패');
+        //         }
+        //     } catch (error) {
+        //         console.error('네트워크 문제:', error);
+        //     }
+        // }
+        // fetchUsers();
     }, []);
 
     //   ----------------------------------
