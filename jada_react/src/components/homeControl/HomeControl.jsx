@@ -142,7 +142,7 @@ function HomeControl() {
         // 서버 응답이 성공인 경우
         const result = await response.json();
 
-        // console.log("Home Device Data:", result);
+        console.log("Home Device Data:", result);
 
         setUserHumanCount(result.humanCount);
         setHomeLightOnOff(result.light);
@@ -163,6 +163,7 @@ function HomeControl() {
     }
   }
 
+  // 서버와 연결
   const serverlink = async () => {
     // user_id를 가져오기
     const user_id = sessionStorage.getItem("user_id");
@@ -207,7 +208,7 @@ function HomeControl() {
       console.error("서버 통신 오류", error);
     }
   };
-  serverlink();
+
   // --------------- 서버전달용 -------------------
   const handleTemp = async (newBoilerTemp, newAirTemp) => {
     try {

@@ -149,6 +149,7 @@ public class UserController {
                     
     return ResponseEntity.ok(joinUserDtos);
     }
+    
 
     // 아이디 찾기 : 이름 = 이메일 존재하는 유저 찾으면 id전달하도록 
     @CrossOrigin(origins = "http://localhost:3000")

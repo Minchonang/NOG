@@ -144,13 +144,13 @@ function UserList() {
               <tr className={style.userList_title}>
                 <td>ID</td>
                 <td>이름</td>
-                <td>주소</td>
+                <td>기기 정보</td>
               </tr>
               {users.map((user) => (
                 <tr key={user.id} onClick={() => handleUserClick(user)}>
                   <td>{user.id}</td>
                   <td>{user.name}</td>
-                  <td>{user.address1}</td>
+                  <td>{user.homeId}</td>
                 </tr>
               ))}
             </tbody>
