@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -124,31 +125,36 @@ public class UserController {
     // 유저 정보 조회 (전체 조회)
     @GetMapping("/get")
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
-    List<User> users = userService.getAllUsers();
-    List<JoinUserDto> joinUserDtos = users.stream()
-    .map(user -> {
-        Integer homeId = null;
-        if (user.getHomeDevice() != null) {
-            homeId = user.getHomeDevice().getHomeId();
-        }
-        return JoinUserDto.builder()
-                .email(user.getEmail())
-                .id(user.getId())
-                .name(user.getName())
-                .phone(user.getPhone())
-                .address1(user.getAddress1())
-                .address2(user.getAddress2())
-                .address3(user.getAddress3())
-                .houseNum(user.getHouseNum())
-                .creDateTime(user.getCreDateTime())
-                .homeId(homeId)
-                .build();
-    })
-    .collect(Collectors.toList());
+        List<User> users = userService.getAllUsers();
+        List<JoinUserDto> joinUserDtos = new ArrayList<>();
 
-                    
-    return ResponseEntity.ok(joinUserDtos);
+        for (User user : users) {
+            Integer homeId = null;
+            String serialNum = null;
+            if (user.getHomeDevice() != null) {
+                homeId = user.getHomeDevice().getHomeId();
+                serialNum = user.getHomeDevice().getSerialNum();
+            }
+            JoinUserDto joinUserDto = JoinUserDto.builder()
+                    .email(user.getEmail())
+                    .id(user.getId())
+                    .name(user.getName())
+                    .phone(user.getPhone())
+                    .address1(user.getAddress1())
+                    .address2(user.getAddress2())
+                    .address3(user.getAddress3())
+                    .houseNum(user.getHouseNum())
+                    .creDateTime(user.getCreDateTime())
+                    .homeId(homeId)
+                    .serialNum(serialNum)
+                    .build();
+
+            joinUserDtos.add(joinUserDto);
+        }
+
+        return ResponseEntity.ok(joinUserDtos);
     }
+
     
 
     // 아이디 찾기 : 이름 = 이메일 존재하는 유저 찾으면 id전달하도록 

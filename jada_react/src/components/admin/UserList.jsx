@@ -268,6 +268,11 @@ function UserList() {
                   <p>
                     지역: {selectedUser.address1} {selectedUser.address2}
                   </p>
+                  <p>시리얼번호: {selectedUser.serialNum}</p>
+                  <p>
+                    가입일자:{" "}
+                    {new Date(selectedUser.creDateTime).toLocaleString("ko-KR")}
+                  </p>
                 </>
               ) : (
                 <>

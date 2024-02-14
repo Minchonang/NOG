@@ -24,11 +24,12 @@ public class JoinUserDto {
     private Integer role = 0; // 기본값 0 : 고객  vs 1 : 관리자
     private LocalDateTime creDateTime;
     private Integer homeId;
+    private String serialNum;
     
 
     // Builder 패턴을 이용하여 Dto를 생성할 수 있는 생성자를 만들기
     @Builder
-    public JoinUserDto(String email, String id, String password, String name, String phone, String address1, String address2, String address3, Integer houseNum, LocalDateTime creDateTime, Integer homeId) {
+    public JoinUserDto(String email, String id, String password, String name, String phone, String address1, String address2, String address3, Integer houseNum, LocalDateTime creDateTime, Integer homeId, String serialNum ) {
         this.email = email;
         this.id = id;
         this.password = password;
@@ -40,6 +41,7 @@ public class JoinUserDto {
         this.houseNum = houseNum;
         this.creDateTime = creDateTime; 
         this.homeId = homeId;
+        this.serialNum = serialNum;
     }
     // id 중복체크
     private boolean idDuplicateCheck;
