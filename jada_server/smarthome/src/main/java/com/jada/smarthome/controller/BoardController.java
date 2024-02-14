@@ -76,6 +76,7 @@ public class BoardController {
                           .title(board.getTitle())
                           .content(board.getContent())
                           .writeDate(board.getWriteDate())
+                          .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
                           .build())
                   .collect(Collectors.toList());
 
@@ -96,8 +97,19 @@ public class BoardController {
             
              if (boardOptional.isPresent()) {
                  Board board = boardOptional.get();
-                 System.out.println(board + "-------------------------------------------------");
-                 return ResponseEntity.ok(boardOptional);
+                 System.out.println("------------------------------------------------- board : " + board);
+                 BoardDto boardDto = BoardDto.builder()
+                 .userId(board.getWriter().getId())
+                 .boardId(board.getBoardId())
+                 .boardCategory(board.getBoardCategory())
+                 .title(board.getTitle())
+                 .content(board.getContent())
+                 .writeDate(board.getWriteDate())
+                 .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
+                 .build();
+                 System.out.println("------------------------------------------------- boardDto : " + boardDto);
+
+                 return ResponseEntity.ok(boardDto);
              } else {
                  return ResponseEntity.notFound().build();
              }
