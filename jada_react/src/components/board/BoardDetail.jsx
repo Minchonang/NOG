@@ -5,13 +5,14 @@ import BottomNav from '../common/jsx/BottomNav';
 import Header from '../common/jsx/Header';
 import common from '../common/css/common.module.css';
 import style from './css/BoardDetail.module.css';
+import admin from './img/admin.png';
+import LoadingNog from '../common/jsx/LoadingNog';
 
 function BoardDetail() {
     const [board, setBoard] = useState(null);
     const { boardId } = useParams();
     const [comment, setComment] = useState('');
     const [content, setContent] = useState('');
-    const [num, setNum] = useState('');
     const [userRole, setUserRole] = useState('');
 
     // 이전 페이지로 돌아가는 기능
@@ -45,6 +46,8 @@ function BoardDetail() {
                 const result = await response.json();
                 console.log('Response Data:', result); // Add this line
                 setBoard(result);
+                console.log(result.comment);
+                setComment(result.comment);
             } else {
                 // console.log("Server error:", await response.text());
                 alert('게시글 조회 중 서버 오류가 발생했습니다.');
@@ -63,7 +66,7 @@ function BoardDetail() {
             boardId: boardId,
         };
         try {
-            // 서버로 데이터 전송 - 경로 수정 필요
+            // 서버로 데이터 전송
             const response = await fetch(`${API_BASE_URL}/api/board/getComment`, {
                 method: 'POST',
                 headers: {
@@ -78,7 +81,7 @@ function BoardDetail() {
                 setComment(result);
                 // 입력값 초기화
                 setContent('');
-                setNum(num + 1);
+                console.log(result);
             } else {
                 console.log('댓글달기 실패');
                 alert('댓글달기 실패');
@@ -136,58 +139,64 @@ function BoardDetail() {
                                 <div>{`${''} ${new Date(board.writeDate).toLocaleDateString('ko-KR')}`}</div>
                             </div>
                             <div className={style.content}>
-                                {/* <div>{board.boardCategory}</div> */}
                                 <div>{board.content}</div>
                             </div>
                         </div>
 
-                        {/* 구분선 */}
-                        <div className={style.line}></div>
-
                         {/* 답변 목록 */}
                         {comment ? (
-                            <div className={style.commentList}>
-                                <table className={style.commentTable}>
-                                    <thead>
-                                        <tr className={style.commentTitle}>
-                                            {/* <th>No</th> */}
-                                            <th>답변 {comment.length}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {comment.map((comment) => (
+                            <>
+                                {/* 구분선 */}
+                                <div className={style.line}></div>
+                                <div className={style.commentList}>
+                                    <table className={style.commentTable}>
+                                        <tbody>
                                             <tr className={style.commentContent} key={comment.commentId}>
-                                                <td>{num}</td>
+                                                <img
+                                                    src={admin}
+                                                    alt="admin"
+                                                    style={{
+                                                        width: '10%',
+                                                        height: '10%',
+                                                    }}
+                                                />
                                                 <td>{comment.content}</td>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </>
                         ) : (
                             <>
-                                {/* {userRole===1 ? (                        ) : ()} */}
-                                {/* 답변 영역 */}
-                                <div className={style.commentContainer}>
-                                    <div className={style.reply}>답변하기</div>
-                                    <div className={style.input_area}>
-                                        <textarea
-                                            type="text"
-                                            value={content}
-                                            onChange={(e) => setContent(e.target.value)}
-                                            placeholder="내용을 입력하세요."
-                                        />
-                                    </div>
-                                    <div className={style.btn_area}>
-                                        <div className={style.goBackBtn} onClick={goBack}>{`< 뒤로가기`}</div>
-                                        <button onClick={serverlink}>완료</button>
-                                    </div>
-                                </div>
+                                {/* 구분선 */}
+                                <div className={style.line2}></div>
+                                {userRole === 1 ? (
+                                    <>
+                                        {/* 답변 영역 */}
+                                        <div className={style.commentContainer}>
+                                            <div className={style.reply}>답변하기</div>
+                                            <div className={style.input_area}>
+                                                <textarea
+                                                    type="text"
+                                                    value={content}
+                                                    onChange={(e) => setContent(e.target.value)}
+                                                    placeholder="내용을 입력하세요."
+                                                />
+                                            </div>
+                                            <div className={style.btn_area}>
+                                                <div className={style.goBackBtn} onClick={goBack}>{`< 뒤로가기`}</div>
+                                                <button onClick={serverlink}>완료</button>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <LoadingNog />
+                                )}
                             </>
                         )}
                     </>
                 ) : (
-                    <p>Loading...</p>
+                    <LoadingNog />
                 )}
             </div>
             <BottomNav />

@@ -70,6 +70,22 @@
     color: #bbb;
     font-size: 1em;
 }
+.line2 {
+    width: 100%;
+    border-top: 2px double #bbb;
+    margin: 2vh 0;
+}
+.line2::after {
+    content: '답변중•••';
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    right: -34%;
+    padding: 0 10px;
+    background: #ffffff;
+    color: #bbb;
+    font-size: 1em;
+}
 
 /* 답변하기 - 타이틀 */
 .reply {
@@ -136,20 +152,25 @@
 /* 댓글 리스트 */
 .commentList {
     width: 100%;
-    margin: 0 auto;
+    margin: -22px auto;
 }
 .commentTable {
     margin-top: 2vh;
 }
 
 .commentTitle th {
-    font-size: 15px;
+    font-size: 20px;
     padding: 5px;
     width: 0;
 }
-.commentContent td {
-    font-size: 13px;
+.commentContent {
+    display: flex;
 }
-.commentContent td:first-child {
-    text-align: center;
+.commentContent td {
+    padding: 1vh 3vw;
+    font-size: 15px;
+    white-space: pre-line;
+    word-break: keep-all;
+    line-height: 120%;
+    border: none;
 }
