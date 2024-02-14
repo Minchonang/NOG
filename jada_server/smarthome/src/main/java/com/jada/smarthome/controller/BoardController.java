@@ -135,13 +135,13 @@ public class BoardController {
 
   // 댓글 저장
   @PostMapping("/getComment")
-  public ResponseEntity<List<?>> saveComment(@RequestBody CommentDto commentDto){
-    List<Comment> result = boardService.saveComment(commentDto); 
+  public ResponseEntity<String> saveComment(@RequestBody CommentDto commentDto){
+    String result = boardService.saveComment(commentDto); 
    
     if (result != null) {
         return ResponseEntity.ok(result);
     } else {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonList("저장에 실패했습니다."));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장에 실패했습니다.");
     }
   }
 

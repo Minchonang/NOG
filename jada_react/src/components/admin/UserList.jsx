@@ -23,7 +23,6 @@ function UserList() {
     //   회원정보 가져오기
     useEffect(() => {
         axios
-
             .get(`${API_BASE_URL}/api/userinfo/get`)
             .then((response) => {
                 setUsers(response.data);
