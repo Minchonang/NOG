@@ -29,6 +29,7 @@ function BoardDetail() {
         }
     }, [boardId]);
 
+    // 게시글 상세정보 조회
     const getBoardDetail = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/board/boardDetail?boardId=${boardId}`, {
@@ -44,8 +45,6 @@ function BoardDetail() {
                 const result = await response.json();
                 console.log('Response Data:', result); // Add this line
                 setBoard(result);
-                console.log(result.comment);
-                setComment(result.comment);
             } else {
                 // console.log("Server error:", await response.text());
                 alert('게시글 조회 중 서버 오류가 발생했습니다.');
