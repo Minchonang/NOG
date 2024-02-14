@@ -166,8 +166,8 @@ function Home() {
                 {/* 컨텐츠 2  */}
                 <div className={style.main_content_2}>
                   <div className={style.content_title}>
-                    <div>냉/난방</div>
-                    <div>온도 제어</div>
+                    <div>우리집</div>
+                    <div>원격제어</div>
                   </div>
                   <div className={style.content_text} onClick={openModal2}>
                     자세히 보기

@@ -162,6 +162,9 @@ function UserList() {
       </div>
       {selectedUser && (
         <div className={style.custom_modal}>
+          <span className={style.close} onClick={handleCloseModal}>
+            &times;
+          </span>
           <div className={style.modal_container}>
             <div className={style.modal_title}>{selectedUser.id}의 정보</div>
             <div className={style.modal_content}>
@@ -176,9 +179,7 @@ function UserList() {
                 {new Date(selectedUser.creDateTime).toLocaleString("ko-KR")}
               </p>
             </div>
-            <button className={style.close_btn} onClick={handleCloseModal}>
-              닫기
-            </button>
+            <button className={style.update_btn}>회원수정</button>
             <button className={style.delete_btn} onClick={handleDeletion}>
               회원삭제
             </button>
