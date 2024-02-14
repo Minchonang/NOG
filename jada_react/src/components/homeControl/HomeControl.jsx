@@ -156,7 +156,6 @@ function HomeControl() {
       } else {
         const errorData = await response.json();
         console.log("홈 디바이스 정보 조회 실패:", errorData);
-        alert("오류가 발생하였습니다.");
       }
     } catch (error) {
       console.error("서버 통신 오류", error);
@@ -397,7 +396,9 @@ function HomeControl() {
           >
             <div className={style.modal_container}>
               <FcHighPriority size="1.8em" />
-              <div className={style.modal_title}>등록된 제품이 없습니다.</div>
+              <div className={style.modal_title}>
+                등록된 기기가 <br /> 없습니다.
+              </div>
 
               <button className={style.modal_content}>
                 <NavLink to="/check_user">등록하기</NavLink>

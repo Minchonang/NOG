@@ -225,13 +225,13 @@
 .custom_modal {
   position: absolute;
   top: 30%;
-  left: 10%;
+  left: 15%;
   background: #fff;
   overflow: auto;
   outline: none;
   padding: 15px;
-  height: 30vh;
-  width: 80vw;
+  height: 40vh;
+  width: 70vw;
   border-radius: 5%;
   border: 2px solid #ff9f0a;
   text-align: center;
