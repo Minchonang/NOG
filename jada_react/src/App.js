@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 // import Index from './components/main/Index';
-import Login from "./components/login/Login";
+// import Login from './components/login/Login';
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
 import Join from "./components/Join/Join";
@@ -19,6 +19,7 @@ import BoardList from "./components/board/BoardList";
 import BoardDetail from "./components/board/BoardDetail";
 
 // const API_BASE_URL = 'http://localhost:8080';
+// const API_BASE_URL = 'http://54.180.132.149:8080';
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
             path="/chatbot"
             element={userId ? <ChatTest /> : <Navigate to="/login" />}
           />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
           <Route path="/join" element={<Join />} />
