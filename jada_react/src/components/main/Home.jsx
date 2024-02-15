@@ -7,9 +7,10 @@ import common from "../common/css/common.module.css";
 import style from "./css/Home.module.css";
 import img1 from "./img/img1.jpg";
 import img2 from "./img/img2.jpg";
-import cap1 from "./img/cap1.png";
-import cap2 from "./img/cap2.png";
-import cap3 from "./img/cap3.png";
+import img3 from "./img/img3.png";
+import img4 from "./img/img4.png";
+import img5 from "./img/img5.png";
+import img6 from "./img/img6.png";
 import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 import Loading from "../common/jsx/Loading";
@@ -154,10 +155,22 @@ function Home() {
           {/* 이미지 슬라이드 */}
           <div className={style.subtitle_area} ref={slideRef}>
             <div className={style.slide}>
-              <img src={img2} alt="Image1" />
+              <img src={img1} alt="Image1" />
             </div>
             <div className={style.slide}>
-              <img src={img1} alt="Image2" />
+              <img src={img2} alt="Image2" />
+            </div>
+            <div className={style.slide}>
+              <img src={img3} alt="Image3" />
+            </div>
+            <div className={style.slide}>
+              <img src={img4} alt="Image4" />
+            </div>
+            <div className={style.slide}>
+              <img src={img5} alt="Image5" />
+            </div>
+            <div className={style.slide}>
+              <img src={img6} alt="Image6" />
             </div>
           </div>
 
