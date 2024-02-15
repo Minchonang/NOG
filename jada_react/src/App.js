@@ -20,14 +20,17 @@ import BoardDetail from "./components/board/BoardDetail";
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {
-	const userId = sessionStorage.getItem("user_id");
+  const userId = sessionStorage.getItem("user_id");
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route
+            path="*"
+            element={userId ? <MyChart /> : <Navigate to="/" />}
+          />
           <Route
             path="/chatbot"
             element={userId ? <ChatTest /> : <Navigate to="/login" />}

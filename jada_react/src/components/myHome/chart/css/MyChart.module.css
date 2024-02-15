@@ -139,21 +139,36 @@
 
   transform: translateX(50%);
   right: 50%;
-  bottom: 0%;
+  bottom: 20%;
   font-size: 2rem;
-  color: rgb(248, 240, 0);
+  color: rgb(248, 4, 0);
+  text-shadow: -1px 0 rgb(219, 90, 4), 0 1px rgb(18, 70, 134),
+    2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255);
+}
+
+.doughnut_percentage {
+  position: absolute;
+  transform: translateX(50%);
+  right: 50%;
+
+  bottom: 0%;
+
+  font-size: 1rem;
+  color: rgb(255, 243, 6);
   text-shadow: -1px 0 rgb(219, 90, 4), 0 1px rgb(18, 70, 134),
     2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255);
 }
 
 .container > div > .chart_box > .text_box {
   padding: 1rem;
+  border-bottom: 0.1rem solid rgb(231, 229, 229);
 }
 
 .container > div > .chart_box > .chart_title_box {
   width: 100%;
   display: flex;
   align-items: center;
+  border-bottom: 0.1rem solid rgb(231, 229, 229);
 }
 
 .spring {
@@ -172,4 +187,40 @@
   text-shadow: none;
   color: rgb(253, 131, 0);
   border-radius: 1rem;
+}
+
+.pred_text {
+  margin-top: 1rem;
+  background-color: rgb(221, 221, 221);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 1px rgb(157, 157, 157);
+}
+
+.important_keywords {
+  color: rgb(11, 15, 239);
+  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
+    2px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
+}
+
+.container > div > .chart_box > .text_box > table {
+  margin-top: 1rem;
+  background-color: #d4d5d52b;
+  /* border: 0.1rem solid rgb(179, 179, 179); */
+  border-radius: 0.7rem;
+  box-shadow: 1px 1px 1px rgba(157, 157, 157, 0.185);
+}
+
+.bottom_close {
+  text-align: center;
+  color: rgb(116, 116, 116);
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+  font-size: 0.5rem;
+
+  /* background-color: red; */
+}
+
+.bottom_close:active {
+  background-color: rgb(234, 234, 234);
 }
