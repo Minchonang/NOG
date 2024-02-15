@@ -1,3 +1,6 @@
+.hidden {
+	display: none;
+}
 .background {
 	position: fixed;
 	z-index: 100;
@@ -73,12 +76,5 @@
 	}
 	.nav_btn:hover {
 		background-color: #fbd17c;
-	}
-
-	/* 관리자가 문의 답변 페이지 갈 경우 사라짐 */
-	@media screen and (min-width: 1024px) {
-		.background {
-			display: none;
-		}
 	}
 }
