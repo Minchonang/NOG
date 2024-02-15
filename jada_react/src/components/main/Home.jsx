@@ -220,7 +220,7 @@ function Home() {
                             </NavLink>
                         </div>
                     </div>
-                    <ChatBot />
+                    <ChatBot login={true}/>
                 </div>
             )}
         </>

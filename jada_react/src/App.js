@@ -28,7 +28,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="*" element={userId ? <MyChart /> : <Navigate to="/" />} />
-                    <Route path="/chatbot" element={userId ? <ChatTest /> : <Navigate to="/" />} />
+                    <Route path="/chatbot" element={<ChatTest />} />
                     <Route path="/find_id" element={<FindId />} />
                     <Route path="/find_pw" element={<FindPw />} />
                     <Route path="/join" element={<Join />} />
