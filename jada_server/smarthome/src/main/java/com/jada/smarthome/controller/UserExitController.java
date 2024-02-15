@@ -20,7 +20,7 @@ public class UserExitController {
     this.userExitService = userExitService;
   }
   
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/userdelete")
   public ResponseEntity<String> userExit(@RequestBody UserExitDto userExitDto){
     boolean result = userExitService.setExitContent(userExitDto);
