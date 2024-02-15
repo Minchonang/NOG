@@ -102,60 +102,104 @@ table {
 }
 
 /* -------------------------------------------------- */
-/* 모달창 */
+/* 모바일 - 모달창 */
 .custom_modal {
 	position: absolute;
-	top: 34%;
+	top: 28%;
 	left: 5%;
-	background: #fff;
+	display: flex;
+	background-color: #fff;
 	overflow: auto;
 	outline: none;
-	padding: 15px;
+	padding: 15px 15px 20px;
 	width: 90vw;
-	height: 51vh;
 	border-radius: 10px;
 	border: 2px solid #ff9f0a;
 	text-align: center;
+	box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	transition-duration: 0.3s;
 }
 
 .modal_container {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-content: center;
-	flex-wrap: wrap;
-	align-items: center;
 }
 
 .modal_title {
 	padding: 0 10px;
-	margin: 40px auto;
+	margin: 30px auto;
 	font-size: 1.8em;
 	font-family: "Godo", serif;
 }
 
 .modal_content {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	margin-bottom: 1em;
+	border: none;
+	color: #000000;
 	font-family: "Godo", serif;
 	font-size: 1.1em;
-	color: #000000;
-	width: 100%;
-	background: none;
-	border: none;
-	align-items: flex-start;
-	white-space: pre-wrap;
 }
-
 .modal_content p {
-	margin-bottom: 10px;
+	text-align: left;
+	margin: 7px 0;
 }
 
-.close_btn {
+.input_area {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: 3px 0;
+	white-space: normal;
+}
+.input_area p {
+	margin-bottom: 10px;
+	text-align: left;
+	margin: 5px 0;
+}
+.input_area input {
+	width: 100%;
+	margin: 5px 0;
+	color: gray;
+	font-family: "pretendard";
+	font-size: 1em;
+}
+
+/* 모달 닫기 버튼에 대한 스타일 */
+.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #000000;
+	border-radius: 50%;
+	float: right;
+	font-size: 35px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+	text-decoration: none;
+}
+
+/* ------------------------------- */
+/* 회원 수정 관련 */
+.update_btn_box {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.update_btn {
 	width: 100%;
 	padding: 4.5% 0;
-	margin: 0 auto;
+	margin: 5px 0;
 	color: black;
 	background: lightgray;
 	border: 0;
@@ -165,15 +209,6 @@ table {
 	font-family: "godo";
 	margin-top: 5px;
 }
-
-/* .close_btn:hover {
-	border: 2px solid #fbb245;
-	background: #fbb245;
-}
-
-.close_btn:active {
-	background-color: #fbb245;
-} */
 
 .delete_btn {
 	width: 100%;
@@ -189,11 +224,170 @@ table {
 	margin-top: 5px;
 }
 
-/* .delete_btn:hover {
-	border: 2px solid #ababab;
-	background: #ababab;
+/* '회원수정' 버튼을 눌렀을 때 */
+.update_btn_on {
+	width: 49%;
+	padding: 4.5% 0;
+	margin: 0;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	font-size: 1em;
+	font-family: "godo";
+	margin: 5px 0;
+	cursor: pointer;
+}
+.save_btn {
+	color: white;
+	background-color: #ff9f0a;
+}
+.cancel_btn {
+	color: black;
+	background-color: lightgray;
 }
 
-.delete_btn:active {
-	background-color: #ababab;
-} */
+.input_new {
+	width: 30vh;
+	padding: 0 1px 1%;
+	border: 0;
+	border-bottom: 2px solid lightgray;
+	border-radius: 0;
+	outline: none;
+	font-size: 0.9em;
+	font-family: "godo";
+	transition-duration: 0.3s;
+}
+.input_new:focus {
+	border-bottom: 2px solid #ff9f0a;
+}
+
+.btn_area {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.close_btn,
+.delete_btn {
+	width: 100%;
+	padding: 4.5% 0;
+	margin: 5px auto 0;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	font-family: "godo";
+	font-size: 1em;
+}
+.close_btn {
+	color: black;
+	background-color: lightgray;
+}
+.delete_btn {
+	color: white;
+	background: red;
+}
+
+/* -------------------------------------------------- */
+
+@media screen and (min-width: 1024px) {
+	.main_area {
+		padding: 136px 15% 90px;
+		background-color: #f5f5f5;
+	}
+
+	.title {
+		margin: 8% auto;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.title div {
+		font-size: 3em;
+	}
+
+	/* 검색창 */
+	.searchInput {
+		padding: 1.5%;
+		font-size: 1.2em;
+		margin-right: 20px;
+	}
+
+	.searchButton {
+		width: 20%;
+		font-size: 1.5em;
+	}
+
+	/* 테이블 */
+	.userList_table {
+		background-color: white;
+	}
+	
+	.userList_table tr:nth-child(n + 2) {
+		transition-duration: 0.3s;
+		cursor: pointer;
+
+	}
+	.userList_table tr:hover {
+		background-color: #fbd17c;
+	}
+
+	/* 전체 회원 수 */
+	.totalMember {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	/* -------------------------------------------------- */
+	/* 웹버전 - 모달창 */
+	.custom_modal {
+		top: 26%;
+		left: 35%;
+		width: 30%;
+		height: auto;
+		margin: 0 auto;
+		padding: 60px 65px 50px;
+		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	}
+
+	.modal_title {
+		margin: 10px auto 40px;
+
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.modal_content p {
+		width: 100%;
+	}
+
+	/* 이메일 수정할 때 */
+	.input_new {
+		width: auto;
+	}
+
+	.btn_area {
+		width: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 3% 0;
+	}
+
+	.update_btn,
+	.close_btn,
+	.delete_btn {
+		width: 100%;
+		padding: 4.5% 0;
+		cursor: pointer;
+		transition-duration: 0.3s;
+	}
+
+	.totalMember {
+		margin: 30px 0;
+		font-size: 1.5em;
+	}
+}

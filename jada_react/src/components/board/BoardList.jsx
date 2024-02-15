@@ -20,7 +20,6 @@ function BoardList() {
     const getBoardList = async () => {
         try {
             const userId = sessionStorage.getItem('user_id');
-
             // 서버로 데이터 전송
             const response = await fetch(`${API_BASE_URL}/api/board/boardList/${userId}`, {
                 method: 'GET',
@@ -28,6 +27,7 @@ function BoardList() {
                     'Content-Type': 'application/json',
                 },
             });
+
             if (response.ok) {
                 // 서버 응답이 성공인 경우
                 const result = await response.json();
@@ -42,10 +42,12 @@ function BoardList() {
             console.error('서버 통신 오류', error);
         }
     };
-    console.log(boards);
+    // console.log(boards);
+
     const goDetail = (boardId) => {
         window.location.href = `/boardDetail/${boardId}`;
     };
+
     return (
         <div className={common.background}>
             <Header sub_title="내 정보" />

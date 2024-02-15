@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
+// import Index from './components/main/Index';
 import Login from "./components/login/Login";
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
@@ -17,6 +18,7 @@ import Board from "./components/board/Board";
 import BoardList from "./components/board/BoardList";
 import BoardDetail from "./components/board/BoardDetail";
 
+// const API_BASE_URL = 'http://localhost:8080';
 const API_BASE_URL = "http://localhost:8080";
 
 function App() {

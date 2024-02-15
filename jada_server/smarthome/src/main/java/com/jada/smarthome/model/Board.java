@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.ToString;
@@ -40,12 +39,11 @@ public class Board implements Serializable {
   
   private LocalDateTime writeDate;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "writer", referencedColumnName = "id")
   private User writer;
 
   //board랑 comment랑 양방향
-  @JsonIgnore
-  @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
   private List<Comment> comments;
 }

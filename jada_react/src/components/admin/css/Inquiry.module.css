@@ -21,14 +21,6 @@
 
 /* -------------------------------------------------- */
 /* 테이블 */
-.userList_title {
-	width: 100%;
-	padding: 3% 0;
-	background-color: #fbd17c;
-	border-bottom: 2px solid #ff9f0a;
-	font-size: 1.2em;
-}
-
 .boardList_table {
 	display: block;
 	height: 61vh;
@@ -38,6 +30,17 @@
 	border: 2px solid #ff9f0a;
 	border-radius: 10px;
 	text-align: center;
+}
+
+.userList_title {
+	width: 100%;
+	padding: 3% 0;
+	background-color: #fbd17c;
+	border-bottom: 2px solid #ff9f0a;
+	font-size: 1.2em;
+}
+.userList_title td:first-child {
+	padding-left: 5px;
 }
 
 .boardList_table table {
@@ -51,29 +54,29 @@
 	padding: 2vh 0;
 	border-bottom: 1px solid #ff9f0a;
 }
+.boardList_table tr:nth-child(n + 2):active {
+	background-origin: #fbd17c;
+}
 .boardList_table td {
 	padding: 1vh 0;
 	border-bottom: 1px solid lightgray;
 }
-/* .boardList_table td:first-child {
-	padding: 0 15px;
-} */
 
 /* -------------------------------------------------- */
 /* 모달창 */
 .custom_modal {
 	position: absolute;
-	top: 27.5%;
+	top: 35%;
 	left: 5%;
 	background: #fff;
 	overflow: auto;
 	outline: none;
-	padding: 15px;
+	padding: 15px 15px 20px;
 	width: 90vw;
-	height: 57vh;
 	border-radius: 10px;
 	border: 2px solid #ff9f0a;
 	text-align: center;
+	box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 }
 
 .modal_container {
@@ -84,6 +87,20 @@
 	flex-wrap: wrap;
 	align-items: center;
 }
+
+/* 모달 닫기 버튼에 대한 스타일 */
+.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #000000;
+	border-radius: 50%;
+	float: right;
+	font-size: 35px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
 /* 수평선 */
 .bookends {
 	position: relative;
@@ -117,7 +134,7 @@
 
 .modal_title {
 	padding: 0 10px;
-	margin: 40px auto;
+	margin: 30px auto;
 	font-size: 1.8em;
 	font-family: "Godo", serif;
 }
@@ -140,6 +157,12 @@
 	margin-bottom: 10px;
 }
 
+.btn_area {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
 .reply_btn,
 .close_btn {
 	width: 100%;
@@ -150,7 +173,6 @@
 	outline: none;
 	font-size: 1em;
 	font-family: "godo";
-	margin: 5px 0;
 }
 .reply_btn {
 	color: white;
@@ -162,11 +184,90 @@
 	background: lightgray;
 }
 
-/* .close_btn:hover {
-	border: 2px solid #fbb245;
-	background: #fbb245;
-} */
-
 .close_btn:active {
 	background-color: #fbb245;
+}
+
+/* -------------------------------------------------- */
+
+@media screen and (min-width: 1024px) {
+	.main_area {
+		padding: 136px 15% 90px;
+		background-color: #f5f5f5;
+	}
+
+	.title {
+		margin: 8% auto;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.title div {
+		font-size: 3em;
+	}
+
+	.boardList_table {
+		background-color: white;
+	}
+
+	.boardList_table tr:nth-child(n + 2) {
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.boardList_table tr:nth-child(n + 2):hover {
+		background-color: #fbd17c;
+	}
+
+	.userList_title {
+		padding: 5% 0;
+		font-size: 1.7em;
+	}
+
+	/* -------------------------------------------------- */
+	/* 데스크탑 - 모달창 */
+	.custom_modal {
+		top: 26%;
+		left: 35%;
+		width: 30%;
+		margin: 0 auto;
+		padding: 60px 70px 50px;
+		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	}
+
+	.modal_title {
+		margin: 10px auto 30px;
+
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.modal_content {
+		margin: 1.1em 0;
+	}
+
+	.btn_area {
+		width: 100%;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 3% 0;
+	}
+
+	.reply_btn {
+		width: 100%;
+		padding: 5% 0;
+		cursor: pointer;
+	}
+	/* .reply_btn,
+	.close_btn {
+		width: 49%;
+		padding: 3% 0;
+		cursor: pointer;
+	} */
+
+	.close_btn:active {
+		background-color: lightgray;
+	}
 }
