@@ -37,6 +37,7 @@ public class JdbcUserRepository {
             if (rs.getObject("user_home_id") != null) {
             HomeDevice homeDevice = new HomeDevice();
             homeDevice.setHomeId(rs.getInt("user_home_id"));
+            homeDevice.setSerialNum(rs.getString("serial_num"));
             user.setHomeDevice(homeDevice);
         }
 
