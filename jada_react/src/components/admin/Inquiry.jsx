@@ -7,11 +7,12 @@ import common from "../common/css/common.module.css";
 import style from "./css/Inquiry.module.css";
 
 function Inquiry() {
+	const [boards, setBoards] = useState([]);
+	const [selectedBoard, setSelectedBoard] = useState(null);
+
 	useEffect(() => {
 		getBoardList();
 	}, []);
-	const [boards, setBoards] = useState([]);
-	const [selectedBoard, setSelectedBoard] = useState(null);
 
 	//  ------- 게시글 list 가져오기 -------
 	const getBoardList = async () => {
@@ -43,12 +44,13 @@ function Inquiry() {
 		setSelectedBoard(board);
 	};
 
+	// 모달 창 닫기
 	const handleCloseModal = () => {
 		setSelectedBoard(null);
 	};
 
 	const goDetail = (boardId) => {
-		window.location.href = `/boardDetail/${boardId}`;
+		window.open(`/boardDetail/${boardId}`);
 	};
 	return (
 		<>

@@ -77,17 +77,17 @@
 /* 모달창 */
 .custom_modal {
 	position: absolute;
-	top: 15%;
+	top: 33%;
 	left: 5%;
 	background: #fff;
 	overflow: auto;
 	outline: none;
-	padding: 15px;
+	padding: 15px 15px 20px;
 	width: 90vw;
-	height: 51vh;
 	border-radius: 10px;
 	border: 2px solid #ff9f0a;
 	text-align: center;
+	box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 }
 
 .modal_container {
@@ -97,6 +97,18 @@
 	align-content: center;
 	flex-wrap: wrap;
 	align-items: center;
+}
+
+.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #000000;
+	border-radius: 50%;
+	float: right;
+	font-size: 35px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .modal_title {
@@ -224,6 +236,18 @@
 		padding: 1.5% 0;
 	}
 
+	.boardList_table {
+		background-color: white;
+	}
+
+	.boardList_table tr:nth-child(n + 2) {
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.boardList_table tr:nth-child(n + 2):hover {
+		background-color: #fbd17c;
+	}
+
 	.boardList_table,
 	.boardList_graph {
 		max-height: 70vh;
@@ -231,5 +255,16 @@
 
 	.boardList_table tbody tr td {
 		padding: 1% 0;
+	}
+
+	/* -------------------------------------------------- */
+	/* 모달창 */
+	.custom_modal {
+		width: 30%;
+		top: 30%;
+		left: 35%;
+		margin: 0 auto;
+		padding: 20px 50px 30px;
+		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 	}
 }
