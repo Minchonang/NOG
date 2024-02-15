@@ -135,6 +135,10 @@ const MyChart = () => {
 
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
+    if (event.target.value === "") {
+      return false;
+    }
+
     setSearchDate(event.target.value);
   };
 
@@ -159,6 +163,7 @@ const MyChart = () => {
                   <span className={style.spring}></span>
 
                   <select onChange={searchDateHandler} value={searchDate}>
+                    <option value="">조회기간</option>
                     {Object.keys(period).map((key, index) => (
                       <option key={index} value={period[key]}>
                         {period[key]}
