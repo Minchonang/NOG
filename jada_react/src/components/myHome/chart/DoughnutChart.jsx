@@ -4,6 +4,7 @@ import style from "./css/MyChart.module.css";
 
 const DoughnutChart = ({ data1 }) => {
   const my = data1[1];
+  const percentage = data1[2];
 
   const total = data1[0] * 1 - data1[1] <= 0 ? 0 : data1[0] * 1 - data1[1];
 
@@ -54,6 +55,9 @@ const DoughnutChart = ({ data1 }) => {
         className={style.doughnut_chart}
       />
       <span className={style.doughnut_value}>{my ? my : 0}kWh</span>
+      <span className={style.doughnut_percentage}>
+        {percentage ? "저번 달 대비 " + percentage : 0}%
+      </span>
     </div>
   );
 };

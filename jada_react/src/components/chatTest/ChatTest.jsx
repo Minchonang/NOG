@@ -11,10 +11,6 @@ import style from "./css/ChatTest.module.css";
 
 const socket = io("http://192.168.0.67:5000");
 
-// const socket = io("172.20.10.5");
-// 오늘 점심 -> 이미지 테스트
-// 전기 요금 계산 -> 링크
-
 const ChatTest = () => {
   const bot_NOG =
     "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
@@ -118,6 +114,10 @@ const ChatTest = () => {
     <>
       <div className={common.background}>
         <Header sub_title="ChatBot" />
+        {/* <div className={style.title_area}>
+          <NavLink to="/">NOG</NavLink>
+          <div>Chatbot</div>
+        </div> */}
 
         <div className={style.chatContainer} id="chatContainer">
           {/* 챗봇 첫인사 */}

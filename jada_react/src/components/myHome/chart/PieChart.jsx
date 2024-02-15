@@ -12,22 +12,21 @@ const PieChart = ({ chart_Data2 }) => {
   // const usage_17_22 = Math.round(my_pattern["usage_17_22"]/total_usage*1000)/10
   // // 이 도시의 전달 소비패턴
   // const city_pattern = data2[1]
-  const usage_23_4 = chart_Data2["심야,새벽"];
-  const usage_5_10 = chart_Data2["오전"];
-  const usage_11_16 = chart_Data2["오후"];
-  const usage_17_22 = chart_Data2["저녁"];
+  const usage_23_4 =
+    chart_Data2 && chart_Data2["심야,새벽"] ? chart_Data2["심야,새벽"] : 0;
+  const usage_5_10 =
+    chart_Data2 && chart_Data2["오전"] ? chart_Data2["오전"] : 0;
+  const usage_11_16 =
+    chart_Data2 && chart_Data2["오후"] ? chart_Data2["오후"] : 0;
+  const usage_17_22 =
+    chart_Data2 && chart_Data2["저녁"] ? chart_Data2["저녁"] : 0;
 
   const data = {
     labels: ["오전", "오후", "저녁", "심야,새벽"],
     datasets: [
       {
         label: "비율%",
-        data: [
-          usage_5_10 ? usage_5_10 : 1,
-          usage_11_16 ? usage_11_16 : 1,
-          usage_17_22 ? usage_17_22 : 1,
-          usage_23_4 ? usage_23_4 : 1,
-        ],
+        data: [usage_5_10, usage_11_16, usage_17_22, usage_23_4],
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
