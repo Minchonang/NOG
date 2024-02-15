@@ -34,7 +34,7 @@ public class HomeDeviceController {
   UserRepository userRepository;
 
   // 홈 디바이스 정보 조회
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/")
   public ResponseEntity<HomeDeviceDto> homedevice(@RequestBody HomeDeviceDto homeDeviceDto){
 
@@ -42,7 +42,7 @@ public class HomeDeviceController {
   }
 
   // 전등 온오프 수정
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/editLight")
   public ResponseEntity<String> editLight(@RequestBody HomeDeviceDto homeDeviceDto){
       try {
@@ -58,7 +58,7 @@ public class HomeDeviceController {
   }
 
  // 에어컨 온오프 수정
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/editAir")
   public ResponseEntity<String> editAir(@RequestBody HomeDeviceDto homeDeviceDto){
      try {
@@ -76,7 +76,7 @@ public class HomeDeviceController {
 }
 
  // 보일러 온오프 수정
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/editBoiler")
   public ResponseEntity<String> editBoiler(@RequestBody HomeDeviceDto homeDeviceDto){
      try {
@@ -92,7 +92,7 @@ public class HomeDeviceController {
 }
  
   // 온도 수정
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/editTemp")
   public ResponseEntity<String> editTemp(@RequestBody HomeDeviceDto homeDeviceDto){
       try {
@@ -106,7 +106,7 @@ public class HomeDeviceController {
   }
 
   // 시리얼 넘버 조회
-  @CrossOrigin(origins = "http://54.180.132.149:3000")
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/serialCheck")
   public ResponseEntity<Map<String, String>> serialCheck(@RequestBody Map<String, String> serialCheck){
       try {
