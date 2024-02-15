@@ -207,144 +207,151 @@ function UserList() {
     };
 
     return (
-        <div className={style.main_area}>
-            <div className={style.title}>
-                <div>회원목록</div>
-            </div>
+        <>
+            <div className={style.main_area}>
+                <div className={style.title}>
+                    <div>회원목록</div>
+                </div>
 
-            <div className={style.searchBox}>
-                <input
-                    type="text"
-                    className={style.searchInput}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="ID 또는 이름 검색"
-                />
-                <button className={style.searchButton} onClick={handleSearch}>
-                    검색
-                </button>
-            </div>
-            <div className={style.userList_container}>
-                <div className={style.userList_table}>
-                    <table>
-                        <tbody>
-                            <tr className={style.userList_title}>
-                                <td>ID</td>
-                                <td>이름</td>
-                                <td>기기 정보</td>
-                            </tr>
-                            {users.map((user) => (
-                                <tr key={user.id} onClick={() => handleUserClick(user)}>
-                                    <td>{user.id}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.homeDevice ? user.homeDevice.homeId : ''}</td>
+                <div className={style.searchBox}>
+                    <input
+                        type="text"
+                        className={style.searchInput}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="ID 또는 이름 검색"
+                    />
+                    <button className={style.searchButton} onClick={handleSearch}>
+                        검색
+                    </button>
+                </div>
+                <div className={style.userList_container}>
+                    <div className={style.userList_table}>
+                        <table>
+                            <tbody>
+                                <tr className={style.userList_title}>
+                                    <td>ID</td>
+                                    <td>이름</td>
+                                    <td>기기 정보</td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                <div className={style.totalMember} style={{ textAlign: 'center' }}>
-                    전체 회원 수: {totalUsers}명
-                </div>
-            </div>
-            {selectedUser && (
-                <div className={style.custom_modal}>
-                    <span className={style.close} onClick={handleCloseModal}>
-                        &times;
-                    </span>
-                    <div className={style.modal_container}>
-                        <div className={style.modal_title}>{selectedUser.id}의 정보</div>
-                        <div className={style.modal_content}>
-                            {!editMode ? (
-                                <>
-                                    <p>이름: {selectedUser.name}</p>
-                                    <p>이메일: {selectedUser.email}</p>
-                                    <p>번호: {formatPhone(selectedUser.phone)}</p>
-                                    <p>
-                                        지역: {selectedUser.address1} {selectedUser.address2}
-                                    </p>
-                                    <p>시리얼번호: {selectedUser.serialNum}</p>
-                                    <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
-                                </>
-                            ) : (
-                                <>
-                                    <p>
-                                        이름:{' '}
-                                        <input
-                                            type="text"
-                                            placeholder="이름"
-                                            value={updatedName}
-                                            onChange={(e) => setUpdatedName(e.target.value)}
-                                            className={style.input_new}
-                                        />
-                                    </p>
-                                    <p>
-                                        이메일:{' '}
-                                        <input
-                                            type="text"
-                                            placeholder="이메일"
-                                            value={updatedEmail}
-                                            onChange={(e) => setUpdatedEmail(e.target.value)}
-                                            className={style.input_new}
-                                        />
-                                    </p>
-                                    <p>
-                                        번호:{' '}
-                                        <input
-                                            type="text"
-                                            placeholder="번호"
-                                            value={updatedPhone}
-                                            onChange={(e) => setUpdatedPhone(e.target.value)}
-                                            className={style.input_new}
-                                        />
-                                    </p>
-                                    <p>
-                                        지역1:{' '}
-                                        <input
-                                            type="text"
-                                            placeholder="지역1"
-                                            value={updatedAddress1}
-                                            onChange={(e) => setUpdatedAddress1(e.target.value)}
-                                            className={style.input_new}
-                                        />
-                                    </p>
-                                    <p>
-                                        지역2:{' '}
-                                        <input
-                                            type="text"
-                                            placeholder="지역2"
-                                            value={updatedAddress2}
-                                            onChange={(e) => setUpdatedAddress2(e.target.value)}
-                                            className={style.input_new}
-                                        />
-                                    </p>
-                                </>
-                            )}
-                        </div>
-                        {!editMode && (
-                            <button className={style.update_btn} onClick={handleEditButtonClick}>
-                                회원수정
-                            </button>
-                        )}
-                        {editMode && (
-                            <>
-                                <div className={style.update_btn_box}>
-                                    <button className={style.update_btn_on} onClick={handleUserUpdate}>
-                                        저장
-                                    </button>
-                                    <button className={style.update_btn_on} onClick={handleCancelEdit}>
-                                        취소
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                        <button className={style.delete_btn} onClick={handleDeletion}>
-                            회원삭제
-                        </button>
+                                {users.map((user) => (
+                                    <tr key={user.id} onClick={() => handleUserClick(user)}>
+                                        <td>{user.id}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.homeDevice ? user.homeDevice.homeId : ''}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={style.totalMember} style={{ textAlign: 'center' }}>
+                        전체 회원 수: {totalUsers}명
                     </div>
                 </div>
-            )}
-        </div>
+                {selectedUser && (
+                    <div className={style.custom_modal}>
+                        <span className={style.close} onClick={handleCloseModal}>
+                            &times;
+                        </span>
+                        <div className={style.modal_container}>
+                            <div className={style.modal_title}>{selectedUser.id}의 정보</div>
+                            <div className={style.modal_content}>
+                                {!editMode ? (
+                                    <>
+                                        <p>이름: {selectedUser.name}</p>
+                                        <p>이메일: {selectedUser.email}</p>
+                                        <p>번호: {formatPhone(selectedUser.phone)}</p>
+                                        <p>
+                                            지역: {selectedUser.address1} {selectedUser.address2}
+                                        </p>
+                                        <p>
+                                            시리얼번호:{' '}
+                                            {selectedUser.homeDevice && selectedUser.homeDevice.serialNum
+                                                ? selectedUser.homeDevice.serialNum
+                                                : ''}{' '}
+                                        </p>
+                                        <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>
+                                            이름:{' '}
+                                            <input
+                                                type="text"
+                                                placeholder="이름"
+                                                value={updatedName}
+                                                onChange={(e) => setUpdatedName(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        </p>
+                                        <p>
+                                            이메일:{' '}
+                                            <input
+                                                type="text"
+                                                placeholder="이메일"
+                                                value={updatedEmail}
+                                                onChange={(e) => setUpdatedEmail(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        </p>
+                                        <p>
+                                            번호:{' '}
+                                            <input
+                                                type="text"
+                                                placeholder="번호"
+                                                value={updatedPhone}
+                                                onChange={(e) => setUpdatedPhone(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        </p>
+                                        <p>
+                                            지역1:{' '}
+                                            <input
+                                                type="text"
+                                                placeholder="지역1"
+                                                value={updatedAddress1}
+                                                onChange={(e) => setUpdatedAddress1(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        </p>
+                                        <p>
+                                            지역2:{' '}
+                                            <input
+                                                type="text"
+                                                placeholder="지역2"
+                                                value={updatedAddress2}
+                                                onChange={(e) => setUpdatedAddress2(e.target.value)}
+                                                className={style.input_new}
+                                            />
+                                        </p>
+                                    </>
+                                )}
+                            </div>
+                            {!editMode && (
+                                <button className={style.update_btn} onClick={handleEditButtonClick}>
+                                    회원수정
+                                </button>
+                            )}
+                            {editMode && (
+                                <>
+                                    <div className={style.update_btn_box}>
+                                        <button className={style.update_btn_on} onClick={handleUserUpdate}>
+                                            저장
+                                        </button>
+                                        <button className={style.update_btn_on} onClick={handleCancelEdit}>
+                                            취소
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                            <button className={style.delete_btn} onClick={handleDeletion}>
+                                회원삭제
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </>
     );
 }
 

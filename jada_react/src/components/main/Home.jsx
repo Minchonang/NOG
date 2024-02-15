@@ -106,17 +106,16 @@ function Home() {
 
       if (response.ok) {
         // 로그인 성공 처리
-        // const data = await response.json();
-        console.log("로그인 성공:");
-        console.log(response);
+        console.log("로그인 성공");
 
         // 서버에서 반환된 값 출력
         const responseData = await response.json();
-        // userId 추출
-        const receivedUserId = responseData.userId;
         console.log("서버 응답 데이터:", responseData);
-        console.log(responseData.userId);
+        // userId 추출
+        const receivedUserId = responseData.id;
+        console.log("유저 ID :", receivedUserId);
         window.sessionStorage.setItem("user_id", receivedUserId);
+
         window.location.href = "/analysis";
       } else {
         // 로그인 실패 처리

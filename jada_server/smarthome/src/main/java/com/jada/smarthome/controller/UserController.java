@@ -81,31 +81,34 @@ public class UserController {
     // @CrossOrigin(origins = "http://192.168.0.70:3000")
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> loginUser(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
         
         // 컨트롤러에서 서비스로 DTO 전달
-        String loginResult = userService.loginUser(loginUserDto, session);
+        LoginUserDto loginResult = userService.loginUser(loginUserDto, session);
 
         // 로그인 성공 여부에 따라 응답을 다르게 설정
-        if (loginResult.equals("로그인 성공")) {
+        if (loginResult.getResponse().equals("로그인 성공")) {
             String userId = loginUserDto.getId();
         
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("userId", userId);
-            // --------------지워야할 것 -----------------------------
+
+            // -------------- 세션 저장 -----------------------------
             String user_id = (String) session.getAttribute("user_id");
             System.out.println("---------0-------session(user_id)"+user_id);
 
-            return ResponseEntity.ok(responseMap);
-            // return ResponseEntity.ok("로그인 성공, user_id: " + userId);
-            // return ResponseEntity.ok("로그인 성공");
-        } else if (loginResult.equals("비밀번호 불일치")) {
+            return ResponseEntity.ok(loginResult);
+
+        } else if (loginResult.getResponse().equals("비밀번호 불일치")) {
             return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        } else {
+            .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));
+            }
+             else {
                 return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));        }
+                .body(Collections.singletonMap("error", "해당 사용자가 존재하지 않습니다."));
+             }
     }
 
     // 로그아웃
