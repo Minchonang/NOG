@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { IoLogOut } from "react-icons/io5";
+import { FcExport } from "react-icons/fc";
 import { API_BASE_URL } from "../../../App.js";
 import { FcAssistant } from "react-icons/fc";
 import { FcRating } from "react-icons/fc";
@@ -67,7 +67,7 @@ function Header({ sub_title }) {
               문의사항
             </div>
             <div className={header.subMenuItem} onClick={go_logout}>
-              <IoLogOut className={header.logout} />
+              <FcExport className={header.logout} />
               로그아웃
             </div>
           </div>

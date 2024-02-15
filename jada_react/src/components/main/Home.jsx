@@ -113,10 +113,16 @@ function Home() {
         console.log("서버 응답 데이터:", responseData);
         // userId 추출
         const receivedUserId = responseData.id;
+        const receivedUserRole = responseData.role;
         console.log("유저 ID :", receivedUserId);
+        console.log("유저 ROLE :", receivedUserRole);
         window.sessionStorage.setItem("user_id", receivedUserId);
 
-        window.location.href = "/analysis";
+        if (receivedUserRole == 1) {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "/analysis";
+        }
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패:", response.status);
