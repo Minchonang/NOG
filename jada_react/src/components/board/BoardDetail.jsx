@@ -245,7 +245,7 @@ function BoardDetail() {
 				)}
 			</div>
 
-			<BottomNav />
+			<BottomNav admin={true}/>
 		</div>
 	);
 }
