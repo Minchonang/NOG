@@ -22,6 +22,7 @@ function NogiAnalysis() {
 	const [showChatbot, setShowChatBot] = useState(true);
 	const [showDelReason, setShowDelReason] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const [selectedBoard, setSelectedBoard] = useState(null);
 
 	// 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
 	useEffect(() => {
@@ -37,6 +38,9 @@ function NogiAnalysis() {
 			clearTimeout(timeoutId);
 		};
 	}, []);
+
+	// 모달 닫기 동작
+
 	// 챗봇-탈퇴사유 토글 버튼
 	const clickChatbot = () => {
 		if (showDelReason) {
@@ -263,8 +267,10 @@ function NogiAnalysis() {
 								</div>
 								{selectedBoard1 && (
 									<div className={style.custom_modal}>
+										<div className={style.close} onClick={handleCloseModal1}>
+											&times;
+										</div>
 										<div className={style.modal_container}>
-											<hr className={style.bookends} />
 											<div className={style.modal_title}>챗봇 대화</div>
 											<div className={style.modal_content}>
 												<p>회원: {selectedBoard1.chat_user_id}</p>
@@ -294,12 +300,12 @@ function NogiAnalysis() {
 													)}
 												</p>
 											</div>
-											<button
+											{/* <button
 												className={style.close_btn}
 												onClick={handleCloseModal1}
 											>
 												닫기
-											</button>
+											</button> */}
 										</div>
 									</div>
 								)}
@@ -324,7 +330,7 @@ function NogiAnalysis() {
 								{/* 탈퇴사유 표 */}
 								<div className={style.list}>
 									<div className={style.boardList_title}>
-										<div>탈퇴일자</div>
+										<div>탈퇴일</div>
 										<div>탈퇴사유</div>
 									</div>
 									<div className={style.boardList_table}>
@@ -378,8 +384,10 @@ function NogiAnalysis() {
 								</div>
 								{selectedBoard2 && (
 									<div className={style.custom_modal}>
+										<div className={style.close} onClick={handleCloseModal2}>
+											&times;
+										</div>
 										<div className={style.modal_container}>
-											<hr className={style.bookends} />
 											<div className={style.modal_title}>챗봇 대화</div>
 											<div className={style.modal_content}>
 												<p>탈퇴 회원 거주지역: {selectedBoard2.user_address}</p>
@@ -399,12 +407,12 @@ function NogiAnalysis() {
 													)}
 												</p>
 											</div>
-											<button
+											{/* <button
 												className={style.close_btn}
 												onClick={handleCloseModal2}
 											>
 												닫기
-											</button>
+											</button> */}
 										</div>
 									</div>
 								)}

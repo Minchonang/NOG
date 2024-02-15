@@ -207,6 +207,10 @@
 		font-size: 3em;
 	}
 
+	.boardList_table {
+		background-color: white;
+	}
+
 	.boardList_table tr:nth-child(n + 2) {
 		transition-duration: 0.3s;
 		cursor: pointer;
@@ -226,7 +230,6 @@
 		top: 26%;
 		left: 35%;
 		width: 30%;
-		height: auto;
 		margin: 0 auto;
 		padding: 60px 70px 50px;
 		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
