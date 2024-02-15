@@ -205,12 +205,16 @@ function NogiAnalysis() {
                 <div className={style.boardList_table}>
                   <table>
                     <tbody>
-                      <canvas
-                        className={style.canvas1}
-                        ref={chartRef1}
-                        width={400}
-                        height={400}
-                      ></canvas>
+                      <tr>
+                        <td>
+                          <canvas
+                            className={style.canvas1}
+                            ref={chartRef1}
+                            width={400}
+                            height={400}
+                          ></canvas>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -322,12 +326,16 @@ function NogiAnalysis() {
                 <div className={style.boardList_table}>
                   <table>
                     <tbody>
-                      <canvas
-                        className={style.canvas2}
-                        ref={chartRef2}
-                        width={200}
-                        height={200}
-                      ></canvas>
+                      <tr>
+                        <td>
+                          <canvas
+                            className={style.canvas2}
+                            ref={chartRef2}
+                            width={200}
+                            height={200}
+                          ></canvas>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
