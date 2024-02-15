@@ -1,14 +1,10 @@
-import os  
-import pprint
 import datetime
 import pandas as pd
-import numpy as np
 import requests
 
-class upbit_control:
+class upbit_control_class:
     def __init__(self):
-        import requests
-        
+        self
         # 코인 이름 반환
     def coin_names(self):
         url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -35,8 +31,8 @@ class upbit_control:
     def now_and_long_ago(self, long):
         """
         200 단위로 넣어야 합니다....
-        :param long:
-        :return:
+        :param : long = 400이상 200단위 int
+        :return: list
         """
         now = datetime.datetime.now()
         ran = long / 200
