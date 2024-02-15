@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-// import Index from './components/main/Index';
-// import Login from './components/login/Login';
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
 import Join from "./components/Join/Join";
@@ -36,47 +34,46 @@ function App() {
           />
           <Route
             path="/chatbot"
-            element={userId ? <ChatTest /> : <Navigate to="/login" />}
+            element={userId ? <ChatTest /> : <Navigate to="/" />}
           />
-          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/find_id" element={<FindId />} />
           <Route path="/find_pw" element={<FindPw />} />
           <Route path="/join" element={<Join />} />
           <Route
             path="/analysis"
-            element={userId ? <MyChart /> : <Navigate to="/login" />}
+            element={userId ? <MyChart /> : <Navigate to="/" />}
           />
           <Route
             path="/check_user"
-            element={userId ? <CheckUser /> : <Navigate to="/login" />}
+            element={userId ? <CheckUser /> : <Navigate to="/" />}
           />
           <Route
             path="/edit_userinfo"
-            element={userId ? <EditUserInfo /> : <Navigate to="/login" />}
+            element={userId ? <EditUserInfo /> : <Navigate to="/" />}
           />
           <Route
             path="/delete_check"
-            element={userId ? <DeleteCheck /> : <Navigate to="/login" />}
+            element={userId ? <DeleteCheck /> : <Navigate to="/" />}
           />
           <Route
             path="/homeControl"
-            element={userId ? <HomeControl /> : <Navigate to="/login" />}
+            element={userId ? <HomeControl /> : <Navigate to="/" />}
           />
           <Route
             path="/admin"
-            element={userId ? <Admin /> : <Navigate to="/login" />}
+            element={userId ? <Admin /> : <Navigate to="/" />}
           />
           <Route
             path="/board"
-            element={userId ? <Board /> : <Navigate to="/login" />}
+            element={userId ? <Board /> : <Navigate to="/" />}
           />
           <Route
             path="/boardList"
-            element={userId ? <BoardList /> : <Navigate to="/login" />}
+            element={userId ? <BoardList /> : <Navigate to="/" />}
           />
           <Route
             path="/boardDetail/:boardId"
-            element={userId ? <BoardDetail /> : <Navigate to="/login" />}
+            element={userId ? <BoardDetail /> : <Navigate to="/" />}
           />
         </Routes>
       </BrowserRouter>
