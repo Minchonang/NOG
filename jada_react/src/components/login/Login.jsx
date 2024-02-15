@@ -5,7 +5,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import style from './css/Login.module.css';
 import common from '../common/css/common.module.css';
-import BottomNav from '../common/jsx/BottomNav.jsx';
+
 
 function Login() {
     // 페이지 진입 시 바로 아이디 입력(input)에 focus 실행
