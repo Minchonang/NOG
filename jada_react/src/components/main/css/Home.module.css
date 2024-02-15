@@ -12,24 +12,20 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  padding: 2% 5%;
+  padding: 4% 5%;
   background-color: #fbf7ef;
   font-family: "godo";
   font-size: 1.7em;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   justify-content: space-between;
   align-items: center;
-}
-.title_area a:nth-child(2) {
-  font-size: 0.7em;
-  color: #555;
+  color: #ff9f0a;
 }
 
 /* ------------------------ */
 /* 이미지 슬라이드 */
 .subtitle_area {
   position: absolute;
-  transform: translateX(-50%);
   margin-top: 40%;
   margin-left: 5%;
 }
@@ -60,8 +56,15 @@
   border-radius: 10px;
 }
 
-/* ---------------- */
-/* 상세설명 부분 */
+.title_name {
+  font-size: 3em;
+  font-family: "godo";
+  text-align: center;
+  margin-top: 2em;
+}
+
+/* ----------------------------------- */
+/* 아이디, 비밀번호 입력 */
 .main_area {
   position: absolute;
   width: 100%;
@@ -69,195 +72,7 @@
   display: flex;
   flex-direction: column;
   font-family: "Godo", serif;
-  margin-top: 20em;
-}
-
-.main_contents {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  flex-direction: column;
-}
-
-.main_content_1,
-.main_content_4 {
-  position: relative;
-  width: 100%;
-  padding: 20px;
-  margin-top: 10px;
-  border: 2px solid #f4a64c; /* Updated border style */
-  border-radius: 15px; /* Updated border-radius for a more rounded look */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Updated box-shadow */
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-}
-
-.main_content_1:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px);
-}
-
-.main_content_1::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  z-index: -1;
-  border-radius: 15px;
-  transform: scaleY(0.98);
-}
-
-.main_content_2 {
-  width: 50%;
-  padding: 20px;
-  margin-top: 10px;
-  border: 2px solid #f4a64c; /* 테두리 스타일 지정 */
-  border-radius: 10px; /* 테두리 둥글게 설정 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
-  margin-right: 2.5%;
-}
-
-.main_content_3 {
-  width: 50%;
-  padding: 20px;
-  margin-top: 10px;
-  border: 2px solid #f4a64c; /* 테두리 스타일 지정 */
-  border-radius: 10px; /* 테두리 둥글게 설정 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
-  margin-left: 2.5%;
-}
-
-.main_content_sub {
-  display: flex;
-  flex-direction: row;
-}
-
-.content_title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* text-shadow: 2px 2px 4px rgba(254, 161, 48, 0.2); */
-}
-.content_title > div {
-  white-space: pre-wrap;
-  line-height: 130%;
-}
-
-.content_text {
-  font-size: 1rem;
-  color: #555;
-  display: flex;
-  justify-content: center;
-}
-
-/* ---------------------- */
-/* 하단바 */
-.join_area {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100vw;
-  padding: 2% 5%;
-  background-color: #fbf7ef;
-  font-family: "godo";
-  font-size: 1.7em;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  bottom: -50px;
-}
-
-.join_btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  border-radius: 50px; /* 원형 모양으로 변경 */
-  background-color: #ffb700; /* 버튼 배경색 */
-  color: #fff; /* 텍스트 색상 */
-  transition: background-color 0.3s ease; /* 배경색 변경 시 부드러운 효과 */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
-  margin-top: 1rem;
-}
-
-.join_btn:active {
-  background-color: #fbb244;
-}
-
-/* ---------------------- */
-/* 모달창 */
-.custom_modal {
-  position: relative;
-  top: 15%;
-  left: 5%;
-  background-color: #fff;
-  overflow: auto;
-  outline: none;
-  padding: 15px;
-  height: 70vh;
-  width: 90vw;
-  border-radius: 5%;
-  border: 2px solid #ff9f0a;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25); /* 그림자 효과 추가 */
-}
-
-.modal_container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.modal_title {
-  margin: 30px auto;
-  font-size: 1.5em;
-  font-family: "Godo", serif;
-  color: #ff9f0a;
-  text-align: center;
-  /* border-bottom: 3px solid #ffc060; */
-}
-
-.modal_sub_title {
-  margin: 5px auto;
-  font-size: 1em;
-  font-family: "Godo", serif;
-  color: #4c8ff4;
-  text-align: center;
-  /* border-bottom: 3px solid #ffc060; */
-}
-
-.modal_content {
-  margin-bottom: 1em;
-  font-family: "Godo", serif;
-  font-size: 1em;
-  color: #000000;
-  width: 100%;
-  background: none;
-  border: none;
-}
-
-.modal_btn {
-  font-family: "Godo", serif;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-  font-size: 1em;
-  width: 60%;
-  background: none;
-  padding: 10px;
-  align-items: center;
-  transition: all 0.3s ease-in-out;
-  border: none;
+  margin-top: 90%;
 }
 
 /* 아이디, 비밀번호, 회원가입 버튼 */

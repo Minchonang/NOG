@@ -145,10 +145,9 @@ function Home() {
         <Loading />
       ) : (
         <div className={style.background}>
-          <div className={style.title_area}>
-            <NavLink to="/">NOG</NavLink>
-          </div>
+          <div className={style.title_area}>NOG</div>
 
+          {/* 이미지 슬라이드 */}
           <div className={style.subtitle_area} ref={slideRef}>
             <div className={style.slide}>
               <img src={img2} alt="Image1" />
@@ -157,54 +156,53 @@ function Home() {
               <img src={img1} alt="Image2" />
             </div>
           </div>
+
           <div className={style.main_area}>
-            <div className={style.main_contents}>
-              <div className={common.input_area}>
+            <div className={common.input_area}>
+              <input
+                className={common.themeBorder}
+                type="text"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                ref={idRef}
+                placeholder="아이디 입력"
+                maxLength="20"
+              />
+              <div className={style.pwd_area}>
                 <input
-                  className={common.themeBorder}
-                  type="text"
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
-                  ref={idRef}
-                  placeholder="아이디 입력"
-                  maxLength="20"
+                  // className={common.themeBorder}
+                  type={showPassword ? "text" : "password"}
+                  value={userPwd}
+                  onChange={(e) => setUserPwd(e.target.value)}
+                  onKeyDown={keyDownEnter}
+                  placeholder="비밀번호 입력"
+                  maxLength="25"
                 />
-                <div className={style.pwd_area}>
-                  <input
-                    // className={common.themeBorder}
-                    type={showPassword ? "text" : "password"}
-                    value={userPwd}
-                    onChange={(e) => setUserPwd(e.target.value)}
-                    onKeyDown={keyDownEnter}
-                    placeholder="비밀번호 입력"
-                    maxLength="25"
-                  />
-                  <span
-                    onClick={togglePasswordVisibility}
-                    className={style.eyeIcon}
-                  >
-                    {showPassword ? <FaEye /> : <FaEyeSlash />}
-                  </span>
-                </div>
+                <span
+                  onClick={togglePasswordVisibility}
+                  className={style.eyeIcon}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span>
               </div>
-              <div className={common.btn_area}>
-                <button className={common.themeBgrColor} onClick={handleLogin}>
-                  로그인
-                </button>
-              </div>
-              <div className={style.option_area}>
-                <NavLink to="/find_id" activeclassname={common.themeColor}>
-                  아이디 찾기
-                </NavLink>
-                <span>|</span>
-                <NavLink to="/find_pw" activeclassname={common.themeColor}>
-                  비밀번호 찾기
-                </NavLink>
-                <span>|</span>
-                <NavLink to="/join" activeclassname={common.themeColor}>
-                  회원가입
-                </NavLink>
-              </div>
+            </div>
+            <div className={common.btn_area}>
+              <button className={common.themeBgrColor} onClick={handleLogin}>
+                로그인
+              </button>
+            </div>
+            <div className={style.option_area}>
+              <NavLink to="/find_id" activeclassname={common.themeColor}>
+                아이디 찾기
+              </NavLink>
+              <span>|</span>
+              <NavLink to="/find_pw" activeclassname={common.themeColor}>
+                비밀번호 찾기
+              </NavLink>
+              <span>|</span>
+              <NavLink to="/join" activeclassname={common.themeColor}>
+                회원가입
+              </NavLink>
             </div>
           </div>
           <ChatBot />
