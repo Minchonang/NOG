@@ -135,18 +135,20 @@ function Inquiry() {
 											)}
 										</p>
 									</div>
-									<button
-										className={style.reply_btn}
-										onClick={() => goDetail(selectedBoard.boardId)}
-									>
-										답변하기
-									</button>
-									<button
-										className={style.close_btn}
-										onClick={handleCloseModal}
-									>
-										닫기
-									</button>
+									<div className={style.btn_area}>
+										<button
+											className={style.reply_btn}
+											onClick={() => goDetail(selectedBoard.boardId)}
+										>
+											답변하기
+										</button>
+										<button
+											className={style.close_btn}
+											onClick={handleCloseModal}
+										>
+											닫기
+										</button>
+									</div>
 								</div>
 							</div>
 						)}

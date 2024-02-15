@@ -185,7 +185,7 @@ function UserList() {
 						<div className={style.custom_modal}>
 							<div className={style.modal_container}>
 								<div className={style.modal_title}>
-									{selectedUser.id}의 정보
+									{selectedUser.id}님의 정보
 								</div>
 								<div className={style.modal_content}>
 									<p>이름: {selectedUser.name}</p>
@@ -199,12 +199,17 @@ function UserList() {
 										{new Date(selectedUser.creDateTime).toLocaleString("ko-KR")}
 									</p>
 								</div>
-								<button className={style.close_btn} onClick={handleCloseModal}>
-									닫기
-								</button>
-								<button className={style.delete_btn} onClick={handleDeletion}>
-									회원삭제
-								</button>
+								<div className={style.btn_area}>
+									<button
+										className={style.close_btn}
+										onClick={handleCloseModal}
+									>
+										닫기
+									</button>
+									<button className={style.delete_btn} onClick={handleDeletion}>
+										회원삭제
+									</button>
+								</div>
 							</div>
 						</div>
 					)}

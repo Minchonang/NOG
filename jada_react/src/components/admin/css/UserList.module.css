@@ -152,48 +152,117 @@ table {
 	margin-bottom: 10px;
 }
 
-.close_btn {
+.btn_area {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
-	padding: 4.5% 0;
-	margin: 0 auto;
-	color: black;
-	background: lightgray;
-	border: 0;
-	border-radius: 10px;
-	outline: none;
-	font-size: 1em;
-	font-family: "godo";
-	margin-top: 5px;
 }
 
-/* .close_btn:hover {
-	border: 2px solid #fbb245;
-	background: #fbb245;
-}
-
-.close_btn:active {
-	background-color: #fbb245;
-} */
-
+.close_btn,
 .delete_btn {
 	width: 100%;
 	padding: 4.5% 0;
-	margin: 0 auto;
-	color: white;
-	background: red;
+	margin: 5px auto 0;
 	border: 0;
 	border-radius: 10px;
 	outline: none;
-	font-size: 1em;
 	font-family: "godo";
-	margin-top: 5px;
+	font-size: 1em;
+}
+.close_btn {
+	color: black;
+	background-color: lightgray;
+}
+.delete_btn {
+	color: white;
+	background: red;
 }
 
-/* .delete_btn:hover {
-	border: 2px solid #ababab;
-	background: #ababab;
-}
+/* -------------------------------------------------- */
 
-.delete_btn:active {
-	background-color: #ababab;
-} */
+@media screen and (min-width: 1024px) {
+	.main_area {
+		padding: 136px 15% 90px;
+		background-color: #f5f5f5;
+	}
+
+	.title {
+		margin: 8% auto;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.title div {
+		font-size: 3em;
+	}
+
+	/* 검색창 */
+	.searchInput {
+		padding: 1.5%;
+		font-size: 1.2em;
+		margin-right: 20px;
+	}
+
+	.searchButton {
+		width: 20%;
+		font-size: 1.5em;
+	}
+
+	/* 테이블 */
+	.userList_table tr:nth-child(n + 2) {
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.userList_table tr:hover {
+		background-color: #fbd17c;
+	}
+
+	/* 전체 회원 수 */
+	.totalMember {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	/* -------------------------------------------------- */
+	/* 모달창 */
+	.custom_modal {
+		top: 26%;
+		left: 35%;
+		width: 30%;
+		height: auto;
+		margin: 0 auto;
+		padding: 60px 70px 50px;
+		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	}
+
+	.modal_title {
+		margin: 40px auto;
+
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.btn_area {
+		width: 100%;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 3% 0;
+	}
+
+	.close_btn,
+	.delete_btn {
+		width: 49%;
+		padding: 3% 0;
+		cursor: pointer;
+	}
+
+	.totalMember {
+		margin: 30px 0;
+		font-size: 1.5em;
+	}
+}
