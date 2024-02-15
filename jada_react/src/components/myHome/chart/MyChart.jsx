@@ -121,15 +121,38 @@ const MyChart = () => {
   }, [period]);
 
   // 요금 계산기
-  function calculateBill(usage) {
+  function calculateBill(usage, month) {
     let bill = 0;
-    if (usage <= 300) {
-      bill = usage * 120.0;
-    } else if (usage <= 450) {
-      bill = 300 * 120.0 + (usage - 300) * 214.6;
+    if (month in [7, 8, "7", "8"]) {
+      if (usage <= 300) {
+        // 하계 기본 요금
+        bill = 730;
+        bill += usage * 105;
+      } else if (usage <= 450) {
+        bill = 1260;
+
+        bill += 300 * 105 + (usage - 300) * 174;
+      } else {
+        bill = 6060;
+
+        bill += 300 * 105 + 150 * 174 + (usage - 450) * 242.3;
+      }
     } else {
-      bill = 300 * 120.0 + 150 * 214.6 + (usage - 450) * 307.3;
+      if (usage <= 200) {
+        // 그외 계절 기본 요금
+        bill = 730;
+        bill += usage * 105;
+      } else if (usage <= 400) {
+        bill = 1260;
+
+        bill += 200 * 105 + (usage - 200) * 174;
+      } else {
+        bill = 6060;
+
+        bill += 200 * 105 + 200 * 174 + (usage - 400) * 242.3;
+      }
     }
+
     return Math.round(bill, 0);
   }
 
@@ -186,20 +209,18 @@ const MyChart = () => {
                 <span>이번 달 사용 전력</span>
 
                 <h1>
-                  {chartData1["my_total_usage"]
-                    ? calculateBill(
-                        chartData1["my_total_usage"]
-                      ).toLocaleString("ko-KR")
+                  {chartData1["my_this_month_bill"]
+                    ? chartData1["my_this_month_bill"].toLocaleString("ko-KR")
                     : 0}
                   원
                 </h1>
                 <span>사용요금</span>
 
                 <h1>
-                  {chartData1["my_total_usage"]
+                  {chartData1["my_this_month_bill"]
                     ? (
-                        calculateBill(chartData1["my_total_usage_last"]) -
-                        calculateBill(chartData1["my_total_usage"])
+                        parseInt(chartData1["my_before_month_bill"]) -
+                        parseInt(chartData1["my_this_month_bill"])
                       ).toLocaleString("ko-KR")
                     : 0}
                   원
@@ -276,21 +297,27 @@ const MyChart = () => {
                         <tr>
                           <th>요금</th>
                           <td>
-                            {calculateBill(
-                              chartData1["my_total_usage"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["my_this_month_bill"]
+                              ? chartData1["my_this_month_bill"].toLocaleString(
+                                  "ko-KR"
+                                )
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                           <td>
-                            {calculateBill(
-                              chartData1["my_total_usage_last"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["my_before_month_bill"]
+                              ? chartData1[
+                                  "my_before_month_bill"
+                                ].toLocaleString("ko-KR")
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                           <td>
-                            {calculateBill(
-                              chartData1["average_total_usage"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["city_before_month_bill"]
+                              ? chartData1[
+                                  "city_before_month_bill"
+                                ].toLocaleString("ko-KR")
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                         </tr>
@@ -306,9 +333,10 @@ const MyChart = () => {
                           , 요금은{" "}
                           <span className={style.important_keywords}>
                             {user["user_pred"]
-                              ? calculateBill(user["user_pred"]).toLocaleString(
-                                  "ko-KR"
-                                )
+                              ? calculateBill(
+                                  user["user_pred"],
+                                  chartData1["this_month"]
+                                ).toLocaleString("ko-KR")
                               : 0}
                             원
                           </span>
