@@ -207,4 +207,25 @@ public class UserService {
             return null;
         }
     }
+
+      // 관리자 회원정보 수정
+      public String admineditUser(String user_id, String newName, String newEmail, String newPhone, String newAddress1, String newAddress2){
+    
+        Optional<User> userOptional = userRepository.findById(user_id);
+ 
+        if (userOptional.isPresent()) {
+         User user = userOptional.get();
+         user.setName(newName);
+         user.setEmail(newEmail);
+         user.setPhone(newPhone);
+         user.setAddress1(newAddress1);
+         user.setAddress2(newAddress2);
+         
+         // 저장된 값을 다시 userRepository를 통해 저장
+         userRepository.save(user);
+         return "수정이 완료되었습니다.";
+         } 
+ 
+         return "사용자 정보가 존재하지 않습니다.";
+     }
 }
