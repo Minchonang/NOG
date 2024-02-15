@@ -44,12 +44,13 @@ function Inquiry() {
 		setSelectedBoard(board);
 	};
 
+	// 모달 창 닫기
 	const handleCloseModal = () => {
 		setSelectedBoard(null);
 	};
 
 	const goDetail = (boardId) => {
-		window.location.href = `/boardDetail/${boardId}`;
+		window.open(`/boardDetail/${boardId}`);
 	};
 	return (
 		<>
