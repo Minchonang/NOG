@@ -15,6 +15,7 @@ app/__pycahe__
 
 # ignore model file
 *.pt
+coin/model/
 yolo_pose/output/
 your_script.spec
 
