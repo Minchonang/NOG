@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -31,6 +33,7 @@ public class Comment implements Serializable{
   LocalDateTime writeDate;
 
   @ManyToOne
+  @JsonIgnore
   @JoinColumn(name = "board_id")
   private Board board;
   

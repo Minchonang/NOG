@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EditUserDto {
   private String user_id;
+  private String name;
   private String email;
   private String phone;
   private String password;

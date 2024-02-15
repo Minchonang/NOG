@@ -28,6 +28,7 @@ function BoardDetail() {
         if (boardId !== undefined) {
             getBoardDetail();
             getUserRole();
+            commentInfo();
         }
     }, [boardId]);
 
@@ -46,8 +47,6 @@ function BoardDetail() {
                 const result = await response.json();
                 console.log('Response Data:', result); // Add this line
                 setBoard(result);
-                console.log(result.comment);
-                setComment(result.comment);
             } else {
                 // console.log("Server error:", await response.text());
                 alert('게시글 조회 중 서버 오류가 발생했습니다.');
@@ -82,6 +81,7 @@ function BoardDetail() {
                 // 입력값 초기화
                 setContent('');
                 console.log(result);
+                window.location.reload(true);
             } else {
                 console.log('댓글달기 실패');
                 alert('댓글달기 실패');
@@ -115,6 +115,34 @@ function BoardDetail() {
         }
     };
 
+    // 댓글 조회
+    const commentInfo = async () => {
+        const commentDto = {
+            boardId: boardId,
+        };
+        try {
+            // 서버로 데이터 전송 - 경로 수정 필요
+            const response = await fetch(`${API_BASE_URL}/api/board/commentInfo`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(commentDto),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setComment(result);
+                console.log(result);
+            } else {
+                console.log('댓글 조회 실패');
+            }
+        } catch (error) {
+            console.error('서버 통신 오류', error);
+        }
+    };
+    console.log(comment);
+
     return (
         <div className={common.background}>
             <Header sub_title="내 문의사항 정보" />
@@ -144,24 +172,26 @@ function BoardDetail() {
                         </div>
 
                         {/* 답변 목록 */}
-                        {comment ? (
+                        {comment && comment.length > 0 ? (
                             <>
                                 {/* 구분선 */}
                                 <div className={style.line}></div>
                                 <div className={style.commentList}>
                                     <table className={style.commentTable}>
                                         <tbody>
-                                            <tr className={style.commentContent} key={comment.commentId}>
-                                                <img
-                                                    src={admin}
-                                                    alt="admin"
-                                                    style={{
-                                                        width: '10%',
-                                                        height: '10%',
-                                                    }}
-                                                />
-                                                <td>{comment.content}</td>
-                                            </tr>
+                                            {comment.map((commentItem) => (
+                                                <tr className={style.commentContent} key={commentItem.commentId}>
+                                                    <img
+                                                        src={admin}
+                                                        alt="admin"
+                                                        style={{
+                                                            width: '10%',
+                                                            height: '10%',
+                                                        }}
+                                                    />
+                                                    <td>{commentItem.content}</td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -190,7 +220,7 @@ function BoardDetail() {
                                         </div>
                                     </>
                                 ) : (
-                                    <LoadingNog />
+                                    <></>
                                 )}
                             </>
                         )}

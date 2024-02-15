@@ -6,6 +6,8 @@ import com.jada.smarthome.dto.LoginUserDto;
 import com.jada.smarthome.dto.UserExitDto;
 import com.jada.smarthome.dto.UserInfoDto;
 import com.jada.smarthome.model.User;
+import com.jada.smarthome.repository.JdbcRepository.JdbcUserRepository;
+// import com.jada.smarthome.repository.JdbcRepository.JdbcUserRepository;
 import com.jada.smarthome.service.UserExitService;
 import com.jada.smarthome.service.UserService;
 
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,7 @@ public class UserController {
     
     private final UserService userService;
     private final UserExitService userExitService;
+    private final JdbcUserRepository jdbcUserRepository;
 
     private static final String DUPLICATE_ID = "가입불가 - 중복된 아이디";
 
@@ -42,9 +46,10 @@ public class UserController {
 	HttpSession session;
 
 
-    public UserController(UserService userService, UserExitService userExitService) {
+    public UserController(UserService userService, UserExitService userExitService, JdbcUserRepository jdbcUserRepository) {
         this.userService = userService;
         this.userExitService = userExitService;    
+        this.jdbcUserRepository = jdbcUserRepository;
     }
 
     // 아이디 중복 체크
@@ -124,31 +129,45 @@ public class UserController {
     // 유저 정보 조회 (전체 조회)
     @GetMapping("/get")
     public ResponseEntity<List<JoinUserDto>> getAllUsers() {
-    List<User> users = userService.getAllUsers();
-    List<JoinUserDto> joinUserDtos = users.stream()
-    .map(user -> {
-        Integer homeId = null;
-        if (user.getHomeDevice() != null) {
-            homeId = user.getHomeDevice().getHomeId();
-        }
-        return JoinUserDto.builder()
-                .email(user.getEmail())
-                .id(user.getId())
-                .name(user.getName())
-                .phone(user.getPhone())
-                .address1(user.getAddress1())
-                .address2(user.getAddress2())
-                .address3(user.getAddress3())
-                .houseNum(user.getHouseNum())
-                .creDateTime(user.getCreDateTime())
-                .homeId(homeId)
-                .build();
-    })
-    .collect(Collectors.toList());
+        List<User> users = userService.getAllUsers();
+        List<JoinUserDto> joinUserDtos = new ArrayList<>();
 
-                    
-    return ResponseEntity.ok(joinUserDtos);
+        for (User user : users) {
+            Integer homeId = null;
+            String serialNum = null;
+            if (user.getHomeDevice() != null) {
+                homeId = user.getHomeDevice().getHomeId();
+                serialNum = user.getHomeDevice().getSerialNum();
+            }
+            JoinUserDto joinUserDto = JoinUserDto.builder()
+                    .email(user.getEmail())
+                    .id(user.getId())
+                    .name(user.getName())
+                    .phone(user.getPhone())
+                    .address1(user.getAddress1())
+                    .address2(user.getAddress2())
+                    .address3(user.getAddress3())
+                    .houseNum(user.getHouseNum())
+                    .creDateTime(user.getCreDateTime())
+                    .homeId(homeId)
+                    .serialNum(serialNum)
+                    .build();
+
+            joinUserDtos.add(joinUserDto);
+        }
+
+        return ResponseEntity.ok(joinUserDtos);
     }
+
+    // 유저 정보 전체 조회(jdbc)
+    @GetMapping("/allusers")
+    public List<User> allUsers() {
+        List<User> users = jdbcUserRepository.findAll();
+    
+        return users;
+    }
+
+    
 
     // 아이디 찾기 : 이름 = 이메일 존재하는 유저 찾으면 id전달하도록 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -296,5 +315,29 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 역할 조회 중 오류가 발생했습니다.");
         }
     }
+
+        // 관리자 회원정보 수정
+        @CrossOrigin(origins = "http://localhost:3000")
+        @PostMapping("/admineditUser")
+        public ResponseEntity<String> admineditUser(@RequestBody EditUserDto editUserDto){
+            try {
+                String user_id = editUserDto.getUser_id();
+                String newName= editUserDto.getName();
+                String newEmail = editUserDto.getEmail();
+                String newPhone = editUserDto.getPhone();
+                String newAddress1 = editUserDto.getAddress1();
+                String newAddress2 = editUserDto.getAddress2();
+         
+        
+                String result = userService.admineditUser(user_id,newName, newEmail, newPhone,newAddress1,newAddress2);
+                System.out.println("============수정된값:"+result);
+                return ResponseEntity.ok(result);
+                
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("서버오류가 발생했습니다.");
+            }
+    
+        }
+    
 }
 

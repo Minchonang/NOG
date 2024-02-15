@@ -1,6 +1,7 @@
 package com.jada.smarthome.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ public class BoardService {
   }
 
   // 댓글 저장
-  public List<Comment> saveComment(CommentDto commentDto){
+  public String saveComment(CommentDto commentDto){
     String userId = commentDto.getUserId();
     String content = commentDto.getContent();
     if (commentDto.getBoardId() == null) {
@@ -88,8 +89,26 @@ public class BoardService {
     commentRepository.save(comment);
 
     // 댓글 리스트 전달
-    List<Comment> comments = commentRepository.findByBoard(boardRepository.findById(boardId).orElse(null));
-    return comments;
+    // List<Comment> comments = commentRepository.findByBoard(boardRepository.findById(boardId).orElse(null));
+    // System.out.println(comments);
+    return "답변 저장에 성공하였습니다";
+  }
 
+  // 댓글 조회
+  public List<CommentDto> commentInfo(CommentDto commentDto){
+    Long boardId = commentDto.getBoardId();
+    // 댓글 리스트 전달
+    List<Comment> comments = commentRepository.findByBoard(boardRepository.findById(boardId).orElse(null));
+
+    List<CommentDto> commentDtos = new ArrayList<>();
+
+    for (Comment comment : comments) {
+        CommentDto dto = CommentDto.builder()
+            .commentId(comment.getCommentId())
+            .content(comment.getContent())
+            .build();
+        commentDtos.add(dto);
+    }
+    return commentDtos;
   }
 }

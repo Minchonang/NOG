@@ -1,67 +1,67 @@
 /* --------------------- */
 /* 상단바 */
 .title_area {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 2;
-	display: flex;
-	flex-direction: row;
-	width: 100vw;
-	padding: 2% 5%;
-	background-color: #fbf7ef;
-	font-family: "godo";
-	font-size: 1.7em;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 2% 5%;
+  background-color: #fbf7ef;
+  font-family: "godo";
+  font-size: 1.7em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 .title_area div {
-	margin-left: 10px;
-	font-size: 0.9em;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+  margin-left: 10px;
+  font-size: 0.9em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* -------------------------- */
 /* 온도 구역 */
 .temp_area {
-	display: flex;
-	justify-content: space-around;
-	border: 2px solid;
-	z-index: 1;
-	width: 100%;
-	padding: 15% 10% 7%;
-	display: flex;
-	font-family: "Godo", serif;
-	font-weight: lighter;
-	margin-top: 2.6em;
-	border: none;
-	background-color: #fbf7ef;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid;
+  z-index: 1;
+  width: 100%;
+  padding: 15% 10% 7%;
+  display: flex;
+  font-family: "Godo", serif;
+  font-weight: lighter;
+  margin-top: 2.6em;
+  border: none;
+  background-color: #fbf7ef;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .outdoor_temp,
 .home_temp,
 .recommend_temp {
-	text-align: center;
-	font-size: 1.2em;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .outdoor_temp_title,
 .home_temp_title,
 .recommend_temp_title {
-	font-size: 1.3em;
-	margin-bottom: 5px;
+  font-size: 1.3em;
+  margin-bottom: 5px;
 }
 
 .outdoor_temp_area,
 .home_temp_area,
 .recommend_temp_area {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* .outdoor_temp_icon {
@@ -70,199 +70,199 @@
 
 .fcHome,
 .fcClose {
-	width: 2em;
-	height: 2em;
-	display: flex;
-	justify-items: center;
-	margin-top: 4px;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-items: center;
+  margin-top: 4px;
 }
 
 /* ----------------------------------- */
 .main_area {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	padding: 20% 5% 0;
-	display: flex;
-	flex-direction: column;
-	margin-top: 12em;
-	font-family: "Godo", serif;
-	font-weight: lighter;
-	text-align: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 20% 5% 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 12em;
+  font-family: "Godo", serif;
+  font-weight: lighter;
+  text-align: center;
 }
 
 /* --------------------- */
 .countLight_area {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* 집 인원 */
 .homeCount {
-	display: flex;
-	flex-direction: column;
-	width: 49%;
-	height: 166px;
-	padding: 15px 5px;
-	border: 0;
-	border-radius: 20px;
-	background-color: #fbf7ef;
-	margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  background-color: #fbf7ef;
+  margin-bottom: 10px;
 }
 
 .homeCount_name,
 .light_name {
-	font-size: 1.4em;
-	margin-bottom: 10px;
+  font-size: 1.4em;
+  margin-bottom: 10px;
 }
 .count {
-	margin: auto 0;
-	font-size: 2em;
+  margin: auto 0;
+  font-size: 2em;
 }
 
 /* -------------- */
 /* 전등 */
 .lightBtn_on,
 .lightBtn_off {
-	display: flex;
-	flex-direction: column;
-	width: 49%;
-	height: 166px;
-	padding: 15px 5px;
-	border: 0;
-	border-radius: 20px;
-	margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  height: 166px;
+  padding: 15px 5px;
+  border: 0;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
 .lightBtn_on {
-	background-color: #f7dfbb;
+  background-color: #f7dfbb;
 }
 .lightBtn_off {
-	background-color: #ececec;
+  background-color: #ececec;
 }
 
 .light {
-	margin: auto 0;
+  margin: auto 0;
 }
 
 /* ------------------------- */
 /* 보일러 및 에어컨 구역 */
 .boilerAir_area {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
 }
 
 .boiler,
 .airConditioner {
-	display: flex;
-	flex-direction: column;
-	width: 49%;
-	padding: 15px 5px;
-	border: 0;
-	/* border: 2px solid rgb(88, 189, 155); */
-	border-radius: 20px;
-	background-color: #fbf7ef;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  padding: 15px 5px;
+  border: 0;
+  /* border: 2px solid rgb(88, 189, 155); */
+  border-radius: 20px;
+  background-color: #fbf7ef;
 }
 
 .boilerOn {
-	background-color: #f31e5a24;
+  background-color: #f31e5a24;
 }
 .airconOn {
-	background-color: #02bccd36;
+  background-color: #02bccd36;
 }
 
 .boiler_name,
 .airConditioner_name {
-	font-size: 20px;
-	margin: 5px auto;
+  font-size: 20px;
+  margin: 5px auto;
 }
 
 .airConditioner_temp,
 .boiler_temp {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin: 5px auto;
-	font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px auto;
+  font-size: 20px;
 }
 
 .toggleButton {
-	width: 50px;
-	height: 50px;
-	margin: 8px auto;
-	padding: 0;
-	/* background-color: white; */
-	border: 0;
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
+  padding: 0;
+  /* background-color: white; */
+  border: 0;
 }
 
 .boilerAirTemp {
-	margin: 0 20px;
+  margin: 0 20px;
 }
 
 .plusBtn_area,
 .minusBtn_area {
-	display: flex;
-	padding: 5px;
-	border: 0;
-	background-color: #f8f8f8;
-	border-radius: 50%;
+  display: flex;
+  padding: 5px;
+  border: 0;
+  background-color: #f8f8f8;
+  border-radius: 50%;
 }
 
 .onOff_img {
-	width: 50px;
-	height: 50px;
-	margin: 8px auto;
+  width: 50px;
+  height: 50px;
+  margin: 8px auto;
 }
 
 .hidden {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 /* 모달창 */
 .custom_modal {
-	position: absolute;
-	top: 30%;
-	left: 10%;
-	background: #fff;
-	overflow: auto;
-	outline: none;
-	padding: 15px;
-	height: 30vh;
-	width: 80vw;
-	border-radius: 5%;
-	border: 2px solid #ff9f0a;
-	text-align: center;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  background: #fff;
+  overflow: auto;
+  outline: none;
+  padding: 15px;
+  height: 40vh;
+  width: 70vw;
+  border-radius: 5%;
+  border: 2px solid #ff9f0a;
+  text-align: center;
 }
 
 .modal_container {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-content: center;
-	flex-wrap: wrap;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .modal_title {
-	padding: 0 10px;
-	margin: 40px auto;
-	font-size: 1.6em;
-	font-family: "Godo", serif;
-	/* border-bottom: 2px solid #ff9f0a; */
+  padding: 0 10px;
+  margin: 40px auto;
+  font-size: 1.6em;
+  font-family: "Godo", serif;
+  /* border-bottom: 2px solid #ff9f0a; */
 }
 
 .modal_content {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 1em;
-	font-family: "Godo", serif;
-	font-size: 1em;
-	color: #ff9f0a;
-	width: 60%;
-	background: none;
-	border: none;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  font-family: "Godo", serif;
+  font-size: 1em;
+  color: #ff9f0a;
+  width: 60%;
+  background: none;
+  border: none;
+  align-items: center;
 }
