@@ -17,7 +17,7 @@ app/__pycahe__
 *.pt
 yolo_pose/output/
 your_script.spec
-
+*.keras
 # testing
 /coverage
 
