@@ -461,7 +461,7 @@ function Join() {
                             <input
                                 type="text"
                                 name="phone"
-                                placeholder="번호"
+                                placeholder="휴대폰 번호"
                                 value={formData.phone}
                                 onChange={handleInputChange}
                             />

@@ -1,76 +1,76 @@
 .main_area {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
 
-	padding: 13% 5% 125px;
-	display: flex;
-	flex-direction: column;
-	font-family: "Godo", serif;
+  padding: 13% 5% 125px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Godo", serif;
 }
 
 .title {
-	display: flex;
-	margin: 15% auto 14%;
+  display: flex;
+  margin: 15% auto 14%;
 }
 
 .title div {
-	padding: 0 10px;
-	font-size: 2em;
-	border-bottom: 5px solid #ff9f0a;
+  padding: 0 10px;
+  font-size: 2em;
+  border-bottom: 5px solid #ff9f0a;
 }
 
 /* -------------------------------------------------- */
 /* 테이블 */
 .boardList_title {
-	width: 100%;
-	padding: 3% 0;
-	background-color: #fbd17c;
-	border-bottom: 2px solid #ff9f0a;
-	font-size: 1.2em;
+  width: 100%;
+  padding: 3% 0;
+  background-color: #fbd17c;
+  border-bottom: 2px solid #ff9f0a;
+  font-size: 1.2em;
 }
 
 .boardList_table {
-	border: 2px solid #ff9f0a;
-	border-radius: 10px;
-	display: block;
-	overflow-y: auto;
-	overflow-x: auto;
-	height: 61vh;
-	text-align: center;
-	margin-bottom: 5px;
+  border: 2px solid #ff9f0a;
+  border-radius: 10px;
+  display: block;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 55vh;
+  text-align: center;
+  margin-bottom: 5px;
 }
 .boardList_table tr:nth-child(n + 2):active {
-	background-color: #faf3e5;
+  background-color: #faf3e5;
 }
 
 table {
-	width: 100%;
-	border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 td {
-	padding: 1vh 0;
-	border-bottom: 1px solid lightgray;
+  padding: 1vh 0;
+  border-bottom: 1px solid lightgray;
 }
 td:first-child {
-	padding: 0 15px;
+  padding: 0 15px;
 }
 
 /* 글쓰기버튼 */
 .writeButton {
-	font-family: "godo";
-	width: 100%;
-	margin: 5px auto;
-	padding: 15px;
-	color: white;
-	background-color: #ff9f0a;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	font-size: 16px;
+  font-family: "godo";
+  width: 100%;
+  margin: 5px auto;
+  padding: 15px;
+  color: white;
+  background-color: #ff9f0a;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .writeButton:active {
-	background-color: #fbcd87;
+  background-color: #fbcd87;
 }

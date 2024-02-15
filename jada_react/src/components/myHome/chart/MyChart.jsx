@@ -25,12 +25,10 @@ const MyChart = () => {
     }));
   };
 
+  const [period, setPeriod] = useState([]);
   const [chartData1, setChartData1] = useState([]);
   const [chartData2, setChartData2] = useState([]);
   const [chartData3, setChartData3] = useState([]);
-  const [chartData2pattern, setChartData2pattern] = useState({});
-  const [myType, setMyType] = useState({});
-  const [userData, setMyCity] = useState("");
   const [chartData4, setChartData4] = useState([]);
   const [user, setUser] = useState({});
   const [searchDate, setSearchDate] = useState("");
@@ -57,7 +55,8 @@ const MyChart = () => {
         setChartData1(data.data1);
         setChartData2(data.data2);
         setChartData3(data.data3);
-
+        setChartData4(data.data4);
+        setPeriod(data.data0);
         setUser({
           user_id: id,
           user_name: data.data2["user_name"],
@@ -81,14 +80,11 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}${
-            searchDate ? "&date=" + searchDate : ""
-          }`
+          `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}`
         );
 
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
-        console.log(data.total[0]);
         setUser({
           user_id: user["user_id"],
           user_name: user["user_name"],
@@ -100,10 +96,21 @@ const MyChart = () => {
       } finally {
       }
     };
-    if (load) {
-      fetchPred();
+    // 로딩이 완료된 후
+    if (period.length > 0) {
+      // 사용한 기간이 있다면 예측
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month =
+        currentDate.getMonth() + 1 < 10
+          ? "0" + (currentDate.getMonth() + 1)
+          : currentDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
+      const now = year + "-" + month;
+      if (period[0] === now) {
+        fetchPred();
+      }
     }
-  }, [load]);
+  }, [period]);
 
   // 요금 계산기
   function calculateBill(usage) {
@@ -143,6 +150,11 @@ const MyChart = () => {
     return ko[maxKey];
   }
 
+  // 날짜를 선택할때 마다 불러오기
+  const searchDateHandler = (event) => {
+    setSearchDate(event.target.value);
+  };
+
   return (
     <>
       {load == false ? (
@@ -158,7 +170,19 @@ const MyChart = () => {
                   {" "}
                   {user["user_name"] ? user["user_name"] + "님의 " : ""}패턴분석
                 </h1>
-                <span>{user["user_city"] ? user["user_city"] : ""}</span>
+                <div className={style.period_box}>
+                  <span>{user["user_city"] ? user["user_city"] : ""}</span>
+
+                  <span className={style.spring}></span>
+
+                  <select onChange={searchDateHandler} value={searchDate}>
+                    {Object.keys(period).map((key, index) => (
+                      <option key={index} value={period[key]}>
+                        {period[key]}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div
@@ -294,7 +318,7 @@ const MyChart = () => {
                   >
                     <span className={style.chart_box_title}>소비 유형 </span>
                     <span className={style.spring}></span>
-                    {/* <span className={style.close}> ▲</span>   */}
+                    {/* <span className={style.close}> ▲</span> */}
                   </div>
 
                   <PieChart chart_Data2={chartData2["usage_percentage"]} />
@@ -378,21 +402,40 @@ const MyChart = () => {
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      회원님은 이번 달 "
-                      {chartData3 &&
-                        chartData3["weekly_my_usage_sum"] &&
-                        calculateDay(chartData3["weekly_my_usage_sum"])}
-                      "에 가장 많은 전력 소비를 한 것을 확인됩니다.
-                    </p>
-                    <p>
-                      또한,{" "}
+                      회원님과{" "}
                       {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      이웃들은 평균적으로 "
-                      {chartData3 &&
-                        chartData3["weekly_my_usage_sum"] &&
-                        calculateDay(chartData3["weekly_city_usage_sum"])}
-                      "에 가장 많은 전력 소비를 하는 것으로 확인됩니다.{" "}
+                      요일 별 평균 사용량 비교입니다.
                     </p>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>소비량이 많은 요일</th>
+                          <td>
+                            {chartData3 &&
+                              chartData3["weekly_my_usage_sum"] &&
+                              calculateDay(chartData3["weekly_my_usage_sum"])}
+                          </td>
+                          <td>
+                            {chartData3 &&
+                              chartData3["weekly_my_usage_sum"] &&
+                              calculateDay(chartData3["weekly_city_usage_sum"])}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>해당 요일의 평균 소비량</th>
+                          <td>10 kWh</td>
+                          <td>8.5 kWh</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -448,24 +491,61 @@ const MyChart = () => {
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      이달 가장 많은 전력을 소비한 날은{" "}
-                      {chartData3 && chartData3["max"] && chartData3["max"][0]}
-                      일,{" "}
-                      {chartData3 && chartData3["max"] && chartData3["max"][0]
-                        ? chartData3["my_month_use"][chartData3["max"][0]]
-                        : 0}
-                      kWh 입니다.{" "}
+                      회원님과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      일일 전력 사용량에 대한 비교 입니다.
                     </p>
-                    <p>
-                      또한, 지역 평균적으로는 이달{" "}
-                      {chartData3 && chartData3["max"] && chartData3["max"][1]}
-                      일이{" "}
-                      {chartData3 && chartData3["max"] && chartData3["max"][1]
-                        ? chartData3["city_month_use"][chartData3["max"][1]]
-                        : 0}
-                      kWh로 소비 전력 소비량이 가장 많았던 것으로 집계
-                      되었습니다.
-                    </p>
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>소비량이 많았던 날</th>
+                          <td>
+                            {chartData3 &&
+                              chartData3["max"] &&
+                              chartData3["max"][0]}{" "}
+                            일
+                          </td>
+                          <td>
+                            {chartData3 &&
+                              chartData3["max"] &&
+                              chartData3["max"][1]}{" "}
+                            일
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>해당 일의 전력 소비량</th>
+                          <td>
+                            {" "}
+                            {chartData3 &&
+                            chartData3["max"] &&
+                            chartData3["max"][0]
+                              ? chartData3["my_month_use"][chartData3["max"][0]]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData3 &&
+                            chartData3["max"] &&
+                            chartData3["max"][1]
+                              ? chartData3["city_month_use"][
+                                  chartData3["max"][1]
+                                ]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -519,35 +599,55 @@ const MyChart = () => {
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     {/* <p>이번달 일일 평균 사용량은 {chartData3["average"][0]}kw 입니다.</p> */}
-                    <p>
-                      이번달 일일 평균 사용량은{" "}
-                      {chartData3 &&
-                        chartData3["average"] &&
-                        chartData3["average"][0]}
-                      kw 입니다.
-                    </p>
 
                     <p>
-                      또한,{" "}
+                      회원님과{" "}
                       {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      지역 평균 사용량은{" "}
-                      {chartData3 &&
-                        chartData3["average"] &&
-                        chartData3["average"][1]}
-                      kw 입니다.
+                      이번 달 일일 평균 전력 사용량에 대한 비교 입니다.
                     </p>
-                    <p>
-                      회원님은 지역 평균 보다 약{" "}
-                      {chartData3 &&
-                        chartData3["average"] &&
-                        Math.round(
-                          ((chartData3["average"][0] -
-                            chartData3["average"][1]) *
-                            -100) /
-                            100
-                        ) * -1}
-                      kWh 만큼 사용하는 편입니다.
-                    </p>
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>평균 소비량</th>
+                          <td>
+                            {chartData3 &&
+                              chartData3["average"] &&
+                              chartData3["average"][0]}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData3 &&
+                              chartData3["average"] &&
+                              chartData3["average"][1]}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>소비 차이</th>
+                          <td colSpan={2}>
+                            약
+                            {chartData3 &&
+                              chartData3["average"] &&
+                              Math.round(
+                                ((chartData3["average"][0] -
+                                  chartData3["average"][1]) *
+                                  -100) /
+                                  100
+                              ) * -1}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -595,8 +695,9 @@ const MyChart = () => {
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      이달의 시간대 별 사용량과 지난 달 같은 지역의 시간대 별
-                      평균 사용량과의 비교 입니다.
+                      회원님의 이번 달 시간대 별 사용량과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      지난 달 시간대 별 평균 사용량과의 비교 입니다.
                     </p>
                     <table>
                       <thead>
@@ -685,18 +786,72 @@ const MyChart = () => {
                     {/* <span className={style.close} > ▲</span>     */}
                   </div>
 
-                  <BarChart></BarChart>
+                  <BarChart data6={[chartData1, chartData4]}></BarChart>
                   {/* 해설상자 */}
                   <div className={style.text_box}>
                     <p>
-                      이번달 사용량은 120kw 입니다. 이는 매달 평균 사용량
-                      356kw의 56%에 해당합니다.{" "}
+                      회원님과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      이번 달, 지난달, 전년동월의 전력소모량 비교 입니다.
                     </p>
-                    <p>
-                      또한 현재까지의 요금은 약 12500원 이며, 이 패턴의 소비가
-                      계속 되었을때 NGO가 평가한
-                    </p>
-                    <p> 이달 예상 총 사용량은 542kw, 요금은 12344원입니다.</p>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>측정(월)</th>
+
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>이번 달</th>
+                          <td>
+                            {chartData1["my_total_usage"]
+                              ? chartData1["my_total_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData4
+                              ? chartData4["city_average_daily_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>지난 달</th>
+                          <td>
+                            {chartData1["my_total_usage_last"]
+                              ? chartData1["my_total_usage_last"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData1["average_total_usage"]
+                              ? chartData1["average_total_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>전년동월</th>
+                          <td>
+                            {chartData4
+                              ? chartData4["user_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData4
+                              ? chartData4["city_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

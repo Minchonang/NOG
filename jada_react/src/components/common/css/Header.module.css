@@ -1,33 +1,67 @@
 .title_area {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  padding: 2.5% 5%;
-  background-color: #fbf7ef;
-  font-family: "godo";
-  font-size: 1.8em;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  align-items: center;
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	width: 100vw;
+	padding: 2.5% 5%;
+	background-color: #fbf7ef;
+	font-family: "godo";
+	font-size: 1.8em;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+	align-items: center;
 }
 .title_area div {
-  margin-top: 7px;
-  margin-left: 10px;
-  font-size: 0.5em;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	margin-top: 7px;
+	margin-left: 10px;
+	font-size: 0.5em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.title_area a {
+	text-decoration: none;
+	cursor: pointer;
 }
 
-.title_area a {
-  text-decoration: none;
-  cursor: pointer;
+.inquiry {
+	position: absolute;
+	z-index: 2;
+	right: 45px;
 }
 
 .logout {
-  position: absolute;
-  z-index: 2;
-  right: 10px;
+	position: absolute;
+	z-index: 2;
+	right: 10px;
+	color: #ff9f0a;
+}
+
+@media (min-width: 1024px) {
+	.title_area {
+		padding: 0.5% 2%;
+		font-size: 3em;
+		box-shadow: none;
+	}
+
+	.inquiry {
+		right: 100px;
+		border-radius: 10px;
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.inquiry:hover {
+		background-color: #f1d08d;
+	}
+
+	.logout {
+		right: 20px;
+		border-radius: 10px;
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.logout:hover {
+		background-color: #f1d08d;
+	}
 }

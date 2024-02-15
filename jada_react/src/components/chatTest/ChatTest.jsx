@@ -1,14 +1,16 @@
 // ChatTest.jsx
 import React, { useState, useEffect, Fragment } from "react";
-import io from "socket.io-client";
-import style from "./css/ChatTest.module.css";
-import BottomNav from "../common/jsx/BottomNav";
 import { NavLink } from "react-router-dom";
+import io from "socket.io-client";
 import axios from "axios";
 
-// const socket = io("http://192.168.0.58:5000"); // iot_AI
-const socket = io("http://192.168.0.67:5000"); // kepko
-// const socket = io('http://192.168.0.67:5000'); // 희성
+import Header from "../common/jsx/Header";
+import BottomNav from "../common/jsx/BottomNav";
+import common from "../common/css/common.module.css";
+import style from "./css/ChatTest.module.css";
+
+const socket = io("http://192.168.0.67:5000");
+
 // const socket = io("172.20.10.5");
 // 오늘 점심 -> 이미지 테스트
 // 전기 요금 계산 -> 링크
@@ -31,10 +33,7 @@ const ChatTest = () => {
     setuserid(id);
   }, []);
 
-  useEffect(() => {
-    // userid 상태가 업데이트될 때마다 로그 출력
-    console.log(userid);
-  }, [userid]);
+  useEffect(() => {}, [userid]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,16 +111,13 @@ const ChatTest = () => {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }, [chatHistory]);
 
-  console.log(userid);
-  console.log(result);
+  // console.log(userid);
+  // console.log(result);
 
   return (
     <>
-      <div className={style.background}>
-        <div className={style.title_area}>
-          <NavLink to="/">NOG</NavLink>
-          <div>Chatbot</div>
-        </div>
+      <div className={common.background}>
+        <Header sub_title="ChatBot" />
 
         <div className={style.chatContainer} id="chatContainer">
           {/* 챗봇 첫인사 */}
@@ -151,18 +147,19 @@ const ChatTest = () => {
                   />
                   <div>
                     {/* chat.Img가 1인 경우 result 출력, 그렇지 않으면 chat.answer 출력 */}
-                    <span>
-                      {userid ? (
-                        chat.answer
-                      ) : chat.login_check !== "1" ? (
-                        chat.answer
-                      ) : (
-                        <>
-                          <div>로그인 후 이용가능합니다</div>
-                          <NavLink to="/login">링크</NavLink>
-                        </>
-                      )}
-                    </span>
+                    {userid ? (
+                      chat.answer
+                    ) : chat.login_check !== "1" ? (
+                      chat.answer
+                    ) : (
+                      <>
+                        <div style={{ padding: "0" }}>
+                          로그인 후 이용가능합니다.
+                        </div>
+                        <NavLink to="/login">{`\n로그인 >`}</NavLink>
+                      </>
+                    )}
+
                     {userid ? (
                       // userid가 있을때
                       chat.login_check === "1" ? (

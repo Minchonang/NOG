@@ -159,7 +159,7 @@
 	margin-bottom: 1rem;
 }
 
-select {
+.select_reason {
 	padding: 8px;
 	font-size: 14px;
 	border: 1px solid #ccc;
@@ -167,12 +167,12 @@ select {
 	margin-bottom: 10px;
 }
 
-select:focus {
+.select_reason:focus {
 	outline: none;
 	border-color: #ff9f0a;
 }
 
-textarea {
+.input_reason {
 	width: 100%;
 	padding: 8px;
 	font-size: 14px;
@@ -182,7 +182,7 @@ textarea {
 	resize: none;
 }
 
-textarea:focus {
+.input_reason:focus {
 	outline: none;
 	border-color: #ff9f0a;
 }
