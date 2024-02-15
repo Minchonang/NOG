@@ -102,6 +102,7 @@ function UserList() {
             .get(`${API_BASE_URL}/api/userinfo/allusers`)
             .then((response) => {
                 setUsers(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching data: ', error);
@@ -263,7 +264,12 @@ function UserList() {
                                     <p>
                                         지역: {selectedUser.address1} {selectedUser.address2}
                                     </p>
-                                    <p>시리얼번호: {selectedUser.serialNum}</p>
+                                    <p>
+                                        시리얼번호:{' '}
+                                        {selectedUser.homeDevice && selectedUser.homeDevice.serialNum
+                                            ? selectedUser.homeDevice.serialNum
+                                            : ''}{' '}
+                                    </p>
                                     <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
                                 </>
                             ) : (
