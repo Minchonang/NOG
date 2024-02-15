@@ -2,6 +2,9 @@ import { NavLink } from "react-router-dom";
 import { IoLogOut } from "react-icons/io5";
 import { API_BASE_URL } from "../../../App.js";
 import { FcAssistant } from "react-icons/fc";
+import { FcRating } from "react-icons/fc";
+import { FcMenu } from "react-icons/fc";
+import { useState } from "react";
 
 import common from "../css/common.module.css";
 import header from "../css/Header.module.css";
@@ -37,13 +40,38 @@ function Header({ sub_title }) {
     window.location.href = "/boardList";
   };
 
+  const go_play = () => {
+    window.location.href = "/boardList";
+  };
+
+  const [isSubMenuVisible, setSubMenuVisible] = useState(false);
+  const toggleSubMenu = () => {
+    setSubMenuVisible(!isSubMenuVisible);
+  };
+
   return (
     <>
       <div className={header.title_area}>
         <NavLink to="/analysis">NOG</NavLink>
         <div className={header.sub_title}>{sub_title}</div>
-        <FcAssistant className={header.inquiry} onClick={go_board} />
-        <IoLogOut className={header.logout} onClick={go_logout} />
+        <FcMenu className={header.mainIcon} onClick={toggleSubMenu} />
+
+        {isSubMenuVisible && (
+          <div className={header.subMenu}>
+            <div className={header.subMenuItem} onClick={go_play}>
+              <FcRating className={header.play} />
+              즐길거리
+            </div>
+            <div className={header.subMenuItem} onClick={go_board}>
+              <FcAssistant className={header.inquiry} />
+              문의사항
+            </div>
+            <div className={header.subMenuItem} onClick={go_logout}>
+              <IoLogOut className={header.logout} />
+              로그아웃
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

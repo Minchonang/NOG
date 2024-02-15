@@ -5,6 +5,10 @@
   width: 100vw;
 }
 
+.login_area {
+  display: none;
+}
+
 /* 상단바 */
 .title_area {
   position: absolute;
@@ -115,4 +119,67 @@
 }
 .eyeIcon {
   width: 10%;
+}
+
+@media (min-width: 768px) {
+  .title_area {
+    padding: 2% 5%;
+    width: 100%;
+  }
+
+  .login_area {
+    display: block;
+  }
+
+  .subtitle_area {
+    margin-top: 13%;
+    margin-left: 10%;
+  }
+
+  .subtitle_area div {
+    position: absolute;
+    width: 80vw;
+    height: 30vw;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .slide img {
+    width: 48%;
+    height: 70%;
+  }
+  .login_area {
+    font-size: 2em;
+    color: #ff9f0a;
+    text-align: center;
+  }
+  .main_area {
+    position: absolute;
+    right: 10%;
+    width: 40%;
+    padding: 5% 5%;
+    margin-top: 9%;
+  }
+
+  .option_area {
+    margin: 2% auto;
+  }
+
+  .option_area a,
+  .option_area span {
+    margin: 1% 3px;
+    font-size: 1em;
+  }
+
+  .pwd_area {
+    margin-bottom: 5px;
+  }
+
+  .pwd_area input {
+    width: 95%;
+  }
+
+  .eyeIcon {
+    width: 5%;
+  }
 }

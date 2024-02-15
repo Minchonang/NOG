@@ -117,7 +117,6 @@ function Home() {
         console.log("서버 응답 데이터:", responseData);
         console.log(responseData.userId);
         window.sessionStorage.setItem("user_id", receivedUserId);
-
         window.location.href = "/analysis";
       } else {
         // 로그인 실패 처리
@@ -158,6 +157,7 @@ function Home() {
           </div>
 
           <div className={style.main_area}>
+            <div className={style.login_area}>로그인</div>
             <div className={common.input_area}>
               <input
                 className={common.themeBorder}

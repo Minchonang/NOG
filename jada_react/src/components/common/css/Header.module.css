@@ -11,7 +11,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   align-items: center;
 }
-.title_area div {
+
+.sub_title {
   margin-top: 7px;
   margin-left: 10px;
   font-size: 0.5em;
@@ -26,15 +27,43 @@
   cursor: pointer;
 }
 
-.inquiry {
-  position: absolute;
-  z-index: 2;
-  right: 45px;
-}
-
-.logout {
+.mainIcon {
   position: absolute;
   z-index: 2;
   right: 10px;
-  color: #ff9f0a;
+}
+
+.subMenu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.subMenuItem {
+  display: flex;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.3s;
+  font-size: 15px;
+}
+
+.subMenuItem:hover {
+  background-color: #555;
+}
+
+.play,
+.inquiry,
+.logout {
+  margin-right: 5px;
+  font-size: 20px;
 }
