@@ -6,7 +6,6 @@ import { FcRating } from "react-icons/fc";
 import { FcMenu } from "react-icons/fc";
 import { useState } from "react";
 
-import common from "../css/common.module.css";
 import header from "../css/Header.module.css";
 
 function Header({ sub_title }) {
@@ -40,8 +39,8 @@ function Header({ sub_title }) {
 		window.location.href = "/boardList";
 	};
 
-	const go_play = () => {
-		window.location.href = "/boardList";
+	const go_coin = () => {
+		window.location.href = "/coinpred";
 	};
 
 	const [isSubMenuVisible, setSubMenuVisible] = useState(false);
@@ -58,7 +57,7 @@ function Header({ sub_title }) {
 
 				{isSubMenuVisible && (
 					<div className={header.subMenu}>
-						<div className={header.subMenuItem} onClick={go_play}>
+						<div className={header.subMenuItem} onClick={go_coin}>
 							<FcRating className={header.play} />
 							즐길거리
 						</div>
