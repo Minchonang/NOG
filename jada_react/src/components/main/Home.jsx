@@ -7,9 +7,10 @@ import common from '../common/css/common.module.css';
 import style from './css/Home.module.css';
 import img1 from './img/img1.jpg';
 import img2 from './img/img2.jpg';
-import cap1 from './img/cap1.png';
-import cap2 from './img/cap2.png';
-import cap3 from './img/cap3.png';
+import img3 from './img/img3.png';
+import img4 from './img/img4.png';
+import img5 from './img/img5.png';
+import img6 from './img/img6.png';
 import BottomNav from '../common/jsx/BottomNav';
 import ChatBot from '../common/jsx/ChatBot';
 import Loading from '../common/jsx/Loading';
@@ -113,10 +114,16 @@ function Home() {
                 console.log('서버 응답 데이터:', responseData);
                 // userId 추출
                 const receivedUserId = responseData.id;
+                const receivedUserRole = responseData.role;
                 console.log('유저 ID :', receivedUserId);
+                console.log('유저 ROLE :', receivedUserRole);
                 window.sessionStorage.setItem('user_id', receivedUserId);
 
-                window.location.href = '/analysis';
+                if (receivedUserRole == 1) {
+                    window.location.href = '/admin';
+                } else {
+                    window.location.href = '/analysis';
+                }
             } else {
                 // 로그인 실패 처리
                 console.log('로그인 실패:', response.status);
@@ -148,14 +155,27 @@ function Home() {
                     {/* 이미지 슬라이드 */}
                     <div className={style.subtitle_area} ref={slideRef}>
                         <div className={style.slide}>
-                            <img src={img2} alt="Image1" />
+                            <img src={img1} alt="Image1" />
                         </div>
                         <div className={style.slide}>
-                            <img src={img1} alt="Image2" />
+                            <img src={img2} alt="Image2" />
+                        </div>
+                        <div className={style.slide}>
+                            <img src={img3} alt="Image3" />
+                        </div>
+                        <div className={style.slide}>
+                            <img src={img4} alt="Image4" />
+                        </div>
+                        <div className={style.slide}>
+                            <img src={img5} alt="Image5" />
+                        </div>
+                        <div className={style.slide}>
+                            <img src={img6} alt="Image6" />
                         </div>
                     </div>
 
                     <div className={style.main_area}>
+                        <div className={style.login_area}>로그인</div>
                         <div className={common.input_area}>
                             <input
                                 className={common.themeBorder}
