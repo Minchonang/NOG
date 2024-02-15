@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-
-import Index from "./components/main/Index";
+// import Index from './components/main/Index';
 import Login from "./components/login/Login";
 import FindId from "./components/findId/FindId";
 import FindPw from "./components/findPw/FindPw";
@@ -11,7 +10,7 @@ import Home from "./components/main/Home";
 import CheckUser from "./components/editUserInfo/CheckUser";
 import EditUserInfo from "./components/editUserInfo/EditUserInfo";
 import DeleteCheck from "./components/editUserInfo/DeleteCheck";
-import MyChart2 from "./components/myHome/chart/MyChart2";
+import MyChart from "./components/myHome/chart/MyChart";
 import ChatTest from "./components/chatTest/ChatTest";
 import HomeControl from "./components/homeControl/HomeControl";
 import Admin from "./components/admin/Admin";
@@ -19,7 +18,8 @@ import Board from "./components/board/Board";
 import BoardList from "./components/board/BoardList";
 import BoardDetail from "./components/board/BoardDetail";
 
-const API_BASE_URL = "http://54.180.132.149:8080";
+// const API_BASE_URL = 'http://54.180.132.149:8080';
+const API_BASE_URL = "http://localhost:8080";
 
 function App() {
   const userId = sessionStorage.getItem("user_id");
@@ -29,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<Navigate to="/" />} />
           <Route
             path="/chatbot"
             element={userId ? <ChatTest /> : <Navigate to="/login" />}
@@ -39,7 +40,7 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route
             path="/analysis"
-            element={userId ? <MyChart2 /> : <Navigate to="/login" />}
+            element={userId ? <MyChart /> : <Navigate to="/login" />}
           />
           <Route
             path="/check_user"
@@ -82,33 +83,37 @@ function App() {
 export default App;
 export { API_BASE_URL };
 
-// Github에서 repository 복제한 후,
-// cd jada_react (터미널에서 React 경로 이동 필요)
-// npm install
-// npm install react-router-dom
-// npm install react-modal
-// npm install react-icons
-// npm install socket.io-client
-// npm install axios
-// npm install styled-components
-// npm install react-chartjs-2
+/*
+Github에서 repository 복제한 후,
+cd jada_react (터미널에서 React 경로 이동 필요)
 
-// -- jada_react 경로에서 가상환경 켜기 --
-// pip install flask
-// pip install flask-cors
-// pip install flask-socketio
-// pip install torch
-// pip install sentence_transformers
+npm install
+npm install react-router-dom
+npm install react-modal
+npm install react-icons
+npm install socket.io-client
+npm install axios
+npm install styled-components
+npm install react-chartjs-2
 
-// python server.py -> 챗봇 실행
-// SpringBoot 실행
-// npm start 또는 npm run start (실행하기)
+-- jada_react 경로에서 가상환경 켜기 --
+pip install flask
+pip install flask-cors
+pip install flask-socketio
+pip install torch
+pip install sentence_transformers
 
-// ----- 버전 정보 -----
-// node.js 18.17.1(nvm install 18.17.1)
+python server.py -> 챗봇 실행
+SpringBoot 실행
+npm start 또는 npm run start (실행하기)
 
-// ----- 사용한 라이브러리 -----
-// react-router-dom: 6.21.3
-// react-chartjs: 5.2.0
-// react-icons: 5.0.1
-// react-modal: 3.16.1
+----- 버전 정보 -----
+node.js 18.17.1
+(nvm install 18.17.1)
+
+----- 사용한 라이브러리 -----
+react-router-dom: 6.21.3
+react-chartjs: 5.2.0
+react-icons: 5.0.1
+react-modal: 3.16.1
+*/

@@ -29,10 +29,7 @@ const ChatTest = () => {
     setuserid(id);
   }, []);
 
-  useEffect(() => {
-    // userid 상태가 업데이트될 때마다 로그 출력
-    console.log(userid);
-  }, [userid]);
+  useEffect(() => {}, [userid]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +37,7 @@ const ChatTest = () => {
         // userid 상태가 업데이트될 때마다 Flask 서버에 요청
         if (userid) {
           const response = await axios.post(
-            "http://localhost:5000/chat_userdata",
+            "http://192.168.0.67:5000/chat_userdata",
             {
               user_id: userid,
             }
@@ -110,8 +107,8 @@ const ChatTest = () => {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }, [chatHistory]);
 
-  console.log(userid);
-  console.log(result);
+  // console.log(userid);
+  // console.log(result);
 
   return (
     <>

@@ -57,6 +57,7 @@ public class BoardController {
                                     .title(board.getTitle())
                                     .content(board.getContent())
                                     .writeDate(board.getWriteDate())
+                                    .comment(board.getComments().isEmpty() ? null : board.getComments().get(0) )
                                     .build())
                                   .collect(Collectors.toList());
     
@@ -69,22 +70,30 @@ public class BoardController {
       try {
           List<Board> boards = boardService.getBoardListByUserId(userId);
           List<BoardDto> boardListDtos = boards.stream()
-                  .map(board -> BoardDto.builder()
-                          .userId(board.getWriter().getId())
-                          .boardId(board.getBoardId())
-                          .boardCategory(board.getBoardCategory())
-                          .title(board.getTitle())
-                          .content(board.getContent())
-                          .writeDate(board.getWriteDate())
-                          .build())
-                  .collect(Collectors.toList());
+          .map(board -> {
+            BoardDto boardDto = BoardDto.builder()
+                .userId(board.getWriter().getId())
+                .boardId(board.getBoardId())
+                .boardCategory(board.getBoardCategory())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writeDate(board.getWriteDate())
+                .comment(board.getComments().isEmpty() ? null : board.getComments().get(0) )
+                .build();
+            
+              return boardDto;
+          })
+          .collect(Collectors.toList());
+                  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardListDtos : " + boardListDtos);
 
-          return ResponseEntity.ok(boardListDtos);
+         return ResponseEntity.ok(boardListDtos);
       } catch (Exception e) {
           // 예외 처리
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
     }
+
+
 
      // 특정 게시글의 상세 정보 조회
      @GetMapping("/boardDetail")
@@ -96,8 +105,19 @@ public class BoardController {
             
              if (boardOptional.isPresent()) {
                  Board board = boardOptional.get();
-                 System.out.println(board + "-------------------------------------------------");
-                 return ResponseEntity.ok(boardOptional);
+                 System.out.println("------------------------------------------------- board : " + board);
+                 BoardDto boardDto = BoardDto.builder()
+                 .userId(board.getWriter().getId())
+                 .boardId(board.getBoardId())
+                 .boardCategory(board.getBoardCategory())
+                 .title(board.getTitle())
+                 .content(board.getContent())
+                 .writeDate(board.getWriteDate())
+                 .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
+                 .build();
+                 System.out.println("------------------------------------------------- boardDto : " + boardDto);
+
+                 return ResponseEntity.ok(boardDto);
              } else {
                  return ResponseEntity.notFound().build();
              }
@@ -112,13 +132,25 @@ public class BoardController {
 
   // 댓글 저장
   @PostMapping("/getComment")
-  public ResponseEntity<List<?>> saveComment(@RequestBody CommentDto commentDto){
-    List<Comment> result = boardService.saveComment(commentDto); 
+  public ResponseEntity<String> saveComment(@RequestBody CommentDto commentDto){
+    String result = boardService.saveComment(commentDto); 
    
     if (result != null) {
         return ResponseEntity.ok(result);
     } else {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonList("저장에 실패했습니다."));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장에 실패했습니다.");
     }
   }
+
+  // 댓글 정보 조회
+  @PostMapping("/commentInfo")
+  public ResponseEntity <List<CommentDto>> commentInfo(@RequestBody CommentDto commentDto){
+    List<CommentDto>  result =  boardService.commentInfo(commentDto);
+    if (result != null) {
+      return ResponseEntity.ok(result);
+    } else {
+      return ResponseEntity.notFound().build();
+    }
+  }
+
 }

@@ -26,6 +26,7 @@ function Inquiry() {
       if (response.ok) {
         // // 서버 응답이 성공인 경우
         const result = await response.json();
+        console.log(result);
         // 추출된 데이터 사용
         setBoards(result);
       } else {
@@ -73,7 +74,7 @@ function Inquiry() {
                   >
                     <td>{board.boardId}</td>
                     <td>{board.boardCategory}</td>
-                    <td>
+                    <td style={{ color: board.comment ? "orange" : "black" }}>
                       {board.title.length > 11
                         ? `${board.title.substring(0, 11)}...`
                         : board.title}

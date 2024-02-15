@@ -132,6 +132,7 @@ function DeleteCheck() {
               <select
                 id="deletion_reason"
                 value={deletionReasonOption}
+                className={style.select_reason}
                 onChange={(e) => setDeletionReasonOption(e.target.value)}
               >
                 <option value="">-- 선택하세요 --</option>
@@ -148,6 +149,7 @@ function DeleteCheck() {
                 <textarea
                   id="other_reason"
                   value={otherReason}
+                  className={style.input_reason}
                   onChange={(e) => setOtherReason(e.target.value)}
                   placeholder="이유를 입력해주세요."
                 ></textarea>

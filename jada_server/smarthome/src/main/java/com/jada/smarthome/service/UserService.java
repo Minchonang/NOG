@@ -94,30 +94,15 @@ public class UserService {
 
     // 세션에서 현재 로그인된 사용자의 비밀번호 확인
     public boolean checkPassword(String password, String id, HttpSession session) {
-        // UserRepository를 이용하여 현재 로그인된 사용자의 정보 조회
         Optional<User> userOptional = userRepository.findById(id);
-        // System.out.println("-------------------"+userOptional);
         String enrollpwd = userOptional.get().getPassword();
-        // System.out.println(enrollpwd);
 
-        // 세션
-        // System.out.println("----------1------"+session);
-        // String user_id = (String) session.getAttribute("user_id");
-        // System.out.println("---------591264-------"+user_id);
-        // if (!id.equals(user_id)) {
-        //     return false;
-        // }
-
-
-        // 사용자 정보가 존재하면서 비밀번호가 일치하는지 확인
-        // return DBUser != null && passwordEncoder.matches(password, DBUser.getPassword());
         if(passwordEncoder.matches(password, enrollpwd)){
             return true;
         }else{
             return false;
         }     
-        //  return userOptional.map(dbUser -> passwordEncoder.matches(password, dbUser.getPassword()))
-        // .orElse(false);
+     
     }
     
     // 아이디과 이메일로 사용자 정보를 조회하는 메서드
@@ -222,4 +207,25 @@ public class UserService {
             return null;
         }
     }
+
+      // 관리자 회원정보 수정
+      public String admineditUser(String user_id, String newName, String newEmail, String newPhone, String newAddress1, String newAddress2){
+    
+        Optional<User> userOptional = userRepository.findById(user_id);
+ 
+        if (userOptional.isPresent()) {
+         User user = userOptional.get();
+         user.setName(newName);
+         user.setEmail(newEmail);
+         user.setPhone(newPhone);
+         user.setAddress1(newAddress1);
+         user.setAddress2(newAddress2);
+         
+         // 저장된 값을 다시 userRepository를 통해 저장
+         userRepository.save(user);
+         return "수정이 완료되었습니다.";
+         } 
+ 
+         return "사용자 정보가 존재하지 않습니다.";
+     }
 }
