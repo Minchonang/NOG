@@ -258,12 +258,7 @@ function NogiAnalysis() {
 										<div>질문 패턴 분석</div>
 									</div>
 									<div className={style.boardList_graph}>
-										<canvas
-											className={style.canvas1}
-											ref={chartRef1}
-											width={400}
-											height={400}
-										></canvas>
+										<canvas className={style.canvas1} ref={chartRef1}></canvas>
 									</div>
 								</div>
 								{selectedBoard1 && (
@@ -376,8 +371,6 @@ function NogiAnalysis() {
 												<canvas
 													className={style.canvas2}
 													ref={chartRef2}
-													width={200}
-													height={200}
 												></canvas>
 											</tbody>
 										</table>
