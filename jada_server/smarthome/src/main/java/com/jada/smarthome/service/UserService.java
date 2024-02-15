@@ -63,27 +63,37 @@ public class UserService {
     }
 
     // 로그인
-    public String loginUser(LoginUserDto loginUserDto,HttpSession session) {
-        // LoginUserDto에서 id와 password를 추출
+    public LoginUserDto loginUser(LoginUserDto loginUserDto,HttpSession session) {
+
         String id = loginUserDto.getId();
         String password = loginUserDto.getPassword();
 
-        // UserRepository를 이용하여 id에 해당하는 사용자 정보를 조회
+
         Optional<User> userOptional = userRepository.findById(id);
+
 
         // 사용자 정보가 존재하면서 비밀번호가 일치하는지 확인
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            Integer userRole = user.getRole();
+            
+
             if (passwordEncoder.matches(password, user.getPassword())) {
                 // 로그인 성공 시 세션에 id 저장
                 session.setAttribute("user_id", user.getId());
-                
-                return "로그인 성공";
+                loginUserDto.setRole(userRole);
+                loginUserDto.setResponse("로그인 성공");
+                loginUserDto.setPassword(null);
+                return loginUserDto;
             } else {
-                return "비밀번호 불일치";
+                loginUserDto.setResponse("비밀번호 불일치");
+                loginUserDto.setPassword(null);
+                return loginUserDto;
             }
         } else {
-            return "해당 사용자가 존재하지 않습니다.";
+            loginUserDto.setResponse("해당 사용자가 존재하지 않습니다.");
+            loginUserDto.setPassword(null);
+            return loginUserDto;
         }
     }
 
