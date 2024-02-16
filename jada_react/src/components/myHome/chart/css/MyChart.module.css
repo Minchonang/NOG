@@ -12,20 +12,44 @@
 .body > .container > .keyword_box {
   position: relative;
   background-color: rgb(255, 255, 255);
-  padding: 2rem 1rem;
+  padding: 1rem;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-  color: rgb(255, 216, 154);
+  color: rgb(11, 7, 0);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   border-radius: 0.1rem;
   cursor: pointer;
   border: 0.3rem solid rgb(250, 185, 33);
   box-shadow: 1px 1px 2px rgb(152, 152, 151);
-  text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black;
+  background-color: #ffffff;
+  /* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
 }
 .body > .container > .keyword_box > h1,
 .body > .container > .title > h1 {
+  font-size: 2rem;
+}
+
+.body > .container > .keyword_box > div {
+  /* padding: 1rem; */
+  min-height: 5rem;
+}
+.body > .container > .keyword_box > div:nth-child(1) {
+  grid-column: span 3;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.body > .container > .keyword_box > div:nth-child(2) {
+  grid-column: span 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* background-color: rgb(74, 192, 255); */
   font-size: 2rem;
 }
 
@@ -181,8 +205,8 @@
 
 .body > .container > .keyword_box > .open {
   position: absolute;
-  right: 1%;
-  bottom: 50%;
+  right: 50%;
+  bottom: 10%;
   transform: translateY(50%);
   text-shadow: none;
   color: rgb(253, 131, 0);
