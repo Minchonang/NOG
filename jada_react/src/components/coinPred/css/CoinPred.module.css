@@ -59,7 +59,7 @@
 	position: absolute;
 	left: 100px;
 	display: flex;
-   align-items: center;
+	align-items: center;
 	padding: 8px 10px;
 	border-radius: 20px;
 	font-size: 0.7em;
@@ -88,6 +88,33 @@
 .coinGraph_area {
 	width: 100%;
 	display: flex;
-	/* background-color: rgba(128, 128, 128, 0.446); */
-	height: 300px;
+}
+
+.coinGraph {
+	width: 100%;
+	height: auto;
+}
+
+.desc_area {
+	display: flex;
+	flex-direction: row;
+	margin: 10px 0;
+	white-space: pre-wrap;
+}
+.desc_area div {
+	margin-right: 5px;
+	color: darkgray;
+	font-family: "pretendard";
+	font-size: 0.8em;
+	line-height: 140%;
+}
+
+.img_area {
+	display: flex;
+	margin: 30px auto;
+}
+.img_area img {
+	width: 8em;
+	height: 8em;
+	opacity: .3;
 }

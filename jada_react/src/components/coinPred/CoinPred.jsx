@@ -11,6 +11,8 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 
 function CoinPred() {
+	const bot_NOG =
+		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
 	const [isLoading, setIsLoading] = useState(true);
 	const [Datasets1, setDatasets1] = useState(null);
 	const [Datasets2, setDatasets2] = useState(null);
@@ -51,84 +53,93 @@ function CoinPred() {
 	};
 
 	// 1. flask로부터 데이터 받기 (now_coin_chart)
+	const nowCoinChart = async (selectedCoin) => {
+		console.log("코인 데이터 가져오기 시작...");
+		try {
+			const response = await axios.get(
+				`http://43.203.120.82:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`
+			);
+			// 데이터 받기
+			const data1 = response;
+			setDatasets1(data1);
+			console.log("현재 코인 그래프 ", data1);
+		} catch (error) {
+			console.error("Error fetching data:", error.message);
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					`http://43.203.120.82:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`
-				);
-				// 데이터 받기
-				const data1 = response;
-				setDatasets1(data1);
-				console.log("data1 ", data1);
-			} catch (error) {
-				console.error("Error fetching data:", error.message);
-			}
-		};
-		fetchData();
+		nowCoinChart(selectedCoin);
 	}, [selectedCoin]);
 
 	// 2. flask로부터 데이터 받기 (now_coin)
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					`http://43.203.120.82:5000/now_coin/?coinname=${selectedCoin}`
-				);
-				const data2 = response;
-				setDatasets2(data2);
-				console.log("data2 ", data2);
-				// 현재 가격 추출
-				if (data2.data) {
-					const now_price = data2.data.map((entry) => entry.trade_price);
-					setNowPrice(now_price);
-					console.log("now_price ", now_price);
-				}
-			} catch (error) {
-				console.error("Error fetching data:", error.message);
+	const nowCoin = async (selectedCoin) => {
+		try {
+			const response = await axios.get(
+				`http://43.203.120.82:5000/now_coin/?coinname=${selectedCoin}`
+			);
+			const data2 = response;
+			setDatasets2(data2);
+			console.log("현재 코인 가격 ", data2);
+			// 현재 가격 추출
+			if (data2.data) {
+				const now_price = data2.data.map((entry) => entry.trade_price);
+				setNowPrice(now_price);
+				console.log("현재 코인 가격 ", now_price);
 			}
-		};
-		fetchData();
+		} catch (error) {
+			console.error("Error fetching data:", error.message);
+		}
+	};
+
+	useEffect(() => {
+		nowCoin(selectedCoin);
 	}, [selectedCoin]);
 
 	// 3. flask로부터 데이터 받기 (pred_coin_chart)
+	const predCoinChart = async (selectedCoin) => {
+		try {
+			const response = await axios.get(
+				`http://43.203.120.82:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
+			);
+			const data3 = response;
+			// const endvalue = data3[:]
+			setDatasets3(data3);
+			const keys = Object.keys(data3);
+			const lastKey = keys[keys.length - 1];
+			const lastValue = data3[lastKey];
+			console.log("예측 코인 차트 ", data3);
+		} catch (error) {
+			console.error("Error fetching data:", error.message);
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					`http://43.203.120.82:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
-				);
-				const data3 = response;
-				setDatasets3(data3);
-				console.log("data3 ", data3);
-			} catch (error) {
-				console.error("Error fetching data:", error.message);
-			}
-		};
-		fetchData();
+		predCoinChart(selectedCoin);
 	}, [selectedCoin]);
 
 	// 4. flask로부터 데이터 받기 (pred_coin)
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					`http://43.203.120.82:5000/pred_coin/?coin_full_name=${selectedCoin}`
-				);
-				const data4 = response;
-				setDatasets4(data4);
-				console.log("data4 ", data4);
-				// 예측 가격 추출
-				if (data4.data) {
-					const pred_price = data4.data[0];
-					setPredPrice(pred_price);
-					console.log("pred_price ", pred_price);
-				}
-			} catch (error) {
-				console.error("Error fetching data:", error.message);
+	const predCoin = async (selectedCoin) => {
+		try {
+			const response = await axios.get(
+				`http://43.203.120.82:5000/pred_coin/?coin_full_name=${selectedCoin}`
+			);
+			const data4 = response;
+			setDatasets4(data4);
+			console.log("예측 코인 가격 ", data4);
+			// 예측 가격 추출
+			if (data4.data) {
+				const pred_price = data4.data[0];
+				setPredPrice(pred_price);
+				console.log("예측 코인 가격 ", pred_price);
 			}
-		};
-		fetchData();
+		} catch (error) {
+			console.error("Error fetching data:", error.message);
+		}
+	};
+
+	useEffect(() => {
+		predCoin(selectedCoin);
 	}, [selectedCoin]);
 
 	// 차트그리기
@@ -238,15 +249,27 @@ function CoinPred() {
 								)
 									.toString()
 									.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
-								<TfiReload color="#0064ff" onClick={reload} />
+								<TfiReload
+									color="#0064ff"
+									onClick={(e) => {
+										nowCoinChart(selectedCoin);
+										predCoinChart(selectedCoin);
+										nowCoin(selectedCoin);
+										predCoin(selectedCoin);
+									}}
+								/>
 							</div>
 						</div>
 						<div className={style.coinGraph_area}>
 							{" "}
-							<canvas className={style.canvas1} ref={chartRef1}></canvas>
+							<canvas className={style.coinGraph_area} ref={chartRef1}></canvas>
 						</div>
 						<div className={style.desc_area}>
-							<div></div>
+							<div>{`[안내]`}</div>
+							<div>{`코인 예측 가격 결과는 오로지 정보 제공 목적으로 제공되며,\n이에 대해 피해가 발생하여도 당사는 책임을 지지 않습니다.`}</div>
+						</div>
+						<div className={style.img_area}>
+							<img src={bot_NOG} alt="botNOG" />
 						</div>
 					</div>
 					<BottomNav />
