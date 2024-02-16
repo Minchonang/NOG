@@ -95,8 +95,8 @@ function HomeControl() {
             );
 
             // 온도 정보 저장
-            const outdoorTemp = response.data.main.temp;
-            setOutdoorTemp(outdoorTemp);
+            const roundedOutdoorTemp = outdoorTemp.toFixed(1);
+            setOutdoorTemp(parseFloat(roundedOutdoorTemp));
             const weatherIcon = response.data.weather[0].icon;
             setWeatherIcon(weatherIcon);
 
@@ -139,7 +139,7 @@ function HomeControl() {
                 // 서버 응답이 성공인 경우
                 const result = await response.json();
 
-                // console.log("Home Device Data:", result);
+                console.log('Home Device Data:', result);
 
                 setUserHumanCount(result.humanCount);
                 setHomeLightOnOff(result.light);
@@ -152,7 +152,7 @@ function HomeControl() {
                 setHomeAirTemp(result.setAirTemp);
             } else {
                 const errorData = await response.json();
-                console.log('홈 디바이스 정보 조회 실패');
+                console.log('홈 디바이스 정보 조회 실패:', errorData);
             }
         } catch (error) {
             console.error('서버 통신 오류', error);
@@ -221,9 +221,9 @@ function HomeControl() {
             const response = await axios.post(`${API_BASE_URL}/api/homedevice/editTemp`, requestData);
 
             if (response.status === 200) {
-                console.log('데이터 전송 성공');
+                console.log('데이터 전송 성공!');
             } else {
-                console.log('데이터 전송 실패:');
+                console.log('데이터 전송 실패:', response.data);
                 alert('데이터 전송 실패');
             }
         } catch (error) {
@@ -236,7 +236,7 @@ function HomeControl() {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        // console.log('userHumanCount updated:', userHumanCount);
+        console.log('userHumanCount updated:', userHumanCount);
         if (userHumanCount === 0 && homeLightOnOff) {
             updateLightStatus(false);
             setMessage('절전모드');
@@ -245,7 +245,7 @@ function HomeControl() {
 
     // ------------------
     useEffect(() => {
-        // console.log('userHumanCount updated:', userHumanCount);
+        console.log('userHumanCount updated:', userHumanCount);
         if (userHumanCount === 0 && homeLightOnOff) {
             updateLightStatus(false);
         }
@@ -426,7 +426,7 @@ function HomeControl() {
                                     style={{ fontSize: userId.length >= 9 ? '1em' : '1.5em' }}
                                     className={style.homeCount_name}
                                 >
-                                    {userId}님의 집
+                                    우리집
                                 </div>
                                 <div className={style.count}>{userHumanCount}명</div>
                             </div>

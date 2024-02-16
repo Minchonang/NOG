@@ -42,7 +42,7 @@ function App() {
                     <Route path="/board" element={userId ? <Board /> : <Navigate to="/" />} />
                     <Route path="/boardList" element={userId ? <BoardList /> : <Navigate to="/" />} />
                     <Route path="/boardDetail/:boardId" element={userId ? <BoardDetail /> : <Navigate to="/" />} />
-                    <Route path="/coinpred" element={<CoinPred />} />;
+                    <Route path="/coinpred" element={userId ? <CoinPred /> : <Navigate to="/" />} />;
                 </Routes>
             </BrowserRouter>
         </>

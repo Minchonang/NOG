@@ -1,0 +1,120 @@
+.main_area {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0 auto;
+	padding: 13% 5% 90px;
+	font-family: "Godo";
+}
+
+.coinInfo_area {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	margin: 10px 0;
+}
+
+.downMarker {
+	margin-left: 0;
+	margin-right: 1px;
+	width: 1.1em;
+	height: 1em;
+}
+.coinName_area {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.coinSelect_area {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 2% 0 3px;
+}
+.coinSelect_area select {
+	font-family: "godo";
+	font-size: 1.3em;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: none;
+	color: #0064ff;
+	background-color: white;
+
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+.coinSelect_area select::after {
+	content: "\25BC";
+	transform: translateY(-50%);
+	position: absolute;
+	pointer-events: none;
+}
+
+.selectGuide {
+	position: absolute;
+	left: 100px;
+	display: flex;
+	align-items: center;
+	padding: 8px 10px;
+	border-radius: 20px;
+	font-size: 0.7em;
+	color: #ffffff;
+	background-color: #0066ffc8;
+}
+
+.coinPrice {
+	font-size: 2em;
+	margin: 3px -1px;
+}
+
+.predPrice {
+	margin: 5px 5px 3px 0;
+	font-size: 0.8em;
+}
+
+.predReload {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+/* 그래프 */
+.coinGraph_area {
+	width: 100%;
+	display: flex;
+}
+
+.coinGraph {
+	width: 100%;
+	height: auto;
+}
+
+.desc_area {
+	display: flex;
+	flex-direction: row;
+	margin: 10px 0;
+	white-space: pre-wrap;
+}
+.desc_area div {
+	margin-right: 5px;
+	color: darkgray;
+	font-family: "pretendard";
+	font-size: 0.8em;
+	line-height: 140%;
+}
+
+.img_area {
+	display: flex;
+	margin: 30px auto;
+}
+.img_area img {
+	width: 8em;
+	height: 8em;
+	opacity: .3;
+}
