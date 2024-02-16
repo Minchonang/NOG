@@ -59,7 +59,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://192.168.0.84:5001/my_home?user_id=${id}${
+          `http://43.203.120.82:5000/my_home?user_id=${id}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );
@@ -76,7 +76,7 @@ const MyChart = () => {
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
         });
-
+        setPredData(null); // 예측 초기화
         console.log(data);
         console.log(id);
       } catch (error) {
@@ -94,7 +94,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}`
+          `http://43.203.120.82:5000/pred?user_id=${user["user_id"]}`
         );
 
         // 응답에서 데이터 추출하고 상태 업데이트
@@ -130,7 +130,7 @@ const MyChart = () => {
 
   return (
     <>
-      {load == false ? (
+      {load === false ? (
         <LoadingNog />
       ) : (
         <>
@@ -163,32 +163,14 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(1)}
               >
-                <h1>
-                  {chartData1["my_total_usage"]
-                    ? chartData1["my_total_usage"]
-                    : 0}
-                  kw{" "}
-                </h1>
-                <span>이번 달 사용 전력</span>
+                <div>
+                  <span>이번 달 예상 전기 요금</span>
+                </div>
 
-                <h1>
-                  {chartData1["my_this_month_bill"]
-                    ? chartData1["my_this_month_bill"].toLocaleString("ko-KR")
-                    : 0}
-                  원
-                </h1>
-                <span>사용요금</span>
+                <div>
+                  <h1>115,000원</h1>
+                </div>
 
-                <h1>
-                  {chartData1["my_this_month_bill"]
-                    ? (
-                        parseInt(chartData1["my_before_month_bill"]) -
-                        parseInt(chartData1["my_this_month_bill"])
-                      ).toLocaleString("ko-KR")
-                    : 0}
-                  원
-                </h1>
-                <span>저번 달 대비 절약 금액</span>
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["1"] ? "▲" : "▼"}{" "}
@@ -286,7 +268,7 @@ const MyChart = () => {
                         </tr>
                       </tbody>
                     </table>
-                    {predData["total"] && (
+                    {predData && predData["total"] ? (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
@@ -303,7 +285,7 @@ const MyChart = () => {
                           입니다.
                         </p>
                       </>
-                    )}
+                    ) : null}
                   </div>
                   <div
                     className={style.bottom_close}
@@ -318,11 +300,15 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(2)}
               >
-                <h1>
-                  {chartData2["user_type"] ? chartData2["user_type"] : "오전"}{" "}
-                  소비 유형
-                </h1>
-                <span>가장 많은 소비시간대</span>
+                <div>
+                  <span>
+                    {chartData2["user_type"] ? chartData2["user_type"] : "오전"}{" "}
+                    소비 유형
+                  </span>
+                  <span>12시-5시</span>
+                </div>
+                <div>이미지</div>
+
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["2"] ? "▲" : "▼"}
@@ -459,10 +445,18 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(3)}
               >
-                <h1>
-                  {chartData3["max_day"] ? chartData3["max_day"][0] : "월요일"}
-                </h1>
-                <span>소비량이 가장 많은 요일</span>
+                <div>
+                  <span>소비량이 가장 많은 요일</span>
+                </div>
+                <div>
+                  {" "}
+                  <h1>
+                    {chartData3["max_day"]
+                      ? chartData3["max_day"][0]
+                      : "월요일"}
+                  </h1>
+                </div>
+
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["3"] ? "▲" : "▼"}
@@ -577,13 +571,18 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(4)}
               >
-                <h1>
-                  {chartData3 && chartData3["max"] && chartData3["max"][0]
-                    ? chartData3["max"][0]
-                    : 1}
-                  일
-                </h1>
-                <span>이번 달 가장 사용량이 많았던 날</span>
+                <div>
+                  <span>이번 달 가장 사용량이 많았던 날</span>
+                </div>
+                <div>
+                  <h1>
+                    {chartData3 && chartData3["max"] && chartData3["max"][0]
+                      ? chartData3["max"][0]
+                      : 1}
+                    일
+                  </h1>
+                </div>
+
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["4"] ? "▲" : "▼"}
@@ -692,15 +691,21 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(5)}
               >
-                <h1>
-                  {chartData3 &&
-                  chartData3["average"] &&
-                  chartData3["average"][0]
-                    ? chartData3["average"][0]
-                    : 0}
-                  kW
-                </h1>
-                <span>하루 평균 사용량</span>
+                <div>
+                  <span>하루 평균 사용량</span>
+                </div>
+                <div>
+                  {" "}
+                  <h1>
+                    {chartData3 &&
+                    chartData3["average"] &&
+                    chartData3["average"][0]
+                      ? chartData3["average"][0]
+                      : 0}
+                    kW
+                  </h1>
+                </div>
+
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["5"] ? "▲" : "▼"}
@@ -778,16 +783,14 @@ const MyChart = () => {
                             {chartData3 &&
                             chartData3["average"] &&
                             chartData3["average"]
-                              ? "약 " +
-                                Math.round(
-                                  ((chartData3["average"][0] -
-                                    chartData3["average"][1]) *
-                                    -100) /
-                                    100
-                                ) *
-                                  -1 +
-                                " kWh"
-                              : "데아터 없음"}
+                              ? chartData3["average"][2] >= 0
+                                ? "약 " +
+                                  chartData3["average"][2] +
+                                  " kWh 많이 소비"
+                                : "약 " +
+                                  chartData3["average"][2] * -1 +
+                                  " kWh 적게 소비"
+                              : "데이터 없음"}
                           </td>
                         </tr>
                       </tbody>
@@ -806,15 +809,20 @@ const MyChart = () => {
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(6)}
               >
-                <h1>
-                  {Math.round(
-                    (chartData1["my_total_usage"] /
-                      chartData1["average_total_usage"]) *
-                      1000
-                  ) / 10}
-                  %{" "}
-                </h1>
-                <span>지역주민 대비 사용량</span>
+                <div>
+                  <span>지역주민 대비 사용량</span>
+                </div>
+                <div>
+                  <h1>
+                    {Math.round(
+                      (chartData1["my_total_usage"] /
+                        chartData1["average_total_usage"]) *
+                        1000
+                    ) / 10}
+                    %{" "}
+                  </h1>
+                </div>
+
                 <span className={style.open}>
                   {" "}
                   {visibleContainers["6"] ? "▲" : "▼"}
