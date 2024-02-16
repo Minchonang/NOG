@@ -34,6 +34,7 @@ const MyChart = () => {
   const [searchDate, setSearchDate] = useState("");
   const [load, setLoad] = useState(false);
   const [now, setNow] = useState(false);
+  const [predData, setPredData] = useState("");
 
   useEffect(() => {
     //  현시점 날짜 계산
@@ -74,7 +75,6 @@ const MyChart = () => {
           user_id: id,
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
-          user_pred: null,
         });
 
         console.log(data);
@@ -99,11 +99,10 @@ const MyChart = () => {
 
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
-        setUser({
-          user_id: user["user_id"],
-          user_name: user["user_name"],
-          user_city: user["user_city"],
-          user_pred: data.total[0],
+        console.log("data2", data);
+        setPredData({
+          total: data["total"],
+          total_bill: data["total_bill"],
         });
       } catch (error) {
         console.error("Error fetching graph data:", error);
@@ -119,42 +118,6 @@ const MyChart = () => {
       }
     }
   }, [period]);
-
-  // 요금 계산기
-  function calculateBill(usage, month) {
-    let bill = 0;
-    if (month in [7, 8, "7", "8"]) {
-      if (usage <= 300) {
-        // 하계 기본 요금
-        bill = 730;
-        bill += usage * 105;
-      } else if (usage <= 450) {
-        bill = 1260;
-
-        bill += 300 * 105 + (usage - 300) * 174;
-      } else {
-        bill = 6060;
-
-        bill += 300 * 105 + 150 * 174 + (usage - 450) * 242.3;
-      }
-    } else {
-      if (usage <= 200) {
-        // 그외 계절 기본 요금
-        bill = 730;
-        bill += usage * 105;
-      } else if (usage <= 400) {
-        bill = 1260;
-
-        bill += 200 * 105 + (usage - 200) * 174;
-      } else {
-        bill = 6060;
-
-        bill += 200 * 105 + 200 * 174 + (usage - 400) * 242.3;
-      }
-    }
-
-    return Math.round(bill, 0);
-  }
 
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
@@ -323,20 +286,17 @@ const MyChart = () => {
                         </tr>
                       </tbody>
                     </table>
-                    {user["user_pred"] && (
+                    {predData["total"] && (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
                           <span className={style.important_keywords}>
-                            {user["user_pred"] ? user["user_pred"] : 0}kwh
+                            {predData["total"] ? predData["total"] : 0}kwh
                           </span>
                           , 요금은{" "}
                           <span className={style.important_keywords}>
-                            {user["user_pred"]
-                              ? calculateBill(
-                                  user["user_pred"],
-                                  chartData1["this_month"]
-                                ).toLocaleString("ko-KR")
+                            {predData["total_bill"]
+                              ? predData["total_bill"].toLocaleString("ko-KR")
                               : 0}
                             원
                           </span>
