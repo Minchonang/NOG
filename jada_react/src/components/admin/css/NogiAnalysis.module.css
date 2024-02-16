@@ -240,11 +240,11 @@
 		background-color: white;
 	}
 
-	.boardList_table tr:nth-child(n + 2) {
+	.boardList_table tr:nth-child(n + 1) {
 		transition-duration: 0.3s;
 		cursor: pointer;
 	}
-	.boardList_table tr:nth-child(n + 2):hover {
+	.boardList_table tr:nth-child(n + 1):hover {
 		background-color: #fbd17c;
 	}
 
