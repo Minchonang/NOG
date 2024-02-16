@@ -79,7 +79,7 @@ function Header({ sub_title }) {
 					<div className={header.subMenu} ref={subMenuArea}>
 						<div className={header.subMenuItem} onClick={go_coin}>
 							<FcRating className={header.play} />
-							<div>즐길거리</div>
+							<div>오늘의 코인</div>
 						</div>
 						<div className={header.subMenuItem} onClick={go_board}>
 							<FcAssistant className={header.inquiry} />
