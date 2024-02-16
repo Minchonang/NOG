@@ -3,7 +3,6 @@ import { API_BASE_URL } from '../../App.js';
 
 import Header from '../common/jsx/Header';
 import common from '../common/css/common.module.css';
-// import style from './css/UserList.module.css';
 import style from './css/Inquiry.module.css';
 
 function Inquiry() {

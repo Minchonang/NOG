@@ -9,6 +9,7 @@ import BottomNav from "../common/jsx/BottomNav";
 import common from "../common/css/common.module.css";
 import style from "./css/ChatTest.module.css";
 
+// const socket = io("http://192.168.0.19:5001"); // 희성
 const socket = io("http://192.168.0.67:5000");
 
 const ChatTest = () => {
@@ -29,7 +30,10 @@ const ChatTest = () => {
     setuserid(id);
   }, []);
 
-  useEffect(() => {}, [userid]);
+  useEffect(() => {
+    // userid 상태가 업데이트될 때마다 로그 출력
+    console.log("userid 상태가 업데이트 되었습니다.: ", userid);
+  }, [userid]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +50,7 @@ const ChatTest = () => {
           const resultString = response.data;
           // result를 배열로 변환
           const resultArray = JSON.parse(resultString);
-          console.log(resultArray); // 받아온 데이터 확인
+          console.log("받아온 resultArray: ", resultArray); // 받아온 데이터 확인
 
           let totalDailyUsage = 0;
           resultArray.forEach((data) => {
@@ -148,7 +152,11 @@ const ChatTest = () => {
                   <div>
                     {/* chat.Img가 1인 경우 result 출력, 그렇지 않으면 chat.answer 출력 */}
                     {userid ? (
-                      chat.answer
+                      chat.img == "chat_result" ? (
+                        `이번달 ${userid}님의 전력량은` + result + "kwh 입니다"
+                      ) : (
+                        chat.answer
+                      )
                     ) : chat.login_check !== "1" ? (
                       chat.answer
                     ) : (
@@ -167,9 +175,10 @@ const ChatTest = () => {
                         chat.img.startsWith("/") ? (
                           // navlink
                           <NavLink to={chat.img}>{`\n\n바로가기`}</NavLink>
+                        ) : chat.img == "chat_result" ? (
+                          " "
                         ) : (
-                          // 안보여주기
-                          <span>{chat.img}</span>
+                          chat.img
                         )
                       ) : // 로그인 상태이지만 login_check가 1이 아닐 때
                       /(http|https):\/\//.test(chat.img) ? (

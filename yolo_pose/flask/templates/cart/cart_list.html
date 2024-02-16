@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script>
+			function goView(home_data_id) {
+				// alert(home_data_id);
+				url = "/mem_view/";
+				url += "?mem_id=" + home_data_id;
+				// alert(url)
+				location.href = url;
+			}
+		</script>
+	</head>
+
+	<body>
+		<h2>장바구니 목록 조회하기</h2>
+		<h5>조회 건수 : {{cart_cnt}}</h5>
+		<table border="1">
+			<tr>
+				<th>회원 아이디</th>
+				<th>주문번호</th>
+			</tr>
+			{% for data in cart_list %}
+			<tr>
+				<td>
+					<a href="javascript:goView('{{ data.home_data_id}}')">
+						{{ data.home_data_id }}
+					</a>
+				</td>
+				<td>{{ data.date_time }}</td>
+			</tr>
+			{% endfor%}
+		</table>
+	</body>
+</html>

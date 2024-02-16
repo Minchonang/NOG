@@ -1,84 +1,103 @@
 .title_area {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  padding: 2.5% 5%;
-  background-color: #fbf7ef;
-  font-family: "godo";
-  font-size: 1.8em;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  align-items: center;
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	width: 100vw;
+	padding: 2.5% 5%;
+	background-color: #fbf7ef;
+	font-family: "godo";
+	font-size: 1.8em;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+	align-items: center;
 }
 
 .sub_title {
-  margin-top: 7px;
-  margin-left: 10px;
-  font-size: 0.5em;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	margin-top: 7px;
+	margin-left: 10px;
+	font-size: 0.5em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .title_area a {
-  text-decoration: none;
-  cursor: pointer;
+	text-decoration: none;
+	cursor: pointer;
 }
 
+/* 우측 상단 햄버거 버튼 */
 .mainIcon {
-  position: absolute;
-  z-index: 2;
-  right: 10px;
+	position: absolute;
+	right: 10px;
+	border-radius: 10px;
+	transition-duration: 0.3s;
+}
+.mainIcon:hover {
+	cursor: pointer;
+	background-color: lightgray;
 }
 
+/* 메뉴 내용 */
 .subMenu {
-  position: absolute;
-  top: 40px;
-  margin-left: 50%;
-  background-color: #333;
-  border: 1px solid #555;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  z-index: 5;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 3;
+	top: 40px;
+	right: 14px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	border: 1px solid #555;
+	border-radius: 10px;
+	background-color: #333;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	transition-duration: 0.3s;
 }
 
 .subMenuItem {
-  display: flex;
-  align-items: center;
-  color: white;
-  cursor: pointer;
-  padding: 15px;
-  transition: background-color 0.3s;
-  font-size: 0.7em;
-  z-index: 5;
+	z-index: 5;
+	display: flex;
+	align-items: center;
+	color: white;
+	padding: 15px;
+	border-radius: 10px;
+	transition: background-color 0.3s;
+	font-size: 0.7em;
+	cursor: pointer;
+}
+.subMenuItem div {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .subMenuItem:hover {
-  background-color: #555;
+	background-color: #555;
 }
 
 .play,
 .inquiry,
 .logout {
-  margin-right: 5px;
-  font-size: 1.2em;
+	margin-right: 5px;
+	font-size: 1.2em;
 }
 
 @media (min-width: 1024px) {
-  .title_area {
-    padding: 0.5% 2%;
-    font-size: 3em;
-    box-shadow: none;
-  }
+	.title_area {
+		padding: 0.5% 2%;
+		font-size: 3em;
+		box-shadow: none;
+	}
 
-  .subMenu {
-    top: 50px;
-    margin-left: 82%;
-    padding: 10px;
-    z-index: 5;
-  }
+	.subMenu {
+		top: 62px;
+		right: 14px;
+		padding: 10px;
+		z-index: 3;
+	}
+
+	.subMenuItem {
+		font-size: 0.5em;
+	}
 }

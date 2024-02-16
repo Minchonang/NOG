@@ -15,10 +15,10 @@ import Admin from './components/admin/Admin';
 import Board from './components/board/Board';
 import BoardList from './components/board/BoardList';
 import BoardDetail from './components/board/BoardDetail';
+import CoinPred from './components/coinPred/CoinPred';
 
 // const API_BASE_URL = 'http://localhost:8080';
 const API_BASE_URL = 'http://54.180.132.149:8080';
-const MY_CHART_URL = 'http://192.168.0.84:5001';
 
 function App() {
     const userId = sessionStorage.getItem('user_id');
@@ -29,7 +29,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="*" element={userId ? <MyChart /> : <Navigate to="/" />} />
-                    <Route path="/chatbot" element={userId ? <ChatTest /> : <Navigate to="/" />} />
+                    <Route path="/chatbot" element={<ChatTest />} />
                     <Route path="/find_id" element={<FindId />} />
                     <Route path="/find_pw" element={<FindPw />} />
                     <Route path="/join" element={<Join />} />
@@ -42,6 +42,7 @@ function App() {
                     <Route path="/board" element={userId ? <Board /> : <Navigate to="/" />} />
                     <Route path="/boardList" element={userId ? <BoardList /> : <Navigate to="/" />} />
                     <Route path="/boardDetail/:boardId" element={userId ? <BoardDetail /> : <Navigate to="/" />} />
+                    <Route path="/coinpred" element={<CoinPred />} />;
                 </Routes>
             </BrowserRouter>
         </>
