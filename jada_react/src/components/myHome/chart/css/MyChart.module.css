@@ -32,7 +32,7 @@
   min-height: 3rem;
 }
 .body > .container > .keyword_box > div:nth-child(1) {
-  grid-column: span 4;
+  grid-column: span 5;
 
   display: flex;
   align-items: flex-start;
@@ -41,7 +41,7 @@
 }
 
 .body > .container > .keyword_box > div:nth-child(2) {
-  grid-column: span 2;
+  grid-column: span 1;
 
   display: flex;
   align-items: center;

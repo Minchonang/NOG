@@ -328,9 +328,12 @@ const MyChart = () => {
                     {chartData2["user_type"] ? chartData2["user_type"] : "오전"}{" "}
                     소비 유형
                   </span>
-                  <span>12시-5시</span>
+                  <span>
+                    총 사용 시간대 {chartData2["usage_timezone"]}{" "}
+                    {chartData2["usage_percentage"][chartData2["user_type"]]}%
+                  </span>
                 </div>
-                <div>이미지</div>
+                <div>ㅁ</div>
 
                 <span className={style.open}>
                   {" "}
@@ -469,14 +472,15 @@ const MyChart = () => {
                 onClick={() => handleBoxClick(3)}
               >
                 <div>
-                  <span>소비량이 가장 많은 요일</span>
+                  <span>요일 별 사용량</span>
+                  <span>목요일에 평균 대비 44%↑</span>
                 </div>
                 <div>
                   {" "}
                   <h1>
                     {chartData3["max_day"]
-                      ? chartData3["max_day"][0]
-                      : "월요일"}
+                      ? chartData3["max_day"][0].substr(0, 1)
+                      : "월"}
                   </h1>
                 </div>
 
@@ -595,7 +599,8 @@ const MyChart = () => {
                 onClick={() => handleBoxClick(4)}
               >
                 <div>
-                  <span>이번 달 가장 사용량이 많았던 날</span>
+                  <span>일일 사용량</span>
+                  <span>1일에 평균 대비 112%↑</span>
                 </div>
                 <div>
                   <h1>
@@ -710,12 +715,15 @@ const MyChart = () => {
                   </div>
                 </div>
               </div>
+
+              {/* 다섯번째줄 */}
               <div
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(5)}
               >
                 <div>
-                  <span>하루 평균 사용량</span>
+                  <span>일 평균 사용량</span>
+                  <span>강원도 강릉시 기준 50%↑</span>
                 </div>
                 <div>
                   {" "}
@@ -827,13 +835,14 @@ const MyChart = () => {
                   </div>
                 </div>
               </div>
-
+              {/* 여섯 번째줄 */}
               <div
                 className={style.keyword_box}
                 onClick={() => handleBoxClick(6)}
               >
                 <div>
-                  <span>지역주민 대비 사용량</span>
+                  <span>시간대별 사용량</span>
+                  <span>강원도 강릉시 기준 12% ↑</span>
                 </div>
                 <div>
                   <h1>
@@ -971,11 +980,43 @@ const MyChart = () => {
                   </div>
                   <div className={style.bottom_close}>▲</div>
                 </div>
+              </div>
 
+              <div
+                className={style.keyword_box}
+                onClick={() => handleBoxClick(7)}
+              >
+                <div>
+                  <span>월별 사용량</span>
+                </div>
+                <div>
+                  <h1>
+                    {Math.round(
+                      (chartData1["my_total_usage"] /
+                        chartData1["average_total_usage"]) *
+                        1000
+                    ) / 10}
+                    %{" "}
+                  </h1>
+                </div>
+
+                <span className={style.open}>
+                  {" "}
+                  {visibleContainers["7"] ? "▲" : "▼"}
+                </span>
+              </div>
+
+              <div
+                className={
+                  visibleContainers["7"]
+                    ? style.box_container
+                    : style.box_container_close
+                }
+              >
                 <div className={style.chart_box}>
                   <div
                     className={style.chart_title_box}
-                    onClick={() => handleBoxClick(6)}
+                    onClick={() => handleBoxClick(7)}
                   >
                     <span className={style.chart_box_title}>월간 비교</span>
                     <span className={style.spring}></span>
@@ -1051,7 +1092,7 @@ const MyChart = () => {
                   </div>
                   <div
                     className={style.bottom_close}
-                    onClick={() => handleBoxClick(6)}
+                    onClick={() => handleBoxClick(7)}
                   >
                     ▲
                   </div>

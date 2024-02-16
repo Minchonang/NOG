@@ -187,6 +187,9 @@ class Data_List:
 
         # 딕셔너리화
         usage_percentage = {'심야,새벽': usage_23_4, '오전': usage_5_10, '오후': usage_11_16, '저녁': usage_17_22}
+        usage_timezone = {'심야,새벽': "23-05시", '오전': "05-11시", '오후': "11-17시", '저녁': "17-23시"}
+        
+        
         
         ### 직전달 도시 사용량
         city_usage = {'usage_23_4': round(row_data[1]["usage_23_4"],1),
@@ -210,6 +213,7 @@ class Data_List:
         result["user_type"] = max_key
         result["my_usage"] = my_usage
         result["city_usage"] = city_usage
+        result["usage_timezone"] = usage_timezone[max_key]
         
         return result
             
