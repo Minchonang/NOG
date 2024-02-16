@@ -148,7 +148,11 @@ const ChatTest = () => {
                   <div>
                     {/* chat.Img가 1인 경우 result 출력, 그렇지 않으면 chat.answer 출력 */}
                     {userid ? (
-                      chat.answer
+                      chat.img == "chat_result" ? (
+                        `이번달 ${userid}님의 전력량은` + result + "kwh 입니다"
+                      ) : (
+                        chat.answer
+                      )
                     ) : chat.login_check !== "1" ? (
                       chat.answer
                     ) : (
@@ -167,9 +171,10 @@ const ChatTest = () => {
                         chat.img.startsWith("/") ? (
                           // navlink
                           <NavLink to={chat.img}>{`\n\n바로가기`}</NavLink>
+                        ) : chat.img == "chat_result" ? (
+                          " "
                         ) : (
-                          // 안보여주기
-                          <span>{chat.img}</span>
+                          chat.img
                         )
                       ) : // 로그인 상태이지만 login_check가 1이 아닐 때
                       /(http|https):\/\//.test(chat.img) ? (

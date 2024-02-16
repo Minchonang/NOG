@@ -20,7 +20,7 @@ model = SentenceTransformer('snunlp/KR-SBERT-V40K-klueNLI-augSTS')
 
 # 엑셀 파일 로드
 try:
-    df = pd.read_excel('./apply/train_data.xlsx')
+    df = pd.read_csv('./apply/train_data.CSV')
     print("엑셀 파일 로드 완료..")
 except:
     print("엑셀 파일 로드 실패..")
@@ -44,7 +44,7 @@ def chat_userdata():
         # 클라이언트에서 전달된 userid를 가져옴
         data = request.json
         cur,conn=dbconnection()
-        sql = f"SELECT daily_usage, date    FROM usage_data WHERE user_id = '{data['user_id']}' AND YEAR(DATE) = YEAR(CURDATE())"
+        sql = f"SELECT daily_usage, date    FROM usage_data WHERE user_id = '{data['user_id']}' AND YEAR(DATE) = YEAR(CURDATE()) AND MONTH(DATE) = MONTH(CURDATE())"
         df = sql_select(cur,sql)
         db_close(cur,conn)
         datapost = df.to_json(orient='records')
