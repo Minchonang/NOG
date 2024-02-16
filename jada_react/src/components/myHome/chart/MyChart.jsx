@@ -56,7 +56,7 @@ const MyChart = () => {
             try {
                 // axios로 GET 요청 보내기
                 const response = await axios.get(
-                    `http://192.168.0.84:5001/my_home?user_id=${id}${searchDate ? '&date=' + searchDate : ''}`
+                    `http://43.203.120.82:5000/my_home?user_id=${id}${searchDate ? '&date=' + searchDate : ''}`
                 );
 
                 // 응답에서 데이터 추출하고 상태 업데이트
@@ -92,7 +92,7 @@ const MyChart = () => {
     //     try {
     //       // axios로 GET 요청 보내기
     //       const response = await axios.get(
-    //         `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}`
+    //         `http://43.203.120.82:5000/pred?user_id=${user["user_id"]}`
     //       );
 
     //       // 응답에서 데이터 추출하고 상태 업데이트
