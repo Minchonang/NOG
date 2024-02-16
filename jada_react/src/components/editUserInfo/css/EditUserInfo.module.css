@@ -1,19 +1,8 @@
-@font-face {
-	font-family: "Godo";
-	font-style: normal;
-	font-weight: 700;
-	src:
-		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2")
-			format("woff2"),
-		url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff")
-			format("woff");
-}
-
 .main_area {
 	position: absolute;
 	z-index: 1;
 	width: 100%;
-	padding: 5% 5%;
+	padding: 13% 5% 90px;
 	display: flex;
 	flex-direction: column;
 	font-family: "Godo", serif;
@@ -34,16 +23,6 @@
 .title_area div {
 	margin-left: 10px;
 	font-size: 0.9em;
-}
-
-.main_area {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	padding: 10% 5% 70px;
-	display: flex;
-	flex-direction: column;
-	font-family: "Godo", serif;
 }
 
 /* ----------------------------------- */

@@ -15,6 +15,7 @@ import Admin from './components/admin/Admin';
 import Board from './components/board/Board';
 import BoardList from './components/board/BoardList';
 import BoardDetail from './components/board/BoardDetail';
+import CoinPred from './components/coinPred/CoinPred';
 
 // const API_BASE_URL = 'http://localhost:8080';
 const API_BASE_URL = 'http://localhost:8080';
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/board" element={userId ? <Board /> : <Navigate to="/" />} />
                     <Route path="/boardList" element={userId ? <BoardList /> : <Navigate to="/" />} />
                     <Route path="/boardDetail/:boardId" element={userId ? <BoardDetail /> : <Navigate to="/" />} />
+                    <Route path="/coinpred" element={<CoinPred />}/>;
                 </Routes>
             </BrowserRouter>
         </>
