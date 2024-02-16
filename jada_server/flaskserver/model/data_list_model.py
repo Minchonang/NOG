@@ -8,11 +8,26 @@ class Data_List:
     #     self.row_data = row_data
     ### 요일별 사용량 평균 데이터를 가져오는 함수
     def get_data_list_one(self, row_data, user_id):
-        ### 반환 객체 생성
-        merged_dict={}
-        
+
         ### 도시 평균 요일 사용량 데이터
         city_data = pd.DataFrame(row_data)
+       
+        ### 반환 객체 생성
+        merged_dict={}
+
+        # 반환 객체 기본 값 설정정
+        city_average, my_average = 0 , 0
+
+        my_max_day,my_min_day, city_max_day, city_min_day = 1,1,1,1
+
+        my_max_usage, my_min_usage, city_max_usage , city_min_usage= 0, 0 ,0,0
+
+        my_max_day_name,my_min_day_name,  city_max_day_name ,city_min_day_name =  "월요일" ,"월요일","월요일","월요일"
+
+        my_max_day_value,my_min_day_value, city_max_day_value, city_min_day_value = 0,0,0,0
+
+
+        # 도시의 요일 별 사용량 딕셔너리
         weekly_city_usage_sum = {
             'Sunday': 0,
             'Monday': 0,
@@ -22,17 +37,7 @@ class Data_List:
             'Friday': 0,
             'Saturday': 0
         }
-        city_average = 0
-        # 이번 달의 사용량 데이터를 순회하면서 요일별 사용량을 합산
-        for i in range(len(city_data)):
-            # 1행의 요일 추출
-            date = datetime.strptime(str(city_data.loc[i]["date_group"]), '%Y-%m-%d %H:%M:%S')
-            day_of_week = calendar.day_name[date.weekday()]  # 요일을 추출
-            # 1행의 해당하는 요일에 사용량을 딕셔너리에 합산
-            weekly_city_usage_sum[day_of_week] += city_data.loc[i]['daily_usage']/ len(city_data['user_id'].unique())  # 해당 요일의 사용량을 합산
-
-        
-        ### 나의 평균 요일 사용량 데이터
+        # 나의 요일 별 사용량 딕셔너리
         weekly_my_usage_sum = {
             'Sunday': 0,
             'Monday': 0,
@@ -43,62 +48,63 @@ class Data_List:
             'Saturday': 0
         }
 
-        my_average = 0
         if len(city_data)>0:
-            my_data = city_data[city_data["user_id"]==user_id]
-            my_data.reset_index(inplace=True ,drop=True)
-            # 한달 도시 평균 소비량 추출
-            city_average = round(sum(weekly_city_usage_sum.values()) / len(city_data['date_group'].unique()) , 1)
-        
-     
-            if len(my_data)>0:
-                for i in range(len(my_data)):
-                    # 1행의 요일 추출
-                    date = datetime.strptime(str(my_data.loc[i]["date_group"]), '%Y-%m-%d %H:%M:%S')
-                    day_of_week = calendar.day_name[date.weekday()]  # 요일을 추출
-                    # 1행의 해당하는 요일에 사용량을 딕셔너리에 합산
-                    weekly_my_usage_sum[day_of_week] += my_data.loc[i]['daily_usage']
-                # 한달 나의 평균 소비량 추출
-                my_average = round(sum(weekly_my_usage_sum.values()) / len(my_data) , 1)
-        
-        
-        day_name_ko = {
-            "Monday": "월요일",
-            "Tuesday": "화요일",
-            "Wednesday": "수요일",
-            "Thursday": "목요일",
-            "Friday": "금요일",
-            "Saturday": "토요일",
-            "Sunday": "일요일",
+            # 도시의 데이터 중 각 요일 카운트 딕셔너리
+            weekday_city_counts = {
+            'Sunday': 0,
+            'Monday': 0,
+            'Tuesday': 0,
+            'Wednesday': 0,
+            'Thursday': 0,
+            'Friday': 0,
+            'Saturday': 0
         }
+            
+            # 도시의 데이터 중 각 요일 카운트 값 넣기
+            for i in city_data['date_group'].unique():
+                weekday =datetime.strptime(i, '%Y-%m-%d %H:%M:%S').strftime('%A')
+                weekday_city_counts[weekday] += 1
+                
 
-        ### 평균 사용량이 많은 요일 구하기
-        city_max_day_key = max(weekly_city_usage_sum, key=weekly_city_usage_sum.get)
-        my_max_day_key = max(weekly_my_usage_sum, key=weekly_my_usage_sum.get)
-        city_max_day_name = day_name_ko[city_max_day_key]
-        my_max_day_name = day_name_ko[my_max_day_key]
-        # 그 요일의 사용량
-        city_max_day_value = weekly_city_usage_sum[city_max_day_key]
-        my_max_day_value = weekly_my_usage_sum[my_max_day_key]
+            
+            # 이번 달의 사용량 데이터를 순회하면서 요일별 사용량 값 넣기
+            city_data["human_count"]=city_data.groupby('date_group')['date_group'].transform('size')
+            for i in range(len(city_data)):
+                # 1행의 요일 추출
+                day_of_week = datetime.strptime(str(city_data.loc[i]["date_group"]), '%Y-%m-%d %H:%M:%S').strftime('%A')
+                # 1행의 해당하는 요일에 사용량을 딕셔너리에 합산
+                # 해당 요일의 사용량을 합산
+                # 소수점 2자리 반올림(round가 잘 안 통하는 오류가 있음)
+                weekly_city_usage_sum[day_of_week] += int((city_data.loc[i]['daily_usage']/(city_data.loc[i]["human_count"] * weekday_city_counts[day_of_week]))*100)/100 
+            
         
-        # 평균 사용량이 가장 적은 요일 구하기
-        city_min_day_key = min(weekly_city_usage_sum, key=weekly_city_usage_sum.get)
-        my_min_day_key = min(weekly_my_usage_sum, key=weekly_my_usage_sum.get)
-        city_min_day_name = day_name_ko[city_min_day_key]
-        my_min_day_name = day_name_ko[my_min_day_key]
+            # 한달 도시 평균 소비량 추출
+            city_average = round(sum(city_data['daily_usage']) /len(city_data['date_group'].unique())/len(city_data['user_id'].unique())  , 1)
+            
+            day_name_ko = {
+                "Monday": "월요일",
+                "Tuesday": "화요일",
+                "Wednesday": "수요일",
+                "Thursday": "목요일",
+                "Friday": "금요일",
+                "Saturday": "토요일",
+                "Sunday": "일요일",
+            }
 
-        
-        city_min_day_value = weekly_city_usage_sum[city_min_day_key]
-        my_min_day_value = weekly_my_usage_sum[my_min_day_key]
-        
-        ### 가장 사용량이 많은 날 추출
-        # 모든 유저의 daily_usage 평균을 계산하여 높은 일자 추출
-        city_max_day = 1 
-        city_min_day = 1 
-        my_max_day = 1
-        my_min_day = 1
-        if len(city_data)>0:
-            electricity_use_data = city_data.drop('user_id', axis=1)
+            ### 평균 사용량이 많은 요일 구하기
+            city_max_day_key = max(weekly_city_usage_sum, key=weekly_city_usage_sum.get)
+            city_max_day_name = day_name_ko[city_max_day_key]
+            # 그 요일의 사용량
+            city_max_day_value = weekly_city_usage_sum[city_max_day_key]
+
+            # 평균 사용량이 가장 적은 요일 구하기기
+            city_min_day_key = min(weekly_city_usage_sum, key=weekly_city_usage_sum.get)
+            city_min_day_name = day_name_ko[city_min_day_key]
+            city_min_day_value = weekly_city_usage_sum[city_min_day_key]
+
+            ### 가장 사용량이 많은 날 추출
+            # 모든 유저의 daily_usage 평균을 계산하여 높은 일자 추출    
+            electricity_use_data = city_data.drop(['user_id','human_count'], axis=1)
             # date를 기준으로 그룹화하고 평균 계산
             monthly_average = electricity_use_data.groupby('date_group',as_index=False).mean()
             monthly_average['date_group'] = pd.to_datetime(monthly_average['date_group'])
@@ -121,53 +127,96 @@ class Data_List:
             city_max_day = pd.to_datetime(max_date).day
             # 가장 적게 사용한 일자
             city_min_day = pd.to_datetime(min_date).day
-            
-            ### 나의 가장 사용량이 많은 날 추출
-            # 최대값을 가지는 인덱스 추출
-            # 최소값을 가지는 인덱스 추출
-            my_max_index=my_data['daily_usage'].idxmax()
-            my_min_index=my_data['daily_usage'].idxmin()
-    
-            # 최대값을 가지는 행 추출
-            # 최소값을 가지는 행 추출
-            my_max_row = my_data.loc[my_max_index]
-            my_min_row = my_data.loc[my_min_index]
 
-            # 최대 값, 최소 값
-            my_max_usage = my_max_row['daily_usage']
-            my_min_usage = my_min_row['daily_usage']
-            
-            # 해당 행의 date 값 추출
-            my_max_date = my_max_row['date_group']
-            my_min_date = my_min_row['date_group']
-            
-            # 가장 많이 사용한 일자
-            my_max_day = pd.to_datetime(my_max_date).day
-            #  가장 적게 사용한 일자
-            my_min_day = pd.to_datetime(my_min_date).day
-
-            # 나의 일별 소비량, 도시 평균 일별 소비량
+            # 도시 월 평균 사용량
             merged_dict['city_month_use']= dict(zip(monthly_average['date_group'].dt.day.astype(str), monthly_average['daily_usage']))
-            merged_dict['my_month_use']= dict(zip(pd.to_datetime(my_data['date_group']).dt.day.astype(str), my_data['daily_usage']))
-        
-
-            # 도시 평균 요일 별 소비량
-            merged_dict['weekly_my_usage_sum']=weekly_my_usage_sum
-            # 나의 평균 요일 별 소비량
-            merged_dict['weekly_city_usage_sum']=weekly_city_usage_sum
-            # 나의 일일 평균 사용량, 도시 일일 평균 사용량
-            merged_dict['average']=[round(my_average,1),round(city_average,1), round((my_average-city_average),1) ]
-
-            # 나의 가장 많이 소비한 날, 도시 평균 가장 많은 소비를 한 날
-            # 나의 가장 적게 소비한 날, 도시 평균 가장 적은 소비를 한 날
-            merged_dict['max_month']=[my_max_day, city_max_day, my_max_usage ,  city_max_usage]
-            merged_dict['min_month']=[my_min_day, city_min_day, my_min_usage ,  city_min_usage]
             
-            # 나의 가장 많이 소비한 요일 도시 평균 가장 많은 소비를 한 요일
-            # 나의 가장 적게 소비한 요일 도시 평균 가장 적게 소비를 한 요일
-            merged_dict['max_day']=[my_max_day_name, city_max_day_name, my_max_day_value ,  city_max_day_value]
-            merged_dict['min_day']=[my_min_day_name, city_min_day_name, my_min_day_value ,  city_min_day_value]
+            """나의 사용 데이터"""
+            my_data = city_data[city_data["user_id"]==user_id] 
+            my_data.reset_index(inplace=True ,drop=True)
+
+            if len(my_data)>0:
+                weekday_my_counts = {
+                'Sunday': 0,
+                'Monday': 0,
+                'Tuesday': 0,
+                'Wednesday': 0,
+                'Thursday': 0,
+                'Friday': 0,
+                'Saturday': 0
+                }
+                
+                # 나의 데이터 중 각 요일 카운트 
+                for i in my_data['date_group'].unique():
+                    weekday =datetime.strptime(i, '%Y-%m-%d %H:%M:%S').strftime('%A')
+                    weekday_my_counts[weekday] += 1
         
+                for i in range(len(my_data)):
+                    # 1행의 요일 추출
+                    day_of_week = datetime.strptime(str(my_data.loc[i]["date_group"]), '%Y-%m-%d %H:%M:%S').strftime('%A')
+                    # 1행의 해당하는 요일에 사용량을 딕셔너리에 합산
+                    weekly_my_usage_sum[day_of_week] += my_data.loc[i]['daily_usage']/weekday_my_counts[day_of_week]
+                    
+                # 한달 나의 평균 소비량 추출
+                my_average = round(sum(my_data['daily_usage']) / len(my_data) , 1)
+        
+                # 나의 한달 데이터 중에서 가장 사용량이 많은 날 구하기
+                my_max_day_key = max(weekly_my_usage_sum, key=weekly_my_usage_sum.get)
+                my_max_day_name = day_name_ko[my_max_day_key]
+                my_max_day_value = weekly_my_usage_sum[my_max_day_key]
+                
+                # 평균 사용량이 가장 적은 요일 구하기
+                my_min_day_key = min(weekly_my_usage_sum, key=weekly_my_usage_sum.get)
+                my_min_day_name = day_name_ko[my_min_day_key]
+                my_min_day_value = weekly_my_usage_sum[my_min_day_key]
+                
+                ### 나의 가장 사용량이 많은 날 추출
+                # 최대값을 가지는 인덱스 추출
+                # 최소값을 가지는 인덱스 추출
+                my_max_index=my_data['daily_usage'].idxmax()
+                my_min_index=my_data['daily_usage'].idxmin()
+
+                # 최대값을 가지는 행 추출
+                # 최소값을 가지는 행 추출
+                my_max_row = my_data.loc[my_max_index]
+                my_min_row = my_data.loc[my_min_index]
+
+                # 최대 값, 최소 값
+                my_max_usage = my_max_row['daily_usage']
+                my_min_usage = my_min_row['daily_usage']
+                
+                # 해당 행의 date 값 추출
+                my_max_date = my_max_row['date_group']
+                my_min_date = my_min_row['date_group']
+                
+                # 가장 많이 사용한 일자
+                my_max_day = pd.to_datetime(my_max_date).day
+                #  가장 적게 사용한 일자
+                my_min_day = pd.to_datetime(my_min_date).day
+
+                # 나의 월 사용량
+                merged_dict['my_month_use']= dict(zip(pd.to_datetime(my_data['date_group']).dt.day.astype(str), my_data['daily_usage']))
+                
+
+        # 반환 딕셔너리에 값 저장
+        # 나의 평균 요일 별 소비량
+        merged_dict['weekly_city_usage_sum']=weekly_city_usage_sum
+        # 도시 평균 요일 별 소비량
+        merged_dict['weekly_my_usage_sum']=weekly_my_usage_sum
+
+        # 나의 일일 평균 사용량, 도시 일일 평균 사용량
+        merged_dict['average']=[round(my_average,1),round(city_average,1), round((my_average-city_average),1) ]
+
+        # 나의 가장 많이 소비한 날, 도시 평균 가장 많은 소비를 한 날
+        # 나의 가장 적게 소비한 날, 도시 평균 가장 적은 소비를 한 날
+        merged_dict['max_month']=[my_max_day, city_max_day, my_max_usage ,  city_max_usage]
+        merged_dict['min_month']=[my_min_day, city_min_day, my_min_usage ,  city_min_usage]
+
+        # 나의 가장 많이 소비한 요일 도시 평균 가장 많은 소비를 한 요일
+        # 나의 가장 적게 소비한 요일 도시 평균 가장 적게 소비를 한 요일
+        merged_dict['max_day']=[my_max_day_name, city_max_day_name, my_max_day_value ,  city_max_day_value]
+        merged_dict['min_day']=[my_min_day_name, city_min_day_name, my_min_day_value ,  city_min_day_value]
+
         return merged_dict     
     
     def get_data_list_two(self, row_data):
@@ -187,7 +236,7 @@ class Data_List:
 
         # 딕셔너리화
         usage_percentage = {'심야,새벽': usage_23_4, '오전': usage_5_10, '오후': usage_11_16, '저녁': usage_17_22}
-        usage_timezone = {'심야,새벽': "23-05시", '오전': "05-11시", '오후': "11-17시", '저녁': "17-23시"}
+        usage_timezone = {'심야,새벽': "23:00-05:00", '오전': "05:00-11:00", '오후': "11:00-17:00", '저녁': "17:00-23:00"}
         
         
         
