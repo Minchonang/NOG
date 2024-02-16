@@ -76,7 +76,7 @@ const MyChart = () => {
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
         });
-
+        setPredData(null); // 예측 초기화
         console.log(data);
         console.log(id);
       } catch (error) {
@@ -286,7 +286,7 @@ const MyChart = () => {
                         </tr>
                       </tbody>
                     </table>
-                    {predData["total"] && (
+                    {predData && predData["total"] ? (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
@@ -303,7 +303,7 @@ const MyChart = () => {
                           입니다.
                         </p>
                       </>
-                    )}
+                    ) : null}
                   </div>
                   <div
                     className={style.bottom_close}
@@ -778,16 +778,14 @@ const MyChart = () => {
                             {chartData3 &&
                             chartData3["average"] &&
                             chartData3["average"]
-                              ? "약 " +
-                                Math.round(
-                                  ((chartData3["average"][0] -
-                                    chartData3["average"][1]) *
-                                    -100) /
-                                    100
-                                ) *
-                                  -1 +
-                                " kWh"
-                              : "데아터 없음"}
+                              ? chartData3["average"][2] >= 0
+                                ? "약 " +
+                                  chartData3["average"][2] +
+                                  " kWh 많이 소비"
+                                : "약 " +
+                                  chartData3["average"][2] * -1 +
+                                  " kWh 적게 소비"
+                              : "데이터 없음"}
                           </td>
                         </tr>
                       </tbody>
