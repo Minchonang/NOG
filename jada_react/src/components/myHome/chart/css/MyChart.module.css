@@ -5,8 +5,8 @@
   font-family: "Godo";
 }
 .body > .container {
-  padding-top: 3.3rem;
-  background-color: #fee9d1;
+  padding-top: 2.8rem;
+  background-color: #fffafa;
   padding-bottom: 5rem;
 }
 .body > .container > .keyword_box {
@@ -17,25 +17,21 @@
   margin-right: 0.25rem;
   color: rgb(11, 7, 0);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-radius: 0.1rem;
   cursor: pointer;
-  border: 0.3rem solid rgb(250, 185, 33);
-  box-shadow: 1px 1px 2px rgb(152, 152, 151);
+  border: 0.1rem solid rgb(0, 0, 0);
+  /* box-shadow: 1px 1px 2px rgb(152, 152, 151); */
   background-color: #ffffff;
   /* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
-}
-.body > .container > .keyword_box > h1,
-.body > .container > .title > h1 {
-  font-size: 2rem;
 }
 
 .body > .container > .keyword_box > div {
   /* padding: 1rem; */
-  min-height: 5rem;
+  min-height: 3rem;
 }
 .body > .container > .keyword_box > div:nth-child(1) {
-  grid-column: span 3;
+  grid-column: span 4;
 
   display: flex;
   align-items: flex-start;
@@ -53,23 +49,34 @@
   font-size: 2rem;
 }
 
+.body > .container > .keyword_box.bill_box > div:nth-child(1) {
+  grid-column: span 3;
+}
+.body > .container > .keyword_box.bill_box > div:nth-child(2) {
+  grid-column: span 3;
+}
+
 .body > .container > .title {
-  background-color: rgb(255, 241, 169);
-  background-image: linear-gradient(
-    to bottom,
-    rgb(62, 171, 234),
-    #3ca4e0,
-    rgb(31, 90, 141),
-    rgb(34, 91, 120),
-    rgb(14, 66, 96)
-  );
+  background-color: rgb(255, 255, 255);
+
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  border: 0.3rem solid rgb(255, 255, 255);
-  border-radius: 1rem;
+  /* border: 0.3rem solid rgb(255, 255, 255); */
+  /* border-radius: 1rem; */
   box-shadow: 0px 1px 2px rgb(155, 154, 154);
-  color: white;
-  text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  align-items: center;
+
+  /* text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black; */
+}
+.body > .container > .title > h1 {
+  /* margin-bottom: 3rem; */
+  font-size: 1.5rem;
+  display: inline-block;
+  border-bottom: 0.2rem solid rgb(255, 128, 0);
 }
 
 /* 날짜 선택 박스 */
@@ -90,10 +97,6 @@
   box-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
     1px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
   border-radius: 1rem;
-}
-
-.body > .container > .title > h1 {
-  margin-bottom: 0.5rem;
 }
 
 /* 차트 제목 */

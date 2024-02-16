@@ -59,7 +59,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://43.203.120.82:5000/my_home?user_id=${id}${
+          `http://192.168.0.84:5001/my_home?user_id=${id}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );
@@ -71,12 +71,15 @@ const MyChart = () => {
         setChartData3(data.data3);
         setChartData4(data.data4);
         setPeriod(data.data0);
+        setPredData({
+          total: data["total"],
+          total_bill: data["total_bill"],
+        });
         setUser({
           user_id: id,
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
         });
-        setPredData(null); // 예측 초기화
         console.log(data);
         console.log(id);
       } catch (error) {
@@ -88,36 +91,36 @@ const MyChart = () => {
     fetchData();
   }, [searchDate]);
 
-  // 회원 정보로 검색 완료된 후 예측
-  useEffect(() => {
-    const fetchPred = async () => {
-      try {
-        // axios로 GET 요청 보내기
-        const response = await axios.get(
-          `http://43.203.120.82:5000/pred?user_id=${user["user_id"]}`
-        );
+  // // 회원 정보로 검색 완료된 후 예측
+  // useEffect(() => {
+  //   const fetchPred = async () => {
+  //     try {
+  //       // axios로 GET 요청 보내기
+  //       const response = await axios.get(
+  //         `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}`
+  //       );
 
-        // 응답에서 데이터 추출하고 상태 업데이트
-        const data = response.data;
-        console.log("data2", data);
-        setPredData({
-          total: data["total"],
-          total_bill: data["total_bill"],
-        });
-      } catch (error) {
-        console.error("Error fetching graph data:", error);
-      } finally {
-      }
-    };
-    // 로딩이 완료된 후
-    if (period.length > 0) {
-      // 사용한 기간이 있다면 예측
-      // 초기 로딩시 선택된 셀렉트 값이 없거나 이후 현재 시점을 다시 클릭한 경우
-      if (searchDate === "" || searchDate === now) {
-        fetchPred();
-      }
-    }
-  }, [period]);
+  //       // 응답에서 데이터 추출하고 상태 업데이트
+  //       const data = response.data;
+  //       console.log("data2", data);
+  //       setPredData({
+  //         total: data["total"],
+  //         total_bill: data["total_bill"],
+  //       });
+  //     } catch (error) {
+  //       console.error("Error fetching graph data:", error);
+  //     } finally {
+  //     }
+  //   };
+  //   // 로딩이 완료된 후
+  //   if (period.length > 0) {
+  //     // 사용한 기간이 있다면 예측
+  //     // 초기 로딩시 선택된 셀렉트 값이 없거나 이후 현재 시점을 다시 클릭한 경우
+  //     if (searchDate === "" || searchDate === now) {
+  //       fetchPred();
+  //     }
+  //   }
+  // }, [period]);
 
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
@@ -140,12 +143,12 @@ const MyChart = () => {
             <div className={style.container}>
               <div className={style.title}>
                 <h1>
-                  {" "}
-                  {user["user_name"] ? user["user_name"] + "님의 " : ""}패턴분석
+                  {(searchDate ? searchDate : now).substr(-2) <= 10
+                    ? (searchDate ? searchDate : now).substr(-1)
+                    : (searchDate ? searchDate : now).substr(-2)}
+                  월 전력 소비 리포트
                 </h1>
                 <div className={style.period_box}>
-                  <span>{user["user_city"] ? user["user_city"] : ""}</span>
-
                   <span className={style.spring}></span>
 
                   <select onChange={searchDateHandler} value={searchDate}>
@@ -160,15 +163,35 @@ const MyChart = () => {
               </div>
 
               <div
-                className={style.keyword_box}
+                className={`${style.keyword_box} ${style.bill_box}`}
                 onClick={() => handleBoxClick(1)}
               >
                 <div>
-                  <span>이번 달 예상 전기 요금</span>
+                  {searchDate !== "" && searchDate !== now ? (
+                    <span>이번 달 전기 요금</span>
+                  ) : (
+                    <span>이번 달 예상 전기 요금</span>
+                  )}
                 </div>
 
                 <div>
-                  <h1>115,000원</h1>
+                  {searchDate !== "" && searchDate !== now ? (
+                    <h1>
+                      {chartData1["my_this_month_bill"]
+                        ? chartData1["my_this_month_bill"].toLocaleString(
+                            "ko-KR"
+                          )
+                        : "데이터 없음"}{" "}
+                      원
+                    </h1>
+                  ) : (
+                    <h1>
+                      {predData
+                        ? predData["total_bill"].toLocaleString("ko-KR")
+                        : 0}
+                      원
+                    </h1>
+                  )}
                 </div>
 
                 <span className={style.open}>
