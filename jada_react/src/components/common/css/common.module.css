@@ -94,6 +94,7 @@ a {
 	outline: none;
 	font-size: 1em;
 	font-family: "godo";
+	cursor: pointer;
 }
 .btn_area button:active {
 	background-color: #fbb244;

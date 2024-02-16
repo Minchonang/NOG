@@ -55,8 +55,8 @@ function Admin() {
     <div className={common.background}>
       {userRole === 1 && (
         <>
-          <Header sub_title="관리자" />
           <AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
+          <Header sub_title="관리자" />
 
           {currentTab === "회원정보" && <UserList currentTab={currentTab} />}
           {currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}

@@ -15,9 +15,10 @@ app/__pycahe__
 
 # ignore model file
 *.pt
+*.keras
 yolo_pose/output/
 your_script.spec
-
+*.keras
 # testing
 /coverage
 

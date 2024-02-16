@@ -34,6 +34,7 @@ const MyChart = () => {
   const [searchDate, setSearchDate] = useState("");
   const [load, setLoad] = useState(false);
   const [now, setNow] = useState(false);
+  const [predData, setPredData] = useState("");
 
   useEffect(() => {
     //  현시점 날짜 계산
@@ -74,7 +75,6 @@ const MyChart = () => {
           user_id: id,
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
-          user_pred: null,
         });
 
         console.log(data);
@@ -99,11 +99,10 @@ const MyChart = () => {
 
         // 응답에서 데이터 추출하고 상태 업데이트
         const data = response.data;
-        setUser({
-          user_id: user["user_id"],
-          user_name: user["user_name"],
-          user_city: user["user_city"],
-          user_pred: data.total[0],
+        console.log("data2", data);
+        setPredData({
+          total: data["total"],
+          total_bill: data["total_bill"],
         });
       } catch (error) {
         console.error("Error fetching graph data:", error);
@@ -120,21 +119,12 @@ const MyChart = () => {
     }
   }, [period]);
 
-  // 요금 계산기
-  function calculateBill(usage) {
-    let bill = 0;
-    if (usage <= 300) {
-      bill = usage * 120.0;
-    } else if (usage <= 450) {
-      bill = 300 * 120.0 + (usage - 300) * 214.6;
-    } else {
-      bill = 300 * 120.0 + 150 * 214.6 + (usage - 450) * 307.3;
-    }
-    return Math.round(bill, 0);
-  }
-
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
+    if (event.target.value === "") {
+      return false;
+    }
+
     setSearchDate(event.target.value);
   };
 
@@ -159,6 +149,7 @@ const MyChart = () => {
                   <span className={style.spring}></span>
 
                   <select onChange={searchDateHandler} value={searchDate}>
+                    <option value="">조회기간</option>
                     {Object.keys(period).map((key, index) => (
                       <option key={index} value={period[key]}>
                         {period[key]}
@@ -181,20 +172,18 @@ const MyChart = () => {
                 <span>이번 달 사용 전력</span>
 
                 <h1>
-                  {chartData1["my_total_usage"]
-                    ? calculateBill(
-                        chartData1["my_total_usage"]
-                      ).toLocaleString("ko-KR")
+                  {chartData1["my_this_month_bill"]
+                    ? chartData1["my_this_month_bill"].toLocaleString("ko-KR")
                     : 0}
                   원
                 </h1>
                 <span>사용요금</span>
 
                 <h1>
-                  {chartData1["my_total_usage"]
+                  {chartData1["my_this_month_bill"]
                     ? (
-                        calculateBill(chartData1["my_total_usage_last"]) -
-                        calculateBill(chartData1["my_total_usage"])
+                        parseInt(chartData1["my_before_month_bill"]) -
+                        parseInt(chartData1["my_this_month_bill"])
                       ).toLocaleString("ko-KR")
                     : 0}
                   원
@@ -271,39 +260,43 @@ const MyChart = () => {
                         <tr>
                           <th>요금</th>
                           <td>
-                            {calculateBill(
-                              chartData1["my_total_usage"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["my_this_month_bill"]
+                              ? chartData1["my_this_month_bill"].toLocaleString(
+                                  "ko-KR"
+                                )
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                           <td>
-                            {calculateBill(
-                              chartData1["my_total_usage_last"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["my_before_month_bill"]
+                              ? chartData1[
+                                  "my_before_month_bill"
+                                ].toLocaleString("ko-KR")
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                           <td>
-                            {calculateBill(
-                              chartData1["average_total_usage"]
-                            ).toLocaleString("ko-KR")}{" "}
+                            {chartData1["city_before_month_bill"]
+                              ? chartData1[
+                                  "city_before_month_bill"
+                                ].toLocaleString("ko-KR")
+                              : "데이터 없음"}{" "}
                             원
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    {user["user_pred"] && (
+                    {predData["total"] && (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
                           <span className={style.important_keywords}>
-                            {user["user_pred"] ? user["user_pred"] : 0}kwh
+                            {predData["total"] ? predData["total"] : 0}kwh
                           </span>
                           , 요금은{" "}
                           <span className={style.important_keywords}>
-                            {user["user_pred"]
-                              ? calculateBill(user["user_pred"]).toLocaleString(
-                                  "ko-KR"
-                                )
+                            {predData["total_bill"]
+                              ? predData["total_bill"].toLocaleString("ko-KR")
                               : 0}
                             원
                           </span>

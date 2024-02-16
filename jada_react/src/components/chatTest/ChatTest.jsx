@@ -9,6 +9,7 @@ import BottomNav from "../common/jsx/BottomNav";
 import common from "../common/css/common.module.css";
 import style from "./css/ChatTest.module.css";
 
+// const socket = io("http://192.168.0.19:5001"); // 희성
 const socket = io("http://192.168.0.67:5000");
 
 const ChatTest = () => {
@@ -29,7 +30,10 @@ const ChatTest = () => {
     setuserid(id);
   }, []);
 
-  useEffect(() => {}, [userid]);
+  useEffect(() => {
+    // userid 상태가 업데이트될 때마다 로그 출력
+    console.log("userid 상태가 업데이트 되었습니다.: ", userid);
+  }, [userid]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +50,7 @@ const ChatTest = () => {
           const resultString = response.data;
           // result를 배열로 변환
           const resultArray = JSON.parse(resultString);
-          console.log(resultArray); // 받아온 데이터 확인
+          console.log("받아온 resultArray: ", resultArray); // 받아온 데이터 확인
 
           let totalDailyUsage = 0;
           resultArray.forEach((data) => {
