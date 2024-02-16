@@ -114,7 +114,7 @@ class Pred:
     # 예측 반복 실행 함수
     def forecast(self):
         if len(self.data)==0:
-            return 0, 0, 0
+            return [0], [0], [0]
         # 결과값을 담아서 반환할 변수
         y_pred = []
         pred_upper = []
