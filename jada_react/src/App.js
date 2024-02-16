@@ -17,7 +17,8 @@ import BoardList from './components/board/BoardList';
 import BoardDetail from './components/board/BoardDetail';
 
 // const API_BASE_URL = 'http://localhost:8080';
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'http://54.180.132.149:8080';
+const MY_CHART_URL = 'http://192.168.0.84:5001';
 
 function App() {
     const userId = sessionStorage.getItem('user_id');
@@ -49,6 +50,7 @@ function App() {
 
 export default App;
 export { API_BASE_URL };
+export { MY_CHART_URL };
 
 /*
 Github에서 repository 복제한 후,

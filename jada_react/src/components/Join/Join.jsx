@@ -352,6 +352,7 @@ function Join() {
     // 이메일인증
     const sendEmail = (e) => {
         e.preventDefault();
+        alert('이메일로 인증번호가 발송되었습니다.');
         console.log(formData.email);
         const data = {
             EMAIL: formData.email,

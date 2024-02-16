@@ -99,7 +99,7 @@ function Home() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'ip: 8080',
+                    // 'Access-Control-Allow-Origin': 'ip: 8080',
                     // "Content-Type": "application/x-www-form-urlencoded",
                 },
                 body: JSON.stringify(requestData),

@@ -79,7 +79,6 @@ public class UserController {
 
     // 로그인
     // @CrossOrigin(origins = "http://192.168.0.70:3000", allowCredentials = "true")
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
         
@@ -112,7 +111,6 @@ public class UserController {
     }
 
     // 로그아웃
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // 클라이언트의 주소로 변경
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(@RequestBody String userid, HttpServletResponse response) {
         // System.out.println(session.getAttribute(userid));
@@ -173,7 +171,6 @@ public class UserController {
     
 
     // 아이디 찾기 : 이름 = 이메일 존재하는 유저 찾으면 id전달하도록 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/find-id")
     public ResponseEntity<String> findUserId(@RequestBody Map<String, String> requestData) {
         String name = requestData.get("name");
@@ -188,7 +185,6 @@ public class UserController {
     }
 
     // 비밀번호 확인(회원정보 수정용)
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     @PostMapping("/check-password")
     public ResponseEntity<String> checkPassword(@RequestBody Map<String, String> requestData, HttpSession session) {
         String password = requestData.get("password");
@@ -206,7 +202,7 @@ public class UserController {
     }
 
     // 비밀번호 찾기 : 아이디 = 이메일 존재하는 유저 찾으면 새 비밀번호로 초기화
-     @CrossOrigin(origins = "http://localhost:3000")
+    //  @CrossOrigin(origins = "http://localhost:3000")
      @PostMapping("/find-pwd")
      public ResponseEntity<String> findUserPwd(@RequestBody Map<String, String> requestData) {
          String id = requestData.get("id");
@@ -221,7 +217,7 @@ public class UserController {
      }
 
     
-     @CrossOrigin(origins = "http://localhost:3000")
+    //  @CrossOrigin(origins = "http://localhost:3000")
      @PostMapping("/pwdforget")
      @ResponseBody
      public String pwdforgetPost(@RequestBody User user) {
@@ -229,7 +225,7 @@ public class UserController {
      }
 
     // 회원정보 조회
-    @CrossOrigin(origins = "http://localhost:3000")
+    // @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/userfind")
     public ResponseEntity<?> getUserInfo(@RequestBody  Map<String, String> requestData) {
         String id = requestData.get("user_id");
@@ -247,7 +243,7 @@ public class UserController {
 
 
     // 회원정보 수정
-    @CrossOrigin(origins = "http://localhost:3000")
+    // @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/edituser")
     public ResponseEntity<String> editUser(@RequestBody EditUserDto editUserDto){
         try {
@@ -271,7 +267,7 @@ public class UserController {
     }
 
     // 회원탈퇴
-    @CrossOrigin(origins = "http://localhost:3000")
+    // @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/userdelete")
     public ResponseEntity<?> exitAccount(@RequestBody  Map<String, String> requestData) {
         // 세션에서 현재 사용자 정보 가져오기
@@ -320,7 +316,7 @@ public class UserController {
     }
 
         // 관리자 회원정보 수정
-        @CrossOrigin(origins = "http://localhost:3000")
+        // @CrossOrigin(origins = "http://localhost:3000")
         @PostMapping("/admineditUser")
         public ResponseEntity<String> admineditUser(@RequestBody EditUserDto editUserDto){
             try {
