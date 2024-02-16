@@ -92,8 +92,8 @@ class upbit_control_class:
 
 
 if __name__ == "__main__":
-    upbit = upbit_control()
-    # temp = upbit.request_upbit_data( time_to= upbit.now(), count=200 ,coin_name="KRW-LSK" )
+    upbit = upbit_control_class()
+    temp = upbit.request_upbit_data( time_to= upbit.now(), count=200 ,coin_name="KRW-LSK" )
     print(upbit.request_upbit_long_data(1000))
 
-    # pass
+    pass
