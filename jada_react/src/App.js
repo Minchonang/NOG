@@ -51,7 +51,6 @@ function App() {
 
 export default App;
 export { API_BASE_URL };
-export { MY_CHART_URL };
 
 /*
 Github에서 repository 복제한 후,

@@ -26,7 +26,7 @@ function Inquiry() {
             if (response.ok) {
                 // // 서버 응답이 성공인 경우
                 const result = await response.json();
-                console.log(result);
+                // console.log(result);
                 // 추출된 데이터 사용
                 setBoards(result);
             } else {

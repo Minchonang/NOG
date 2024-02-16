@@ -345,7 +345,8 @@ function Join() {
                 alert('회원가입 실패');
             }
         } catch (error) {
-            console.error('서버 통신 오류', error);
+            // console.error('서버 통신 오류', error);
+            console.error('서버 통신 오류');
         }
     };
 
@@ -372,7 +373,8 @@ function Join() {
                 console.log(json.AUTHKEY); // Use setNumber to update the state
             })
             .catch((error) => {
-                console.error('Error fetching email:', error);
+                // console.error('Error fetching email:', error);
+                console.error('Error fetching email');
             });
     };
 
@@ -392,7 +394,8 @@ function Join() {
                 console.error('ID 중복 확인 실패');
             }
         } catch (error) {
-            console.error('서버 통신 오류', error);
+            // console.error('서버 통신 오류', error);
+            console.error('서버 통신 오류');
         }
     };
 

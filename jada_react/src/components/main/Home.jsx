@@ -111,12 +111,12 @@ function Home() {
 
                 // 서버에서 반환된 값 출력
                 const responseData = await response.json();
-                console.log('서버 응답 데이터:', responseData);
+                // console.log('서버 응답 데이터:', responseData);
                 // userId 추출
                 const receivedUserId = responseData.id;
                 const receivedUserRole = responseData.role;
-                console.log('유저 ID :', receivedUserId);
-                console.log('유저 ROLE :', receivedUserRole);
+                // console.log('유저 ID :', receivedUserId);
+                // console.log('유저 ROLE :', receivedUserRole);
                 window.sessionStorage.setItem('user_id', receivedUserId);
 
                 if (receivedUserRole == 1) {
@@ -126,13 +126,15 @@ function Home() {
                 }
             } else {
                 // 로그인 실패 처리
-                console.log('로그인 실패:', response.status);
+                // console.log('로그인 실패:', response.status);
+                console.log('로그인 실패');
                 const errorMessage = await response.text();
                 sessionStorage.removeItem('user_id');
                 alert(errorMessage);
             }
         } catch (error) {
-            console.error('로그인 중 오류 발생:', error);
+            // console.error('로그인 중 오류 발생:', error);
+            console.error('로그인 중 오류 발생');
             sessionStorage.removeItem('user_id');
         }
     };
@@ -220,7 +222,7 @@ function Home() {
                             </NavLink>
                         </div>
                     </div>
-                    <ChatBot login={true}/>
+                    <ChatBot login={true} />
                 </div>
             )}
         </>

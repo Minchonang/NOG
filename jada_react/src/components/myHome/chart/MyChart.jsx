@@ -72,8 +72,8 @@ const MyChart = () => {
                     user_city: data.data2['city_name'],
                 });
                 setPredData(null); // 예측 초기화
-                console.log(data);
-                console.log(id);
+                // console.log(data);
+                // console.log(id);
             } catch (error) {
                 console.error('Error fetching graph data:', error);
             } finally {
@@ -92,7 +92,7 @@ const MyChart = () => {
 
                 // 응답에서 데이터 추출하고 상태 업데이트
                 const data = response.data;
-                console.log('data2', data);
+                // console.log('data2', data);
                 setPredData({
                     total: data['total'],
                     total_bill: data['total_bill'],

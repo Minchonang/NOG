@@ -78,7 +78,6 @@ public class UserController {
     }
 
     // 로그인
-    // @CrossOrigin(origins = "http://192.168.0.70:3000", allowCredentials = "true")
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
         
