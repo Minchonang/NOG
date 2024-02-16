@@ -4,14 +4,17 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from server_function import dbconnection,sql_select,db_close,analysis_data
 import pandas as pd
-import tensorflow as tf
 import torch
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
-from datetime import datetime
 # coin
 from coin import upbit_control
 from coin import  coin_pred
+# 차트 분석 모델 
+from model.usage_data_model import Usage_Data
+from model.usage_pred_model import Pred
+from model.data_list_model import Data_List
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -167,7 +170,7 @@ def handle_message(message):
     db_close(cur,conn)
 
 #####coin
-# http://127.0.0.1:5001/now_coin_chart?ago=400&coinname=KRW-ETH
+# http://127.0.0.1:5000/now_coin_chart?ago=400&coinname=KRW-ETH
 @app.route("/now_coin_chart/", methods = ["GET"])
 def now_coin_chart():
     try:
@@ -182,7 +185,7 @@ def now_coin_chart():
     except Exception as e:
         return jsonify({"error":str(e)}), 400
 #  현재 코인가격 보내주기
-# http://127.0.0.1:5001/now_coin/?coinname=KRW-ETH
+# http://127.0.0.1:5000/now_coin/?coinname=KRW-ETH
 @app.route("/now_coin/", methods = ["GET"])
 def now_coin():
     try:
@@ -197,7 +200,7 @@ def now_coin():
         return jsonify({"error":str(e)}), 400
 
 #  예측 차트 보내주기 최소 600이상 받아야 합니다.
-# http://127.0.0.1:5001/pred_coin_chart/?ago=600&coin_full_name=KRW-ETH_이더리움
+# http://43.203.120.82:5000/pred_coin_chart/?ago=600&coin_full_name=KRW-ETH
 @app.route("/pred_coin_chart/", methods = ["GET"])
 def pred_coin_chart():
     try:
@@ -213,7 +216,7 @@ def pred_coin_chart():
     except Exception as e:
         return jsonify({"error":str(e)}), 400
 #  예측(5분) 코인가격 보내주기
-# http://127.0.0.1:5001/pred_coin/?coin_full_name=KRW-ETH_이더리움
+# http://43.203.120:5000/pred_coin/?coin_full_name=KRW-ETH
 @app.route("/pred_coin/", methods = ["GET"])
 def pred_coin():
     try:
@@ -229,7 +232,61 @@ def pred_coin():
     except Exception as e:
         return jsonify({"error":str(e)}), 400
 
-
+#====== 마이 홈 차트=========
+@app.route("/my_home", methods=["GET"])
+def chart_one():
+    # 정보를 검색하기 위한 유저 아이디
+    user_id = request.args.get("user_id",None)
+    # 정보를 검색하기 위한 해당 날짜 지정. 없으면 오늘 기준으로 검색
+    input_date = request.args.get("date",None)
+    
+    usage_data = Usage_Data()
+    rs_cnt1, data1= usage_data.get_chart_data_one(user_id,input_date)
+    rs_cnt2, data2= usage_data.get_chart_data_two(user_id,input_date)
+    rs_cnt0, data0= usage_data.get_all_period(user_id)
+    
+    data_list = Data_List()
+    # 요금 계산
+    data1_1 = data_list.get_data_list_four(data1)
+    
+    # 일자 별 사용량
+    rs_cnt3, data3= usage_data.get_most_used_day(user_id, input_date)
+    
+    data2_1= data_list.get_data_list_two(data2)
+    
+    # 가장 사용을 많이한 날, 일자별 사용량
+    data3_1= data_list.get_data_list_one(data3,user_id)
+    
+    # 이달 지역 평균, 나의 전년동월, 전년동월 지역 평균
+    rs_cnt4, data4 = usage_data.get_last_year_data(user_id,input_date)
+    
+    usage_data.db.DBClose()
+    return jsonify({"data0" : data0,
+                    "data1" : data1_1,
+                    "data2" : data2_1,
+                    "data3" : data3_1,
+                    "data4" : data4
+                    })
+            
+@app.route("/pred", methods=["GET"])
+def get_pred():
+    # 예측하기 위해 유저의 아이디를 파라매터로 받아와야함
+    user_id= request.args.get("user_id",None)
+    print(f"{user_id}: 예측 요청이 들어옴")
+    
+    usage_pred = Pred(user_id)
+    data_list = Data_List()
+    # 이번 달 예측 요금, 최대 예측, 최소 예측
+    total, upper, lower = usage_pred.forecast()
+    total_bill = data_list.get_calculate_bill(total[0], datetime.now().month)
+    return jsonify({"total": total,
+                    "total_bill":total_bill
+                    })
+    
+    
+    
+    
+#====== 마이 홈 차트=========
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)

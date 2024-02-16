@@ -5,20 +5,22 @@ from tensorflow import keras
 
 import pandas as pd
 import numpy as np
+import os
 
 
 class coin_class:
     def __init__(self, coin_full_name, ago):
         self.upbit = upbit_control.upbit_control_class()
         self.window = 200
-        self.coin_name =  coin_full_name[:coin_full_name.index('_')]
+        self.coin_name =  coin_full_name
         # 시작시 코인가져오기
         self.model = self.get_model(coin_full_name = coin_full_name)
         self.ago = ago
 
         # 모델 가져오기
     def get_model(self, coin_full_name):
-        model_path = f'./coin/model/LSTMEND{coin_full_name}.keras'
+        current_directory = os.getcwd()
+        model_path = f'{current_directory}/coin/LSTMEND{coin_full_name}.keras'
         model = tf.keras.models.load_model(model_path, compile=False)
         RMSprop = keras.optimizers.RMSprop(learning_rate=0.01)
         model.compile(optimizer= RMSprop, loss='mae', metrics=["mse"])
