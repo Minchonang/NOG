@@ -65,6 +65,12 @@
 	font-size: 0.7em;
 	cursor: pointer;
 }
+.subMenuItem div {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 .subMenuItem:hover {
 	background-color: #555;

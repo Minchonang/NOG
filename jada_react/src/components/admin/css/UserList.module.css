@@ -61,17 +61,11 @@
 	flex-direction: column;
 }
 
-.userList_title {
-	width: 100%;
-	padding: 3% 0;
-	background-color: #fbd17c;
-	border-bottom: 2px solid #ff9f0a;
-	font-size: 1.2em;
-}
-
 .userList_table {
+	width: 100%;
 	display: block;
 	height: 56vh;
+	flex: 1;
 	margin-bottom: 5px;
 	overflow-y: auto;
 	overflow-x: auto;
@@ -79,21 +73,25 @@
 	border-radius: 10px;
 	text-align: center;
 }
-
-table {
-	width: 100%;
-	border-radius: 10px;
-}
-
-/* .userList_table tbody tr {
-	display: table;
+.userList_table table {
 	width: 100%;
 	table-layout: fixed;
-	border-bottom: 1px solid;
-} */
-/* .userList_table tbody tr td {
-	padding: 3% 0 3% 0;
-} */
+}
+
+.userList_title {
+	table-layout: fixed;
+	width: 100%;
+	background-color: #fbd17c;
+	border-bottom: 2px solid #ff9f0a;
+	font-size: 1.2em;
+}
+.userList_table td {
+	text-align: center;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 /* 전체 회원 수 */
 .totalMember {
@@ -316,17 +314,20 @@ table {
 	.searchButton {
 		width: 20%;
 		font-size: 1.5em;
+		transition-duration: 0.3s;
+	}
+	.searchButton:hover {
+		background-color: #FBD17C;
 	}
 
 	/* 테이블 */
 	.userList_table {
 		background-color: white;
 	}
-	
+
 	.userList_table tr:nth-child(n + 2) {
 		transition-duration: 0.3s;
 		cursor: pointer;
-
 	}
 	.userList_table tr:hover {
 		background-color: #fbd17c;

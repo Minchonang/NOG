@@ -60,6 +60,11 @@
 .boardList_table td {
 	padding: 1vh 0;
 	border-bottom: 1px solid lightgray;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 /* -------------------------------------------------- */

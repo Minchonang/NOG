@@ -1,5 +1,5 @@
 from sklearn.preprocessing import StandardScaler
-from upbit_control import upbit_control_class
+from coin import upbit_control
 import tensorflow as tf
 from tensorflow import keras
 
@@ -9,7 +9,7 @@ import numpy as np
 
 class coin_class:
     def __init__(self, coin_full_name, ago):
-        self.upbit = upbit_control_class()
+        self.upbit = upbit_control.upbit_control_class()
         self.window = 200
         self.coin_name =  coin_full_name[:coin_full_name.index('_')]
         # 시작시 코인가져오기

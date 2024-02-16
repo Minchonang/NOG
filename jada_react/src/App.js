@@ -1,52 +1,82 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
-import FindId from './components/findId/FindId';
-import FindPw from './components/findPw/FindPw';
-import Join from './components/Join/Join';
-import Home from './components/main/Home';
-import CheckUser from './components/editUserInfo/CheckUser';
-import EditUserInfo from './components/editUserInfo/EditUserInfo';
-import DeleteCheck from './components/editUserInfo/DeleteCheck';
-import MyChart from './components/myHome/chart/MyChart';
-import ChatTest from './components/chatTest/ChatTest';
-import HomeControl from './components/homeControl/HomeControl';
-import Admin from './components/admin/Admin';
-import Board from './components/board/Board';
-import BoardList from './components/board/BoardList';
-import BoardDetail from './components/board/BoardDetail';
-import CoinPred from './components/coinPred/CoinPred';
+import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import "./App.css";
+import FindId from "./components/findId/FindId";
+import FindPw from "./components/findPw/FindPw";
+import Join from "./components/Join/Join";
+import Home from "./components/main/Home";
+import CheckUser from "./components/editUserInfo/CheckUser";
+import EditUserInfo from "./components/editUserInfo/EditUserInfo";
+import DeleteCheck from "./components/editUserInfo/DeleteCheck";
+import MyChart from "./components/myHome/chart/MyChart";
+import ChatTest from "./components/chatTest/ChatTest";
+import HomeControl from "./components/homeControl/HomeControl";
+import Admin from "./components/admin/Admin";
+import Board from "./components/board/Board";
+import BoardList from "./components/board/BoardList";
+import BoardDetail from "./components/board/BoardDetail";
+import CoinPred from "./components/coinPred/CoinPred";
 
 // const API_BASE_URL = 'http://localhost:8080';
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = "http://localhost:8080";
 
 function App() {
-    const userId = sessionStorage.getItem('user_id');
+  const userId = sessionStorage.getItem("user_id");
 
-    return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="*" element={userId ? <MyChart /> : <Navigate to="/" />} />
-                    <Route path="/chatbot" element={<ChatTest />} />
-                    <Route path="/find_id" element={<FindId />} />
-                    <Route path="/find_pw" element={<FindPw />} />
-                    <Route path="/join" element={<Join />} />
-                    <Route path="/analysis" element={userId ? <MyChart /> : <Navigate to="/" />} />
-                    <Route path="/check_user" element={userId ? <CheckUser /> : <Navigate to="/" />} />
-                    <Route path="/edit_userinfo" element={userId ? <EditUserInfo /> : <Navigate to="/" />} />
-                    <Route path="/delete_check" element={userId ? <DeleteCheck /> : <Navigate to="/" />} />
-                    <Route path="/homeControl" element={userId ? <HomeControl /> : <Navigate to="/" />} />
-                    <Route path="/admin" element={userId ? <Admin /> : <Navigate to="/" />} />
-                    <Route path="/board" element={userId ? <Board /> : <Navigate to="/" />} />
-                    <Route path="/boardList" element={userId ? <BoardList /> : <Navigate to="/" />} />
-                    <Route path="/boardDetail/:boardId" element={userId ? <BoardDetail /> : <Navigate to="/" />} />
-                    <Route path="/coinpred" element={<CoinPred />}/>;
-                </Routes>
-            </BrowserRouter>
-        </>
-    );
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="*"
+            element={userId ? <MyChart /> : <Navigate to="/" />}
+          />
+          <Route path="/chatbot" element={<ChatTest />} />
+          <Route path="/find_id" element={<FindId />} />
+          <Route path="/find_pw" element={<FindPw />} />
+          <Route path="/join" element={<Join />} />
+          <Route
+            path="/analysis"
+            element={userId ? <MyChart /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/check_user"
+            element={userId ? <CheckUser /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/edit_userinfo"
+            element={userId ? <EditUserInfo /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/delete_check"
+            element={userId ? <DeleteCheck /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/homeControl"
+            element={userId ? <HomeControl /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/admin"
+            element={userId ? <Admin /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/board"
+            element={userId ? <Board /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/boardList"
+            element={userId ? <BoardList /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/boardDetail/:boardId"
+            element={userId ? <BoardDetail /> : <Navigate to="/" />}
+          />
+          <Route path="/coinpred" element={<CoinPred />} />;
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;

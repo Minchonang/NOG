@@ -1,10 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FcExport } from "react-icons/fc";
-import { API_BASE_URL } from "../../../App.js";
 import { FcAssistant } from "react-icons/fc";
 import { FcRating } from "react-icons/fc";
 import { FcMenu } from "react-icons/fc";
-import { useState } from "react";
+import { API_BASE_URL } from "../../../App.js";
 
 import header from "../css/Header.module.css";
 
@@ -43,10 +43,30 @@ function Header({ sub_title }) {
 		window.location.href = "/coinpred";
 	};
 
+	// 햄버거 버튼 클릭 시 메뉴 등장
 	const [isSubMenuVisible, setSubMenuVisible] = useState(false);
 	const toggleSubMenu = () => {
 		setSubMenuVisible(!isSubMenuVisible);
 	};
+
+	// 햄버거 버튼의 메뉴 영역 밖을 클릭하면 자동으로 닫힘
+	const subMenuArea = useRef();
+	useEffect(() => {
+		const clickOutside = (e) => {
+			if (
+				isSubMenuVisible &&
+				subMenuArea.current &&
+				!subMenuArea.current.contains(e.target)
+			) {
+				setSubMenuVisible(false);
+			}
+		};
+		document.addEventListener("mousedown", clickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", clickOutside);
+		};
+	}, [isSubMenuVisible]);
 
 	return (
 		<>
@@ -56,18 +76,18 @@ function Header({ sub_title }) {
 				<FcMenu className={header.mainIcon} onClick={toggleSubMenu} />
 
 				{isSubMenuVisible && (
-					<div className={header.subMenu}>
+					<div className={header.subMenu} ref={subMenuArea}>
 						<div className={header.subMenuItem} onClick={go_coin}>
 							<FcRating className={header.play} />
-							즐길거리
+							<div>즐길거리</div>
 						</div>
 						<div className={header.subMenuItem} onClick={go_board}>
 							<FcAssistant className={header.inquiry} />
-							문의사항
+							<div>문의하기</div>
 						</div>
 						<div className={header.subMenuItem} onClick={go_logout}>
 							<FcExport className={header.logout} />
-							로그아웃
+							<div>로그아웃</div>
 						</div>
 					</div>
 				)}
