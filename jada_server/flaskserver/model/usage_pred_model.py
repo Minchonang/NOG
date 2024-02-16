@@ -7,23 +7,12 @@ import pmdarima as pm
 from pmdarima.arima import ndiffs
 import numpy as np
 from model.NOGsql import NOGsql_Model
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
-# from medel.nosql
+
 class Pred:
     # 생성자로 회원 아이디와 검색을 원하는 날짜를 받아옴
     def __init__(self,user_id):
         # db 연결
         self.db = NOGsql_Model()
-        print("id=",user_id)
         self.user_id = user_id
         self.today = datetime.today()
         # db에서 데이터 가져오기
@@ -39,7 +28,6 @@ class Pred:
        
         today = self.today.strftime('%Y-%m-%d 23:59:59')
 
-        print("1date", today)
   
          
         sql = f"""
@@ -79,7 +67,6 @@ class Pred:
         # test : 차분 횟수를 결정하는데 사용할 테스트 방법
         # max_d: 최대 차분 횟수
         n_diffs = ndiffs(ori_data, alpha = 0.05, test="adf", max_d=3)
-        print(f"결정된 차수 : {n_diffs}")
         model = pm.auto_arima(y=train_data,
                                   d=n_diffs,
                                   start_p=0,    # AR 범위 시작값 
@@ -159,7 +146,6 @@ class Pred:
         # 시리즈 타입으로                  
         pred = pd.Series(y_pred, index=self.pred_period).sum()
         total = round(pred + this_month_until_yesterday_data.sum(),0).tolist()
-        print("예측합계",pred,"어제까지 사용량", this_month_until_yesterday_data.sum())
         
         return total, pred_upper, pred_lower
     

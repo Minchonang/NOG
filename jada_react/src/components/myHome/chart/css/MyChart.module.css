@@ -20,8 +20,9 @@
   grid-template-columns: repeat(6, 1fr);
   border-radius: 0.1rem;
   cursor: pointer;
-  border: 0.1rem solid rgb(0, 0, 0);
-  /* box-shadow: 1px 1px 2px rgb(152, 152, 151); */
+  border: 0.1rem solid rgb(115, 114, 114);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 1px rgb(26, 26, 26);
   background-color: #ffffff;
   /* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
 }

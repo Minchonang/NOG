@@ -239,7 +239,8 @@ def chart_one():
     user_id = request.args.get("user_id",None)
     # 정보를 검색하기 위한 해당 날짜 지정. 없으면 오늘 기준으로 검색
     input_date = request.args.get("date",None)
-    
+    print("요청들어온 아이디 : ",user_id)
+    print("조회하는 날짜: ",input_date)
     usage_data = Usage_Data()
     rs_cnt1, data1= usage_data.get_chart_data_one(user_id,input_date)
     rs_cnt2, data2= usage_data.get_chart_data_two(user_id,input_date)
@@ -260,28 +261,33 @@ def chart_one():
     # 이달 지역 평균, 나의 전년동월, 전년동월 지역 평균
     rs_cnt4, data4 = usage_data.get_last_year_data(user_id,input_date)
     
+    if input_date is not None :
+        input_date= datetime.strptime(str(input_date), '%Y-%m')
+        if input_date.month != datetime.now().month:
+            total = 0
+            total_bill = 0
+        else:
+            usage_pred = Pred(user_id)
+            # 이번 달 예측 요금, 최대 예측, 최소 예측
+            total, upper, lower = usage_pred.forecast()
+            total_bill = data_list.get_calculate_bill(total[0], datetime.now().month)
+    else:            
+        usage_pred = Pred(user_id)
+        # 이번 달 예측 요금, 최대 예측, 최소 예측
+        total, upper, lower = usage_pred.forecast()
+        total_bill = data_list.get_calculate_bill(total[0], datetime.now().month)
+
     usage_data.db.DBClose()
     return jsonify({"data0" : data0,
                     "data1" : data1_1,
                     "data2" : data2_1,
                     "data3" : data3_1,
-                    "data4" : data4
-                    })
-            
-@app.route("/pred", methods=["GET"])
-def get_pred():
-    # 예측하기 위해 유저의 아이디를 파라매터로 받아와야함
-    user_id= request.args.get("user_id",None)
-    print(f"{user_id}: 예측 요청이 들어옴")
-    
-    usage_pred = Pred(user_id)
-    data_list = Data_List()
-    # 이번 달 예측 요금, 최대 예측, 최소 예측
-    total, upper, lower = usage_pred.forecast()
-    total_bill = data_list.get_calculate_bill(total[0], datetime.now().month)
-    return jsonify({"total": total,
+                    "data4" : data4,
+                    "total": total,
                     "total_bill":total_bill
                     })
+            
+
     
     
     
@@ -289,4 +295,4 @@ def get_pred():
 #====== 마이 홈 차트=========
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
