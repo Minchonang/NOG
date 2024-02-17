@@ -60,7 +60,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://172.30.1.72:5001/my_home?user_id=${id}${
+          `http://192.168.0.84:5001/my_home?user_id=${id}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );
