@@ -98,8 +98,8 @@ function HomeControl() {
       );
 
       // 온도 정보 저장
-      const roundedOutdoorTemp = outdoorTemp.toFixed(1);
-      setOutdoorTemp(parseFloat(roundedOutdoorTemp));
+      const outdoorTemp = response.data.main.temp;
+      setOutdoorTemp(outdoorTemp);
       const weatherIcon = response.data.weather[0].icon;
       setWeatherIcon(weatherIcon);
 
@@ -441,7 +441,7 @@ function HomeControl() {
                   style={{ fontSize: userId.length >= 9 ? "1em" : "1.5em" }}
                   className={style.homeCount_name}
                 >
-                  우리집
+                  {userId}님의 집
                 </div>
                 <div className={style.count}>{userHumanCount}명</div>
               </div>
