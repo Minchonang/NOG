@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
-import BottomNav from "../common/jsx/BottomNav.jsx";
+// import BottomNav from "../common/jsx/BottomNav.jsx";
 
 function FindId() {
   const nameRef = useRef();
@@ -40,7 +40,7 @@ function FindId() {
         const data = await response.text();
         console.log("아이디 찾기 성공:", data);
         handleVerify(e);
-        alert("회원의 아이디는 " + data + " 입니다.");
+        alert("회원님의 아이디는 " + data + " 입니다.");
         window.location.href = "/login";
       } else {
         alert("회원정보가 일치하지 않습니다..");
