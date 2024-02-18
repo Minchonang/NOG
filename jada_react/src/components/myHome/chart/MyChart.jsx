@@ -123,27 +123,6 @@ const MyChart = () => {
       return "";
     }
   };
-  const timeZoneUsagePrint = (input_hour) => {
-    if (input_hour === "(05:00-11:00)") {
-      return chartData2 && chartData2["myusage"]
-        ? chartData1["myusage"]["usage_5_10"]
-        : 0;
-    } else if (input_hour === "(11:00-17:00)") {
-      return chartData2 && chartData2["myusage"]
-        ? chartData2["myusage"]["usage_11_16"]
-        : 0;
-    } else if (input_hour === "(17:00-23:00)") {
-      return chartData2 && chartData2["myusage"]
-        ? chartData2["myusage"]["usage_17_22"]
-        : 0;
-    } else if (input_hour === "(23:00-5:00)") {
-      return chartData2 && chartData2["myusage"]
-        ? chartData2["myusage"]["usage_23_4"]
-        : 0;
-    } else {
-      return "";
-    }
-  };
 
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
