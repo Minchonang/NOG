@@ -81,7 +81,7 @@ function BoardDetail() {
                 // 입력값 초기화
                 setContent('');
                 // console.log(result);
-                window.location.reload(true);
+                window.location.href('/admin');
             } else {
                 console.log('댓글달기 실패');
                 alert('댓글달기 실패');
@@ -163,7 +163,7 @@ function BoardDetail() {
                             </div>
                             <div className={style.subtitle}>
                                 <div>NO : {board.boardId}</div>
-                                <div>작성자 : {userId}</div>
+                                <div>작성자 : {board.userId}</div>
                                 <div>{`${''} ${new Date(board.writeDate).toLocaleDateString('ko-KR')}`}</div>
                             </div>
                             <div className={style.content}>

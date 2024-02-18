@@ -127,10 +127,10 @@ function Home() {
             } else {
                 // 로그인 실패 처리
                 // console.log('로그인 실패:', response.status);
-                console.log('로그인 실패');
                 const errorMessage = await response.text();
+                console.log('로그인 실패');
                 sessionStorage.removeItem('user_id');
-                alert(errorMessage);
+                alert('로그인 실패');
             }
         } catch (error) {
             // console.error('로그인 중 오류 발생:', error);

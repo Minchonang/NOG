@@ -95,8 +95,8 @@ function HomeControl() {
             );
 
             // 온도 정보 저장
-            const roundedOutdoorTemp = outdoorTemp.toFixed(1);
-            setOutdoorTemp(parseFloat(roundedOutdoorTemp));
+            const outdoorTemp = response.data.main.temp;
+            setOutdoorTemp(outdoorTemp);
             const weatherIcon = response.data.weather[0].icon;
             setWeatherIcon(weatherIcon);
 
