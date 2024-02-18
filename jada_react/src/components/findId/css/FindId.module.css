@@ -63,3 +63,21 @@
   font-family: "Godo";
   color: rgb(198, 198, 198);
 }
+
+.main_area {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 20% 10% 70px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Godo", serif;
+  font-weight: lighter;
+}
+
+@media (min-width: 768px) {
+  .main_area {
+    padding: 0% 35%;
+    font-size: large;
+  }
+}

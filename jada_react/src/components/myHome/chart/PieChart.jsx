@@ -28,10 +28,10 @@ const PieChart = ({ chart_Data2 }) => {
         label: "비율%",
         data: [usage_5_10, usage_11_16, usage_17_22, usage_23_4],
         backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-          "purple",
+          "rgb(255,139,148)",
+          "rgb(255,211,182)",
+          "rgb(168,230,207)",
+          "rgb(179,158,181)",
         ],
         // hoverOffset: 10
       },
@@ -41,17 +41,22 @@ const PieChart = ({ chart_Data2 }) => {
   const options = {
     responsive: true,
     // maintainAspectRatio: true,
-    aspectRatio: 1.5,
+    aspectRatio: 1.8,
 
     plugins: {
       legend: {
-        // display: false,
-
         labels: {
           font: {
-            size: 10,
+            size: 14.6,
+            family: "Godo",
           },
         },
+      },
+    },
+    elements: {
+      arc: {
+        borderWidth: 1,
+        borderRadius: 4,
       },
     },
   };

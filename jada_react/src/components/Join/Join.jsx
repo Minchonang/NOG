@@ -345,15 +345,13 @@ function Join() {
                 alert('회원가입 실패');
             }
         } catch (error) {
-            // console.error('서버 통신 오류', error);
-            console.error('서버 통신 오류');
+            console.error('서버 통신 오류', error);
         }
     };
 
     // 이메일인증
     const sendEmail = (e) => {
         e.preventDefault();
-        alert('이메일로 인증번호가 발송되었습니다.');
         console.log(formData.email);
         const data = {
             EMAIL: formData.email,
@@ -373,8 +371,7 @@ function Join() {
                 console.log(json.AUTHKEY); // Use setNumber to update the state
             })
             .catch((error) => {
-                // console.error('Error fetching email:', error);
-                console.error('Error fetching email');
+                console.error('Error fetching email:', error);
             });
     };
 
@@ -394,8 +391,7 @@ function Join() {
                 console.error('ID 중복 확인 실패');
             }
         } catch (error) {
-            // console.error('서버 통신 오류', error);
-            console.error('서버 통신 오류');
+            console.error('서버 통신 오류', error);
         }
     };
 
@@ -408,9 +404,8 @@ function Join() {
 
     return (
         <div className={common.background}>
-            <div className={common.main_area} onSubmit={handleJoin}>
+            <div className={styles.main_area} onSubmit={handleJoin}>
                 <div className={common.title_area}>회원가입</div>
-
                 <div>
                     <div className={styles.idEmailPwdInput_area}>
                         <div className={styles.inputWithBtn}>
@@ -556,6 +551,30 @@ function Join() {
                         로그인으로 돌아가기
                     </NavLink>
                 </div>
+            </div>
+            <div className={styles.pwd_area}>
+                <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                />
+                <span onClick={togglePasswordVisibility} className={styles.eyeIcon}>
+                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span>
+            </div>
+            <div className={styles.inputWithBtn}>
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="이메일 주소(ex.aaa@gmail.com)"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                />
+                <button className={common.themeBgrColor} onClick={sendEmail}>
+                    인증하기
+                </button>
             </div>
         </div>
     );
