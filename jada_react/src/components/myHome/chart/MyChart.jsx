@@ -750,7 +750,7 @@ const MyChart = () => {
               </div>
               {/* 여섯 번째줄 */}
               <div
-                className={`${style.keyword_box} 
+                className={`${style.keyword_box}  ${style.type_box}
                   ${visibleContainers["6"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(6)}
               >
