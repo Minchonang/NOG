@@ -98,7 +98,7 @@ function Inquiry() {
                                 {/* <hr className={style.bookends} /> */}
                                 <div className={style.modal_title}>{selectedBoard.boardId}번 문의사항</div>
                                 <div className={style.modal_content}>
-                                    <p>회원: {selectedBoard.userId}</p>
+                                    <p>회원: {selectedBoard.writer.id}</p>
                                     <p>카테고리: {selectedBoard.boardCategory}</p>
                                     <p>
                                         제목:{' '}

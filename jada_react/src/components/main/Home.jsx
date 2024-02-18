@@ -130,7 +130,7 @@ function Home() {
                 const errorMessage = await response.text();
                 console.log('로그인 실패');
                 sessionStorage.removeItem('user_id');
-                alert('로그인 실패');
+                alert('로그인에 실패하였습니다.');
             }
         } catch (error) {
             // console.error('로그인 중 오류 발생:', error);

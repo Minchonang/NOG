@@ -547,7 +547,7 @@ function Join() {
                     )}
                 </div>
                 <div className={styles.option_area}>
-                    <NavLink to="/login" activeclassname={common.themeColor}>
+                    <NavLink to="/" activeclassname={common.themeColor}>
                         로그인으로 돌아가기
                     </NavLink>
                 </div>
