@@ -44,7 +44,6 @@ public class JdbcBoardRepository {
         Comment comment = new Comment();
         if (rs.getObject("comment_id") != null) {
           comment.setCommentId(rs.getLong("comment_id"));
-          comment.setContent(rs.getString("content"));
         }
         if (board.getComments() == null) {
           board.setComments(new ArrayList<>());

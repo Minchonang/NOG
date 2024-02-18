@@ -408,12 +408,12 @@ function EditUserInfo() {
         console.log(emailAuth);
 
         if (!authkey) {
-            alert('인증번호를 먼저 요청하세요.');
+            alert('인증번호 발송이 실패하였습니다. \n올바른 이메일로 요청하세요.');
             return;
         }
         if (authkey === emailAuth) {
             setIsVerified(true);
-            alert('인증되었습니다.');
+            alert('인증되었습니다. \n이메일 수정을 완료하시려면 수정버튼을 눌러주세요.');
             closeModal();
         } else {
             setIsVerified(false);
@@ -473,7 +473,12 @@ function EditUserInfo() {
                 editUserDto.email = newEmail;
             } else {
                 alert('이메일 인증이 필요합니다.');
-                handleVerify(e);
+                // await handleVerify(e); // handleVerify 함수를 비동기적으로 호출하여 완료될 때까지 기다립니다.
+                // if (!isVerified) {
+                //     return; // 인증이 완료되지 않았을 경우 함수 종료
+                // }
+                // editUserDto.email = newEmail;
+                return;
             }
         } else {
             editUserDto.email = userEmail;
@@ -551,7 +556,7 @@ function EditUserInfo() {
             });
             if (response.ok) {
                 console.log('회원 정보 수정 완료');
-                alert('회원 정보가 수정되었습니다.');
+                alert('회원 정보가 수정되었습니다. \n수정되지 않은 부분은 이전 값으로 유지됩니다.');
                 window.location.href = '/edit_userinfo';
             } else {
                 console.log('회원 정보 수정 실패');
@@ -824,7 +829,7 @@ function EditUserInfo() {
                             {/* 정보 수정 완료 */}
                             <div className={common.btn_area}>
                                 <button className={common.themeBgrColor} onClick={handleEdit}>
-                                    확인
+                                    수정
                                 </button>
                             </div>
                             {/* 회원탈퇴 */}

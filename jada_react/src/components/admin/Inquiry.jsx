@@ -51,6 +51,12 @@ function Inquiry() {
     const goDetail = (boardId) => {
         window.open(`/boardDetail/${boardId}`);
     };
+
+    // 댓글이 하나 이상 있는지 확인
+    const hasCommentId = (board) => {
+        return board.comments.some((comment) => comment.commentId);
+    };
+
     return (
         <>
             <div className={common.background}>
@@ -72,7 +78,7 @@ function Inquiry() {
                                         <tr key={board.boardId} onClick={() => handleBoardClick(board)}>
                                             <td>{board.boardId}</td>
                                             <td>{board.boardCategory}</td>
-                                            <td style={{ color: board.comment ? 'orange' : 'black' }}>
+                                            <td style={{ color: hasCommentId(board) ? 'orange' : 'black' }}>
                                                 {board.title.length > 11
                                                     ? `${board.title.substring(0, 11)}...`
                                                     : board.title}
