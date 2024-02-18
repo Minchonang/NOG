@@ -179,12 +179,12 @@ const MyChart = () => {
                                     {searchDate !== '' && searchDate !== now ? (
                                         <h1>
                                             {chartData1['my_this_month_bill']
-                                                ? chartData1['my_this_month_bill'].toLocaleString('ko-KR')
+                                                ? chartData1['my_this_month_bill']
                                                 : '데이터 없음'}{' '}
                                             원
                                         </h1>
                                     ) : (
-                                        <h1>{predData ? predData['total_bill'].toLocaleString('ko-KR') : 0}원</h1>
+                                        <h1>{predData ? predData['total_bill'] : 0}원</h1>
                                     )}
                                 </div>
 
@@ -527,7 +527,7 @@ const MyChart = () => {
                                 <div>
                                     <span>{user['user_city'] ? user['user_city'] + ' 기준' : '같은 지역 기준'}</span>
                                     <h1>
-                                        {chartData3['average'][0]
+                                        {chartData3 && chartData3['average'] && chartData3['average'][0]
                                             ? caculatePercent(chartData3['average'][0], chartData3['average'][1]) + '%'
                                             : '데이터 없음'}
                                     </h1>

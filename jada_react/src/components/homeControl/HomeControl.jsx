@@ -139,7 +139,7 @@ function HomeControl() {
                 // 서버 응답이 성공인 경우
                 const result = await response.json();
 
-                console.log('Home Device Data:', result);
+                // console.log('Home Device Data:', result);
 
                 setUserHumanCount(result.humanCount);
                 setHomeLightOnOff(result.light);

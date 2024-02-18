@@ -17,7 +17,7 @@ function Inquiry() {
     const getBoardList = async () => {
         try {
             // 서버로 데이터 전송 - 경로 수정 필요
-            const response = await fetch(`${API_BASE_URL}/api/board/boardList`, {
+            const response = await fetch(`${API_BASE_URL}/api/board/allboards`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ function Inquiry() {
             if (response.ok) {
                 // // 서버 응답이 성공인 경우
                 const result = await response.json();
-                // console.log(result);
+                console.log(result);
                 // 추출된 데이터 사용
                 setBoards(result);
             } else {
