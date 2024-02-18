@@ -778,7 +778,12 @@ const MyChart = () => {
                   </span>
                 </div>
                 <div>
-                  <span>강원도 강릉시 기준</span>
+                  <span>
+                    {" "}
+                    {user["user_city"]
+                      ? user["user_city"] + " 기준"
+                      : "같은 지역 기준"}
+                  </span>
                   <h1>
                     {caculatePercent(
                       chartData2["my_usage"][calculateTimeZone(nowTimeZone)[0]],
