@@ -105,7 +105,7 @@ function FindId() {
   return (
     <>
       <div className={common.background}>
-        <div className={common.main_area} onSubmit={handleJoin}>
+        <div className={style.main_area} onSubmit={handleJoin}>
           <div className={common.title_area}>
             <NavLink to="/">NOG</NavLink>
           </div>
