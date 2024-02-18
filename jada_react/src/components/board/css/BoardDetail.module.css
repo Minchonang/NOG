@@ -136,8 +136,17 @@
 	background-color: #fbb244;
 }
 
+.btn_area_user {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 5px 0;
+}
+
+/* 뒤로가기 */
 .goBackBtn {
 	color: gray;
+	font-size: 0.9em;
 }
 .goBackBtn:active {
 	text-decoration: underline;
@@ -146,10 +155,7 @@
 /* 답변 리스트 */
 .commentList {
 	width: 100%;
-	margin: -22px auto;
-}
-.commentTable {
-	margin-top: 2vh;
+	margin: 0 auto 10px;
 }
 
 .commentTitle th {
@@ -215,6 +221,9 @@
 
 	.btn_area {
 		margin: 50px 0;
+	}
+	.btn_area button {
+		cursor: pointer;
 	}
 
 	.goBackBtn {
