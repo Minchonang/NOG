@@ -908,14 +908,14 @@ const MyChart = () => {
               </div>
 
               {/* ---------------------------------------------------------------------------------- */}
-              {/* 여섯번째 박스 - 최다 전력 소비일 */}
+              {/* 여섯번째 박스 - 최대 전력 소비일 */}
               <div
                 className={`${style.keyword_box} 
                   ${visibleContainers["4"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(4)}
               >
                 <div>
-                  <span>최다 전력 소비일</span>
+                  <span>최대 전력 소비 일</span>
                   <span>
                     {chartData3 &&
                     chartData3["max_month"] &&
@@ -986,7 +986,7 @@ const MyChart = () => {
                       <thead>
                         <tr>
                           <th></th>
-                          <th>나의평균</th>
+                          <th>{user["user_name"]}님</th>
                           <th>지역평균</th>
                         </tr>
                       </thead>
@@ -1063,14 +1063,14 @@ const MyChart = () => {
               </div>
 
               {/* ---------------------------------------------------------------------------------- */}
-              {/* 일곱번째 박스 - 최다 전력 소비일 */}
+              {/* 일곱번째 박스 - 최대 전력 소비일 */}
               <div
                 className={`${style.keyword_box} 
                   ${visibleContainers["3"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(3)}
               >
                 <div>
-                  <span>최다 전력 소비 요일</span>
+                  <span>최대 전력 소비 요일</span>
                   <span>
                     {chartData3["max_day"]
                       ? chartData3["max_day"][0]
@@ -1125,7 +1125,7 @@ const MyChart = () => {
                       <thead>
                         <tr>
                           <th></th>
-                          <th>나의평균</th>
+                          <th>{user["user_name"]}님</th>
                           <th>지역평균</th>
                         </tr>
                       </thead>
