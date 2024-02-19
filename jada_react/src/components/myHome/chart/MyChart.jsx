@@ -327,7 +327,7 @@ const MyChart = () => {
                         </tr>
                       </tbody>
                     </table>
-                    {predData && predData["total"] ? (
+                    {now === searchDate && predData["total"] ? (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
