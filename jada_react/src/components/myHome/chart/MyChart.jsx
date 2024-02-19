@@ -507,8 +507,8 @@ const MyChart = () => {
                 <div>
                   <span>
                     {chartData2["city_name"]
-                      ? chartData2["city_name"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? chartData2["city_name"] + "의"
+                      : "같은 지역의"}
                   </span>
                   <h1>
                     {chartData1["my_total_usage"]
@@ -639,8 +639,8 @@ const MyChart = () => {
                 <div>
                   <span>
                     {user["user_city"]
-                      ? user["user_city"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? user["user_city"] + "의"
+                      : "같은 지역의"}
                   </span>
                   <h1>
                     {chartData3["average"][0]
@@ -760,8 +760,8 @@ const MyChart = () => {
                   <span>
                     {" "}
                     {user["user_city"]
-                      ? user["user_city"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? user["user_city"] + "의"
+                      : "같은 지역의"}
                   </span>
                   <h1>
                     {caculatePercent(
