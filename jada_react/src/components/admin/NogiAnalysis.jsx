@@ -72,7 +72,7 @@ function NogiAnalysis() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/nog_analysis");
+      const response = await axios.post("http://3.38.50.14:5000/nog_analysis");
       const data1 = response.data.chartdata1;
       const data2 = response.data.chartdata2;
       const data3 = JSON.parse(response.data.similardata);

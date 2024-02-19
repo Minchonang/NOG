@@ -10,7 +10,7 @@ import common from "../common/css/common.module.css";
 import style from "./css/ChatTest.module.css";
 
 // const socket = io("http://192.168.0.19:5001"); // 희성
-const socket = io("http://localhost:5000");
+const socket = io("http://3.38.50.14:5000");
 
 const ChatTest = () => {
   const bot_NOG =
@@ -41,7 +41,7 @@ const ChatTest = () => {
         // userid 상태가 업데이트될 때마다 Flask 서버에 요청
         if (userid) {
           const response = await axios.post(
-            "http://localhost:5000/chat_userdata",
+            "http://3.38.50.14:5000/chat_userdata",
             {
               user_id: userid,
             }
