@@ -76,6 +76,12 @@
 	margin: 5px 5px 3px 0;
 	font-size: 0.8em;
 }
+.upPrice {
+	color: red;
+}
+.downPrice {
+	color: #0064ff;
+}
 
 .predReload {
 	width: 100%;
@@ -116,5 +122,5 @@
 .img_area img {
 	width: 8em;
 	height: 8em;
-	opacity: .3;
+	opacity: 0.3;
 }

@@ -20,6 +20,7 @@ function CoinPred() {
 	const [Datasets4, setDatasets4] = useState(null);
 	const [nowPrice, setNowPrice] = useState("");
 	const [predPrice, setPredPrice] = useState("");
+	const [upDown, setUpDown] = useState(0);
 	const chartRef1 = useRef(null);
 
 	const [selectedCoin, setSelectedCoin] = useState("KRW-ETH");
@@ -158,6 +159,12 @@ function CoinPred() {
 			const predPrices = Object.values(Datasets3.data);
 			// predPrices의 시작 위치를 tradePrices의 길이에 맞추기
 			const predStartIndex = tradePrices.length - predPrices.length;
+			// 코인값 현재 보다 오르는지 내리는지 set해주기
+			setUpDown(
+				Math.round(predPrice - predPrices[predPrices.length - 1])
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+			);
 
 			chartRef1.current.chart = new Chart(ctx, {
 				type: "line",
@@ -165,7 +172,7 @@ function CoinPred() {
 					labels: tradePrices.map((_, index) => index + 1), // 인덱스를 기반으로 라벨 생성
 					datasets: [
 						{
-							label: "Trade Prices",
+							label: "실제 거래 가격",
 							data: tradePrices,
 							backgroundColor: "rgba(75, 192, 192, 0.2)",
 							borderColor: "rgba(75, 192, 192, 1)",
@@ -173,7 +180,7 @@ function CoinPred() {
 							pointRadius: 0,
 						},
 						{
-							label: "Pred Prices",
+							label: "예측 가격",
 							data: predPrices,
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(255, 99, 132, 1)",
@@ -191,7 +198,8 @@ function CoinPred() {
 					},
 					scales: {
 						x: {
-							max: predPrices.length,
+							// max: predPrices.length,
+							min: tradePrices.length - predPrices.length,
 						},
 					},
 				},
@@ -202,6 +210,10 @@ function CoinPred() {
 					x: predStartIndex + index + 1,
 					y: value,
 				})
+			);
+			console.log(
+				">>>>>>예측 가격 마지막입니다.: ",
+				predPrice - predPrices[predPrices.length - 1]
 			);
 
 			// 차트 업데이트
@@ -245,18 +257,23 @@ function CoinPred() {
 								{showSelectGuide && (
 									<div
 										className={style.selectGuide}
-									>{`< 터치해서 다른 코인들도 확인해 보세요.`}</div>
+									>{`< 터치해서 다른 코인들도 확인해 보세요`}</div>
 								)}
 							</div>
 							<div className={style.coinPrice}>{`${nowPrice
 								.toString()
 								.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
 							<div className={style.predReload}>
-								<div className={style.predPrice}>{`5분 뒤 예상: ${Math.round(
-									predPrice
-								)
-									.toString()
-									.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
+								<div className={style.predPrice}>
+									<span>5분 뒤 예상: </span>
+									<span
+										className={`${
+											Number(upDown) > 0 ? style.upPrice : style.downPrice
+										}`}
+									>
+										{`${Number(upDown) > 0 ? "+" + upDown : upDown}원`}
+									</span>
+								</div>
 								<TfiReload
 									color="#0064ff"
 									onClick={(e) => {
