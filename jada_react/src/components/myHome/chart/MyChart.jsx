@@ -20,7 +20,7 @@ const MyChart = () => {
   // 키워드 박스를 눌렀을 때 해당 키워드 박스에 해당하는 차트 박스를 on/off
   const handleBoxClick = (boxNum) => {
     setVisibleContainers((prevContainers) => ({
-      ...prevContainers,
+      // ...prevContainers,
       [boxNum]: !prevContainers[boxNum],
     }));
   };
@@ -34,6 +34,7 @@ const MyChart = () => {
   const [searchDate, setSearchDate] = useState("");
   const [load, setLoad] = useState(false);
   const [now, setNow] = useState(false);
+  const [nowTimeZone, setNowTimeZone] = useState(new Date().getHours());
   const [predData, setPredData] = useState("");
 
   useEffect(() => {
@@ -80,6 +81,7 @@ const MyChart = () => {
           user_name: data.data2["user_name"],
           user_city: data.data2["city_name"],
         });
+        setNowTimeZone(new Date().getHours());
         console.log(data);
         console.log(id);
       } catch (error) {
@@ -91,36 +93,36 @@ const MyChart = () => {
     fetchData();
   }, [searchDate]);
 
-  // // 회원 정보로 검색 완료된 후 예측
-  // useEffect(() => {
-  //   const fetchPred = async () => {
-  //     try {
-  //       // axios로 GET 요청 보내기
-  //       const response = await axios.get(
-  //         `http://192.168.0.84:5001/pred?user_id=${user["user_id"]}`
-  //       );
+  // 증감율 계산
+  const caculatePercent = (A, B) => {
+    if (B === 0) {
+      return 0;
+    }
+    let result = Math.round((((A - B) / B) * 1000) / 10);
+    if (result >= 0) {
+      result = "+" + result;
+    }
+    return result;
+  };
 
-  //       // 응답에서 데이터 추출하고 상태 업데이트
-  //       const data = response.data;
-  //       console.log("data2", data);
-  //       setPredData({
-  //         total: data["total"],
-  //         total_bill: data["total_bill"],
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching graph data:", error);
-  //     } finally {
-  //     }
-  //   };
-  //   // 로딩이 완료된 후
-  //   if (period.length > 0) {
-  //     // 사용한 기간이 있다면 예측
-  //     // 초기 로딩시 선택된 셀렉트 값이 없거나 이후 현재 시점을 다시 클릭한 경우
-  //     if (searchDate === "" || searchDate === now) {
-  //       fetchPred();
-  //     }
-  //   }
-  // }, [period]);
+  const calculateTimeZone = (input_hour) => {
+    const usage_5_11 = [5, 6, 7, 8, 9, 10];
+    const usage_11_17 = [11, 12, 13, 14, 15, 16];
+    const usage_17_23 = [17, 18, 19, 20, 21, 22];
+    const usage_23_5 = [23, 0, 24, 1, 2, 3, 4];
+
+    if (usage_5_11.includes(input_hour)) {
+      return ["usage_5_10", "(05:00-11:00)"];
+    } else if (usage_11_17.includes(input_hour)) {
+      return ["usage_11_16", "(11:00-17:00)"];
+    } else if (usage_17_23.includes(input_hour)) {
+      return ["usage_17_22", "(17:00-23:00)"];
+    } else if (usage_23_5.includes(input_hour)) {
+      return ["usage_23_4", "(23:00-5:00)"];
+    } else {
+      return "";
+    }
+  };
 
   // 날짜를 선택할때 마다 불러오기
   const searchDateHandler = (event) => {
@@ -131,6 +133,12 @@ const MyChart = () => {
     setSearchDate(event.target.value);
   };
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // 부드럽게 스크롤되도록 설정
+    });
+  }
   return (
     <>
       {load === false ? (
@@ -162,8 +170,12 @@ const MyChart = () => {
                 </div>
               </div>
 
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 첫번째 박스 - 이번달 예상 전기 요금 */}
               <div
-                className={`${style.keyword_box} ${style.bill_box}`}
+                className={`${style.keyword_box} ${style.bill_box} ${
+                  visibleContainers["1"] ? style.keyword_box_open : ""
+                }`}
                 onClick={() => handleBoxClick(1)}
               >
                 <div>
@@ -186,7 +198,7 @@ const MyChart = () => {
                     </h1>
                   ) : (
                     <h1>
-                      {predData
+                      {predData && predData["total_bill"]
                         ? predData["total_bill"].toLocaleString("ko-KR")
                         : 0}
                       원
@@ -195,11 +207,11 @@ const MyChart = () => {
                 </div>
 
                 <span className={style.open}>
-                  {" "}
-                  {visibleContainers["1"] ? "▲" : "▼"}{" "}
+                  {visibleContainers["1"] ? "닫기" : "상세보기"}
                 </span>
               </div>
-              {/*도넛 차트 박스  */}
+
+              {/*첫번째 박스 상세보기 - 도넛 차트 박스  */}
               <div
                 className={
                   visibleContainers["1"]
@@ -208,7 +220,7 @@ const MyChart = () => {
                 }
               >
                 <div className={style.chart_box}>
-                  {/* 도넛 제목 박스 */}
+                  {/* 첫번째 박스 상세보기 제목 */}
                   <div
                     className={style.chart_title_box}
                     onClick={() => handleBoxClick(1)}
@@ -217,7 +229,7 @@ const MyChart = () => {
                       이번 달 소비 전력량{" "}
                     </h1>
                     <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span> */}
+                    <span className={style.close}> ●</span>
                   </div>
                   <DoughnutChart
                     data1={[
@@ -232,19 +244,17 @@ const MyChart = () => {
                     ]}
                   />
 
-                  <div></div>
-                  {/* 해설상자 */}
+                  {/* 첫번째 박스 해설상자 */}
                   <div className={style.text_box}>
                     <p>
                       이번 달 현재까지와 저번 달, 지역 평균의 전력 사용량의
                       비교입니다.
                     </p>
 
-                    <table>
+                    <table className={style.custom_table}>
                       <thead>
                         <tr>
                           <th></th>
-
                           <th>이번 달</th>
                           <th>저번 달</th>
                           <th>지역평균</th>
@@ -252,7 +262,7 @@ const MyChart = () => {
                       </thead>
                       <tbody>
                         <tr>
-                          <th>사용량</th>
+                          <th className={style.border_right}>사용량</th>
                           <td>
                             {chartData1["my_total_usage"]
                               ? chartData1["my_total_usage"]
@@ -263,7 +273,7 @@ const MyChart = () => {
                           <td>{chartData1["average_total_usage"]} kWh</td>
                         </tr>
                         <tr>
-                          <th>요금</th>
+                          <th className={style.border_right}>요금</th>
                           <td>
                             {chartData1["my_this_month_bill"]
                               ? chartData1["my_this_month_bill"].toLocaleString(
@@ -319,26 +329,40 @@ const MyChart = () => {
                 </div>
               </div>
 
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 두번째 박스 - 전력 소비 유형 */}
               <div
-                className={style.keyword_box}
+                className={`${style.keyword_box} ${style.type_box}
+                  ${visibleContainers["2"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(2)}
               >
                 <div>
+                  <span>전력 소비 유형</span>
                   <span>
-                    {chartData2["user_type"] ? chartData2["user_type"] : "오전"}{" "}
-                    소비 유형
+                    {chartData2["user_type"]
+                      ? chartData2["user_type"] +
+                        " (" +
+                        chartData2["usage_timezone"] +
+                        ")"
+                      : "데이터 없음"}
                   </span>
-                  <span>12시-5시</span>
                 </div>
-                <div>이미지</div>
+                <div>
+                  <span>전체 시간대 비율</span>
+                  <h1>
+                    {chartData2["usage_percentage"][chartData2["user_type"]]
+                      ? chartData2["usage_percentage"][chartData2["user_type"]]
+                      : 0}
+                    %
+                  </h1>
+                </div>
 
                 <span className={style.open}>
-                  {" "}
-                  {visibleContainers["2"] ? "▲" : "▼"}
+                  {visibleContainers["2"] ? "닫기" : "상세보기"}
                 </span>
               </div>
 
-              {/* 두번째 줄 */}
+              {/*두번째 박스 상세보기 - 파이 차트 박스  */}
               <div
                 className={
                   visibleContainers["2"]
@@ -351,9 +375,10 @@ const MyChart = () => {
                     className={style.chart_title_box}
                     onClick={() => handleBoxClick(2)}
                   >
+                    {/* 두번째 박스 상세보기 제목 */}
                     <span className={style.chart_box_title}>소비 유형 </span>
                     <span className={style.spring}></span>
-                    {/* <span className={style.close}> ▲</span> */}
+                    <span className={style.close}> ●</span>
                   </div>
 
                   <PieChart
@@ -362,22 +387,21 @@ const MyChart = () => {
                       chartData2["usage_percentage"]
                     }
                   />
-                  {/* 해설상자 */}
+                  {/* 두번째 박스 해설상자 */}
                   <div className={style.text_box}>
-                    <p>회원님의 전력 소비 시간대 별 전력 소비량 비교 입니다.</p>
+                    <p>이번 달 전력 소비 시간대 별 전력 소비량 비교 입니다.</p>
 
-                    <table>
+                    <table className={style.custom_table}>
                       <thead>
                         <tr>
-                          <th>시간대</th>
-
+                          <th></th>
                           <th>사용량</th>
                           <th>사용비율</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th>오전</th>
+                          <th className={style.border_right}>오전</th>
                           <td>
                             {chartData2 &&
                             chartData2["my_usage"] &&
@@ -393,7 +417,7 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th>오후</th>
+                          <th className={style.border_right}>오후</th>
                           <td>
                             {chartData2 &&
                             chartData2["my_usage"] &&
@@ -409,7 +433,7 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th>저녁</th>
+                          <th className={style.border_right}>저녁</th>
                           <td>
                             {chartData2 &&
                             chartData2["my_usage"] &&
@@ -425,7 +449,7 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th>심야,새벽</th>
+                          <th className={style.border_right}>심야,새벽</th>
                           <td>
                             {chartData2 &&
                             chartData2["my_usage"] &&
@@ -444,8 +468,8 @@ const MyChart = () => {
                       </tbody>
                     </table>
                     <p className={style.pred_text}>
-                      고객님의 시간별 전력 소비량을 합산한 결과, NOG가 평가한
-                      고객님의 소비 유형은{" "}
+                      시간별 전력 소비량을 합산한 결과, NOG가 평가한 회원님의
+                      소비 유형은{" "}
                       <span className={style.important_keywords}>
                         '
                         {chartData2["user_type"]
@@ -464,27 +488,612 @@ const MyChart = () => {
                   </div>
                 </div>
               </div>
+
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 세번째 박스 - 이번 달 사용량 */}
               <div
-                className={style.keyword_box}
-                onClick={() => handleBoxClick(3)}
+                className={`${style.keyword_box} 
+                  ${visibleContainers["7"] ? style.keyword_box_open : ""}`}
+                onClick={() => handleBoxClick(7)}
               >
                 <div>
-                  <span>소비량이 가장 많은 요일</span>
+                  <span>이번 달 사용량</span>
+                  <span>
+                    {chartData1["my_total_usage"]
+                      ? chartData1["my_total_usage"] + " kWh"
+                      : "데이터 없음"}{" "}
+                  </span>
                 </div>
                 <div>
-                  {" "}
+                  <span>
+                    {chartData2["city_name"]
+                      ? chartData2["city_name"] + " 기준"
+                      : "같은 지역 기준"}
+                  </span>
                   <h1>
-                    {chartData3["max_day"]
-                      ? chartData3["max_day"][0]
-                      : "월요일"}
+                    {chartData1["my_total_usage"]
+                      ? caculatePercent(
+                          chartData1["my_total_usage"],
+                          chartData4["city_average_daily_usage"]
+                        ) + "%"
+                      : "데이터 없음"}
+                  </h1>
+                </div>
+
+                <span className={style.open}>
+                  {visibleContainers["7"] ? "닫기" : "상세보기"}
+                </span>
+              </div>
+              {/*세번째 박스 상세보기 - 바차트 박스  */}
+              <div
+                className={
+                  visibleContainers["7"]
+                    ? style.box_container
+                    : style.box_container_close
+                }
+              >
+                <div className={style.chart_box}>
+                  <div
+                    className={style.chart_title_box}
+                    onClick={() => handleBoxClick(7)}
+                  >
+                    {/* 세번째 박스 상세보기 제목 */}
+                    <span className={style.chart_box_title}>월간 비교</span>
+                    <span className={style.spring}></span>
+                    <span className={style.close}> ●</span>
+                  </div>
+
+                  <BarChart data6={[chartData1, chartData4]}></BarChart>
+                  {/* 세번째 박스 해설상자 */}
+                  <div className={style.text_box}>
+                    <p>
+                      회원님과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 지역"}의
+                      이번 달, 지난달, 전년동월의 전력소모량 비교 입니다.
+                    </p>
+                    <table className={style.custom_table}>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th className={style.border_right}>이번 달</th>
+                          <td>
+                            {chartData1["my_total_usage"]
+                              ? chartData1["my_total_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData4
+                              ? chartData4["city_average_daily_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={style.border_right}>지난 달</th>
+                          <td>
+                            {chartData1["my_total_usage_last"]
+                              ? chartData1["my_total_usage_last"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData1["average_total_usage"]
+                              ? chartData1["average_total_usage"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={style.border_right}>전년동월</th>
+                          <td>
+                            {chartData4
+                              ? chartData4["user_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {" "}
+                            {chartData4
+                              ? chartData4["city_month_total_last_year"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    className={style.bottom_close}
+                    onClick={() => handleBoxClick(7)}
+                  >
+                    ▲
+                  </div>
+                </div>
+              </div>
+
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 네번째 박스 - 일 평균 사용량 */}
+              <div
+                className={`${style.keyword_box} 
+                  ${visibleContainers["5"] ? style.keyword_box_open : ""}`}
+                onClick={() => handleBoxClick(5)}
+              >
+                <div>
+                  <span>일 평균 사용량</span>
+                  <span>
+                    {chartData3 &&
+                    chartData3["average"] &&
+                    chartData3["average"][0]
+                      ? chartData3["average"][0]
+                      : 0}
+                    kW
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    {user["user_city"]
+                      ? user["user_city"] + " 기준"
+                      : "같은 지역 기준"}
+                  </span>
+                  <h1>
+                    {chartData3["average"][0]
+                      ? caculatePercent(
+                          chartData3["average"][0],
+                          chartData3["average"][1]
+                        ) + "%"
+                      : "데이터 없음"}
                   </h1>
                 </div>
 
                 <span className={style.open}>
                   {" "}
-                  {visibleContainers["3"] ? "▲" : "▼"}
+                  {visibleContainers["5"] ? "닫기" : "상세보기"}
                 </span>
               </div>
+
+              {/* 네번째 박스 상세보기 - 바차트Day 박스  */}
+              <div
+                className={
+                  visibleContainers["5"]
+                    ? style.box_container
+                    : style.box_container_close
+                }
+              >
+                <div className={style.chart_box}>
+                  <div
+                    className={style.chart_title_box}
+                    onClick={() => handleBoxClick(5)}
+                  >
+                    {/* 네번째 박스 상세보기 제목 */}
+                    <span className={style.chart_box_title}>
+                      평균 소비 패턴
+                    </span>
+                    <span className={style.spring}></span>
+                    <span className={style.close}> ●</span>
+                  </div>
+
+                  {/* <LineChart></LineChart> */}
+                  <BarChartDay
+                    data4={
+                      chartData3 &&
+                      chartData3["average"] &&
+                      chartData3["average"]
+                    }
+                  ></BarChartDay>
+
+                  {/* 네번째 박스 해설상자 */}
+                  <div className={style.text_box}>
+                    {/* <p>이번달 일일 평균 사용량은 {chartData3["average"][0]}kw 입니다.</p> */}
+
+                    <p>
+                      회원님과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      이번 달 일일 평균 전력 사용량에 대한 비교 입니다.
+                    </p>
+
+                    <table className={style.custom_table}>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th className={style.border_right}>평균 소비량</th>
+                          <td>
+                            {chartData3 &&
+                            chartData3["average"] &&
+                            chartData3["average"][0]
+                              ? chartData3["average"][0] + " kWh"
+                              : "데이터 없음"}
+                          </td>
+                          <td>
+                            {chartData3 &&
+                            chartData3["average"] &&
+                            chartData3["average"][1]
+                              ? chartData3["average"][1] + " kWh"
+                              : "데이터 없음"}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    className={style.bottom_close}
+                    onClick={() => handleBoxClick(5)}
+                  >
+                    ▲
+                  </div>
+                </div>
+              </div>
+
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 다섯번째 박스 - 현재 시간대 총 사용량 */}
+              <div
+                className={`${style.keyword_box}  ${style.type_box}
+                  ${visibleContainers["6"] ? style.keyword_box_open : ""}`}
+                onClick={() => handleBoxClick(6)}
+              >
+                <div>
+                  <span>현재 시간대 총 사용량 </span>
+
+                  <span>
+                    {chartData2 && chartData2["my_usage"]
+                      ? chartData2["my_usage"][
+                          calculateTimeZone(nowTimeZone)[0]
+                        ] +
+                        " kWh " +
+                        calculateTimeZone(nowTimeZone)[1]
+                      : ""}
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    {" "}
+                    {user["user_city"]
+                      ? user["user_city"] + " 기준"
+                      : "같은 지역 기준"}
+                  </span>
+                  <h1>
+                    {caculatePercent(
+                      chartData2["my_usage"][calculateTimeZone(nowTimeZone)[0]],
+                      chartData2["city_usage"][
+                        calculateTimeZone(nowTimeZone)[0]
+                      ]
+                    )}
+                    %
+                  </h1>
+                </div>
+
+                <span className={style.open}>
+                  {visibleContainers["6"] ? "닫기" : "상세보기"}
+                </span>
+              </div>
+
+              {/*다섯번째 박스 상세보기 - 레이더차트 박스  */}
+              <div
+                className={
+                  visibleContainers["6"]
+                    ? style.box_container
+                    : style.box_container_close
+                }
+              >
+                <div className={style.chart_box}>
+                  <div
+                    className={style.chart_title_box}
+                    onClick={() => handleBoxClick(6)}
+                  >
+                    {/* 다섯번째 박스 상세보기 제목 */}
+                    <span className={style.chart_box_title}>
+                      도시인구 대비 비교
+                    </span>
+                    <span className={style.spring}></span>
+                    <span className={style.close}> ●</span>
+                  </div>
+                  <RadarChart
+                    data5={[chartData2["city_usage"], chartData2["my_usage"]]}
+                  />
+
+                  {/* 다섯번째 박스 해설상자 */}
+                  <div className={style.text_box}>
+                    <p>
+                      회원님의 이번 달 시간대 별 사용량과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      지난 달 시간대 별 평균 사용량과의 비교 입니다.
+                    </p>
+                    <table className={style.custom_table}>
+                      <thead>
+                        <tr>
+                          <th>시간대</th>
+                          <th>{user["user_name"]}님</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th className={style.border_right}>오전</th>
+                          <td>
+                            {chartData2 &&
+                            chartData2["my_usage"] &&
+                            chartData2["my_usage"]["usage_5_10"]
+                              ? chartData2["my_usage"]["usage_5_10"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2 &&
+                            chartData2["city_usage"] &&
+                            chartData2["city_usage"]["usage_5_10"]
+                              ? chartData2["city_usage"]["usage_5_10"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={style.border_right}>오후</th>
+                          <td>
+                            {chartData2 &&
+                            chartData2["my_usage"] &&
+                            chartData2["my_usage"]["usage_11_16"]
+                              ? chartData2["my_usage"]["usage_11_16"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2 &&
+                            chartData2["city_usage"] &&
+                            chartData2["city_usage"]["usage_11_16"]
+                              ? chartData2["city_usage"]["usage_11_16"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={style.border_right}>저녁</th>
+                          <td>
+                            {chartData2 &&
+                            chartData2["my_usage"] &&
+                            chartData2["my_usage"]["usage_17_22"]
+                              ? chartData2["my_usage"]["usage_17_22"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2 &&
+                            chartData2["city_usage"] &&
+                            chartData2["city_usage"]["usage_17_22"]
+                              ? chartData2["city_usage"]["usage_17_22"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={style.border_right}>심야,새벽</th>
+                          <td>
+                            {chartData2 &&
+                            chartData2["my_usage"] &&
+                            chartData2["my_usage"]["usage_23_4"]
+                              ? chartData2["my_usage"]["usage_23_4"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                          <td>
+                            {chartData2 &&
+                            chartData2["city_usage"] &&
+                            chartData2["city_usage"]["usage_23_4"]
+                              ? chartData2["city_usage"]["usage_23_4"]
+                              : 0}{" "}
+                            kWh
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    className={style.bottom_close}
+                    onClick={() => handleBoxClick(6)}
+                  >
+                    ▲
+                  </div>
+                </div>
+              </div>
+
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 여섯번째 박스 - 최다 전력 소비일 */}
+              <div
+                className={`${style.keyword_box} 
+                  ${visibleContainers["4"] ? style.keyword_box_open : ""}`}
+                onClick={() => handleBoxClick(4)}
+              >
+                <div>
+                  <span>최다 전력 소비일</span>
+                  <span>
+                    {chartData3 &&
+                    chartData3["max_month"] &&
+                    chartData3["max_month"][0]
+                      ? chartData3["max_month"][0]
+                      : 1}
+                    일
+                  </span>
+                </div>
+                <div>
+                  <span>일 평균 대비</span>
+                  <h1>
+                    {chartData3 && chartData3["average"]
+                      ? caculatePercent(
+                          chartData3["max_month"][2],
+                          chartData3["average"][0]
+                        ) + "%"
+                      : "데이터 없음"}
+                  </h1>
+                </div>
+
+                <span className={style.open}>
+                  {" "}
+                  {visibleContainers["4"] ? "닫기" : "상세보기"}
+                </span>
+              </div>
+
+              {/*여섯번째 박스 상세보기 - 바차트Month 박스  */}
+              <div
+                className={
+                  visibleContainers["4"]
+                    ? style.box_container
+                    : style.box_container_close
+                }
+              >
+                <div className={style.chart_box}>
+                  <div
+                    className={style.chart_title_box}
+                    onClick={() => handleBoxClick(4)}
+                  >
+                    {/* 여섯번째 박스 상세보기 제목 */}
+                    <span className={style.chart_box_title}>
+                      이번 달 소비 패턴
+                    </span>
+
+                    <span className={style.spring}></span>
+                    <span className={style.close}> ●</span>
+                  </div>
+                  <BarChartMonth
+                    data5={
+                      chartData3 &&
+                      chartData3["my_month_use"] && [
+                        chartData3["my_month_use"],
+                        chartData3 &&
+                          chartData3["city_month_use"] &&
+                          chartData3["city_month_use"],
+                      ]
+                    }
+                  ></BarChartMonth>
+                  {/* 여섯번째 박스 해설상자 */}
+                  <div className={style.text_box}>
+                    <p>
+                      회원님과{" "}
+                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
+                      일일 전력 사용량에 대한 비교 입니다.
+                    </p>
+                    <table className={style.custom_table}>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>나의평균</th>
+                          <th>지역평균</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th rowSpan={2} className={style.border_right}>
+                            최대 전력 소비(일)
+                          </th>
+                          <td className={style.border_right}>
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][0] + " 일 "
+                              : "데이터 없음"}
+                          </td>
+                          <td>
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][1] + " 일 "
+                              : "데이터 없음"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className={style.border_right}>
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][2] + " kWh"
+                              : ""}
+                          </td>
+                          <td>
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][3] + " kWh"
+                              : ""}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th
+                            rowSpan={2}
+                            className={`${style.border_bottom} ${style.border_right}`}
+                          >
+                            최저 전력 소비(일)
+                          </th>
+                          <td
+                            className={`${style.border_bottom} ${style.border_right}`}
+                          >
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][0] + " 일 "
+                              : "데이터 없음"}
+                          </td>
+                          <td className={style.border_bottom}>
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][1] + " 일 "
+                              : "데이터 없음"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className={style.border_right}>
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][2] + " kWh"
+                              : ""}
+                          </td>
+                          <td>
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][3] + " kWh"
+                              : ""}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    className={style.bottom_close}
+                    onClick={() => handleBoxClick(4)}
+                  >
+                    ▲
+                  </div>
+                </div>
+              </div>
+
+              {/* ---------------------------------------------------------------------------------- */}
+              {/* 일곱번째 박스 - 최다 전력 소비일 */}
+              <div
+                className={`${style.keyword_box} 
+                  ${visibleContainers["3"] ? style.keyword_box_open : ""}`}
+                onClick={() => handleBoxClick(3)}
+              >
+                <div>
+                  <span>최다 전력 소비 요일</span>
+                  <span>
+                    {chartData3["max_day"]
+                      ? chartData3["max_day"][0]
+                      : "데이터 없음"}
+                  </span>
+                </div>
+                <div>
+                  <span>일 평균 대비</span>
+                  <h1>
+                    {caculatePercent(
+                      chartData3["max_day"][2],
+                      chartData3["average"][0]
+                    ) + "%"}
+                  </h1>
+                </div>
+
+                <span className={style.open}>
+                  {" "}
+                  {visibleContainers["3"] ? "닫기" : "상세보기"}
+                </span>
+              </div>
+
+              {/* 일곱번째 박스 상세보기 - 라인차트 박스  */}
               <div
                 className={
                   visibleContainers["3"]
@@ -497,33 +1106,35 @@ const MyChart = () => {
                     className={style.chart_title_box}
                     onClick={() => handleBoxClick(3)}
                   >
+                    {/* 일곱번째 박스 상세보기 제목 */}
                     <span className={style.chart_box_title}>
                       요일별 소비 패턴
                     </span>
                     <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span>   */}
+                    <span className={style.close}> ●</span>
                   </div>
                   <LineChart data3={chartData3}></LineChart>
-                  {/* 해설상자 */}
+                  {/* 일곱번째 박스 해설상자 */}
                   <div className={style.text_box}>
                     <p>
                       회원님과{" "}
                       {user["user_city"] ? user["user_city"] : "같은 도시"}의
                       요일 별 평균 사용량 비교입니다.
                     </p>
-                    <table>
+                    <table className={style.custom_table}>
                       <thead>
                         <tr>
                           <th></th>
-
-                          <th>나의 평균</th>
+                          <th>나의평균</th>
                           <th>지역평균</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th>최대 소비 요일</th>
-                          <td>
+                          <th rowSpan={2} className={style.border_right}>
+                            최대 전력 소비(요일)
+                          </th>
+                          <td className={style.border_right}>
                             {chartData3["max_day"]
                               ? chartData3["max_day"][0]
                               : "데이터 없음"}
@@ -535,8 +1146,8 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th>최대 요일 소비량</th>
-                          <td>
+                          {/* <th>최대 요일 소비량</th> */}
+                          <td className={style.border_right}>
                             {chartData3["max_day"]
                               ? Math.round(chartData3["max_day"][2])
                               : 0}{" "}
@@ -550,21 +1161,28 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th>최저 소비 요일</th>
-                          <td>
+                          <th
+                            rowSpan={2}
+                            className={`${style.border_bottom} ${style.border_right}`}
+                          >
+                            최저 전력 소비(요일)
+                          </th>
+                          <td
+                            className={`${style.border_bottom} ${style.border_right}`}
+                          >
                             {chartData3["min_day"]
                               ? chartData3["min_day"][0]
                               : "데이터 없음"}{" "}
                           </td>
-                          <td>
+                          <td className={style.border_bottom}>
                             {chartData3["min_day"]
                               ? chartData3["min_day"][1]
                               : "데이터 없음"}{" "}
                           </td>
                         </tr>
                         <tr>
-                          <th>최저 요일 소비량</th>
-                          <td>
+                          {/* <th>최저 요일 소비량</th> */}
+                          <td className={style.border_right}>
                             {chartData3["min_day"]
                               ? Math.round(chartData3["min_day"][2])
                               : 0}{" "}
@@ -588,474 +1206,14 @@ const MyChart = () => {
                   </div>
                 </div>
               </div>
-
-              {/* 네번째줄 */}
               <div
+                onClick={() => {
+                  scrollToTop();
+                  setVisibleContainers("");
+                }}
                 className={style.keyword_box}
-                onClick={() => handleBoxClick(4)}
               >
-                <div>
-                  <span>이번 달 가장 사용량이 많았던 날</span>
-                </div>
-                <div>
-                  <h1>
-                    {chartData3 && chartData3["max"] && chartData3["max"][0]
-                      ? chartData3["max"][0]
-                      : 1}
-                    일
-                  </h1>
-                </div>
-
-                <span className={style.open}>
-                  {" "}
-                  {visibleContainers["4"] ? "▲" : "▼"}
-                </span>
-              </div>
-
-              <div
-                className={
-                  visibleContainers["4"]
-                    ? style.box_container
-                    : style.box_container_close
-                }
-              >
-                <div className={style.chart_box}>
-                  <div
-                    className={style.chart_title_box}
-                    onClick={() => handleBoxClick(4)}
-                  >
-                    <span className={style.chart_box_title}>
-                      이번 달 소비 패턴
-                    </span>
-
-                    <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span>   */}
-                  </div>
-                  <BarChartMonth
-                    data5={
-                      chartData3 &&
-                      chartData3["my_month_use"] && [
-                        chartData3["my_month_use"],
-                        chartData3 &&
-                          chartData3["city_month_use"] &&
-                          chartData3["city_month_use"],
-                      ]
-                    }
-                  ></BarChartMonth>
-                  {/* 해설상자 */}
-                  <div className={style.text_box}>
-                    <p>
-                      회원님과{" "}
-                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      일일 전력 사용량에 대한 비교 입니다.
-                    </p>
-
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-
-                          <th>최대 전력 소비일</th>
-                          <th>최소 전력 소비일</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th>{user["user_name"]}님</th>
-                          <td>
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][0] + " 일 "
-                              : "데이터 없음"}
-
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][2] + " kWh"
-                              : ""}
-                          </td>
-                          <td>
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][0] + " 일 "
-                              : "데이터 없음"}
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][2] + " kWh"
-                              : ""}
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>지역평균</th>
-                          <td>
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][1] + " 일 "
-                              : "데이터 없음"}
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][3] + " kWh"
-                              : ""}
-                          </td>
-                          <td>
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][1] + " 일 "
-                              : "데이터 없음"}
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][3] + " kWh"
-                              : ""}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    className={style.bottom_close}
-                    onClick={() => handleBoxClick(4)}
-                  >
-                    ▲
-                  </div>
-                </div>
-              </div>
-              <div
-                className={style.keyword_box}
-                onClick={() => handleBoxClick(5)}
-              >
-                <div>
-                  <span>하루 평균 사용량</span>
-                </div>
-                <div>
-                  {" "}
-                  <h1>
-                    {chartData3 &&
-                    chartData3["average"] &&
-                    chartData3["average"][0]
-                      ? chartData3["average"][0]
-                      : 0}
-                    kW
-                  </h1>
-                </div>
-
-                <span className={style.open}>
-                  {" "}
-                  {visibleContainers["5"] ? "▲" : "▼"}
-                </span>
-              </div>
-
-              <div
-                className={
-                  visibleContainers["5"]
-                    ? style.box_container
-                    : style.box_container_close
-                }
-              >
-                <div className={style.chart_box}>
-                  <div
-                    className={style.chart_title_box}
-                    onClick={() => handleBoxClick(5)}
-                  >
-                    <span className={style.chart_box_title}>
-                      평균 소비 패턴
-                    </span>
-                    <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span>     */}
-                  </div>
-
-                  {/* <LineChart></LineChart> */}
-                  <BarChartDay
-                    data4={
-                      chartData3 &&
-                      chartData3["average"] &&
-                      chartData3["average"]
-                    }
-                  ></BarChartDay>
-
-                  {/* 해설상자 */}
-                  <div className={style.text_box}>
-                    {/* <p>이번달 일일 평균 사용량은 {chartData3["average"][0]}kw 입니다.</p> */}
-
-                    <p>
-                      회원님과{" "}
-                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      이번 달 일일 평균 전력 사용량에 대한 비교 입니다.
-                    </p>
-
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-
-                          <th>{user["user_name"]}님</th>
-                          <th>지역평균</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th>평균 소비량</th>
-                          <td>
-                            {chartData3 &&
-                            chartData3["average"] &&
-                            chartData3["average"][0]
-                              ? chartData3["average"][0] + " kWh"
-                              : "데이터 없음"}
-                          </td>
-                          <td>
-                            {chartData3 &&
-                            chartData3["average"] &&
-                            chartData3["average"][1]
-                              ? chartData3["average"][1] + " kWh"
-                              : "데이터 없음"}
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>소비 차이</th>
-                          <td colSpan={2}>
-                            {chartData3 &&
-                            chartData3["average"] &&
-                            chartData3["average"]
-                              ? chartData3["average"][2] >= 0
-                                ? "약 " +
-                                  chartData3["average"][2] +
-                                  " kWh 많이 소비"
-                                : "약 " +
-                                  chartData3["average"][2] * -1 +
-                                  " kWh 적게 소비"
-                              : "데이터 없음"}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    className={style.bottom_close}
-                    onClick={() => handleBoxClick(5)}
-                  >
-                    ▲
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={style.keyword_box}
-                onClick={() => handleBoxClick(6)}
-              >
-                <div>
-                  <span>지역주민 대비 사용량</span>
-                </div>
-                <div>
-                  <h1>
-                    {Math.round(
-                      (chartData1["my_total_usage"] /
-                        chartData1["average_total_usage"]) *
-                        1000
-                    ) / 10}
-                    %{" "}
-                  </h1>
-                </div>
-
-                <span className={style.open}>
-                  {" "}
-                  {visibleContainers["6"] ? "▲" : "▼"}
-                </span>
-              </div>
-
-              <div
-                className={
-                  visibleContainers["6"]
-                    ? style.box_container
-                    : style.box_container_close
-                }
-              >
-                <div className={style.chart_box}>
-                  <div
-                    className={style.chart_title_box}
-                    onClick={() => handleBoxClick(6)}
-                  >
-                    <span className={style.chart_box_title}>
-                      도시인구 대비 비교
-                    </span>
-                    <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span>     */}
-                  </div>
-                  <RadarChart
-                    data5={[chartData2["city_usage"], chartData2["my_usage"]]}
-                  />
-                  {/* 해설상자 */}
-                  <div className={style.text_box}>
-                    <p>
-                      회원님의 이번 달 시간대 별 사용량과{" "}
-                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      지난 달 시간대 별 평균 사용량과의 비교 입니다.
-                    </p>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>시간대</th>
-
-                          <th>{user["user_name"]}님</th>
-                          <th>지역평균</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th>오전</th>
-                          <td>
-                            {chartData2 &&
-                            chartData2["my_usage"] &&
-                            chartData2["my_usage"]["usage_5_10"]
-                              ? chartData2["my_usage"]["usage_5_10"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData2 &&
-                            chartData2["city_usage"] &&
-                            chartData2["city_usage"]["usage_5_10"]
-                              ? chartData2["city_usage"]["usage_5_10"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>오후</th>
-                          <td>
-                            {chartData2 &&
-                            chartData2["my_usage"] &&
-                            chartData2["my_usage"]["usage_11_16"]
-                              ? chartData2["my_usage"]["usage_11_16"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData2 &&
-                            chartData2["city_usage"] &&
-                            chartData2["city_usage"]["usage_11_16"]
-                              ? chartData2["city_usage"]["usage_11_16"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>저녁</th>
-                          <td>
-                            {chartData2 &&
-                            chartData2["my_usage"] &&
-                            chartData2["my_usage"]["usage_17_22"]
-                              ? chartData2["my_usage"]["usage_17_22"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData2 &&
-                            chartData2["city_usage"] &&
-                            chartData2["city_usage"]["usage_17_22"]
-                              ? chartData2["city_usage"]["usage_17_22"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>심야,새벽</th>
-                          <td>
-                            {chartData2 &&
-                            chartData2["my_usage"] &&
-                            chartData2["my_usage"]["usage_23_4"]
-                              ? chartData2["my_usage"]["usage_23_4"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData2 &&
-                            chartData2["city_usage"] &&
-                            chartData2["city_usage"]["usage_23_4"]
-                              ? chartData2["city_usage"]["usage_23_4"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className={style.bottom_close}>▲</div>
-                </div>
-
-                <div className={style.chart_box}>
-                  <div
-                    className={style.chart_title_box}
-                    onClick={() => handleBoxClick(6)}
-                  >
-                    <span className={style.chart_box_title}>월간 비교</span>
-                    <span className={style.spring}></span>
-                    {/* <span className={style.close} > ▲</span>     */}
-                  </div>
-
-                  <BarChart data6={[chartData1, chartData4]}></BarChart>
-                  {/* 해설상자 */}
-                  <div className={style.text_box}>
-                    <p>
-                      회원님과{" "}
-                      {user["user_city"] ? user["user_city"] : "같은 도시"}의
-                      이번 달, 지난달, 전년동월의 전력소모량 비교 입니다.
-                    </p>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>측정(월)</th>
-
-                          <th>{user["user_name"]}님</th>
-                          <th>지역평균</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th>이번 달</th>
-                          <td>
-                            {chartData1["my_total_usage"]
-                              ? chartData1["my_total_usage"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData4
-                              ? chartData4["city_average_daily_usage"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>지난 달</th>
-                          <td>
-                            {chartData1["my_total_usage_last"]
-                              ? chartData1["my_total_usage_last"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {chartData1["average_total_usage"]
-                              ? chartData1["average_total_usage"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>전년동월</th>
-                          <td>
-                            {chartData4
-                              ? chartData4["user_month_total_last_year"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                          <td>
-                            {" "}
-                            {chartData4
-                              ? chartData4["city_month_total_last_year"]
-                              : 0}{" "}
-                            kWh
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    className={style.bottom_close}
-                    onClick={() => handleBoxClick(6)}
-                  >
-                    ▲
-                  </div>
-                </div>
+                <span> ▲ top</span>
               </div>
             </div>
             <ChatBot />

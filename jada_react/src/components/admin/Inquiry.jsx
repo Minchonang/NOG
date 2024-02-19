@@ -75,7 +75,7 @@ function Inquiry() {
 										>
 											<td>{board.boardId}</td>
 											<td>{board.boardCategory}</td>
-											<td>
+											<td style={{ color: board.comment ? "#ff9f0a" : "black" }}>
 												{board.title.length > 11
 													? `${board.title.substring(0, 11)}...`
 													: board.title}

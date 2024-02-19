@@ -27,7 +27,7 @@ class Pred:
     def getUsageData(self, id):
        
         today = self.today.strftime('%Y-%m-%d 23:59:59')
-
+        print("검색된 아이디",id)
   
          
         sql = f"""
@@ -43,12 +43,12 @@ class Pred:
         
         # 실행 결과 데이터 
         rows = self.db.cur.fetchall()
-        
         return rs_cnt, rows
 
     # 데이터 전처리 후 모델 생성
     def getModel(self):
         df = pd.DataFrame(self.data)
+        print( "dfdf",df , "row 수", self.rs_cont)
 
         # 검색된 데이터가 없을 경우 오늘 기준 사용량 0으로 데이터 생성
         if self.rs_cont == 0:
@@ -56,6 +56,7 @@ class Pred:
         else:    
             ori_data = df.groupby(pd.Grouper(key='date', freq='D')).sum()
             ori_data = ori_data["daily_usage"]
+            daily_gouped_count =  len(df.groupby(df['date'].dt.date)['daily_usage'].sum())
         
         # 현재는 불필요하지만 추후 추가 기능을 부여하게 될 것을 대비해 데이터를 분류하여 진행
         train_data = ori_data[: int(len(ori_data) * 0.9)]
@@ -66,7 +67,10 @@ class Pred:
         # alpha : p-value 유의기준 (0.5)
         # test : 차분 횟수를 결정하는데 사용할 테스트 방법
         # max_d: 최대 차분 횟수
-        n_diffs = ndiffs(ori_data, alpha = 0.05, test="adf", max_d=3)
+        n_diffs=1
+        if daily_gouped_count >60 :
+            max_d = int(daily_gouped_count/60)
+            n_diffs = ndiffs(ori_data, alpha = 0.05, test="adf", max_d=max_d)
         model = pm.auto_arima(y=train_data,
                                   d=n_diffs,
                                   start_p=0,    # AR 범위 시작값 
@@ -94,6 +98,7 @@ class Pred:
                            end=f"{end_point}",
                            freq="1d",
                          )
+        print("시작일",pred_period)
         return pred_period
         
     # 예측 함수
@@ -114,7 +119,7 @@ class Pred:
     # 예측 반복 실행 함수
     def forecast(self):
         if len(self.data)==0:
-            return 0, 0, 0
+            return [0], [0], [0]
         # 결과값을 담아서 반환할 변수
         y_pred = []
         pred_upper = []
@@ -134,17 +139,20 @@ class Pred:
             pred_lower.append(conf[0][0])
 
             ### 데이터별로 model을 갱신
-            self.model.update(fc[0])
+            # self.model.update(fc[0])
             
             ### 이번 달 어제까지 사용한 금액 데이터 
             df = pd.DataFrame(self.data)
             this_month_data = df[df['date'].dt.year == self.today.year]  # 올해 데이터 필터링
             this_month_data = this_month_data[this_month_data['date'].dt.month == self.today.month]  # 이번 달 데이터 필터링
-            this_month_until_yesterday_data = this_month_data[this_month_data['date'].dt.day < self.today.day] # 어제 까지의 데이터 필터링
+            this_month_until_yesterday_data = this_month_data[this_month_data['date'].dt.day <= self.today.day] # 어제 까지의 데이터 필터링
             this_month_until_yesterday_data = this_month_until_yesterday_data.groupby(pd.Grouper(key='date', freq='D')).sum() # 일별로 그룹화     
-            
+        
         # 시리즈 타입으로                  
         pred = pd.Series(y_pred, index=self.pred_period).sum()
+        print (pred)    
+        print (this_month_until_yesterday_data.sum())    
+        
         total = round(pred + this_month_until_yesterday_data.sum(),0).tolist()
         
         return total, pred_upper, pred_lower

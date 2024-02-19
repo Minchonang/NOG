@@ -78,7 +78,7 @@ function BoardDetail() {
 			});
 
 			if (response.ok) {
-				alert("댓글 작성이 완료되었습니다.");
+				alert("답변이 등록되었습니다.");
 				const result = await response.json();
 				setComment(result);
 				// 입력값 초기화
@@ -94,6 +94,7 @@ function BoardDetail() {
 		}
 	};
 
+	// 관리자/유저 판단
 	const getUserRole = async () => {
 		try {
 			const response = await fetch(`${API_BASE_URL}/api/userinfo/getRole`, {
@@ -176,6 +177,7 @@ function BoardDetail() {
 
 						{/* 답변 목록 */}
 						{comment && comment.length > 0 ? (
+							// 답변 완료인 경우
 							<>
 								{/* 구분선 */}
 								<div className={style.line}></div>
@@ -193,26 +195,44 @@ function BoardDetail() {
 														style={{
 															width: "10%",
 															height: "10%",
+															margin: "1vh 0",
 														}}
 													/>
-													<td className={style.reply_comment}>{commentItem.content}</td>
+													<td className={style.reply_comment}>
+														{commentItem.content}
+													</td>
 												</tr>
 											))}
 										</tbody>
 									</table>
 								</div>
-								<div className={style.btn_area}>
-									{/* <div
-										className={style.goBackBtn}
-										onClick={goBack}
-									>{`< 뒤로가기`}</div> */}
-								</div>
+								{!userRole ? (
+									<div className={style.btn_area_user}>
+										<div
+											className={style.goBackBtn}
+											onClick={goBack}
+										>{`< 뒤로가기`}</div>
+									</div>
+								) : (
+									<></>
+								)}
 							</>
 						) : (
+							// 미답변 상태인 경우
 							<>
 								{/* 구분선 */}
 								<div className={style.line2}></div>
-								{userRole === 1 ? (
+								{!userRole ? (
+									<div className={style.btn_area_user}>
+										<div
+											className={style.goBackBtn}
+											onClick={goBack}
+										>{`< 뒤로가기`}</div>
+									</div>
+								) : (
+									<></>
+								)}
+								{userRole ? (
 									<>
 										{/* 답변 영역 */}
 										<div className={style.commentContainer}>
@@ -245,7 +265,7 @@ function BoardDetail() {
 				)}
 			</div>
 
-			<BottomNav admin={true}/>
+			<BottomNav admin={userRole ? true : false} />
 		</div>
 	);
 }
