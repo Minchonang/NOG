@@ -146,7 +146,7 @@ const MyChart = () => {
       ) : (
         <>
           <div className={style.body}>
-            <Header sub_title="홈 분석" />
+            <Header sub_title="소비 리포트" />
 
             <div className={style.container}>
               <div className={style.title}>
