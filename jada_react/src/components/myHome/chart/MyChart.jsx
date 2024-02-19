@@ -72,10 +72,6 @@ const MyChart = () => {
         setChartData3(data.data3);
         setChartData4(data.data4);
         setPeriod(data.data0);
-        setPredData({
-          total: data["total"],
-          total_bill: data["total_bill"],
-        });
         setUser({
           user_id: id,
           user_name: data.data2["user_name"],
@@ -92,6 +88,37 @@ const MyChart = () => {
     };
     fetchData();
   }, [searchDate]);
+
+  useEffect(() => {
+    const fetchPredData = async () => {
+      const id = sessionStorage.getItem("user_id");
+
+      try {
+        // axios로 GET 요청 보내기
+        const response = await axios.get(
+          `http://192.168.0.84:5001/pred?user_id=${id}`
+        );
+        const data = response.data;
+        console.log("pred_result : ", data);
+        setPredData({
+          total: data["total"],
+          total_bill: data["total_bill"],
+        });
+      } catch (error) {
+        console.error("Error fetching graph data:", error);
+      } finally {
+        setLoad(true);
+      }
+    };
+
+    if (load == true) {
+      if (searchDate === "" || searchDate === now) {
+        if (predData === "") {
+          fetchPredData();
+        }
+      }
+    }
+  }, [load]);
 
   // 증감율 계산
   const caculatePercent = (A, B) => {
@@ -199,9 +226,8 @@ const MyChart = () => {
                   ) : (
                     <h1>
                       {predData && predData["total_bill"]
-                        ? predData["total_bill"].toLocaleString("ko-KR")
-                        : 0}
-                      원
+                        ? predData["total_bill"].toLocaleString("ko-KR") + "원"
+                        : "예측 진행중.."}
                     </h1>
                   )}
                 </div>
