@@ -121,8 +121,8 @@ class Data_List:
             max_date = max_row['date_group']
             min_date = min_row['date_group']
             # 최대 값, 최소 값
-            city_max_usage = max_row['daily_usage']
-            city_min_usage = min_row['daily_usage']
+            city_max_usage = round(max_row['daily_usage'],1)
+            city_min_usage = round(min_row['daily_usage'],1)
             # 가장 많이 사용한 일자
             city_max_day = pd.to_datetime(max_date).day
             # 가장 적게 사용한 일자
@@ -182,8 +182,8 @@ class Data_List:
                 my_min_row = my_data.loc[my_min_index]
 
                 # 최대 값, 최소 값
-                my_max_usage = my_max_row['daily_usage']
-                my_min_usage = my_min_row['daily_usage']
+                my_max_usage = round(my_max_row['daily_usage'],1)
+                my_min_usage = round(my_min_row['daily_usage'],1)
                 
                 # 해당 행의 date 값 추출
                 my_max_date = my_max_row['date_group']
