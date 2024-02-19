@@ -441,7 +441,7 @@ function HomeControl() {
                   style={{ fontSize: userId.length >= 9 ? "1em" : "1.5em" }}
                   className={style.homeCount_name}
                 >
-                  {userId}님의 집
+                  우리집
                 </div>
                 <div className={style.count}>{userHumanCount}명</div>
               </div>
