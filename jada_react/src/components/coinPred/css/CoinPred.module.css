@@ -57,7 +57,7 @@
 
 .selectGuide {
 	position: absolute;
-	left: 100px;
+	left: 65px;
 	display: flex;
 	align-items: center;
 	padding: 8px 10px;
@@ -94,6 +94,9 @@
 .coinGraph_area {
 	width: 100%;
 	display: flex;
+	border: 2px solid #0066ffa1;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 .coinGraph {
@@ -123,4 +126,11 @@
 	width: 8em;
 	height: 8em;
 	opacity: 0.3;
+}
+
+/* 그래프 로딩 이미지 */
+.loadingGif {
+	width: 70px;
+	height: 70px;
+	margin: 15% auto;
 }
