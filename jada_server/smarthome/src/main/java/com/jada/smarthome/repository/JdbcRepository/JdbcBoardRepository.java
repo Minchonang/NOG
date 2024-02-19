@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.OrderBy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,7 +24,7 @@ public class JdbcBoardRepository {
 
     public List<Board> findByBoardAll() {
       // String sql = "SELECT * FROM board";
-      String sql = "SELECT b.*, c.comment_id, c.content AS comment_content FROM board b LEFT JOIN comment c ON b.board_id = c.board_id";
+      String sql = "SELECT b.*, c.comment_id, c.content AS comment_content FROM board b LEFT JOIN comment c ON b.board_id = c.board_id ORDER BY b.board_id ASC";
       return jdbcTemplate.query(sql, new BoardRowMapper());
     }
     class BoardRowMapper implements RowMapper<Board> {

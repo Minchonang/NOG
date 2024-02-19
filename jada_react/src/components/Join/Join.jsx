@@ -552,30 +552,6 @@ function Join() {
                     </NavLink>
                 </div>
             </div>
-            <div className={styles.pwd_area}>
-                <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    placeholder="비밀번호(영문, 숫자, 특수문자 조합으로 8자 이상)"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                />
-                <span onClick={togglePasswordVisibility} className={styles.eyeIcon}>
-                    {showPassword ? <FaEye /> : <FaEyeSlash />}
-                </span>
-            </div>
-            <div className={styles.inputWithBtn}>
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="이메일 주소(ex.aaa@gmail.com)"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                />
-                <button className={common.themeBgrColor} onClick={sendEmail}>
-                    인증하기
-                </button>
-            </div>
         </div>
     );
 }
