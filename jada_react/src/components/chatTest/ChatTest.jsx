@@ -10,7 +10,7 @@ import common from '../common/css/common.module.css';
 import style from './css/ChatTest.module.css';
 
 // const socket = io("http://192.168.0.19:5001"); // 희성
-const socket = io('http://3.38.50.14:5000/');
+const socket = io('http://3.38.50.14:5000');
 
 const ChatTest = () => {
    const bot_NOG =
@@ -57,8 +57,6 @@ const ChatTest = () => {
                const roundedTotalDailyUsage = parseFloat(totalDailyUsage.toFixed(2));
                console.log('총 사용량:', roundedTotalDailyUsage); // 총 사용량 출력
                setResult(roundedTotalDailyUsage);
-
-               // 받아온 데이터를 처리하거나 상태에 저장하는 로직을 추가
             }
          } catch (error) {
             console.error('Error fetching data:', error.message);

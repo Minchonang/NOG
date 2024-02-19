@@ -14,7 +14,7 @@ const RadarChart = ({ data5 }) => {
   const my_usage_23_4 = data5[1] ? data5[1]["usage_23_4"] : 0;
 
   const data = {
-    labels: ["오전(5-10)", "오후(11-16)", "저녁(17-22)", "심야,새벽(23-4)"],
+    labels: ["오전(5-11)", "오후(11-17)", "저녁(17-23)", "심야,새벽(23-5)"],
     datasets: [
       {
         label: "도시인구 평균",

@@ -139,7 +139,7 @@ function HomeControl() {
             // 서버 응답이 성공인 경우
             const result = await response.json();
 
-            // console.log('Home Device Data:', result);
+            console.log('Home Device Data:', result);
 
             setUserHumanCount(result.humanCount);
             setHomeLightOnOff(result.light);
@@ -422,12 +422,7 @@ function HomeControl() {
                   {/*--------------------집 인원 & 전등--------------------*/}
                   <div className={style.countLight_area}>
                      <div className={style.homeCount}>
-                        <div
-                           style={{ fontSize: userId.length >= 9 ? '1em' : '1.5em' }}
-                           className={style.homeCount_name}
-                        >
-                           우리집
-                        </div>
+                        <div className={style.homeCount_name}>우리집</div>
                         <div className={style.count}>{userHumanCount}명</div>
                      </div>
 
