@@ -198,7 +198,7 @@
 }
 
 .doughnut_chart {
-  background-color: rgba(219, 227, 254, 0.673);
+  background-color: rgba(237, 237, 237, 0.673);
   width: 20%;
 }
 .radar_chart {
@@ -206,7 +206,7 @@
   width: 20%;
 }
 .pie_chart {
-  background-color: rgba(219, 227, 254, 0.673);
+  background-color: rgba(237, 237, 237, 0.673);
 
   width: 20%;
 }
@@ -220,30 +220,28 @@
   width: 100%;
   height: 100%;
 }
+
 /* 도넛 차트 사용량 */
 .doughnut_value {
   position: absolute;
-
   transform: translateX(50%);
   right: 50%;
-  bottom: 20%;
-  font-size: 2rem;
-  color: rgb(248, 4, 0);
-  text-shadow: -1px 0 rgb(219, 90, 4), 0 1px rgb(18, 70, 134),
-    2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255);
+  bottom: 36%;
+  font-size: 2.5rem;
+  color: rgb(255, 139, 148);
+  text-shadow: -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 2px 0 rgb(0, 0, 0),
+    0 -1px rgb(0, 0, 0);
 }
 
 .doughnut_percentage {
   position: absolute;
   transform: translateX(50%);
   right: 50%;
-
-  bottom: 0%;
-
+  bottom: 25%;
   font-size: 1rem;
-  color: rgb(255, 243, 6);
+  /* color: rgb(255, 243, 6);
   text-shadow: -1px 0 rgb(219, 90, 4), 0 1px rgb(18, 70, 134),
-    2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255);
+    2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255); */
 }
 
 .container > div > .chart_box > .text_box {
@@ -296,10 +294,10 @@
 
 .container > div > .chart_box > .text_box > table {
   margin-top: 1rem;
-  background-color: #d4d5d52b;
+  /* background-color: #d4d5d52b; */
   /* border: 0.1rem solid rgb(179, 179, 179); */
   border-radius: 0.7rem;
-  box-shadow: 1px 1px 1px rgba(157, 157, 157, 0.185);
+  /* box-shadow: 1px 1px 1px rgba(157, 157, 157, 0.185); */
 }
 
 .bottom_close {
@@ -341,4 +339,16 @@
 .chart_box th {
   vertical-align: middle;
   text-align: center;
+}
+
+.custom_table {
+  border-bottom: 0.1rem solid rgb(233, 233, 233);
+}
+
+.custom_table th {
+  border-bottom: 0.1rem solid rgb(233, 233, 233);
+}
+
+.custom_table .border_right {
+  border-right: 0.1rem solid rgb(233, 233, 233);
 }

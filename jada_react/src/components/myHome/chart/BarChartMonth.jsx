@@ -30,31 +30,31 @@ const BarChartMonth = ({ data5 }) => {
       {
         label: ["나의 소비"],
         data: myData,
-        backgroundColor: ["rgba(255, 99, 132, 0.5)"],
-        borderColor: ["rgb(255, 99, 132)"],
+        backgroundColor: ["rgba(255,139,148, 0.8)"],
+        borderColor: ["rgb(255,139,148)"],
         borderWidth: 1,
       },
       {
         label: ["도시 소비 평균"],
         data: cityData,
-        backgroundColor: ["rgba(153, 102, 255, 0.5)"],
-        borderColor: ["rgb(153, 102, 255)"],
+        backgroundColor: ["rgba(180, 180, 238, 0.8)"],
+        borderColor: ["rgb(180,180,238)"],
         borderWidth: 1,
       },
       {
         label: ["나의 소비라인"],
         type: "line",
         data: myData,
-        backgroundColor: ["rgba(255, 255, 255, 1)"],
-        borderColor: ["rgba(255, 0, 0, 1)"],
+        backgroundColor: ["rgba(255, 255, 255)"],
+        borderColor: ["rgba(55,165,0, 1)"],
         borderWidth: 4,
       },
       {
         label: ["도시 평균 소비라인"],
         type: "line",
         data: cityData,
-        backgroundColor: ["rgba(255, 255, 255, 1)"],
-        borderColor: ["rgba(10, 100, 250, 0.9)"],
+        backgroundColor: ["rgba(255,255,255)"],
+        borderColor: ["rgba(255,165,0, 1)"],
         borderWidth: 4,
         tension: 0.5,
       },
@@ -73,7 +73,7 @@ const BarChartMonth = ({ data5 }) => {
           // padding: 10,
           font: {
             // 범례의 폰트 스타일도 지정할 수 있습니다.
-            family: "'Noto Sans KR', 'serif'",
+            family: "Godo",
             lineHeight: 1,
             size: 10,
           },
@@ -93,7 +93,7 @@ const BarChartMonth = ({ data5 }) => {
         bodyFont: {
           font: {
             // 툴팁 내용의 폰트 스타일을 지정할 수 있습니다.
-            family: "'Noto Sans KR', sans-serif",
+            family: "Godo",
           },
         },
         usePointStyle: true,
@@ -132,9 +132,8 @@ const BarChartMonth = ({ data5 }) => {
           align: "end",
           color: "#808080",
           font: {
-            // size: 12,
-            // family: "'Noto Sans KR', sans-serif",
-            // weight: 300,
+            size: 10,
+            family: "Godo",
           },
           text: "(단위: kWh)",
         },

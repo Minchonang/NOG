@@ -33,8 +33,8 @@ const RadarChart = ({ data5 }) => {
       {
         label: "내 사용시간 ",
         data: [my_usage_5_10, my_usage_11_16, my_usage_17_22, my_usage_23_4], // 각 시간대별 사용한 시간 (예: 시간 단위)
-        backgroundColor: "rgba(255, 0, 155, 0.2)",
-        borderColor: "rgba(0, 99, 255, 1)",
+        backgroundColor: "rgba(255,182,156, 0.7)",
+        borderColor: "rgba(255,127,80, 1)",
         borderWidth: 1,
         lineTension: 0.5,
       },
@@ -44,37 +44,41 @@ const RadarChart = ({ data5 }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
-
     aspectRatio: 1.5,
-
     scales: {
       r: {
         grid: {
           color: "rgba(0, 0, 0, 1)",
         },
-        suggestedMin: 0, // Y 축의 최솟값을 0으로 설정 (기본값)
+        suggestedMin: 0,
         ticks: {
-          stepSize: 10, // Y 축의 간격을 설정
-          color: "rgba(1, 255, 1, 1)",
-          backdropColor: "rgba(0, 0, 0, 1)",
+          stepSize: 500,
+          color: "rgba(0,0,0,1)",
+          backdropColor: "rgba(0,0,0,0)",
+          font: {
+            size: 18,
+          },
+        },
+        pointLabels: {
+          font: {
+            size: 13,
+            family: "Godo",
+          },
         },
       },
     },
-
     plugins: {
       legend: {
-        // display: false,
-
         labels: {
           color: "black",
           font: {
             size: 13,
+            family: "Godo",
           },
         },
       },
     },
   };
-
   return <Radar data={data} options={options} className={style.radar_chart} />;
 };
 

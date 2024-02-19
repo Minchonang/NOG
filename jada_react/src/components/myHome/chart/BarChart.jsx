@@ -31,7 +31,7 @@ const BarChart = ({ data6 }) => {
       ? data6[1]["city_average_daily_usage"]
       : 0;
 
-  const labels = ["이달", "지난달", "전년동월"];
+  const labels = ["이번 달", "지난 달", "전년동월"];
   const data = {
     labels: labels,
     datasets: [
@@ -39,11 +39,15 @@ const BarChart = ({ data6 }) => {
         label: "사용자",
         data: [my_total_usage, my_total_usage_last, user_month_total_last_year],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(255, 99, 132, 0.5)",
+          "rgba(226,165,161)",
+          "rgba(226,165,161)",
+          "rgba(226,165,161)",
         ],
-        borderColor: ["rgb(255, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 0, 0)"],
+        borderColor: [
+          "rgb(226,165,161)",
+          "rgb(226,165,161)",
+          "rgb(226,165,161)",
+        ],
         borderWidth: 2,
       },
       {
@@ -57,17 +61,51 @@ const BarChart = ({ data6 }) => {
           city_month_total_last_year,
         ],
         backgroundColor: [
-          "rgba(201, 203, 207, 1)",
-          "rgba(201, 203, 207, 1)",
-          "rgba(201, 203, 207, 1)",
+          "rgba(192,214,228)",
+          "rgba(192,214,228)",
+          "rgba(192,214,228)",
         ],
-        borderColor: ["rgb(0, 0, 0)", "rgb(0, 0, 0)", "rgb(0, 0, 0)"],
+        borderColor: [
+          "rgb(192,214,228)",
+          "rgb(192,214,228)",
+          "rgb(192,214,228)",
+        ],
         borderWidth: 2,
       },
     ],
   };
+  const options = {
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 14.6,
+            family: "Godo",
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 15,
+            family: "Godo",
+          },
+        },
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 15,
+            family: "Godo",
+          },
+        },
+      },
+    },
+  };
 
-  return <Bar data={data} className={style.bar_chart} />;
+  return <Bar data={data} options={options} className={style.bar_chart} />;
 };
 
 export default BarChart;

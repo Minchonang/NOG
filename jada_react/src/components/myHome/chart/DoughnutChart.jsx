@@ -13,17 +13,17 @@ const DoughnutChart = ({ data1 }) => {
     datasets: [
       {
         data: [my, total],
-        backgroundColor: ["rgb(250, 185, 33)", "gray"],
-        hoverBackgroundColor: ["red", "black"],
+        backgroundColor: ["rgb(220,237,193)", "gray"],
+        hoverBackgroundColor: ["rgb(168,230,207)", "black"],
       },
     ],
   };
 
   const doughnutOptions = {
     responsive: true,
-    aspectRatio: 1 | 2,
+    aspectRatio: 2.8,
     borderColor: "white",
-    borderWidth: 10,
+    borderWidth: 6,
 
     plugins: {
       legend: {
@@ -41,7 +41,7 @@ const DoughnutChart = ({ data1 }) => {
       },
     },
     maintainAspectRatio: true,
-    cutoutPercentage: 400,
+    cutoutPercentage: 600,
     // animation: true,
     rotation: 290,
     circumference: 45 * Math.PI,

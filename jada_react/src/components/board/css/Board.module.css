@@ -22,8 +22,6 @@
 .boardContainer {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	/* justify-content: center; */
 	margin: 0 auto;
 	padding: 0 0 50px;
 	width: 100%;
@@ -48,7 +46,7 @@
 	background-color: white;
 	color: black;
 	font-family: "godo";
-	font-size: .9em;
+	font-size: 0.9em;
 }
 
 /* 글작성자 */
@@ -102,4 +100,18 @@
 
 .submitButton:active {
 	background-color: #fbcd87;
+}
+
+/* 뒤로가기 */
+.goBack_area {
+	display: flex;
+	flex-direction: row;
+	margin: 20px 0;
+}
+.goBack_area div {
+	color: gray;
+	font-size: .9em;
+}
+.goBack_area div:active {
+	text-decoration: underline;
 }
