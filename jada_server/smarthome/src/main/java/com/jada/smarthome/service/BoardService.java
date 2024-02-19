@@ -56,13 +56,13 @@ public class BoardService {
   }
 
   // 문의사항 리스트 조회
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
-    }
+  public List<Board> getBoardList() {
+      return boardRepository.findAll();
+  }
   
-    // 문의사항 유저정보 조회
-    public List<Board> getBoardListByUserId(String userId) {
-      return boardRepository.findByWriterId(userId);
+  // 문의사항 유저정보 조회
+  public List<Board> getBoardListByUserId(String userId) {
+    return boardRepository.findByWriterId(userId);
   }
 
   // 문의사항 상세정보 조회

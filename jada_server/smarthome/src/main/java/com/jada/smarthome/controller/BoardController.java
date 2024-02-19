@@ -21,16 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jada.smarthome.dto.BoardDto;
 import com.jada.smarthome.dto.CommentDto;
 import com.jada.smarthome.model.Board;
-import com.jada.smarthome.model.Comment;
+import com.jada.smarthome.model.User;
+import com.jada.smarthome.repository.JdbcRepository.JdbcBoardRepository;
 import com.jada.smarthome.service.BoardService;
 
 @RestController
 @RequestMapping("/api/board")
 public class BoardController {
   private final BoardService boardService;
+  private final JdbcBoardRepository jdbcBoardRepository;
 
-  public BoardController(BoardService boardService){
+  public BoardController(BoardService boardService, JdbcBoardRepository jdbcBoardRepository){
     this.boardService = boardService;
+    this.jdbcBoardRepository = jdbcBoardRepository;
   }
 
   // 문의사항 작성
@@ -63,6 +66,14 @@ public class BoardController {
     
     return ResponseEntity.ok(boardListDtos);
   }
+
+    // 문의사항 리스트 조회(jdbc)
+    @GetMapping("/allboards")
+    public List<Board> allBoards() {
+        List<Board> boards = jdbcBoardRepository.findByBoardAll();
+    
+        return boards;
+    }
   
   // 특정 사용자의 문의사항 리스트 조회
   @GetMapping("/boardList/{userId}")
@@ -84,7 +95,7 @@ public class BoardController {
               return boardDto;
           })
           .collect(Collectors.toList());
-                  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardListDtos : " + boardListDtos);
+                  // System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardListDtos : " + boardListDtos);
 
          return ResponseEntity.ok(boardListDtos);
       } catch (Exception e) {
@@ -95,40 +106,40 @@ public class BoardController {
 
 
 
-     // 특정 게시글의 상세 정보 조회
-     @GetMapping("/boardDetail")
-     public ResponseEntity<?> getBoardDetail(@RequestParam(name = "boardId", defaultValue = "1") Long boardId) {
+    // 특정 게시글의 상세 정보 조회
+    @GetMapping("/boardDetail")
+    public ResponseEntity<?> getBoardDetail(@RequestParam(name = "boardId", defaultValue = "1") Long boardId) {
 
-        try {
-            Optional<Board> boardOptional = boardService.getBoardById(boardId);
-             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardOptional : "+boardOptional);
-            
-             if (boardOptional.isPresent()) {
-                 Board board = boardOptional.get();
-                 System.out.println("------------------------------------------------- board : " + board);
-                 BoardDto boardDto = BoardDto.builder()
-                 .userId(board.getWriter().getId())
-                 .boardId(board.getBoardId())
-                 .boardCategory(board.getBoardCategory())
-                 .title(board.getTitle())
-                 .content(board.getContent())
-                 .writeDate(board.getWriteDate())
-                 .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
-                 .build();
-                 System.out.println("------------------------------------------------- boardDto : " + boardDto);
+      try {
+          Optional<Board> boardOptional = boardService.getBoardById(boardId);
+          //  System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ boardOptional : "+boardOptional);
+          
+            if (boardOptional.isPresent()) {
+                Board board = boardOptional.get();
+                System.out.println("------------------------------------------------- board : " + board);
+                BoardDto boardDto = BoardDto.builder()
+                .userId(board.getWriter().getId())
+                .boardId(board.getBoardId())
+                .boardCategory(board.getBoardCategory())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writeDate(board.getWriteDate())
+                .comment(board.getComments().isEmpty() ? null : board.getComments().get(0))
+                .build();
+                System.out.println("------------------------------------------------- boardDto : " + boardDto);
 
-                 return ResponseEntity.ok(boardDto);
-             } else {
-                 return ResponseEntity.notFound().build();
-             }
-         } catch (EntityNotFoundException e) {
-             // 해당 게시글이 없는 경우
-             return ResponseEntity.notFound().build();
-         } catch (Exception e) {
-             // 기타 예외 처리
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
-         }
-     }
+                return ResponseEntity.ok(boardDto);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (EntityNotFoundException e) {
+            // 해당 게시글이 없는 경우
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // 기타 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
+        }
+    }
 
   // 댓글 저장
   @PostMapping("/getComment")

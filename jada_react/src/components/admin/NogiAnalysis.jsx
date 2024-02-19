@@ -23,37 +23,6 @@ function NogiAnalysis() {
   const [showDelReason, setShowDelReason] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
-  useEffect(() => {
-    // 로딩 시작
-    setIsLoading(true);
-
-    // 2초 후에 로딩 완료
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // 모달 닫기 동작
-
-  // 챗봇-탈퇴사유 토글 버튼
-  const clickChatbot = () => {
-    if (showDelReason) {
-      setShowChatBot((prev) => !prev);
-      setShowDelReason((prev) => !prev);
-    }
-  };
-  const clickDelReason = () => {
-    if (showChatbot) {
-      setShowChatBot((prev) => !prev);
-      setShowDelReason((prev) => !prev);
-    }
-  };
-
   // 로딩
   // 로딩 상태를 기반으로 로딩 화면을 표시하는 useEffect
   useEffect(() => {
@@ -69,6 +38,20 @@ function NogiAnalysis() {
       clearTimeout(timeoutId);
     };
   }, []);
+
+  // 챗봇-탈퇴사유 토글 버튼
+  const clickChatbot = () => {
+    if (showDelReason) {
+      setShowChatBot((prev) => !prev);
+      setShowDelReason((prev) => !prev);
+    }
+  };
+  const clickDelReason = () => {
+    if (showChatbot) {
+      setShowChatBot((prev) => !prev);
+      setShowDelReason((prev) => !prev);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -269,18 +252,21 @@ function NogiAnalysis() {
                 {selectedBoard1 && (
                   <div className={style.custom_modal}>
                     <div className={style.modal_container}>
-                      <hr className={style.bookends} />
-                      <div className={style.modal_title}>챗봇 대화</div>
+                      <div className={style.modal_title}>챗봇 대화🤖</div>
                       <div className={style.modal_content}>
                         <p>회원: {selectedBoard1.chat_user_id}</p>
                         <p>
-                          사용자 질문: {""}
-                          {selectedBoard1.user_question.length > 12
-                            ? `${selectedBoard1.user_question.substring(
-                                0,
-                                12
-                              )}\n${selectedBoard1.user_question.substring(12)}`
-                            : selectedBoard1.user_question}
+                          <span className={style.text_highlight}>
+                            사용자 질문: {""}
+                            {selectedBoard1.user_question.length > 12
+                              ? `${selectedBoard1.user_question.substring(
+                                  0,
+                                  12
+                                )}\n${selectedBoard1.user_question.substring(
+                                  12
+                                )}`
+                              : selectedBoard1.user_question}
+                          </span>
                         </p>
                         <p>
                           예상 질문: {""}
@@ -291,7 +277,12 @@ function NogiAnalysis() {
                               )}\n${selectedBoard1.data_question.substring(15)}`
                             : selectedBoard1.data_question}
                         </p>
-                        <p>유사도: {selectedBoard1.similar}</p>
+                        <p>
+                          유사도:{" "}
+                          <span className={style.modal_similar}>
+                            {selectedBoard1.similar}
+                          </span>{" "}
+                        </p>
                         <p>
                           질문일자:{" "}
                           {new Date(selectedBoard1.chat_time).toLocaleString(
@@ -385,20 +376,24 @@ function NogiAnalysis() {
                   <div className={style.custom_modal}>
                     <div className={style.modal_container}>
                       <hr className={style.bookends} />
-                      <div className={style.modal_title}>챗봇 대화</div>
+                      <div className={style.modal_title}>탈퇴 사유🤔</div>
                       <div className={style.modal_content}>
-                        <p>탈퇴 회원 거주지역: {selectedBoard2.user_address}</p>
+                        <p>회원 거주지역: {selectedBoard2.user_address}</p>
                         <p>
-                          탈퇴 사유: {""}
-                          {selectedBoard2.exit_content.length > 12
-                            ? `${selectedBoard2.exit_content.substring(
-                                0,
-                                12
-                              )}\n${selectedBoard2.exit_content.substring(12)}`
-                            : selectedBoard2.exit_content}
+                          <span className={style.text_highlight}>
+                            탈퇴 사유: {""}
+                            {selectedBoard2.exit_content.length > 12
+                              ? `${selectedBoard2.exit_content.substring(
+                                  0,
+                                  12
+                                )}\n${selectedBoard2.exit_content.substring(
+                                  12
+                                )}`
+                              : selectedBoard2.exit_content}
+                          </span>
                         </p>
                         <p>
-                          질문일자:{" "}
+                          탈퇴일자:{" "}
                           {new Date(selectedBoard2.exit_date).toLocaleString(
                             "ko-KR"
                           )}

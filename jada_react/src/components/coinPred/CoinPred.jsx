@@ -9,7 +9,8 @@ import BottomNav from "../common/jsx/BottomNav";
 import Loading from "../common/jsx/LoadingNog";
 import axios from "axios";
 import Chart from "chart.js/auto";
-import ChatBot from "../common/jsx/ChatBot";
+
+import bitcoin from "./img/bitcoin.png";
 
 function CoinPred() {
   const bot_NOG =
@@ -21,7 +22,6 @@ function CoinPred() {
   const [Datasets4, setDatasets4] = useState(null);
   const [nowPrice, setNowPrice] = useState("");
   const [predPrice, setPredPrice] = useState("");
-  const [upDown, setUpDown] = useState(0);
   const chartRef1 = useRef(null);
 
   const [selectedCoin, setSelectedCoin] = useState("KRW-ETH");
@@ -33,10 +33,10 @@ function CoinPred() {
     // 로딩 시작
     setIsLoading(true);
 
-    // 2초 후에 로딩 완료
+    // 3초 후에 로딩 완료
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 3000);
 
     return () => {
       clearTimeout(timeoutId);
@@ -56,6 +56,7 @@ function CoinPred() {
 
   // 1. flask로부터 데이터 받기 (now_coin_chart)
   const nowCoinChart = async (selectedCoin) => {
+    // setIsLoading(true);
     console.log("코인 데이터 가져오기 시작...");
     try {
       const response = await axios.get(
@@ -68,6 +69,9 @@ function CoinPred() {
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
+    //  finally {
+    //    setIsLoading(false);
+    // }
   };
 
   useEffect(() => {
@@ -160,12 +164,6 @@ function CoinPred() {
       const predPrices = Object.values(Datasets3.data);
       // predPrices의 시작 위치를 tradePrices의 길이에 맞추기
       const predStartIndex = tradePrices.length - predPrices.length;
-      // 코인값 현재 보다 오르는지 내리는지 set해주기
-      setUpDown(
-        Math.round(predPrice - predPrices[predPrices.length - 1])
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      );
 
       chartRef1.current.chart = new Chart(ctx, {
         type: "line",
@@ -173,7 +171,6 @@ function CoinPred() {
           labels: tradePrices.map((_, index) => index + 1), // 인덱스를 기반으로 라벨 생성
           datasets: [
             {
-              label: "실제 거래 가격",
               data: tradePrices,
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
@@ -181,7 +178,6 @@ function CoinPred() {
               pointRadius: 0,
             },
             {
-              label: "예측 가격",
               data: predPrices,
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgba(255, 99, 132, 1)",
@@ -193,14 +189,7 @@ function CoinPred() {
         options: {
           plugins: {
             legend: {
-              display: true, // 범주 숨김
-              position: "bottom",
-            },
-          },
-          scales: {
-            x: {
-              // max: predPrices.length,
-              min: tradePrices.length - predPrices.length,
+              display: false, // 범주 숨김
             },
           },
         },
@@ -211,10 +200,6 @@ function CoinPred() {
           x: predStartIndex + index + 1,
           y: value,
         })
-      );
-      console.log(
-        ">>>>>>예측 가격 마지막입니다.: ",
-        predPrice - predPrices[predPrices.length - 1]
       );
 
       // 차트 업데이트
@@ -258,23 +243,18 @@ function CoinPred() {
                 {showSelectGuide && (
                   <div
                     className={style.selectGuide}
-                  >{`< 터치해서 다른 코인들도 확인해 보세요`}</div>
+                  >{`< 터치해서 다른 코인들도 확인해 보세요.`}</div>
                 )}
               </div>
               <div className={style.coinPrice}>{`${nowPrice
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
               <div className={style.predReload}>
-                <div className={style.predPrice}>
-                  <span>5분 뒤 예상: </span>
-                  <span
-                    className={`${
-                      Number(upDown) > 0 ? style.upPrice : style.downPrice
-                    }`}
-                  >
-                    {`${Number(upDown) > 0 ? "+" + upDown : upDown}원`}
-                  </span>
-                </div>
+                <div className={style.predPrice}>{`5분 뒤 예상: ${Math.round(
+                  predPrice
+                )
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
                 <TfiReload
                   color="#0064ff"
                   onClick={(e) => {
@@ -295,10 +275,10 @@ function CoinPred() {
               <div>{`코인 예측 가격 결과는 오로지 정보 제공 목적으로 제공되며,\n이에 대해 피해가 발생하여도 당사는 책임을 지지 않습니다.`}</div>
             </div>
             <div className={style.img_area}>
-              <img src={bot_NOG} alt="botNOG" />
+              {/* <img src={bot_NOG} alt="botNOG" /> */}
+              <img src={bitcoin} alt="botNOG" />
             </div>
           </div>
-          <ChatBot />
           <BottomNav />
         </div>
       )}
