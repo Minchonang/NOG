@@ -1,354 +1,370 @@
 .body {
-  background-color: rgb(255, 255, 255);
-  height: 100%;
-  width: 100%;
-  font-family: "Godo";
+	background-color: rgb(255, 255, 255);
+	height: 100%;
+	width: 100%;
+	font-family: "Godo";
 }
 .body > .container {
-  padding-top: 2.8rem;
-  background-color: #fffafa;
-  padding-bottom: 5rem;
+	padding-top: 2.8rem;
+	/* background-color: #fffafa; */
+	background-color: #fbf7ef;
+	padding-bottom: 5rem;
 }
 .body > .container > .keyword_box {
-  position: relative;
-  background-color: rgb(255, 255, 255);
-  padding: 1rem 0.7rem 1rem 1rem;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-  color: rgb(11, 7, 0);
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  border-radius: 0.1rem;
-  cursor: pointer;
-  /* border: 0.1rem solid rgb(115, 114, 114); */
-  border-top: 0.1rem solid rgb(230, 230, 230);
-  border-left: 0.1rem solid rgb(230, 230, 230);
-  border-radius: 0.5rem;
-  box-shadow: 2px 2px 1px rgb(119, 119, 119);
-  background-color: #ffffff;
-  /* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
+	position: relative;
+	background-color: rgb(255, 255, 255);
+	padding: 1rem 0.7rem 1rem 1rem;
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+	color: rgb(11, 7, 0);
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	border-radius: 0.1rem;
+	cursor: pointer;
+	/* border: 0.1rem solid rgb(115, 114, 114); */
+	border-top: 0.1rem solid rgb(230, 230, 230);
+	border-left: 0.1rem solid rgb(230, 230, 230);
+	border-radius: 0.5rem;
+	box-shadow: 2px 2px 1px rgba(119, 119, 119, 0.55);
+	background-color: #ffffff;
+	/* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
+}
+.body > .container > .keyword_box:last-child {
+	padding: 0.9rem 0.7rem 0.9rem 1rem !important;
 }
 
 .body > .container > .keyword_box.keyword_box_open {
-  background-color: #f3f2f2;
-  border-top: 0.15rem solid #868686;
-  border-left: 0.15rem solid #868686;
+	background-color: #f3f2f2;
+	border-top: 0.15rem solid #868686;
+	border-left: 0.15rem solid #868686;
 
-  /* border: 0.1rem solid #111010; */
-  transform: scale(0.99);
-  box-shadow: none;
-  box-shadow: 1px 1px 1px rgb(216, 216, 216);
+	/* border: 0.1rem solid #111010; */
+	transform: scale(0.99);
+	box-shadow: none;
+	box-shadow: 1px 1px 1px rgba(216, 216, 216, 0.9);
 }
 .body > .container > .keyword_box:last-of-type {
-  padding: 2rem;
-  background-color: #fcdaae;
-  box-shadow: 1px 1px 1px rgb(185, 185, 184);
+	padding: 2rem;
+	background-color: #fcdaae;
+	box-shadow: 1px 1px 1px rgb(185, 185, 184);
 }
 .body > .container > .keyword_box:last-of-type:active {
-  background-color: #8b5a2c;
+	background-color: #8b5a2c;
 }
 
 .body > .container > .keyword_box:last-of-type > span {
-  /* color: white; */
-  grid-column: span 6;
-  text-align: center;
+	/* color: white; */
+	grid-column: span 6;
+	text-align: center;
 }
 
 .body > .container > .keyword_box > div {
-  /* padding: 1rem; */
-  min-height: 3rem;
+	/* padding: 1rem; */
+	min-height: 3rem;
 }
 .body > .container > .keyword_box > div:nth-child(1) {
-  grid-column: span 3;
+	grid-column: span 3;
 
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  flex-direction: column;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	flex-direction: column;
 }
 
 .body > .container > .keyword_box > div:nth-child(2) {
-  grid-column: span 3;
+	grid-column: span 3;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 0.7rem;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	font-size: 0.7rem;
 
-  /* background-color: rgb(74, 192, 255); */
-  flex-direction: column;
+	/* background-color: rgb(74, 192, 255); */
+	flex-direction: column;
 }
 
 .body > .container > .keyword_box.type_box > div:nth-child(1) {
-  grid-column: span 4;
+	grid-column: span 4;
 }
 .body > .container > .keyword_box.type_box > div:nth-child(2) {
-  grid-column: span 2;
+	grid-column: span 2;
 }
 .body > .container > .keyword_box.bill_box > div:nth-child(1) {
-  grid-column: span 3;
+	grid-column: span 3;
 }
 .body > .container > .keyword_box.bill_box > div:nth-child(2) {
-  grid-column: span 3;
+	grid-column: span 3;
 }
 
 .body > .container > .keyword_box > div:nth-child(1) > span:first-of-type {
-  /* background-color: rgb(255, 237, 222); */
+	/* background-color: rgb(255, 237, 222); */
 
-  /* border-bottom: 0.1rem rgb(209, 209, 209) solid; */
-  padding: 0 0rem;
-  font-size: 1rem;
+	/* border-bottom: 0.1rem rgb(209, 209, 209) solid; */
+	padding: 0 0rem;
+	font-size: 1rem;
 }
 .body
-  > .container
-  > .keyword_box
-  > div:nth-child(1)
-  > span:not(:first-of-type) {
-  /* background-color: rgb(255, 237, 222); */
-  font-size: 1rem;
+	> .container
+	> .keyword_box
+	> div:nth-child(1)
+	> span:not(:first-of-type) {
+	/* background-color: rgb(255, 237, 222); */
+	font-size: 1rem;
 }
 
 .body > .container > .keyword_box > div:nth-child(2) > h1 {
-  font-size: 2rem;
-  letter-spacing: -2px;
-  /* border-bottom: 0.1rem rgb(209, 209, 209) solid; */
-  /* border-right: 0.1rem rgb(209, 209, 209) solid; */
+	font-size: 2rem;
+	letter-spacing: -2px;
+	/* border-bottom: 0.1rem rgb(209, 209, 209) solid; */
+	/* border-right: 0.1rem rgb(209, 209, 209) solid; */
 }
 
 .body > .container > .title {
-  background-color: rgb(255, 255, 255);
+	background-color: rgb(255, 255, 255);
 
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-  /* border: 0.3rem solid rgb(255, 255, 255); */
-  /* border-radius: 1rem; */
-  box-shadow: 0px 1px 2px rgb(155, 154, 154);
-  color: rgb(0, 0, 0);
-  display: flex;
-  justify-content: space-between;
-  padding: 1.5rem 1rem;
-  align-items: center;
+	padding: 0.5rem 0.5rem 0.5rem 1rem;
+	margin-bottom: 0.5rem;
+	/* border: 0.3rem solid rgb(255, 255, 255); */
+	/* border-radius: 1rem; */
+	box-shadow: 0px 1px 2px rgb(155, 154, 154);
+	color: rgb(0, 0, 0);
+	display: flex;
+	justify-content: space-between;
+	padding: 1.5rem 1rem;
+	align-items: center;
 
-  /* text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black; */
+	/* text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black; */
 }
 .body > .container > .title > h1 {
-  /* margin-bottom: 3rem; */
-  font-size: 1.5rem;
-  display: inline-block;
-  border-bottom: 0.2rem solid rgb(255, 128, 0);
+	/* margin-bottom: 3rem; */
+	font-size: 1.5rem;
+	display: inline-block;
+	border-bottom: 0.2rem solid rgb(255, 128, 0);
 }
 
 /* 날짜 선택 박스 */
 .body > .container > .title > .period_box {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 /* 날짜 선택 박스 선택지*/
 .body > .container > .title > .period_box > select {
-  color: #000105;
-  /* text-shadow: -1px 0 rgba(0, 60, 255, 0.518), 0 2px rgba(0, 60, 255, 0.518),
+	color: #000105;
+	/* text-shadow: -1px 0 rgba(0, 60, 255, 0.518), 0 2px rgba(0, 60, 255, 0.518),
     1px 0 rgba(0, 60, 255, 0.518), 0 -1px rgba(0, 60, 255, 0.518); */
-  font-family: "Godo";
-  margin: 0;
-  padding: 0.1rem 0 0.1rem 0.5rem;
-  border: 0.1rem solid rgb(236, 174, 102);
-  box-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
-    1px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
-  border-radius: 0.5rem;
-  background-color: rgb(255, 223, 181);
+	font-family: "Godo";
+	margin: 0;
+	padding: 0.1rem 0 0.1rem 0.5rem;
+	border: 0.1rem solid rgb(236, 174, 102);
+	box-shadow:
+		-1px 0 rgb(255, 255, 255),
+		0 1px rgb(255, 255, 255),
+		1px 0 rgb(255, 255, 255),
+		0 -1px rgb(255, 255, 255);
+	border-radius: 0.5rem;
+	background-color: rgb(255, 223, 181);
 }
 
 /* 차트 제목 */
 .container > div > .chart_box > .chart_title_box > .chart_box_title {
-  padding: 0.5rem;
-  font-size: 1rem;
-  color: rgb(0, 0, 0);
+	padding: 0.5rem;
+	font-size: 1rem;
+	color: rgb(0, 0, 0);
 }
 
 /* 차트부모: 한 행 */
 
 .container > .box_container > .chart_box {
-  max-height: 100rem;
-  transition-property: max-height;
-  transition-duration: 0.5s;
-  border: 1px rgba(0, 0, 0, 0.205) solid;
+	max-height: 100rem;
+	transition-property: max-height;
+	transition-duration: 0.5s;
+	border: 1px rgba(0, 0, 0, 0.205) solid;
 }
 
 .container > .box_container_close > .chart_box {
-  max-height: 0;
-  overflow: hidden;
-  transition-property: max-height;
-  transition-duration: 0.2s;
-  box-shadow: none;
+	max-height: 0;
+	overflow: hidden;
+	transition-property: max-height;
+	transition-duration: 0.2s;
+	box-shadow: none;
 }
 
 /* 개별 차트 하나 */
 .container > div > .chart_box {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  margin-left: 1rem;
-  margin-right: 0.25rem;
-  border-radius: 1rem;
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
+	margin: 0.25rem;
+	/* margin-bottom: 0.25rem;
+	margin-left: 1rem;
+	margin-right: 0.25rem; */
+	border-radius: 10px;
+	background-color: rgb(255, 255, 255);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 1;
 }
 
 .doughnut_chart {
-  background-color: rgba(237, 237, 237, 0.673);
-  width: 20%;
+	background-color: rgba(237, 237, 237, 0.673);
+	width: 20%;
 }
 .radar_chart {
-  background-color: rgb(255, 255, 255);
-  width: 20%;
+	background-color: rgb(255, 255, 255);
+	width: 20%;
 }
 .pie_chart {
-  background-color: rgba(237, 237, 237, 0.673);
+	background-color: rgba(237, 237, 237, 0.673);
 
-  width: 20%;
+	width: 20%;
 }
 
 .line_chart {
-  width: 20%;
+	width: 20%;
 }
 
 .doughnut_chart_box {
-  position: relative;
-  width: 100%;
-  height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 /* 도넛 차트 사용량 */
 .doughnut_value {
-  position: absolute;
-  transform: translateX(50%);
-  right: 50%;
-  bottom: 36%;
-  font-size: 2.5rem;
-  color: rgb(255, 139, 148);
-  text-shadow: -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 2px 0 rgb(0, 0, 0),
-    0 -1px rgb(0, 0, 0);
+	position: absolute;
+	transform: translateX(50%);
+	right: 50%;
+	bottom: 36%;
+	font-size: 2.5rem;
+	color: rgb(255, 139, 148);
+	text-shadow:
+		-1px 0 rgb(0, 0, 0),
+		0 1px rgb(0, 0, 0),
+		2px 0 rgb(0, 0, 0),
+		0 -1px rgb(0, 0, 0);
 }
 
 .doughnut_percentage {
-  position: absolute;
-  transform: translateX(50%);
-  right: 50%;
-  bottom: 25%;
-  font-size: 1rem;
-  /* color: rgb(255, 243, 6);
+	position: absolute;
+	transform: translateX(50%);
+	right: 50%;
+	bottom: 25%;
+	font-size: 1rem;
+	/* color: rgb(255, 243, 6);
   text-shadow: -1px 0 rgb(219, 90, 4), 0 1px rgb(18, 70, 134),
     2px 0 rgb(0, 44, 98), 0 -1px rgb(0, 115, 255); */
 }
 
 .container > div > .chart_box > .text_box {
-  padding: 1rem;
-  border-bottom: 0.1rem solid rgb(231, 229, 229);
+	padding: 1rem;
+	border-bottom: 0.1rem solid rgb(231, 229, 229);
+}
+.container > div > .chart_box > .text_box > p {
+	line-height: 140%;
 }
 
 .container > div > .chart_box > .chart_title_box {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  border-bottom: 0.1rem solid rgb(231, 229, 229);
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border-bottom: 0.1rem solid rgb(231, 229, 229);
 }
 
 .spring {
-  flex: 1;
+	flex: 1;
 }
 
 .close {
-  padding: 0 1rem;
-  font-size: 0.5rem;
-  color: #444444;
+	padding: 0 1rem;
+	font-size: 0.5rem;
+	color: #444444;
 }
 
 .body > .container > .keyword_box > .open {
-  position: absolute;
-  right: 3%;
-  bottom: 15%;
-  transform: translateY(50%);
-  text-shadow: none;
-  color: rgb(253, 131, 0);
-  border-radius: 1rem;
-  text-decoration: underline;
-  font-size: 0.7rem;
+	position: absolute;
+	right: 3%;
+	bottom: 15%;
+	transform: translateY(50%);
+	text-shadow: none;
+	color: rgb(253, 131, 0);
+	border-radius: 1rem;
+	text-decoration: underline;
+	font-size: 0.7rem;
 }
 
 .pred_text {
-  margin-top: 1rem;
-  background-color: rgb(221, 221, 221);
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  box-shadow: 1px 1px 1px rgb(157, 157, 157);
+	margin-top: 1rem;
+	background-color: rgb(221, 221, 221);
+	padding: 0.5rem 1rem;
+	border-radius: 1rem;
+	box-shadow: 1px 1px 1px rgb(157, 157, 157);
 }
 
 .important_keywords {
-  color: rgb(11, 15, 239);
-  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
-    2px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
+	color: rgb(11, 15, 239);
+	text-shadow:
+		-1px 0 rgb(255, 255, 255),
+		0 1px rgb(255, 255, 255),
+		2px 0 rgb(255, 255, 255),
+		0 -1px rgb(255, 255, 255);
 }
 
 .container > div > .chart_box > .text_box > table {
-  margin-top: 1rem;
-  /* background-color: #d4d5d52b; */
-  /* border: 0.1rem solid rgb(179, 179, 179); */
-  border-radius: 0.7rem;
-  /* box-shadow: 1px 1px 1px rgba(157, 157, 157, 0.185); */
+	margin-top: 1rem;
+	/* background-color: #d4d5d52b; */
+	/* border: 0.1rem solid rgb(179, 179, 179); */
+	border-radius: 0.7rem;
+	/* box-shadow: 1px 1px 1px rgba(157, 157, 157, 0.185); */
 }
 
 .bottom_close {
-  text-align: center;
-  color: rgb(116, 116, 116);
-  padding: 0.7rem 1.5rem;
-  width: 100%;
-  font-size: 0.5rem;
+	text-align: center;
+	color: rgb(116, 116, 116);
+	padding: 0.7rem 1.5rem;
+	width: 100%;
+	font-size: 0.5rem;
 
-  /* background-color: red; */
+	/* background-color: red; */
 }
 
 .bottom_close:active {
-  background-color: rgb(234, 234, 234);
+	background-color: rgb(234, 234, 234);
 }
 
 .last_table th {
-  border-bottom: 0.1rem solid rgb(233, 233, 233);
+	border-bottom: 0.1rem solid rgb(233, 233, 233);
 }
 
 .last_table td {
-  text-align: center;
-  border: none;
+	text-align: center;
+	border: none;
 }
 
 .last_table th.border_bottom {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .last_table .border_right {
-  border-right: 0.1rem solid rgb(233, 233, 233);
+	border-right: 0.1rem solid rgb(233, 233, 233);
 }
 
 .last_table .border_bottom {
-  border-top: 0.1rem solid rgb(233, 233, 233);
+	border-top: 0.1rem solid rgb(233, 233, 233);
 }
 
 .chart_box td,
 .chart_box th {
-  vertical-align: middle;
-  text-align: center;
+	vertical-align: middle;
+	text-align: center;
 }
 
 .custom_table {
-  border-bottom: 0.1rem solid rgb(233, 233, 233);
+	border-bottom: 0.1rem solid rgb(233, 233, 233);
 }
 
 .custom_table th {
-  border-bottom: 0.1rem solid rgb(233, 233, 233);
+	border-bottom: 0.1rem solid rgb(233, 233, 233);
 }
 
 .custom_table .border_right {
-  border-right: 0.1rem solid rgb(233, 233, 233);
+	border-right: 0.1rem solid rgb(233, 233, 233);
 }
