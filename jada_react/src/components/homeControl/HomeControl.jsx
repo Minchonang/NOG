@@ -386,7 +386,7 @@ function HomeControl() {
         <LoadingNog />
       ) : (
         <div className={common.background}>
-          <Header sub_title="홈 제어" />
+          <Header sub_title="우리집" />
 
           <Modal
             isOpen={modalIsOpen}
@@ -437,12 +437,7 @@ function HomeControl() {
             {/*--------------------집 인원 & 전등--------------------*/}
             <div className={style.countLight_area}>
               <div className={style.homeCount}>
-                <div
-                  style={{ fontSize: userId.length >= 9 ? "1em" : "1.5em" }}
-                  className={style.homeCount_name}
-                >
-                  우리집
-                </div>
+                <div className={style.homeCount_name}>우리집</div>
                 <div className={style.count}>{userHumanCount}명</div>
               </div>
 

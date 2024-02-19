@@ -1,4 +1,4 @@
-import { useState ,useRef,useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../App.js";
 import { FaEye } from "react-icons/fa";
@@ -9,8 +9,6 @@ import BottomNav from "../common/jsx/BottomNav.jsx";
 import style from "./css/CheckUser.module.css";
 
 function CheckUser() {
-	const activeUser = true;
-
 	// 비밀번호 input에서 엔터 누르면 확인
 	const pressEnter = (e) => {
 		if (e.key === "Enter") {
@@ -107,6 +105,7 @@ function CheckUser() {
 						</button>
 					</div>
 				</div>
+				<BottomNav activeUser={true} />
 			</div>
 		</>
 	);
