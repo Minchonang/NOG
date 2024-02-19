@@ -57,7 +57,7 @@ function CoinPred() {
 		console.log("코인 데이터 가져오기 시작...");
 		try {
 			const response = await axios.get(
-				`http://43.203.120.82:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`
+				`http://3.38.50.14:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`
 			);
 			// 데이터 받기
 			const data1 = response;
@@ -76,7 +76,7 @@ function CoinPred() {
 	const nowCoin = async (selectedCoin) => {
 		try {
 			const response = await axios.get(
-				`http://43.203.120.82:5000/now_coin/?coinname=${selectedCoin}`
+				`http://3.38.50.14:5000/now_coin/?coinname=${selectedCoin}`
 			);
 			const data2 = response;
 			setDatasets2(data2);
@@ -100,7 +100,7 @@ function CoinPred() {
 	const predCoinChart = async (selectedCoin) => {
 		try {
 			const response = await axios.get(
-				`http://43.203.120.82:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
+				`http://3.38.50.14:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
 			);
 			const data3 = response;
 			// const endvalue = data3[:]
@@ -122,7 +122,7 @@ function CoinPred() {
 	const predCoin = async (selectedCoin) => {
 		try {
 			const response = await axios.get(
-				`http://43.203.120.82:5000/pred_coin/?coin_full_name=${selectedCoin}`
+				`http://3.38.50.14:5000/pred_coin/?coin_full_name=${selectedCoin}`
 			);
 			const data4 = response;
 			setDatasets4(data4);
@@ -165,6 +165,7 @@ function CoinPred() {
 					labels: tradePrices.map((_, index) => index + 1), // 인덱스를 기반으로 라벨 생성
 					datasets: [
 						{
+							label: "Trade Prices",
 							data: tradePrices,
 							backgroundColor: "rgba(75, 192, 192, 0.2)",
 							borderColor: "rgba(75, 192, 192, 1)",
@@ -172,6 +173,7 @@ function CoinPred() {
 							pointRadius: 0,
 						},
 						{
+							label: "Pred Prices",
 							data: predPrices,
 							backgroundColor: "rgba(255, 99, 132, 0.2)",
 							borderColor: "rgba(255, 99, 132, 1)",
@@ -183,7 +185,13 @@ function CoinPred() {
 				options: {
 					plugins: {
 						legend: {
-							display: false, // 범주 숨김
+							display: true, // 범주 숨김
+							position: "bottom",
+						},
+					},
+					scales: {
+						x: {
+							max: predPrices.length,
 						},
 					},
 				},
@@ -240,9 +248,9 @@ function CoinPred() {
 									>{`< 터치해서 다른 코인들도 확인해 보세요.`}</div>
 								)}
 							</div>
-							<div
-								className={style.coinPrice}
-							>{`${nowPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
+							<div className={style.coinPrice}>{`${nowPrice
+								.toString()
+								.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</div>
 							<div className={style.predReload}>
 								<div className={style.predPrice}>{`5분 뒤 예상: ${Math.round(
 									predPrice
