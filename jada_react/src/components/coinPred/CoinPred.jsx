@@ -9,6 +9,7 @@ import BottomNav from "../common/jsx/BottomNav";
 import Loading from "../common/jsx/LoadingNog";
 import axios from "axios";
 import Chart from "chart.js/auto";
+import ChatBot from "../common/jsx/ChatBot";
 
 function CoinPred() {
 	const bot_NOG =
@@ -297,6 +298,7 @@ function CoinPred() {
 							<img src={bot_NOG} alt="botNOG" />
 						</div>
 					</div>
+					<ChatBot />
 					<BottomNav />
 				</div>
 			)}
