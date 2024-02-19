@@ -53,7 +53,7 @@ const MyChart = () => {
 		const id = sessionStorage.getItem("user_id");
 
 		const fetchData = async () => {
-			if (load == true) {
+			if (load === true) {
 				setLoad(false);
 			}
 
@@ -111,7 +111,7 @@ const MyChart = () => {
 			}
 		};
 
-		if (load == true) {
+		if (load === true) {
 			if (searchDate === "" || searchDate === now) {
 				if (predData === "") {
 					fetchPredData();
