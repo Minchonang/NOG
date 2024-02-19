@@ -80,7 +80,6 @@ function CoinPred() {
 			const data1 = response;
 			setData_nowGraph(data1);
 			setIsGraphLoading(false); // 그래프 내 로딩화면 끝
-			console.log("현재 코인 그래프 ", data1);
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
 		}
@@ -98,7 +97,6 @@ function CoinPred() {
 			);
 			const data2 = response;
 			setData_nowPrice(data2);
-			console.log("현재 코인 가격 ", data2);
 			// 현재 가격 추출
 			if (data2.data) {
 				const now_price = data2.data.map((entry) => entry.trade_price);
@@ -122,7 +120,6 @@ function CoinPred() {
 			);
 			const data3 = response;
 			setData_predGraph(data3);
-			console.log("예측 코인 차트 ", data3);
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
 		}
@@ -140,7 +137,6 @@ function CoinPred() {
 			);
 			const data4 = response;
 			setData_predPrice(data4);
-			console.log("예측 코인 가격 ", data4);
 			// 예측 가격 추출
 			if (data4.data) {
 				const pred_price = data4.data[0];
@@ -225,7 +221,7 @@ function CoinPred() {
         })
       );
       console.log(
-        ">>>>>>예측 가격 마지막입니다.: ",
+        "----- 예측 시세 완료 ----- ",
         predPrice - predPrices[predPrices.length - 1]
       );
 
