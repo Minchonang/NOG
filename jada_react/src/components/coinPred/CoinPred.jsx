@@ -229,7 +229,9 @@ function CoinPred() {
                               <option value="KRW-XLM">스텔라루멘</option>
                            </select>
                         </div>
-                        {showSelectGuide && <div className={style.selectGuide}>{`다른 코인도 확인해 보세요.`}</div>}
+                        {showSelectGuide && (
+                           <div className={style.selectGuide}>{`< 터치해서 다른 코인들도 확인해 보세요.`}</div>
+                        )}
                      </div>
                      <div className={style.coinPrice}>{`${nowPrice
                         .toString()
