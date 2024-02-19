@@ -68,7 +68,7 @@ const RadarChart = ({ data5 }) => {
         labels: {
           color: "black",
           font: {
-            size: 13,
+            size: 15,
           },
         },
       },
