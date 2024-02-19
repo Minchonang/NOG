@@ -1001,8 +1001,8 @@ const MyChart = () => {
                               : "데이터 없음"}
                           </td>
                           <td>
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][0] + " 일 "
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][1] + " 일 "
                               : "데이터 없음"}
                           </td>
                         </tr>
@@ -1013,8 +1013,8 @@ const MyChart = () => {
                               : ""}
                           </td>
                           <td>
-                            {chartData3["min_month"]
-                              ? chartData3["min_month"][2] + " kWh"
+                            {chartData3["max_month"]
+                              ? chartData3["max_month"][3] + " kWh"
                               : ""}
                           </td>
                         </tr>
@@ -1028,8 +1028,8 @@ const MyChart = () => {
                           <td
                             className={`${style.border_bottom} ${style.border_right}`}
                           >
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][1] + " 일 "
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][0] + " 일 "
                               : "데이터 없음"}
                           </td>
                           <td className={style.border_bottom}>
@@ -1040,8 +1040,8 @@ const MyChart = () => {
                         </tr>
                         <tr>
                           <td className={style.border_right}>
-                            {chartData3["max_month"]
-                              ? chartData3["max_month"][3] + " kWh"
+                            {chartData3["min_month"]
+                              ? chartData3["min_month"][2] + " kWh"
                               : ""}
                           </td>
                           <td>
