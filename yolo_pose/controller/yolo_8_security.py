@@ -150,7 +150,7 @@ class ObjectDetection:
             # self.display_fps(im0_counted)
             # 화면에 프레임 표시
         else: 
-            self.display_fps(im0)
+            # self.display_fps(im0)
             return self.inside_counter.in_counts, self.inside_counter.out_counts, im0
 
 

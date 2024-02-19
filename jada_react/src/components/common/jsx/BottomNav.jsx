@@ -30,12 +30,12 @@ function BottomNav({ activeHome, activeData, activeUser, admin }) {
 					</div>
 					<div className={bottom.nav_btn} onClick={goData}>
 						<img src={activeData ? active_data : icon_data} alt="" />
-						<div>분석</div>
+						<div>리포트</div>
 					</div>
 
 					<div className={bottom.nav_btn} onClick={goUserCheck}>
 						<img src={activeUser ? active_user : icon_user} alt="" />
-						<div>내 정보</div>
+						<div>내정보</div>
 					</div>
 				</div>
 			</div>
