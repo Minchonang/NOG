@@ -10,6 +10,8 @@ import Loading from '../common/jsx/LoadingNog';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
 
+import bitcoin from './img/bitcoin.png';
+
 function CoinPred() {
    const bot_NOG =
       'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2';
@@ -24,19 +26,17 @@ function CoinPred() {
 
    const [selectedCoin, setSelectedCoin] = useState('KRW-ETH');
    const handleChangeCoin = (e) => {
-      setIsLoading(true); // 로딩 시작
       setSelectedCoin(e.target.value);
-      setIsLoading(false); // 로딩 종료
    };
 
    useEffect(() => {
       // 로딩 시작
       setIsLoading(true);
 
-      // 2초 후에 로딩 완료
+      // 3초 후에 로딩 완료
       const timeoutId = setTimeout(() => {
          setIsLoading(false);
-      }, 1000);
+      }, 3000);
 
       return () => {
          clearTimeout(timeoutId);
@@ -56,6 +56,7 @@ function CoinPred() {
 
    // 1. flask로부터 데이터 받기 (now_coin_chart)
    const nowCoinChart = async (selectedCoin) => {
+      // setIsLoading(true);
       console.log('코인 데이터 가져오기 시작...');
       try {
          const response = await axios.get(`http://3.38.50.14:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`);
@@ -66,6 +67,9 @@ function CoinPred() {
       } catch (error) {
          console.error('Error fetching data:', error.message);
       }
+      //  finally {
+      //    setIsLoading(false);
+      // }
    };
 
    useEffect(() => {
@@ -257,7 +261,8 @@ function CoinPred() {
                      <div>{`코인 예측 가격 결과는 오로지 정보 제공 목적으로 제공되며,\n이에 대해 피해가 발생하여도 당사는 책임을 지지 않습니다.`}</div>
                   </div>
                   <div className={style.img_area}>
-                     <img src={bot_NOG} alt="botNOG" />
+                     {/* <img src={bot_NOG} alt="botNOG" /> */}
+                     <img src={bitcoin} alt="botNOG" />
                   </div>
                </div>
                <BottomNav />

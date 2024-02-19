@@ -288,7 +288,7 @@ const MyChart = () => {
                                     </tr>
                                  </tbody>
                               </table>
-                              {now === searchDate && predData['total'] ? (
+                              {(now === searchDate || searchDate === '') && predData['total'] ? (
                                  <>
                                     <p className={style.pred_text}>
                                        NOG가 평가한 이번 달 예상 총 사용량은
@@ -536,7 +536,7 @@ const MyChart = () => {
                         </div>
                         <div>
                            <span>{user['user_city'] ? user['user_city'] + '의' : '같은 지역의'}</span>
-                           <h1>
+                           <h1 className={style.minus_text}>
                               {chartData3['average'][0]
                                  ? caculatePercent(chartData3['average'][0], chartData3['average'][1]) + '%'
                                  : '데이터 없음'}
