@@ -11,10 +11,8 @@ import img3 from "./img/img3.png";
 import img4 from "./img/img4.png";
 import img5 from "./img/img5.png";
 import img6 from "./img/img6.png";
-import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 import Loading from "../common/jsx/Loading";
-import Modal from "react-modal";
 
 function Home() {
 	// 로딩
@@ -90,9 +88,6 @@ function Home() {
 			id: userId,
 			password: userPwd,
 		};
-		// const formData = new URLSearchParams();
-		// formData.append("id", userId);
-		// formData.append("password", userPwd);
 
 		try {
 			const response = await fetch(`${API_BASE_URL}/api/userinfo/login`, {
@@ -100,7 +95,6 @@ function Home() {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "ip: 8080",
-					// "Content-Type": "application/x-www-form-urlencoded",
 				},
 				body: JSON.stringify(requestData),
 			});
@@ -129,7 +123,6 @@ function Home() {
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
 				sessionStorage.removeItem("user_id");
-				// alert(errorMessage);
 				alert("아이디 또는 비밀번호가 일치하지 않습니다.");
 			}
 		} catch (error) {
@@ -179,7 +172,7 @@ function Home() {
 						<div className={style.login_area}>로그인</div>
 						<div className={common.input_area}>
 							<input
-								className={common.themeBorder}
+								className={`${common.themeBorder} ${style.adminInput}`}
 								type="text"
 								value={userId}
 								onChange={(e) => setUserId(e.target.value)}
@@ -189,6 +182,7 @@ function Home() {
 							/>
 							<div className={style.pwd_area}>
 								<input
+									className={style.adminInput}
 									// className={common.themeBorder}
 									type={showPassword ? "text" : "password"}
 									value={userPwd}
@@ -201,12 +195,12 @@ function Home() {
 									onClick={togglePasswordVisibility}
 									className={style.eyeIcon}
 								>
-									{showPassword ? <FaEye /> : <FaEyeSlash />}
+									{showPassword ? <FaEye className={style.adminEyeIcon}/> : <FaEyeSlash className={style.adminEyeIcon}/>}
 								</span>
 							</div>
 						</div>
 						<div className={common.btn_area}>
-							<button className={common.themeBgrColor} onClick={handleLogin}>
+							<button className={`${common.themeBgrColor} ${style.adminButton}`} onClick={handleLogin}>
 								로그인
 							</button>
 						</div>

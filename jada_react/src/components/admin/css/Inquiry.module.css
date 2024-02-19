@@ -217,6 +217,7 @@
 	}
 
 	.boardList_table tr:nth-child(n + 2) {
+		font-size: 1.5em;
 		transition-duration: 0.3s;
 		cursor: pointer;
 	}
@@ -226,7 +227,7 @@
 
 	.userList_title {
 		padding: 5% 0;
-		font-size: 1.7em;
+		font-size: 1.8em;
 	}
 
 	/* -------------------------------------------------- */
@@ -242,15 +243,20 @@
 
 	.modal_title {
 		margin: 10px auto 30px;
+		font-size: 2.3em;
 
 		-webkit-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
 	}
+	.close {
+		font-size: 2.5em;
+	}
 
 	.modal_content {
 		margin: 1.1em 0;
+		font-size: 1.5em;
 	}
 
 	.btn_area {
@@ -263,6 +269,7 @@
 	.reply_btn {
 		width: 100%;
 		padding: 5% 0;
+		font-size: 1.4em;
 		cursor: pointer;
 	}
 	/* .reply_btn,

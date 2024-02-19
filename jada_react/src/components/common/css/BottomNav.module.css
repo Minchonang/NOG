@@ -76,4 +76,8 @@
 	.nav_btn:hover {
 		background-color: #fbd17c;
 	}
+
+	.nav_btn div {
+		font-size: 1em;
+	}
 }

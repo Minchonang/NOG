@@ -26,8 +26,8 @@
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
 	padding: 1vh;
 	white-space: normal;
 	word-wrap: break-word;
@@ -44,13 +44,13 @@
 	padding: 1vh;
 	border: 2px solid lightgray;
 	border-radius: 5px;
+}
+.content div {
 	font-family: "pretendard";
 	word-wrap: break-word;
 	white-space: normal;
 	line-height: 130%;
-}
-.content div {
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 }
 
 /* 모바일 - 하트 수평선 */
@@ -192,12 +192,17 @@
 		width: 100%;
 		margin: 0 auto 20px;
 		padding: 1.5vh;
-		font-size: 1.3em;
+		font-size: 1.7em;
+	}
+
+	.content div {
+		font-size: 1.5em;
 	}
 
 	.line,
 	.line2 {
 		margin: 5vh 0;
+		font-size: 1.5em;
 	}
 	.line::after {
 		left: 50%;
@@ -209,6 +214,11 @@
 	.input_area textarea {
 		padding: 10px;
 		height: 200px;
+		font-size: 1.5em;
+	}
+
+	.reply {
+		font-size: 1.8em;
 	}
 
 	.commentList {
@@ -216,13 +226,16 @@
 	}
 
 	.commentContent td {
-		font-size: 1.2em;
+		font-size: 1.5em;
 	}
 
 	.btn_area {
 		margin: 50px 0;
 	}
 	.btn_area button {
+		width: 200px;
+		height: 60px;
+		font-size: 1.4em;
 		cursor: pointer;
 	}
 

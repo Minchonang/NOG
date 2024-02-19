@@ -14,12 +14,27 @@ function BoardDetail() {
 	const [comment, setComment] = useState("");
 	const [content, setContent] = useState("");
 	const [userRole, setUserRole] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 
 	// 이전 페이지로 돌아가는 기능
 	const navigate = useNavigate();
 	const goBack = () => {
 		navigate(-1);
 	};
+
+	// 로딩 화면
+	const showLoading = () => {
+		const timeoutId = setTimeout(() => {
+			setIsLoading(false);
+		}, 900);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	};
+	useEffect(() => {
+		showLoading();
+	}, []);
 
 	const userId = sessionStorage.getItem("user_id");
 
@@ -148,125 +163,131 @@ function BoardDetail() {
 	console.log(comment);
 
 	return (
-		<div className={common.background}>
-			<Header sub_title="내 문의사항 정보" />
+		<>
+			{isLoading ? (
+				<LoadingNog />
+			) : (
+				<div className={common.background}>
+					<Header sub_title="내 문의사항" />
 
-			<div className={style.main_area}>
-				{board ? (
-					<>
-						{/* 문의사항 */}
-						<div className={style.boardContainer}>
-							<div className={style.title}>
-								<div
-									style={{
-										fontSize: board.title.length > 12 ? "1.6em" : "2em",
-									}}
-								>
-									{board.title}
+					<div className={style.main_area}>
+						{board ? (
+							<>
+								{/* 문의사항 */}
+								<div className={style.boardContainer}>
+									<div className={style.title}>
+										<div
+											style={{
+												fontSize: board.title.length > 12 ? "1.6em" : "2em",
+											}}
+										>
+											{board.title}
+										</div>
+									</div>
+									<div className={style.subtitle}>
+										<div>NO : {board.boardId}</div>
+										<div>작성자 : {userId}</div>
+										<div>{`${""} ${new Date(board.writeDate).toLocaleDateString("ko-KR")}`}</div>
+									</div>
+									<div className={style.content}>
+										<div>{board.content}</div>
+									</div>
 								</div>
-							</div>
-							<div className={style.subtitle}>
-								<div>NO : {board.boardId}</div>
-								<div>작성자 : {userId}</div>
-								<div>{`${""} ${new Date(board.writeDate).toLocaleDateString("ko-KR")}`}</div>
-							</div>
-							<div className={style.content}>
-								<div>{board.content}</div>
-							</div>
-						</div>
 
-						{/* 답변 목록 */}
-						{comment && comment.length > 0 ? (
-							// 답변 완료인 경우
-							<>
-								{/* 구분선 */}
-								<div className={style.line}></div>
-								<div className={style.commentList}>
-									<table className={style.commentTable}>
-										<tbody>
-											{comment.map((commentItem) => (
-												<tr
-													className={style.commentContent}
-													key={commentItem.commentId}
-												>
-													<img
-														src={admin}
-														alt="admin"
-														style={{
-															width: "10%",
-															height: "10%",
-															margin: "1vh 0",
-														}}
-													/>
-													<td className={style.reply_comment}>
-														{commentItem.content}
-													</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-								</div>
-								{!userRole ? (
-									<div className={style.btn_area_user}>
-										<div
-											className={style.goBackBtn}
-											onClick={goBack}
-										>{`< 뒤로가기`}</div>
-									</div>
-								) : (
-									<></>
-								)}
-							</>
-						) : (
-							// 미답변 상태인 경우
-							<>
-								{/* 구분선 */}
-								<div className={style.line2}></div>
-								{!userRole ? (
-									<div className={style.btn_area_user}>
-										<div
-											className={style.goBackBtn}
-											onClick={goBack}
-										>{`< 뒤로가기`}</div>
-									</div>
-								) : (
-									<></>
-								)}
-								{userRole ? (
+								{/* 답변 목록 */}
+								{comment && comment.length > 0 ? (
+									// 답변 완료인 경우
 									<>
-										{/* 답변 영역 */}
-										<div className={style.commentContainer}>
-											<div className={style.reply}>답변하기</div>
-											<div className={style.input_area}>
-												<textarea
-													type="text"
-													value={content}
-													onChange={(e) => setContent(e.target.value)}
-													placeholder="내용을 입력하세요."
-												/>
+										{/* 구분선 */}
+										<div className={style.line}></div>
+										<div className={style.commentList}>
+											<table className={style.commentTable}>
+												<tbody>
+													{comment.map((commentItem) => (
+														<tr
+															className={style.commentContent}
+															key={commentItem.commentId}
+														>
+															<img
+																src={admin}
+																alt="admin"
+																style={{
+																	width: "10%",
+																	height: "10%",
+																	margin: "1vh 0",
+																}}
+															/>
+															<td className={style.reply_comment}>
+																{commentItem.content}
+															</td>
+														</tr>
+													))}
+												</tbody>
+											</table>
+										</div>
+										{!userRole ? (
+											<div className={style.btn_area_user}>
+												<div
+													className={style.goBackBtn}
+													onClick={goBack}
+												>{`< 뒤로가기`}</div>
 											</div>
-											<div className={style.btn_area}>
-												{/* <div
+										) : (
+											<></>
+										)}
+									</>
+								) : (
+									// 미답변 상태인 경우
+									<>
+										{/* 구분선 */}
+										<div className={style.line2}></div>
+										{!userRole ? (
+											<div className={style.btn_area_user}>
+												<div
+													className={style.goBackBtn}
+													onClick={goBack}
+												>{`< 뒤로가기`}</div>
+											</div>
+										) : (
+											<></>
+										)}
+										{userRole ? (
+											<>
+												{/* 답변 영역 */}
+												<div className={style.commentContainer}>
+													<div className={style.reply}>답변하기</div>
+													<div className={style.input_area}>
+														<textarea
+															type="text"
+															value={content}
+															onChange={(e) => setContent(e.target.value)}
+															placeholder="내용을 입력하세요."
+														/>
+													</div>
+													<div className={style.btn_area}>
+														{/* <div
 													className={style.goBackBtn}
 													onClick={goBack}
 												>{`< 뒤로가기`}</div> */}
-												<button onClick={serverlink}>완료</button>
-											</div>
-										</div>
+														<button onClick={serverlink}>완료</button>
+													</div>
+												</div>
+											</>
+										) : (
+											<></>
+										)}
 									</>
-								) : (
-									<></>
 								)}
 							</>
+						) : (
+							<LoadingNog />
 						)}
-					</>
-				) : (
-					<LoadingNog />
-				)}
-			</div>
+					</div>
 
-			<BottomNav admin={userRole ? true : false} />
-		</div>
+					<BottomNav admin={userRole ? true : false} />
+				</div>
+			)}
+		</>
 	);
 }
 

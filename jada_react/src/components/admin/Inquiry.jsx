@@ -75,7 +75,9 @@ function Inquiry() {
 										>
 											<td>{board.boardId}</td>
 											<td>{board.boardCategory}</td>
-											<td style={{ color: board.comment ? "#ff9f0a" : "black" }}>
+											<td
+												style={{ color: board.comment ? "#ff9f0a" : "black" }}
+											>
 												{board.title.length > 11
 													? `${board.title.substring(0, 11)}...`
 													: board.title}
@@ -119,7 +121,10 @@ function Inquiry() {
 								<div className={style.btn_area}>
 									<button
 										className={style.reply_btn}
-										onClick={() => goDetail(selectedBoard.boardId)}
+										onClick={() => [
+											goDetail(selectedBoard.boardId),
+											handleCloseModal(),
+										]}
 									>
 										답변하기
 									</button>

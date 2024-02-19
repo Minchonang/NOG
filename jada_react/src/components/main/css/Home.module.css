@@ -126,7 +126,7 @@
 	width: 10%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
 	.title_area {
 		padding: 0.5% 2%;
 		font-size: 3em;
@@ -155,7 +155,8 @@
 		height: 75%;
 	}
 	.login_area {
-		font-size: 2em;
+		margin-bottom: -5%;
+		font-size: 3em;
 		color: #ff9f0a;
 		text-align: center;
 	}
@@ -168,24 +169,40 @@
 	}
 
 	.option_area {
-		margin: 2% auto;
+		margin: 5% auto;
 	}
 
 	.option_area a,
 	.option_area span {
 		margin: 1% 3px;
-		font-size: 1em;
+		font-size: 1.3em;
+	}
+	.option_area a:hover {
+		text-decoration: underline;
+	}
+
+	.adminInput {
+		font-size: 1.5em !important;
 	}
 
 	.pwd_area {
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 
 	.pwd_area input {
 		width: 95%;
 	}
 
+	.adminButton {
+		font-size: 1.5em !important;
+	}
+
 	.eyeIcon {
-		width: 5%;
+		width: 25px;
+		margin-right: 20px;
+	}
+	.adminEyeIcon {
+		width: 25px;
+		height: 25px;
 	}
 }
