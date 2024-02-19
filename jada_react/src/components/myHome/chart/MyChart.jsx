@@ -57,7 +57,7 @@ const MyChart = () => {
          try {
             // axios로 GET 요청 보내기
             const response = await axios.get(
-               `http://192.168.0.84:5001/my_home?user_id=${id}${searchDate ? '&date=' + searchDate : ''}`
+               `http://3.38.50.14:5000/my_home?user_id=${id}${searchDate ? '&date=' + searchDate : ''}`
             );
 
             // 응답에서 데이터 추출하고 상태 업데이트

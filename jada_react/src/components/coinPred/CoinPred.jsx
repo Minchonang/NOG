@@ -56,18 +56,15 @@ function CoinPred() {
 
    // 1. flask로부터 데이터 받기 (now_coin_chart)
    const nowCoinChart = async (selectedCoin) => {
-      setIsLoading(true);
       console.log('코인 데이터 가져오기 시작...');
       try {
-         const response = await axios.get(`http://43.203.120.82:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`);
+         const response = await axios.get(`http://3.38.50.14:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`);
          // 데이터 받기
          const data1 = response;
          setDatasets1(data1);
          console.log('현재 코인 그래프 ', data1);
       } catch (error) {
          console.error('Error fetching data:', error.message);
-      } finally {
-         setIsLoading(false); // 로딩 종료
       }
    };
 
@@ -78,7 +75,7 @@ function CoinPred() {
    // 2. flask로부터 데이터 받기 (now_coin)
    const nowCoin = async (selectedCoin) => {
       try {
-         const response = await axios.get(`http://43.203.120.82:5000/now_coin/?coinname=${selectedCoin}`);
+         const response = await axios.get(`http://3.38.50.14:5000/now_coin/?coinname=${selectedCoin}`);
          const data2 = response;
          setDatasets2(data2);
          console.log('현재 코인 가격 ', data2);
@@ -101,7 +98,7 @@ function CoinPred() {
    const predCoinChart = async (selectedCoin) => {
       try {
          const response = await axios.get(
-            `http://43.203.120.82:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
+            `http://3.38.50.14:5000/pred_coin_chart/?ago=2000&coin_full_name=${selectedCoin}`
          );
          const data3 = response;
          // const endvalue = data3[:]
@@ -122,7 +119,7 @@ function CoinPred() {
    // 4. flask로부터 데이터 받기 (pred_coin)
    const predCoin = async (selectedCoin) => {
       try {
-         const response = await axios.get(`http://43.203.120.82:5000/pred_coin/?coin_full_name=${selectedCoin}`);
+         const response = await axios.get(`http://3.38.50.14:5000/pred_coin/?coin_full_name=${selectedCoin}`);
          const data4 = response;
          setDatasets4(data4);
          console.log('예측 코인 가격 ', data4);
