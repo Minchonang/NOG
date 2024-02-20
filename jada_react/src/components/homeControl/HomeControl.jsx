@@ -91,7 +91,7 @@ function HomeControl() {
 	// 위도 경도에 맞는 날씨 가져오기
 	const API_KEY = "c1478feb49390d6a8beedaa2c52287f3"; // OpenWeatherMap API 키
 
-	async function getWeather(lat, lon) {
+	const getWeather = async (lat, lon) => {
 		try {
 			const response = await axios.get(
 				`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
@@ -120,7 +120,7 @@ function HomeControl() {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	// 집 정보 가져오기
 	async function getHomeDeviceData() {
@@ -386,7 +386,7 @@ function HomeControl() {
 				<LoadingNog />
 			) : (
 				<div className={common.background}>
-					<Header sub_title="우리집" userId={userId}/>
+					<Header sub_title="우리집" userId={userId} />
 
 					<Modal
 						isOpen={modalIsOpen}
