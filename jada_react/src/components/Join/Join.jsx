@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './css/Join.module.css';
 import common from '../common/css/common.module.css';
 import { API_BASE_URL } from '../../App.js';
-import BottomNav from '../common/jsx/BottomNav.jsx';
+// import BottomNav from '../common/jsx/BottomNav.jsx';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
+import swal from 'sweetalert';
 
 function Join() {
    const [selectedElement1, setSelectedElement1] = useState('');
@@ -278,15 +279,15 @@ function Join() {
    const handleVerify = (e) => {
       e.preventDefault();
       if (!authkey) {
-         alert('인증번호를 먼저 요청하세요.');
+         swal('인증 필요', '인증번호를 먼저 요청하세요.', 'info');
          return;
       }
       if (authkey === formData.emailauth) {
          setIsVerified(true);
-         alert('인증이 확인되었습니다.');
+         swal('인증확인', '확인되었습니다.', 'success');
       } else {
          setIsVerified(false);
-         alert('인증번호가 일치하지 않습니다.');
+         swal('오류', '인증번호가 일치하지 않습니다.', 'error');
       }
    };
 
@@ -295,20 +296,20 @@ function Join() {
       e.preventDefault();
 
       if (!isVerified) {
-         alert('이메일 인증을 먼저 완료하세요.');
+         swal('안내', '이메일 인증이 필요합니다.', 'info');
          return;
       }
       // 비밀번호 정규식
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
       if (!passwordRegex.test(formData.password)) {
-         alert('비밀번호 형식이 맞지않습니다.');
+         swal('오류', '비밀번호 형식이 맞지 않습니다.', 'error');
          return;
       }
 
       //  이메일 정규식
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       if (!emailRegex.test(formData.email)) {
-         alert('이메일 형식이 맞지않습니다.');
+         swal('오류', '이메일 형식이 맞지 않습니다.', 'error');
          return;
       }
 
@@ -338,11 +339,12 @@ function Join() {
 
          if (response.ok) {
             console.log('회원가입 성공');
-            alert('회원가입 성공');
-            window.location.href = '/';
+            swal('성공', '회원가입이 성공적으로 완료되었습니다.', 'success').then((result) => {
+               window.location.href = '/';
+            });
          } else {
             console.error('회원가입 실패');
-            alert('회원가입 실패');
+            swal('오류', '서버에 오류가 발생하였습니다. 다시 시도해 주세요.', 'error');
          }
       } catch (error) {
          console.error('서버 통신 오류', error);
@@ -352,6 +354,7 @@ function Join() {
    // 이메일인증
    const sendEmail = (e) => {
       e.preventDefault();
+      formData.email.length > 0 ? swal('', '인증번호가 발송되었습니다.') : swal('이메일을 입력해주세요.', '');
       console.log(formData.email);
       const data = {
          EMAIL: formData.email,
@@ -377,26 +380,23 @@ function Join() {
 
    // id 중복체크
    const handleDuplicateCheck = async () => {
-      // 아이디가 빈 값인 경우
-      if (!formData.id) {
-         alert('아이디를 입력하세요.');
-         return;
-      }
       try {
          const response = await fetch(`${API_BASE_URL}/api/userinfo/id-check?id=${formData.id}`);
          if (response.ok) {
             const result = await response.text();
             if (result === '가입가능') {
-               alert('사용 가능한 아이디입니다.');
+               swal('', '사용 가능한 아이디입니다.');
                setFormData((prevData) => ({ ...prevData, idDuplicateCheck: true }));
             } else {
-               alert('이미 사용 중인 아이디입니다.');
+               swal('이미 사용 중인 아이디입니다.');
             }
          } else {
             console.error('ID 중복 확인 실패');
+            swal('오류', '서버에 오류가 발생하였습니다. 다시 시도해 주세요.', 'error');
          }
       } catch (error) {
          console.error('서버 통신 오류', error);
+         swal('오류', '서버에 오류가 발생하였습니다. 다시 시도해 주세요.', 'error');
       }
    };
 
@@ -525,8 +525,6 @@ function Join() {
                         </div>
                      </div>
 
-                     {/* <input className={styles.size} type="text" name="house_square" placeholder="평수" value={formData.house_square} onChange={handleInputChange} /> */}
-                     {/* <input className={styles.admin} type="text" name="admin" placeholder="관리자" /> */}
                      <div className={common.btn_area}>
                         <button className={common.themeBgrColor} onClick={handleJoin}>
                            가입

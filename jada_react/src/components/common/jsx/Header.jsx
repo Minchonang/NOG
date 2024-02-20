@@ -4,11 +4,13 @@ import { FcExport } from "react-icons/fc";
 import { FcAssistant } from "react-icons/fc";
 import { FcRating } from "react-icons/fc";
 import { FcMenu } from "react-icons/fc";
+import { FcUnlock } from "react-icons/fc";
+
 import { API_BASE_URL } from "../../../App.js";
 
 import header from "../css/Header.module.css";
 
-function Header({ sub_title }) {
+function Header({ sub_title, userId }) {
 	const go_logout = async (e) => {
 		e.preventDefault();
 		// 세션 스크립트: 로그아웃 시 세션 지우기
@@ -35,12 +37,20 @@ function Header({ sub_title }) {
 		}
 	};
 
+	const go_login = () => {
+		window.location.href = "/";
+	};
+
 	const go_board = () => {
-		window.location.href = "/boardList";
+		userId
+			? (window.location.href = "/boardList")
+			: alert("로그인 후 이용 가능합니다.");
 	};
 
 	const go_coin = () => {
-		window.location.href = "/coinpred";
+		userId
+			? (window.location.href = "/coinpred")
+			: alert("로그인 후 이용 가능합니다.");
 	};
 
 	// 햄버거 버튼 클릭 시 메뉴 등장
@@ -85,10 +95,17 @@ function Header({ sub_title }) {
 							<FcAssistant className={header.inquiry} />
 							<div>문의하기</div>
 						</div>
-						<div className={header.subMenuItem} onClick={go_logout}>
-							<FcExport className={header.logout} />
-							<div>로그아웃</div>
-						</div>
+						{userId ? (
+							<div className={header.subMenuItem} onClick={go_logout}>
+								<FcExport className={header.logout} />
+								<div>로그아웃</div>
+							</div>
+						) : (
+							<div className={header.subMenuItem} onClick={go_login}>
+								<FcUnlock className={header.logout} />
+								<div>로그인</div>
+							</div>
+						)}
 					</div>
 				)}
 			</div>
