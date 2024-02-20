@@ -10,6 +10,7 @@ import Loading from "../common/jsx/LoadingNog";
 import axios from "axios";
 import Chart from "chart.js/auto";
 import ChatBot from "../common/jsx/ChatBot";
+import swal from "sweetalert";
 
 function CoinPred() {
 	const bot_NOG =
@@ -62,6 +63,11 @@ function CoinPred() {
 	useEffect(() => {
 		showLoading();
 		changeGraphLoading();
+		swal(
+			"안내",
+			"코인 예측 가격 결과는 오로지 정보 제공 목적으로 제공되며, 이에 대해 피해가 발생하여도 당사는 책임을 지지 않습니다.",
+			"info"
+		);
 	}, []);
 
 	const userId = sessionStorage.getItem("user_id");

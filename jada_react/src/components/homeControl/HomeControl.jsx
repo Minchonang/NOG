@@ -19,6 +19,7 @@ import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 import Modal from "react-modal";
 import LoadingNog from "../common/jsx/LoadingNog";
+import swal from "sweetalert";
 
 function HomeControl() {
 	// 로딩
@@ -91,7 +92,7 @@ function HomeControl() {
 	// 위도 경도에 맞는 날씨 가져오기
 	const API_KEY = "c1478feb49390d6a8beedaa2c52287f3"; // OpenWeatherMap API 키
 
-	async function getWeather(lat, lon) {
+	const getWeather = async (lat, lon) => {
 		try {
 			const response = await axios.get(
 				`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
@@ -120,7 +121,7 @@ function HomeControl() {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	// 집 정보 가져오기
 	async function getHomeDeviceData() {
@@ -201,7 +202,6 @@ function HomeControl() {
 				});
 			} else {
 				console.log("회원 정보 조회 실패");
-				// alert("오류가 발생하였습니다.");
 			}
 		} catch (error) {
 			console.error("서버 통신 오류", error);
@@ -230,11 +230,11 @@ function HomeControl() {
 				console.log("데이터 전송 성공!");
 			} else {
 				console.log("데이터 전송 실패:", response.data);
-				alert("데이터 전송 실패");
+				swal("오류", "데이터 전송 실패", "error");
 			}
 		} catch (error) {
 			console.error("데이터 전송 중 오류:", error);
-			alert("데이터 전송 중 오류 발생");
+			swal("오류", "데이터 전송 중 오류 발생", "error");
 		}
 	};
 
@@ -276,11 +276,11 @@ function HomeControl() {
 				setHomeLightOnOff(status);
 			} else {
 				console.log("데이터 전송 실패:", response.data);
-				alert("데이터 전송 실패");
+				swal("오류", "데이터 전송 실패", "error");
 			}
 		} catch (error) {
 			console.error("데이터 전송 중 오류:", error);
-			alert("데이터 전송 중 오류 발생");
+			swal("오류", "데이터 전송 중 오류 발생", "error");
 		}
 	};
 
@@ -321,11 +321,11 @@ function HomeControl() {
 				console.log("데이터 전송 성공!");
 			} else {
 				console.log("데이터 전송 실패:", response.data);
-				alert("데이터 전송 실패");
+				swal("오류", "데이터 전송 실패", "error");
 			}
 		} catch (error) {
 			console.error("데이터 전송 중 오류:", error);
-			alert("데이터 전송 중 오류 발생");
+			swal("오류", "데이터 전송 중 오류 발생", "error");
 		}
 	};
 
@@ -362,11 +362,11 @@ function HomeControl() {
 				console.log("데이터 전송 성공!");
 			} else {
 				console.log("데이터 전송 실패:", response.data);
-				alert("데이터 전송 실패");
+				swal("오류", "데이터 전송 실패", "error");
 			}
 		} catch (error) {
 			console.error("데이터 전송 중 오류:", error);
-			alert("데이터 전송 중 오류 발생");
+			swal("오류", "데이터 전송 중 오류 발생", "error");
 		}
 	};
 
@@ -386,7 +386,7 @@ function HomeControl() {
 				<LoadingNog />
 			) : (
 				<div className={common.background}>
-					<Header sub_title="우리집" userId={userId}/>
+					<Header sub_title="우리집" userId={userId} />
 
 					<Modal
 						isOpen={modalIsOpen}

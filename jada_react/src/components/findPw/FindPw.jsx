@@ -4,6 +4,7 @@ import common from "../common/css/common.module.css";
 import style from "./css/FindPw.module.css";
 import { API_BASE_URL } from "../../App.js";
 import BottomNav from "../common/jsx/BottomNav.jsx";
+import swal from "sweetalert";
 
 function FindPw() {
   const idRef = useRef();
@@ -27,14 +28,14 @@ function FindPw() {
     e.preventDefault();
 
     if (!authkey) {
-      alert("인증번호를 먼저 요청하세요.");
+      swal("안내", "인증번호를 먼저 요청하세요.", "info");
       return;
     }
     if (authkey === emailAuth) {
       setIsVerified(true);
     } else {
       setIsVerified(false);
-      alert("인증번호가 일치하지 않습니다.");
+      swal("오류", "인증번호가 일치하지 않습니다.", "error");
     }
   };
 
@@ -42,7 +43,7 @@ function FindPw() {
     e.preventDefault();
 
     if (!isVerified) {
-      alert("이메일 인증을 먼저 완료하세요.");
+      swal("안내", "이메일 인증을 먼저 완료하세요.", "info");
       return;
     }
   };
@@ -50,6 +51,9 @@ function FindPw() {
   // 이메일 인증
   const sendEmail = (e) => {
     e.preventDefault();
+    userEmail.length > 0
+      ? swal("", "인증번호가 전송되었습니다.")
+      : swal("", "이메일을 입력해주세요.");
     console.log(userEmail);
     const data = {
       EMAIL: userEmail,
@@ -89,13 +93,12 @@ function FindPw() {
 
       if (response.ok) {
         // 서버에서 해당 이름, 이메일을 찾으면 해당 아이디 반환
-        const data = await response.text();
-        alert(data);
-        console.log("본인인증 성공:", data);
+        // const data = await response.text();
+        swal("성공", "본인인증에 성공하였습니다.", "success");
         handleVerify(e);
       } else {
         console.log("본인인증 실패:", response.status);
-        alert("회원정보가 일치하지 않습니다.");
+        swal("오류", "회원정보가 일치하지 않습니다.", "error");
       }
     } catch (error) {
       console.error("본인인증 중 오류 발생:", error);
@@ -106,13 +109,13 @@ function FindPw() {
     e.preventDefault();
 
     if (!isVerified) {
-      alert("이메일 인증을 먼저 완료하세요.");
+      swal("안내", "이메일 인증을 먼저 완료하세요.", "info");
       return;
     }
 
     // 두 비밀번호가 일치하는지 확인합니다.
     if (newPwd !== newPwdConfirm) {
-      alert("입력한 비밀번호가 일치하지 않습니다.");
+      swal("오류", "입력한 비밀번호가 일치하지 않습니다.", "error");
       return;
     }
     try {
@@ -129,10 +132,12 @@ function FindPw() {
       });
 
       if (response.ok) {
-        alert("비밀번호가 변경되었습니다.");
-        window.location.href = "/login";
+        swal("성공", "비밀번호가 변경되었습니다.", "success").then((result) => {
+          window.location.href = "/";
+        });
       } else {
         console.log("비밀번호 재설정 실패:", response.status);
+        swal("오류", "비밀번호 변경에 실패하였습니다.", "error");
       }
     } catch (error) {
       console.error("비밀번호 재설정 중 오류 발생:", error);
