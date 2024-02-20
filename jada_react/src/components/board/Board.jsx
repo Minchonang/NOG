@@ -19,7 +19,7 @@ function Board() {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 
-  // 이전 페이지로 돌아가는 기능
+	// 이전 페이지로 돌아가는 기능
 	const navigate = useNavigate();
 	const goBack = () => {
 		navigate(-1);
@@ -62,7 +62,7 @@ function Board() {
 
 	return (
 		<div className={common.background}>
-			<Header sub_title="문의사항" />
+			<Header sub_title="문의사항" userId={userId} />
 
 			<div className={` ${style.main_area}`}>
 				<div className={style.boardContainer}>

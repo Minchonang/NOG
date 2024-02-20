@@ -165,9 +165,9 @@ function BoardDetail() {
             <LoadingNog />
          ) : (
             <div className={common.background}>
-               <Header sub_title="내 문의사항" />
+               <Header sub_title="내 문의사항" userId={userId}/>
 
-               <div className={style.main_area}>
+               <div className={style.main_area} userId={userId}>
                   {board ? (
                      <>
                         {/* 문의사항 */}

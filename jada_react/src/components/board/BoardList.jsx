@@ -15,11 +15,13 @@ function BoardList() {
    //   const [userId, setUserId] = useState("");
    const [boards, setBoards] = useState([]);
    const [selectedBoard, setSelectedBoard] = useState(null);
+   const [userId, setUserId] = useState("");
 
    //  ------- 게시글 list 가져오기 -------
    const getBoardList = async () => {
       try {
          const userId = sessionStorage.getItem('user_id');
+         setUserId(userId);
          // 서버로 데이터 전송
          const response = await fetch(`${API_BASE_URL}/api/board/boardList/${userId}`, {
             method: 'GET',
@@ -49,7 +51,7 @@ function BoardList() {
 
    return (
       <div className={common.background}>
-         <Header sub_title="내 정보" />
+         <Header sub_title="내 정보" userId={userId}/>
 
          <div className={style.main_area}>
             <div className={style.title}>

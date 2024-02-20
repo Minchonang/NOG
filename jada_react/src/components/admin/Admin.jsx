@@ -56,7 +56,7 @@ function Admin() {
 			{userRole && (
 				<>
 					<AdminNav currentTab={currentTab} onTabChange={handleTabChange} />
-					<Header sub_title="관리자" />
+					<Header sub_title="관리자" userId={userId} />
 
 					{currentTab === "회원정보" && <UserList currentTab={currentTab} />}
 					{currentTab === "문의사항" && <Inquiry currentTab={currentTab} />}
