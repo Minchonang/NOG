@@ -50,9 +50,10 @@
 	border: 1px solid #555;
 	border-radius: 10px;
 	/* background-color: #333; */
-	background-color: #333333e0;
+	background-color: #333333;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	transition-duration: 0.3s;
+	opacity: .96;
 }
 
 .subMenuItem {
@@ -72,10 +73,11 @@
 	-ms-user-select: none;
 	user-select: none;
 }
-
 .subMenuItem:hover {
 	background-color: #212121;
+	color: #ff9f0a;
 }
+
 
 .play,
 .inquiry,
