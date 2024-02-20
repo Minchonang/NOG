@@ -71,14 +71,13 @@ function CoinPred() {
 
    // 1. flask로부터 데이터 받기 (now_coin_chart)
    const nowCoinChart = async (selectedCoin) => {
-      console.log('코인 데이터 가져오기 시작...');
+      console.log(`코인(${selectedCoin}) 데이터 가져오기 시작...`);
       try {
          const response = await axios.get(`http://3.38.50.14:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`);
          // 데이터 받기
          const data1 = response;
          setData_nowGraph(data1);
          setIsGraphLoading(false); // 그래프 내 로딩화면 끝
-         console.log('현재 코인 그래프 ', data1);
       } catch (error) {
          console.error('Error fetching data:', error.message);
       }
@@ -94,12 +93,11 @@ function CoinPred() {
          const response = await axios.get(`http://3.38.50.14:5000/now_coin/?coinname=${selectedCoin}`);
          const data2 = response;
          setData_nowPrice(data2);
-         console.log('현재 코인 가격 ', data2);
          // 현재 가격 추출
          if (data2.data) {
             const now_price = data2.data.map((entry) => entry.trade_price);
             setNowPrice(now_price);
-            console.log('현재 코인 가격 ', now_price);
+            console.log('현재 코인 가격 ', now_price[0]);
          }
       } catch (error) {
          console.error('Error fetching data:', error.message);
@@ -118,7 +116,6 @@ function CoinPred() {
          );
          const data3 = response;
          setData_predGraph(data3);
-         console.log('예측 코인 차트 ', data3);
       } catch (error) {
          console.error('Error fetching data:', error.message);
       }
@@ -134,7 +131,6 @@ function CoinPred() {
          const response = await axios.get(`http://3.38.50.14:5000/pred_coin/?coin_full_name=${selectedCoin}`);
          const data4 = response;
          setData_predPrice(data4);
-         console.log('예측 코인 가격 ', data4);
          // 예측 가격 추출
          if (data4.data) {
             const pred_price = data4.data[0];
@@ -214,7 +210,7 @@ function CoinPred() {
             x: predStartIndex + index + 1,
             y: value,
          }));
-         console.log('>>>>>>예측 가격 마지막입니다.: ', predPrice - predPrices[predPrices.length - 1]);
+         console.log('----- 예측 시세 완료 ----- ', predPrice - predPrices[predPrices.length - 1]);
 
          // 차트 업데이트
          chartRef1.current.chart.update();
@@ -283,7 +279,12 @@ function CoinPred() {
                   </div>
                   <div className={style.coinGraph_area}>
                      {isGraphLoading ? (
-                        <img className={style.loadingGif} src={animation_loading} alt="loadingAnimation" />
+                        <>
+                           <div className={style.graphLoading_area}>
+                              <img className={style.loadingGif} src={animation_loading} alt="loadingAnimation" />
+                              <div>그래프를 불러오는 중입니다...</div>
+                           </div>
+                        </>
                      ) : (
                         <canvas className={style.coinGraph} ref={chartRef1}></canvas>
                      )}
