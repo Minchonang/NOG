@@ -239,8 +239,6 @@
 		font-size: 3em;
 	}
 
-   
-
 	.keyword_container {
 		width: 60%;
 		margin: 0 auto;
@@ -290,7 +288,7 @@
 		top: 30%;
 		left: 35%;
 		margin: 0 auto;
-		padding: 20px 50px 30px;
+		padding: 20px 50px 40px;
 		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 	}
 
@@ -298,8 +296,16 @@
 		font-size: 2.3em;
 	}
 
+	.modal_content {
+		margin: 15px 0 30px;
+	}
 	.modal_content p {
-		font-size: 1.5em;
+		font-size: 1.3em;
+		line-height: 140%;
+	}
+
+	.smallLetter {
+		font-size: 1.1em !important;
 	}
 
 	.close_btn {
