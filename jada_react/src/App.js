@@ -17,8 +17,8 @@ import BoardList from './components/board/BoardList';
 import BoardDetail from './components/board/BoardDetail';
 import CoinPred from './components/coinPred/CoinPred';
 
-const API_BASE_URL = 'http://localhost:8080';
-// const API_BASE_URL = 'http://54.180.132.149:8080';
+// const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'http://54.180.132.149:8080';
 
 function App() {
    const userId = sessionStorage.getItem('user_id');
