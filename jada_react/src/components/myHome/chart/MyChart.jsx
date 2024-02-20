@@ -181,7 +181,7 @@ const MyChart = () => {
             <div className={style.container}>
               <div className={style.title}>
                 <h1>
-                  {(searchDate ? searchDate : now).substr(-2) <= 10
+                  {(searchDate ? searchDate : now).substr(-2) < 10
                     ? (searchDate ? searchDate : now).substr(-1)
                     : (searchDate ? searchDate : now).substr(-2)}
                   월 전력 소비 리포트
