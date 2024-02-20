@@ -52,10 +52,10 @@ const MyChart = () => {
     // sessionStorage.setItem("userId", "testId50");
     const id = sessionStorage.getItem("user_id");
 
-		const fetchData = async () => {
-			if (load === true) {
-				setLoad(false);
-			}
+    const fetchData = async () => {
+      if (load === true) {
+        setLoad(false);
+      }
 
       try {
         // axios로 GET 요청 보내기
@@ -111,14 +111,14 @@ const MyChart = () => {
       }
     };
 
-		if (load === true) {
-			if (searchDate === "" || searchDate === now) {
-				if (predData === "") {
-					fetchPredData();
-				}
-			}
-		}
-	}, [load]);
+    if (load === true) {
+      if (searchDate === "" || searchDate === now) {
+        if (predData === "") {
+          fetchPredData();
+        }
+      }
+    }
+  }, [load]);
 
   // 증감율 계산
   const caculatePercent = (A, B) => {
@@ -173,7 +173,10 @@ const MyChart = () => {
       ) : (
         <>
           <div className={style.body}>
-            <Header sub_title="소비 리포트" />
+            <Header
+              sub_title="소비 리포트"
+              userId={user && user["user_id"] ? user["user_id"] : null}
+            />
 
             <div className={style.container}>
               <div className={style.title}>
@@ -567,7 +570,7 @@ const MyChart = () => {
                       </h1>
                     )
                   ) : (
-                    <h1>"데이터 없음"</h1>
+                    <h1>데이터 없음</h1>
                   )}
                 </div>
 
