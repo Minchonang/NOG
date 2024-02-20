@@ -538,7 +538,7 @@ const MyChart = () => {
                   <span className={style.important_keywords}>
                     {chartData1["my_total_usage"]
                       ? chartData1["my_total_usage"] + " kWh"
-                      : "데이터 없음"}{" "}
+                      : "데이터 없음"}
                   </span>
                 </div>
                 <div>
@@ -568,7 +568,7 @@ const MyChart = () => {
                       </h1>
                     )
                   ) : (
-                    <h1>"데이터 없음"</h1>
+                    <h1>데이터 없음</h1>
                   )}
                 </div>
 
