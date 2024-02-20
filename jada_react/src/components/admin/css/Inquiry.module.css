@@ -230,6 +230,19 @@
 		font-size: 1.8em;
 	}
 
+	.loadingGuide {
+		position: absolute;
+		left: 1%;
+		top: 64%;
+		display: flex;
+		width: 100%;
+	}
+	.loadingGuide div {
+		margin: 0 auto;
+		font-size: 1.3em;
+		color: gray;
+	}
+
 	/* -------------------------------------------------- */
 	/* 데스크탑 - 모달창 */
 	.custom_modal {

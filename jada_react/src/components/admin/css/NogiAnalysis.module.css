@@ -1,302 +1,311 @@
 .main_area {
-   position: absolute;
-   z-index: 1;
-   width: 100%;
-   padding: 13% 5% 70px;
-   display: flex;
-   flex-direction: column;
-   font-family: 'Godo', serif;
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	padding: 13% 5% 70px;
+	display: flex;
+	flex-direction: column;
+	font-family: "Godo", serif;
 }
 
 .title {
-   display: flex;
-   margin: 15% auto 14%;
+	display: flex;
+	margin: 15% auto 14%;
 }
 
 .title div {
-   padding: 0 10px;
-   font-size: 2em;
-   border-bottom: 5px solid #ff9f0a;
+	padding: 0 10px;
+	font-size: 2em;
+	border-bottom: 5px solid #ff9f0a;
 }
 
 /* -------------------------------------------- */
 /* 테이블 */
 .list {
-   margin: 10% 0;
+	margin: 10% 0;
 }
 .boardList_container {
-   display: flex;
-   flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .boardList_title {
-   display: flex;
-   justify-content: space-around;
-   width: 100%;
-   padding: 3% 0;
-   background-color: #fbd17c;
-   border: 2px solid #ff9f0a;
-   border-bottom: 1px solid #ff9f0a;
-   border-top-left-radius: 10px;
-   border-top-right-radius: 10px;
-   font-size: 1.3em;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	padding: 3% 0;
+	background-color: #fbd17c;
+	border: 2px solid #ff9f0a;
+	border-bottom: 1px solid #ff9f0a;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 1.3em;
 }
 
 .boardList_table,
 .boardList_graph {
-   display: block;
-   overflow-y: auto;
-   /* max-height: 50vh; */
-   margin-bottom: 5px;
-   border: 2px solid #ff9f0a;
-   border-top: 0;
-   border-radius: 10px;
-   border-top-left-radius: 0;
-   border-top-right-radius: 0;
-   text-align: center;
+	display: block;
+	overflow-y: auto;
+	/* max-height: 50vh; */
+	margin-bottom: 5px;
+	border: 2px solid #ff9f0a;
+	border-top: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	text-align: center;
 }
 .boardList_graph {
-   padding: 10px;
+	padding: 10px;
 }
 .boardList_table tbody tr {
-   display: table;
-   width: 100%;
-   table-layout: fixed;
-   border-bottom: 1px solid;
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	border-bottom: 1px solid;
 }
 .boardList_table tbody tr td {
-   padding: 3% 0;
+	padding: 3% 0;
 }
 
 .totalMember {
-   margin: 15px 0;
-   text-align: center;
+	margin: 15px 0;
+	text-align: center;
 }
 
 /* -------------------------------------------------- */
 /* 모달창 */
 .custom_modal {
-   position: absolute;
-   top: 33%;
-   left: 5%;
-   background: #fff;
-   overflow: auto;
-   outline: none;
-   padding: 15px 15px 20px;
-   width: 90vw;
-   border-radius: 10px;
-   border: 2px solid #ff9f0a;
-   text-align: center;
-   box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	position: absolute;
+	top: 33%;
+	left: 5%;
+	background: #fff;
+	overflow: auto;
+	outline: none;
+	padding: 15px 15px 20px;
+	width: 90vw;
+	border-radius: 10px;
+	border: 2px solid #ff9f0a;
+	text-align: center;
+	box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 }
 
 .modal_container {
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   align-content: center;
-   flex-wrap: wrap;
-   align-items: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .close {
-   position: absolute;
-   top: 15px;
-   right: 15px;
-   color: #000000;
-   border-radius: 50%;
-   float: right;
-   font-size: 35px;
-   font-weight: bold;
-   cursor: pointer;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #000000;
+	border-radius: 50%;
+	float: right;
+	font-size: 35px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .modal_title {
-   padding: 0 10px;
-   margin: 40px auto;
-   font-size: 1.8em;
-   font-family: 'Godo', serif;
+	padding: 0 10px;
+	margin: 40px auto;
+	font-size: 1.8em;
+	font-family: "Godo", serif;
 }
 
 .modal_content {
-   display: flex;
-   flex-direction: column;
-   margin-bottom: 1em;
-   font-family: 'Godo', serif;
-   font-size: 1.1em;
-   color: #000000;
-   width: 100%;
-   background: none;
-   border: none;
-   align-items: flex-start;
-   white-space: pre-wrap;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+	font-family: "Godo", serif;
+	font-size: 1.1em;
+	color: #000000;
+	width: 100%;
+	background: none;
+	border: none;
+	align-items: flex-start;
+	white-space: pre-wrap;
 }
 
 .modal_content p {
-   margin-bottom: 10px;
-   z-index: 2;
+	margin-bottom: 10px;
+	z-index: 2;
 }
 
 .text_highlight {
-   position: relative;
+	position: relative;
 }
 .text_highlight::after {
-   content: '';
-   width: 100%;
-   height: 10px;
-   background: #ffeb3bc4;
-   position: absolute;
-   display: inline-block;
-   left: 0;
-   bottom: 1px;
-   z-index: -1;
+	content: "";
+	width: 100%;
+	height: 10px;
+	background: #ffeb3bc4;
+	position: absolute;
+	display: inline-block;
+	left: 0;
+	bottom: 1px;
+	z-index: -1;
 }
 .modal_similar {
-   color: red;
-   font-weight: bold;
+	color: red;
+	font-weight: bold;
 }
 
 .close_btn {
-   width: 100%;
-   padding: 4.5% 0;
-   margin: 0 auto;
-   margin-top: 5px;
-   color: black;
-   background: lightgray;
-   border: 0;
-   border-radius: 10px;
-   outline: none;
-   font-size: 1em;
-   font-family: 'godo';
+	width: 100%;
+	padding: 4.5% 0;
+	margin: 0 auto;
+	margin-top: 5px;
+	color: black;
+	background: lightgray;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	font-size: 1em;
+	font-family: "godo";
 }
 
 /* -------------------------------------------- */
 .keyword_container {
-   width: 100%;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 /* 키워드 박스  */
 .keyword_box {
-   width: 48%;
-   padding: 1rem 5%;
-   display: flex;
-   border-radius: 10px;
-   border: 0.3rem solid #fab921;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-   transition-duration: 0.3s;
+	width: 48%;
+	padding: 1rem 5%;
+	display: flex;
+	border-radius: 10px;
+	border: 0.3rem solid #fab921;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+	transition-duration: 0.3s;
 }
 .keyword_box > h1,
 .body > .container > .title > h1 {
-   font-size: 1.2rem;
-   margin: 0 auto;
+	font-size: 1.2rem;
+	margin: 0 auto;
 }
 
 .showGraph {
-   background-color: #fab921;
-   color: white;
+	background-color: #fab921;
+	color: white;
 }
 
 .box_container > .chart_box {
-   transition-property: max-height;
-   transition-duration: 0.5s;
+	transition-property: max-height;
+	transition-duration: 0.5s;
 }
 
 .box_container_close > .chart_box {
-   max-height: 0;
-   overflow: hidden;
-   transition-property: max-height;
-   transition-duration: 0.2s;
-   box-shadow: none;
+	max-height: 0;
+	overflow: hidden;
+	transition-property: max-height;
+	transition-duration: 0.2s;
+	box-shadow: none;
 }
 
 /* ------------------------------ */
 /* 차트 */
 .canvas1,
 .canvas2 {
-   width: 100%;
-   height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 /* -------------------------------------------------- */
 
 @media (min-width: 1024px) {
-   .main_area {
-      padding: 136px 15% 185px;
-      background-color: #f5f5f5;
-   }
+	.main_area {
+		padding: 136px 15% 185px;
+		background-color: #f5f5f5;
+	}
 
-   .title {
-      margin: 8% auto;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-   }
-   .title div {
-      font-size: 3em;
-   }
+	.title {
+		margin: 8% auto;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.title div {
+		font-size: 3em;
+	}
 
-   .keyword_container {
-      width: 60%;
-      margin: 0 auto;
-      justify-content: normal;
-   }
+   
 
-   .keyword_box {
-      width: 50%;
-      margin: 0 15px;
-      cursor: pointer;
-   }
-   .keyword_box h1 {
-      font-size: 1.8em;
-   }
+	.keyword_container {
+		width: 60%;
+		margin: 0 auto;
+		justify-content: normal;
+	}
 
-   .boardList_title {
-      padding: 1.5% 0;
-      font-size: 1.8em;
-   }
+	.keyword_box {
+		width: 50%;
+		margin: 0 15px;
+		cursor: pointer;
+	}
+	.keyword_box h1 {
+		font-size: 1.8em;
+	}
 
-   .boardList_table {
-      background-color: white;
-   }
+	.boardList_title {
+		padding: 1.5% 0;
+		font-size: 1.8em;
+	}
 
-   .boardList_table tr:nth-child(n + 1) {
-      font-size: 1.5em;
-      transition-duration: 0.3s;
-      cursor: pointer;
-   }
-   .boardList_table tr:nth-child(n + 1):hover {
-      background-color: #fbd17c;
-   }
+	.boardList_table {
+		background-color: white;
+	}
 
-   .boardList_table,
-   .boardList_graph {
-      max-height: 70vh;
-   }
+	.boardList_table tr:nth-child(n + 1) {
+		font-size: 1.5em;
+		transition-duration: 0.3s;
+		cursor: pointer;
+	}
+	.boardList_table tr:nth-child(n + 1):hover {
+		background-color: #fbd17c;
+	}
 
-   .boardList_table tbody tr td {
-      padding: 1% 0;
-   }
+	.boardList_table,
+	.boardList_graph {
+		max-height: 70vh;
+	}
 
-   /* -------------------------------------------------- */
-   /* 모달창 */
-   .custom_modal {
-      width: 30%;
-      top: 30%;
-      left: 35%;
-      margin: 0 auto;
-      padding: 20px 50px 30px;
-      box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
-   }
+	.boardList_table tbody tr td {
+		padding: 1% 0;
+	}
 
-   .modal_title {
-      font-size: 2.3em;
-   }
+	/* -------------------------------------------------- */
+	/* 모달창 */
+	.custom_modal {
+		width: 30%;
+		top: 30%;
+		left: 35%;
+		margin: 0 auto;
+		padding: 20px 50px 30px;
+		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
+	}
 
-   .modal_content p {
-      font-size: 1.5em;
-   }
+	.modal_title {
+		font-size: 2.3em;
+	}
+
+	.modal_content p {
+		font-size: 1.5em;
+	}
+
+	.close_btn {
+		font-size: 1.4em;
+	}
+	.close_btn:hover {
+		cursor: pointer;
+	}
 }
