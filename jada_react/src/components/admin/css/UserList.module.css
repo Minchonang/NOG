@@ -338,6 +338,19 @@
 		font-size: 1.8em;
 	}
 
+	.loadingGuide {
+		position: absolute;
+		left: 1%;
+		top: 64%;
+		display: flex;
+		width: 100%;
+	}
+	.loadingGuide div {
+		margin: 0 auto;
+		font-size: 1.3em;
+		color: gray;
+	}
+
 	/* 전체 회원 수 */
 	.totalMember {
 		-webkit-user-select: none;
