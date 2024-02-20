@@ -386,7 +386,7 @@ function HomeControl() {
         <LoadingNog />
       ) : (
         <div className={common.background}>
-          <Header sub_title="우리집" />
+          <Header sub_title="우리집" userId={userId} />
 
           <Modal
             isOpen={modalIsOpen}

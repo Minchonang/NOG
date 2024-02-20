@@ -61,7 +61,7 @@ function Board() {
 
   return (
     <div className={common.background}>
-      <Header sub_title="문의사항" />
+      <Header sub_title="문의사항" userId={userId} />
 
       <div className={` ${style.main_area}`}>
         <div className={style.boardContainer}>
