@@ -53,6 +53,7 @@ class Pred:
         # 검색된 데이터가 없을 경우 오늘 기준 사용량 0으로 데이터 생성
         if self.rs_cont == 0:
             ori_data = pd.Series([0.0,0.0], index=[datetime.today().strftime('%Y-%m-%d'),datetime.today().strftime('%Y-%m-%d')])
+            daily_gouped_count=0
         else:    
             ori_data = df.groupby(pd.Grouper(key='date', freq='D')).sum()
             ori_data = ori_data["daily_usage"]
