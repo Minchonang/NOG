@@ -627,7 +627,7 @@ function EditUserInfo() {
 			) : (
 				<>
 					<div className={common.background}>
-						<Header sub_title="내 정보" />
+						<Header sub_title="내 정보" userId={userId}/>
 						<div className={style.main_area}>
 							<div className={style.userId}>
 								<div>{userId}</div>

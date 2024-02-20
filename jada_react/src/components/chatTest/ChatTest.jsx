@@ -117,7 +117,7 @@ const ChatTest = () => {
   return (
     <>
       <div className={common.background}>
-        <Header sub_title="ChatBot" />
+        <Header sub_title="ChatBot" userId = {userid} />
         {/* <div className={style.title_area}>
           <NavLink to="/">NOG</NavLink>
           <div>Chatbot</div>
