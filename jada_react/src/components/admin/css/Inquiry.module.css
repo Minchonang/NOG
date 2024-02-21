@@ -217,6 +217,7 @@
 	}
 
 	.boardList_table tr:nth-child(n + 2) {
+		font-size: 1.5em;
 		transition-duration: 0.3s;
 		cursor: pointer;
 	}
@@ -226,7 +227,20 @@
 
 	.userList_title {
 		padding: 5% 0;
-		font-size: 1.7em;
+		font-size: 1.8em;
+	}
+
+	.loadingGuide {
+		position: absolute;
+		left: 1%;
+		top: 64%;
+		display: flex;
+		width: 100%;
+	}
+	.loadingGuide div {
+		margin: 0 auto;
+		font-size: 1.3em;
+		color: gray;
 	}
 
 	/* -------------------------------------------------- */
@@ -236,21 +250,26 @@
 		left: 35%;
 		width: 30%;
 		margin: 0 auto;
-		padding: 60px 70px 50px;
+		padding: 60px 50px 30px;
 		box-shadow: 10px 14px 16px rgba(0, 0, 0, 0.18);
 	}
 
 	.modal_title {
 		margin: 10px auto 30px;
+		font-size: 2.3em;
 
 		-webkit-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
 	}
+	.close {
+		font-size: 2.5em;
+	}
 
 	.modal_content {
 		margin: 1.1em 0;
+		font-size: 1.4em;
 	}
 
 	.btn_area {
@@ -263,6 +282,7 @@
 	.reply_btn {
 		width: 100%;
 		padding: 5% 0;
+		font-size: 1.4em;
 		cursor: pointer;
 	}
 	/* .reply_btn,

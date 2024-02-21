@@ -35,7 +35,7 @@
 }
 .coinSelect_area select {
 	font-family: "godo";
-	font-size: 1.3em;
+	font-size: 1.5em;
 	width: auto;
 	margin: 0;
 	padding: 0;
@@ -57,24 +57,30 @@
 
 .selectGuide {
 	position: absolute;
-	left: 100px;
+	left: 65px;
 	display: flex;
 	align-items: center;
 	padding: 8px 10px;
 	border-radius: 20px;
-	font-size: 0.7em;
 	color: #ffffff;
 	background-color: #0066ffc8;
+	font-size: 0.7em;
 }
 
 .coinPrice {
-	font-size: 2em;
+	font-size: 2.1em;
 	margin: 3px -1px;
 }
 
 .predPrice {
 	margin: 5px 5px 3px 0;
-	font-size: 0.8em;
+	font-size: 0.9em;
+}
+.upPrice {
+	color: red;
+}
+.downPrice {
+	color: #0064ff;
 }
 
 .predReload {
@@ -88,6 +94,9 @@
 .coinGraph_area {
 	width: 100%;
 	display: flex;
+	border: 2px solid #0066ffa1;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 .coinGraph {
@@ -99,7 +108,6 @@
 	display: flex;
 	flex-direction: row;
 	margin: 10px 0;
-	white-space: pre-wrap;
 }
 .desc_area div {
 	margin-right: 5px;
@@ -107,6 +115,9 @@
 	font-family: "pretendard";
 	font-size: 0.8em;
 	line-height: 140%;
+}
+.desc_area div:last-child {
+	white-space: pre-wrap;
 }
 
 .img_area {
@@ -116,5 +127,25 @@
 .img_area img {
 	width: 8em;
 	height: 8em;
-	opacity: .3;
+	opacity: 0.3;
+}
+
+/* 그래프 로딩 이미지 */
+.graphLoading_area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	margin: 15% auto;
+	transition-duration: 0.5s;
+}
+.graphLoading_area div {
+	margin: -5% auto 0;
+	font-size: 0.8em;
+}
+
+.loadingGif {
+	width: 50px;
+	height: 50px;
+	margin: 0 auto 5%;
 }

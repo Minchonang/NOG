@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import common from "../common/css/common.module.css";
 import style from "./css/FindId.module.css";
 import { API_BASE_URL } from "../../App.js";
-// import BottomNav from "../common/jsx/BottomNav.jsx";
+import swal from "sweetalert";
 
 function FindId() {
   const nameRef = useRef();
@@ -40,10 +40,16 @@ function FindId() {
         const data = await response.text();
         console.log("아이디 찾기 성공:", data);
         handleVerify(e);
-        alert("회원님의 아이디는 " + data + " 입니다.");
-        window.location.href = "/login";
+        swal("안내", `회원님의 아이디는 ${data}입니다.`, "info").then(
+          (result) => {
+            if (result.isConfirmed) {
+              // 확인 버튼이 클릭된 경우, 다른 페이지로 이동
+              window.location.href = "/";
+            }
+          }
+        );
       } else {
-        alert("회원정보가 일치하지 않습니다..");
+        swal("오류", "회원정보가 일치하지 않습니다.", "error");
         console.log("아이디 찾기 실패:", response.status);
       }
     } catch (error) {
@@ -55,13 +61,16 @@ function FindId() {
     e.preventDefault();
 
     if (!isVerified) {
-      alert("이메일 인증을 먼저 완료하세요.");
+      swal("안내", "이메일 인증을 먼저 완료하세요.", "info");
       return;
     }
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
+    userEmail.length > 0
+      ? swal("", "인증번호가 전송되었습니다.")
+      : swal("", "이메일을 입력해주세요.");
     console.log(userEmail);
     const data = {
       EMAIL: userEmail,
@@ -90,15 +99,14 @@ function FindId() {
     console.log(emailAuth);
 
     if (!authkey) {
-      alert("인증번호를 먼저 요청하세요.");
+      swal("안내", "인증번호를 먼저 요청하세요.", "info");
       return;
     }
     if (authkey === emailAuth) {
       setIsVerified(true);
-      alert("인증되었습니다.");
     } else {
       setIsVerified(false);
-      alert("인증번호가 일치하지 않습니다.");
+      swal("오류", "인증번호가 일치하지 않습니다.", "error");
     }
   };
 

@@ -32,7 +32,7 @@ const ChatTest = () => {
 
   useEffect(() => {
     // userid 상태가 업데이트될 때마다 로그 출력
-    console.log("userid 상태가 업데이트 되었습니다.: ", userid);
+    // console.log('userid 상태가 업데이트 되었습니다.: ', userid);
   }, [userid]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ChatTest = () => {
         // userid 상태가 업데이트될 때마다 Flask 서버에 요청
         if (userid) {
           const response = await axios.post(
-            "http://localhost:5000/chat_userdata",
+            "http://3.38.50.14:5000/chat_userdata",
             {
               user_id: userid,
             }
@@ -50,7 +50,7 @@ const ChatTest = () => {
           const resultString = response.data;
           // result를 배열로 변환
           const resultArray = JSON.parse(resultString);
-          console.log("받아온 resultArray: ", resultArray); // 받아온 데이터 확인
+          // console.log('받아온 resultArray: ', resultArray); // 받아온 데이터 확인
 
           let totalDailyUsage = 0;
           resultArray.forEach((data) => {
@@ -117,7 +117,7 @@ const ChatTest = () => {
   return (
     <>
       <div className={common.background}>
-        <Header sub_title="ChatBot" />
+        <Header sub_title="ChatBot" userId = {userid} />
         {/* <div className={style.title_area}>
           <NavLink to="/">NOG</NavLink>
           <div>Chatbot</div>

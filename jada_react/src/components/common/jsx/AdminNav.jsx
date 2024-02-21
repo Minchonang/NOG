@@ -25,7 +25,7 @@ function AdminNav({ onTabChange, currentTab }) {
             onClick={() => onTabChange("문의사항")}
           >
             <TbMessageQuestion
-              color={currentTab === "문의사항" ? "ff9f0a" : ""}
+              color={currentTab === "문의사항" ? "#ff9f0a" : ""}
               className={bottom.navImg}
             />
             <div>문의사항</div>
@@ -36,7 +36,7 @@ function AdminNav({ onTabChange, currentTab }) {
             onClick={() => onTabChange("유저분석")}
           >
             <TbDeviceMobileQuestion
-              color={currentTab === "유저분석" ? "ff9f0a" : ""}
+              color={currentTab === "유저분석" ? "#ff9f0a" : ""}
               className={bottom.navImg}
             />
 

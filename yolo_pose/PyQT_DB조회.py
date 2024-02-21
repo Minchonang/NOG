@@ -19,18 +19,17 @@ class HomeApp(QWidget, ):
         self.initUI()
         # 수정된 setup video capture
         self.detector = ObjectDetection(capture_index=0, frame_width=640, frame_height=480)
-        
 
         # # # set_1sec_timer_func_box 를 1s마다 호출  # model_count
         self.timer_per_second = QTimer(self)
         self.timer_per_second.timeout.connect(self.set_1sec_timer_func_box)
-        self.timer_per_second.start(1000)
+        self.timer_per_second.start(3000)
 
         
         # (human_count, default_search, nput_defalt_value 포함)를 10s마다 호출
         self.timer_per_thirty_seconds = QTimer(self)
         self.timer_per_thirty_seconds.timeout.connect(self.timer_per_thirty_seconds_func)
-        self.timer_per_thirty_seconds.start(10000) # 10초마다 호출
+        self.timer_per_thirty_seconds.start(15000) # 10초마다 호출
         
 
     def initUI(self):

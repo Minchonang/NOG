@@ -53,7 +53,7 @@ const MyChart = () => {
     const id = sessionStorage.getItem("user_id");
 
     const fetchData = async () => {
-      if (load == true) {
+      if (load === true) {
         setLoad(false);
       }
 
@@ -72,10 +72,6 @@ const MyChart = () => {
         setChartData3(data.data3);
         setChartData4(data.data4);
         setPeriod(data.data0);
-        setPredData({
-          total: data["total"],
-          total_bill: data["total_bill"],
-        });
         setUser({
           user_id: id,
           user_name: data.data2["user_name"],
@@ -92,6 +88,37 @@ const MyChart = () => {
     };
     fetchData();
   }, [searchDate]);
+
+  useEffect(() => {
+    const fetchPredData = async () => {
+      const id = sessionStorage.getItem("user_id");
+
+      try {
+        // axios로 GET 요청 보내기
+        const response = await axios.get(
+          `http://3.38.50.14:5000/pred?user_id=${id}`
+        );
+        const data = response.data;
+        console.log("pred_result : ", data);
+        setPredData({
+          total: data["total"],
+          total_bill: data["total_bill"],
+        });
+      } catch (error) {
+        console.error("Error fetching graph data:", error);
+      } finally {
+        setLoad(true);
+      }
+    };
+
+    if (load === true) {
+      if (searchDate === "" || searchDate === now) {
+        if (predData === "") {
+          fetchPredData();
+        }
+      }
+    }
+  }, [load]);
 
   // 증감율 계산
   const caculatePercent = (A, B) => {
@@ -146,12 +173,15 @@ const MyChart = () => {
       ) : (
         <>
           <div className={style.body}>
-            <Header sub_title="홈 분석" />
+            <Header
+              sub_title="소비 리포트"
+              userId={user && user["user_id"] ? user["user_id"] : null}
+            />
 
             <div className={style.container}>
               <div className={style.title}>
                 <h1>
-                  {(searchDate ? searchDate : now).substr(-2) <= 10
+                  {(searchDate ? searchDate : now).substr(-2) < 10
                     ? (searchDate ? searchDate : now).substr(-1)
                     : (searchDate ? searchDate : now).substr(-2)}
                   월 전력 소비 리포트
@@ -199,9 +229,8 @@ const MyChart = () => {
                   ) : (
                     <h1>
                       {predData && predData["total_bill"]
-                        ? predData["total_bill"].toLocaleString("ko-KR")
-                        : 0}
-                      원
+                        ? predData["total_bill"].toLocaleString("ko-KR") + "원"
+                        : "예측 진행중.."}
                     </h1>
                   )}
                 </div>
@@ -231,6 +260,7 @@ const MyChart = () => {
                     <span className={style.spring}></span>
                     <span className={style.close}> ●</span>
                   </div>
+
                   <DoughnutChart
                     data1={[
                       chartData1["average_total_usage"],
@@ -263,18 +293,20 @@ const MyChart = () => {
                       <tbody>
                         <tr>
                           <th className={style.border_right}>사용량</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData1["my_total_usage"]
                               ? chartData1["my_total_usage"]
                               : 0}{" "}
                             kWh
                           </td>
-                          <td>{chartData1["my_total_usage_last"]} kWh</td>
+                          <td className={style.border_right}>
+                            {chartData1["my_total_usage_last"]} kWh
+                          </td>
                           <td>{chartData1["average_total_usage"]} kWh</td>
                         </tr>
                         <tr>
                           <th className={style.border_right}>요금</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData1["my_this_month_bill"]
                               ? chartData1["my_this_month_bill"].toLocaleString(
                                   "ko-KR"
@@ -282,7 +314,7 @@ const MyChart = () => {
                               : "데이터 없음"}{" "}
                             원
                           </td>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData1["my_before_month_bill"]
                               ? chartData1[
                                   "my_before_month_bill"
@@ -301,7 +333,8 @@ const MyChart = () => {
                         </tr>
                       </tbody>
                     </table>
-                    {predData && predData["total"] ? (
+                    {(now === searchDate || searchDate === "") &&
+                    predData["total"] ? (
                       <>
                         <p className={style.pred_text}>
                           NOG가 평가한 이번 달 예상 총 사용량은
@@ -338,13 +371,18 @@ const MyChart = () => {
               >
                 <div>
                   <span>전력 소비 유형</span>
+
                   <span>
-                    {chartData2["user_type"]
-                      ? chartData2["user_type"] +
-                        " (" +
-                        chartData2["usage_timezone"] +
-                        ")"
-                      : "데이터 없음"}
+                    {chartData2["user_type"] ? (
+                      <>
+                        <span className={style.important_keywords}>
+                          {chartData2["user_type"]}
+                        </span>
+                        <span>{" (" + chartData2["usage_timezone"] + ")"}</span>
+                      </>
+                    ) : (
+                      <span>데이터 없음</span>
+                    )}
                   </span>
                 </div>
                 <div>
@@ -401,8 +439,8 @@ const MyChart = () => {
                       </thead>
                       <tbody>
                         <tr>
-                          <th className={style.border_right}>오전</th>
-                          <td>
+                          <th className={style.border_right}>오전(05~11시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_5_10"]
@@ -417,8 +455,8 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>오후</th>
-                          <td>
+                          <th className={style.border_right}>오후(11~17시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_11_16"]
@@ -433,8 +471,8 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>저녁</th>
-                          <td>
+                          <th className={style.border_right}>저녁(17~23시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_17_22"]
@@ -449,8 +487,10 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>심야,새벽</th>
-                          <td>
+                          <th className={style.border_right}>
+                            심야,새벽(23~05시)
+                          </th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_23_4"]
@@ -498,26 +538,41 @@ const MyChart = () => {
               >
                 <div>
                   <span>이번 달 사용량</span>
-                  <span>
+                  <span className={style.important_keywords}>
                     {chartData1["my_total_usage"]
                       ? chartData1["my_total_usage"] + " kWh"
-                      : "데이터 없음"}{" "}
+                      : "데이터 없음"}
                   </span>
                 </div>
                 <div>
                   <span>
                     {chartData2["city_name"]
-                      ? chartData2["city_name"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? chartData2["city_name"] + "의"
+                      : "같은 지역의"}
                   </span>
-                  <h1>
-                    {chartData1["my_total_usage"]
-                      ? caculatePercent(
+
+                  {chartData1["my_total_usage"] ? (
+                    caculatePercent(
+                      chartData1["my_total_usage"],
+                      chartData4["city_average_daily_usage"]
+                    ) > 0 ? (
+                      <h1 className={style.plus_text}>
+                        {caculatePercent(
                           chartData1["my_total_usage"],
                           chartData4["city_average_daily_usage"]
-                        ) + "%"
-                      : "데이터 없음"}
-                  </h1>
+                        ) + "%"}
+                      </h1>
+                    ) : (
+                      <h1 className={style.minus_text}>
+                        {caculatePercent(
+                          chartData1["my_total_usage"],
+                          chartData4["city_average_daily_usage"]
+                        ) + "%"}
+                      </h1>
+                    )
+                  ) : (
+                    <h1>데이터 없음</h1>
+                  )}
                 </div>
 
                 <span className={style.open}>
@@ -562,7 +617,7 @@ const MyChart = () => {
                       <tbody>
                         <tr>
                           <th className={style.border_right}>이번 달</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData1["my_total_usage"]
                               ? chartData1["my_total_usage"]
                               : 0}{" "}
@@ -577,7 +632,7 @@ const MyChart = () => {
                         </tr>
                         <tr>
                           <th className={style.border_right}>지난 달</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData1["my_total_usage_last"]
                               ? chartData1["my_total_usage_last"]
                               : 0}{" "}
@@ -592,7 +647,7 @@ const MyChart = () => {
                         </tr>
                         <tr>
                           <th className={style.border_right}>전년동월</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData4
                               ? chartData4["user_month_total_last_year"]
                               : 0}{" "}
@@ -627,7 +682,7 @@ const MyChart = () => {
               >
                 <div>
                   <span>일 평균 사용량</span>
-                  <span>
+                  <span className={style.important_keywords}>
                     {chartData3 &&
                     chartData3["average"] &&
                     chartData3["average"][0]
@@ -639,17 +694,32 @@ const MyChart = () => {
                 <div>
                   <span>
                     {user["user_city"]
-                      ? user["user_city"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? user["user_city"] + "의"
+                      : "같은 지역의"}
                   </span>
-                  <h1>
-                    {chartData3["average"][0]
-                      ? caculatePercent(
+
+                  {chartData3["average"][0] ? (
+                    caculatePercent(
+                      chartData3["average"][0],
+                      chartData3["average"][1]
+                    ) > 0 ? (
+                      <h1 className={style.plus_text}>
+                        {caculatePercent(
                           chartData3["average"][0],
                           chartData3["average"][1]
-                        ) + "%"
-                      : "데이터 없음"}
-                  </h1>
+                        ) + "%"}
+                      </h1>
+                    ) : (
+                      <h1 className={style.minus_text}>
+                        {caculatePercent(
+                          chartData3["average"][0],
+                          chartData3["average"][1]
+                        ) + "%"}
+                      </h1>
+                    )
+                  ) : (
+                    <h1>데이터 없음</h1>
+                  )}
                 </div>
 
                 <span className={style.open}>
@@ -709,7 +779,7 @@ const MyChart = () => {
                       <tbody>
                         <tr>
                           <th className={style.border_right}>평균 소비량</th>
-                          <td>
+                          <td className={style.border_right}>
                             {chartData3 &&
                             chartData3["average"] &&
                             chartData3["average"][0]
@@ -747,31 +817,59 @@ const MyChart = () => {
                   <span>현재 시간대 총 사용량 </span>
 
                   <span>
-                    {chartData2 && chartData2["my_usage"]
-                      ? chartData2["my_usage"][
-                          calculateTimeZone(nowTimeZone)[0]
-                        ] +
-                        " kWh " +
-                        calculateTimeZone(nowTimeZone)[1]
-                      : ""}
+                    {chartData2 && chartData2["my_usage"] ? (
+                      <>
+                        <span className={style.important_keywords}>
+                          {chartData2["my_usage"][
+                            calculateTimeZone(nowTimeZone)[0]
+                          ] + " kWh "}
+                        </span>
+                        <span>{calculateTimeZone(nowTimeZone)[1]}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </span>
                 </div>
                 <div>
                   <span>
                     {" "}
                     {user["user_city"]
-                      ? user["user_city"] + " 기준"
-                      : "같은 지역 기준"}
+                      ? user["user_city"] + "의"
+                      : "같은 지역의"}
                   </span>
-                  <h1>
-                    {caculatePercent(
+                  {chartData2["my_usage"] ? (
+                    caculatePercent(
                       chartData2["my_usage"][calculateTimeZone(nowTimeZone)[0]],
                       chartData2["city_usage"][
                         calculateTimeZone(nowTimeZone)[0]
                       ]
-                    )}
-                    %
-                  </h1>
+                    ) > 0 ? (
+                      <h1 className={style.plus_text}>
+                        {caculatePercent(
+                          chartData2["my_usage"][
+                            calculateTimeZone(nowTimeZone)[0]
+                          ],
+                          chartData2["city_usage"][
+                            calculateTimeZone(nowTimeZone)[0]
+                          ]
+                        ) + "%"}
+                      </h1>
+                    ) : (
+                      <h1 className={style.minus_text}>
+                        {caculatePercent(
+                          chartData2["my_usage"][
+                            calculateTimeZone(nowTimeZone)[0]
+                          ],
+                          chartData2["city_usage"][
+                            calculateTimeZone(nowTimeZone)[0]
+                          ]
+                        ) + "%"}
+                      </h1>
+                    )
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <span className={style.open}>
@@ -820,8 +918,8 @@ const MyChart = () => {
                       </thead>
                       <tbody>
                         <tr>
-                          <th className={style.border_right}>오전</th>
-                          <td>
+                          <th className={style.border_right}>오전(05-11시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_5_10"]
@@ -839,8 +937,8 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>오후</th>
-                          <td>
+                          <th className={style.border_right}>오후(11-17시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_11_16"]
@@ -858,8 +956,8 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>저녁</th>
-                          <td>
+                          <th className={style.border_right}>저녁(17-23시)</th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_17_22"]
@@ -877,8 +975,10 @@ const MyChart = () => {
                           </td>
                         </tr>
                         <tr>
-                          <th className={style.border_right}>심야,새벽</th>
-                          <td>
+                          <th className={style.border_right}>
+                            심야,새벽(23-05시)
+                          </th>
+                          <td className={style.border_right}>
                             {chartData2 &&
                             chartData2["my_usage"] &&
                             chartData2["my_usage"]["usage_23_4"]
@@ -908,15 +1008,15 @@ const MyChart = () => {
               </div>
 
               {/* ---------------------------------------------------------------------------------- */}
-              {/* 여섯번째 박스 - 최다 전력 소비일 */}
+              {/* 여섯번째 박스 - 최대 전력 소비일 */}
               <div
                 className={`${style.keyword_box} 
                   ${visibleContainers["4"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(4)}
               >
                 <div>
-                  <span>최다 전력 소비일</span>
-                  <span>
+                  <span>최대 전력 소비 일</span>
+                  <span className={style.important_keywords}>
                     {chartData3 &&
                     chartData3["max_month"] &&
                     chartData3["max_month"][0]
@@ -927,14 +1027,29 @@ const MyChart = () => {
                 </div>
                 <div>
                   <span>일 평균 대비</span>
-                  <h1>
-                    {chartData3 && chartData3["average"]
-                      ? caculatePercent(
+
+                  {chartData3 && chartData3["average"] ? (
+                    caculatePercent(
+                      chartData3["max_month"][2],
+                      chartData3["average"][0]
+                    ) > 0 ? (
+                      <h1 className={style.plus_text}>
+                        {caculatePercent(
                           chartData3["max_month"][2],
                           chartData3["average"][0]
-                        ) + "%"
-                      : "데이터 없음"}
-                  </h1>
+                        ) + "%"}
+                      </h1>
+                    ) : (
+                      <h1 className={style.minus_text}>
+                        {caculatePercent(
+                          chartData3["max_month"][2],
+                          chartData3["average"][0]
+                        ) + "%"}
+                      </h1>
+                    )
+                  ) : (
+                    <h1>데이터 없음</h1>
+                  )}
                 </div>
 
                 <span className={style.open}>
@@ -986,7 +1101,7 @@ const MyChart = () => {
                       <thead>
                         <tr>
                           <th></th>
-                          <th>나의평균</th>
+                          <th>{user["user_name"]}님</th>
                           <th>지역평균</th>
                         </tr>
                       </thead>
@@ -1063,15 +1178,15 @@ const MyChart = () => {
               </div>
 
               {/* ---------------------------------------------------------------------------------- */}
-              {/* 일곱번째 박스 - 최다 전력 소비일 */}
+              {/* 일곱번째 박스 - 최대 전력 소비일 */}
               <div
                 className={`${style.keyword_box} 
                   ${visibleContainers["3"] ? style.keyword_box_open : ""}`}
                 onClick={() => handleBoxClick(3)}
               >
                 <div>
-                  <span>최다 전력 소비 요일</span>
-                  <span>
+                  <span>최대 전력 소비 요일</span>
+                  <span className={style.important_keywords}>
                     {chartData3["max_day"]
                       ? chartData3["max_day"][0]
                       : "데이터 없음"}
@@ -1079,12 +1194,29 @@ const MyChart = () => {
                 </div>
                 <div>
                   <span>일 평균 대비</span>
-                  <h1>
-                    {caculatePercent(
+
+                  {chartData3["max_day"] ? (
+                    caculatePercent(
                       chartData3["max_day"][2],
                       chartData3["average"][0]
-                    ) + "%"}
-                  </h1>
+                    ) > 0 ? (
+                      <h1 className={style.plus_text}>
+                        {caculatePercent(
+                          chartData3["max_day"][2],
+                          chartData3["average"][0]
+                        ) + "%"}
+                      </h1>
+                    ) : (
+                      <h1 className={style.minus_text}>
+                        {caculatePercent(
+                          chartData3["max_day"][2],
+                          chartData3["average"][0]
+                        ) + "%"}
+                      </h1>
+                    )
+                  ) : (
+                    "데이터 없음"
+                  )}
                 </div>
 
                 <span className={style.open}>
@@ -1125,7 +1257,7 @@ const MyChart = () => {
                       <thead>
                         <tr>
                           <th></th>
-                          <th>나의평균</th>
+                          <th>{user["user_name"]}님</th>
                           <th>지역평균</th>
                         </tr>
                       </thead>

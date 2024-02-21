@@ -6,7 +6,8 @@
 }
 .body > .container {
   padding-top: 2.8rem;
-  background-color: #fffafa;
+  /* background-color: #fffafa; */
+  background-color: #fbf7ef;
   padding-bottom: 5rem;
 }
 .body > .container > .keyword_box {
@@ -24,9 +25,12 @@
   border-top: 0.1rem solid rgb(230, 230, 230);
   border-left: 0.1rem solid rgb(230, 230, 230);
   border-radius: 0.5rem;
-  box-shadow: 2px 2px 1px rgb(119, 119, 119);
+  box-shadow: 2px 2px 1px rgba(119, 119, 119, 0.55);
   background-color: #ffffff;
   /* text-shadow: -1px 0 black, 0 1px black, 2px 0 black, 0 -1px black; */
+}
+.body > .container > .keyword_box:last-child {
+  padding: 0.9rem 0.7rem 0.9rem 1rem !important;
 }
 
 .body > .container > .keyword_box.keyword_box_open {
@@ -37,7 +41,7 @@
   /* border: 0.1rem solid #111010; */
   transform: scale(0.99);
   box-shadow: none;
-  box-shadow: 1px 1px 1px rgb(216, 216, 216);
+  box-shadow: 1px 1px 1px rgba(216, 216, 216, 0.9);
 }
 .body > .container > .keyword_box:last-of-type {
   padding: 2rem;
@@ -185,11 +189,11 @@
 
 /* 개별 차트 하나 */
 .container > div > .chart_box {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  margin-left: 1rem;
-  margin-right: 0.25rem;
-  border-radius: 1rem;
+  margin: 0.25rem;
+  /* margin-bottom: 0.25rem;
+	margin-left: 1rem;
+	margin-right: 0.25rem; */
+  border-radius: 10px;
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
@@ -248,6 +252,9 @@
   padding: 1rem;
   border-bottom: 0.1rem solid rgb(231, 229, 229);
 }
+.container > div > .chart_box > .text_box > p {
+  line-height: 140%;
+}
 
 .container > div > .chart_box > .chart_title_box {
   width: 100%;
@@ -287,7 +294,7 @@
 }
 
 .important_keywords {
-  color: rgb(11, 15, 239);
+  color: rgb(47, 47, 255);
   text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
     2px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
 }
@@ -351,4 +358,18 @@
 
 .custom_table .border_right {
   border-right: 0.1rem solid rgb(233, 233, 233);
+}
+
+.minus_text {
+  color: #000000;
+  /* text-shadow: -1px 0 rgb(8, 8, 8), 0 1px rgb(0, 0, 0), 0px 0 rgb(0, 0, 0),
+    0 -1px rgb(0, 0, 0); */
+  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
+    2px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
+}
+
+.plus_text {
+  color: #fc0665;
+  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
+    2px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
 }
