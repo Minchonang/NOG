@@ -10,7 +10,7 @@ import common from "../common/css/common.module.css";
 import style from "./css/ChatTest.module.css";
 
 // const socket = io("http://192.168.0.19:5001"); // 희성
-const socket = io("http://localhost:5000");
+const socket = io("http://3.38.50.14:5000");
 
 const ChatTest = () => {
   const bot_NOG =
