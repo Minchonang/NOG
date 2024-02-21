@@ -307,16 +307,36 @@ function EditUserInfo() {
             const result = await response.json();
 
             // 추출된 데이터 사용
-            setUserId(result.userId);
-            setUserName(result.name);
-            setUserEmail(result.email);
-            setUserPhone(result.phone);
-            setUserPassword(result.password);
-            setUserAddress1(result.address1);
-            setUserAddress2(result.address2);
-            setUserAddress3(result.address3);
-            setUserHouseNum(result.houseNum);
-            setUserSerialNum(result.homeDevice.serialNum);
+            if (result.userId) {
+               setUserId(result.userId);
+            }
+            if (result.name) {
+               setUserName(result.name);
+            }
+            if (result.email) {
+               setUserEmail(result.email);
+            }
+            if (result.phone) {
+               setUserPhone(result.phone);
+            }
+            if (result.password) {
+               setUserPassword(result.password);
+            }
+            if (result.address1) {
+               setUserAddress1(result.address1);
+            }
+            if (result.address2) {
+               setUserAddress2(result.address2);
+            }
+            if (result.address3) {
+               setUserAddress3(result.address3);
+            }
+            if (result.houseNum) {
+               setUserHouseNum(result.houseNum);
+            }
+            if (result.homeDevice && result.homeDevice.serialNum) {
+               setUserSerialNum(result.homeDevice.serialNum);
+            }
          } else {
             console.log('회원 정보 조회 실패');
             swal('오류', '데이터 조회에 실패하였습니다.', 'error');
@@ -346,6 +366,7 @@ function EditUserInfo() {
    };
    const cancelPhoneBtn = () => {
       setEditPhone(false);
+      setNewPhone(null);
    };
 
    // 비밀번호 수정
@@ -356,6 +377,7 @@ function EditUserInfo() {
    };
    const cancelPwdBtn = () => {
       setEditPwd(false);
+      setNewPwd(null);
    };
 
    // 주소 수정
@@ -365,6 +387,9 @@ function EditUserInfo() {
    };
    const cancelAddressBtn = () => {
       setEditAddress(false);
+      setSelectedElement1(null);
+      setSelectedElement2(null);
+      setSelectedElement3(null);
    };
 
    // 시리얼 넘버 수정
@@ -445,6 +470,7 @@ function EditUserInfo() {
    };
    const cancelHouseNumBtn = () => {
       setEditHouseNum(false);
+      setNewHouseNum(null);
    };
 
    // 회원정보 수정
