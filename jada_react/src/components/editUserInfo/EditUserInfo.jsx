@@ -724,7 +724,7 @@ function EditUserInfo() {
                            <div className={style.divLine}></div>
                         </div>
                         {/* 시리얼번호 */}
-                        <div className={style.serialNum_title}>시리얼 번호 번경</div>
+                        <div className={style.serialNum_title}>시리얼 번호 변경</div>
                         <div className={style.info_main_detail}>
                            <div className={style.serialNumInput_area}>
                               {editSerialNum ? (
