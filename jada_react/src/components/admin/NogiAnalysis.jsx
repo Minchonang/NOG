@@ -261,7 +261,14 @@ function NogiAnalysis() {
                                     <p>
                                        유사도: <span className={style.modal_similar}>{selectedBoard1.similar}</span>{' '}
                                     </p>
-                                    <p>질문일자: {new Date(selectedBoard1.chat_time).toLocaleString('ko-KR')}</p>
+                                    <p>
+                                       질문일자:{' '}
+                                       {new Date(selectedBoard1.chat_time).toLocaleString('ko-KR', {
+                                          year: 'numeric',
+                                          month: '2-digit',
+                                          day: '2-digit',
+                                       })}
+                                    </p>
                                  </div>
                                  <button className={style.close_btn} onClick={handleCloseModal1}>
                                     닫기
@@ -340,7 +347,14 @@ function NogiAnalysis() {
                                              : selectedBoard2.exit_content}
                                        </span>
                                     </p>
-                                    <p>탈퇴일자: {new Date(selectedBoard2.exit_date).toLocaleString('ko-KR')}</p>
+                                    <p>
+                                       탈퇴일자:{' '}
+                                       {new Date(selectedBoard2.exit_date).toLocaleString('ko-KR', {
+                                          year: 'numeric',
+                                          month: '2-digit',
+                                          day: '2-digit',
+                                       })}
+                                    </p>
                                  </div>
                                  <button className={style.close_btn} onClick={handleCloseModal2}>
                                     닫기

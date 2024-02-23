@@ -808,7 +808,7 @@ function EditUserInfo() {
                                     </div>
                                  </div>
                               ) : (
-                                 <div>
+                                 <div className={style.userAddress}>
                                     {userAddress1} {userAddress2} {userAddress3}
                                  </div>
                               )}
