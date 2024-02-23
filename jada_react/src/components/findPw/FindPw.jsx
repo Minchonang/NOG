@@ -52,10 +52,10 @@ function FindPw() {
    const sendEmail = (e) => {
       e.preventDefault();
       userEmail.length > 0 ? swal('', '인증번호가 전송되었습니다.') : swal('', '이메일을 입력해주세요.');
-      console.log(userEmail);
       const data = {
          EMAIL: userEmail,
       };
+      console.log(userEmail);
 
       fetch(`${API_BASE_URL}/PwFind/Email`, {
          method: 'post',

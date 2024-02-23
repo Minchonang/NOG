@@ -144,7 +144,7 @@ public class UserService {
     }
 
     // 회원정보 수정
-    public String editUser(String user_id, String newEmail, String newPhone, String newPwd, Integer newhouserNum, String newAddress1, String newAddress2, String newAddress3){
+    public String editUser(String user_id, String newEmail, String newPhone, Integer newhouserNum, String newAddress1, String newAddress2, String newAddress3){
     
        Optional<User> userOptional = userRepository.findById(user_id);
 
@@ -153,10 +153,10 @@ public class UserService {
 
         user.setEmail(newEmail);
         user.setPhone(newPhone);
-        if (newPwd != null) {
-            String enPassword = passwordEncoder.encode(newPwd);
-            user.setPassword(enPassword);
-        }
+        // if (newPwd != null) {
+        //     String enPassword = passwordEncoder.encode(newPwd);
+        //     user.setPassword(enPassword);
+        // }
         user.setAddress1(newAddress1);
         user.setAddress2(newAddress2);
         user.setAddress3(newAddress3);

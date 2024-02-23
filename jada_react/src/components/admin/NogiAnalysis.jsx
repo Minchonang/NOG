@@ -154,10 +154,6 @@ function NogiAnalysis() {
       setSelectedBoard2(null);
    };
 
-   // 탈퇴날짜
-   const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-   const formattedDate = new Date(selectedBoard1.chat_time).toLocaleString('ko-KR', options);
-
    // 키워드 박스를 눌렀을 때 해당 키워드 박스에 해당하는 박스를 on/off
    const handleBoxClick = (section) => {
       if (section === 'chatbot') {
@@ -265,7 +261,14 @@ function NogiAnalysis() {
                                     <p>
                                        유사도: <span className={style.modal_similar}>{selectedBoard1.similar}</span>{' '}
                                     </p>
-                                    <p>질문일자: {formattedDate}</p>
+                                    <p>
+                                       질문일자:{' '}
+                                       {new Date(value.chat_time).toLocaleString('ko-KR', {
+                                          year: 'numeric',
+                                          month: '2-digit',
+                                          day: '2-digit',
+                                       })}
+                                    </p>
                                  </div>
                                  <button className={style.close_btn} onClick={handleCloseModal1}>
                                     닫기
@@ -302,7 +305,6 @@ function NogiAnalysis() {
                                                    {new Date(value.exit_date).toLocaleString('ko-KR', {
                                                       year: 'numeric',
                                                       month: '2-digit',
-
                                                       day: '2-digit',
                                                    })}
                                                 </td>
@@ -344,7 +346,14 @@ function NogiAnalysis() {
                                              : selectedBoard2.exit_content}
                                        </span>
                                     </p>
-                                    <p>탈퇴일자: {formattedDate}</p>
+                                    <p>
+                                       탈퇴일자:{' '}
+                                       {new Date(value.exit_date).toLocaleString('ko-KR', {
+                                          year: 'numeric',
+                                          month: '2-digit',
+                                          day: '2-digit',
+                                       })}
+                                    </p>
                                  </div>
                                  <button className={style.close_btn} onClick={handleCloseModal2}>
                                     닫기

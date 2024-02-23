@@ -249,13 +249,13 @@ public class UserController {
             String user_id = editUserDto.getUser_id();
             String newEmail = editUserDto.getEmail();
             String newPhone = editUserDto.getPhone();
-            String newPassword = editUserDto.getPassword();
+            // String newPassword = editUserDto.getPassword();
             String newAddress1 = editUserDto.getAddress1();
             String newAddress2 = editUserDto.getAddress2();
             String newAddress3 = editUserDto.getAddress3();
             Integer newHouseNum = editUserDto.getHouseNum();
     
-            String result = userService.editUser(user_id, newEmail, newPhone, newPassword, newHouseNum,newAddress1,newAddress2,newAddress3);
+            String result = userService.editUser(user_id, newEmail, newPhone, newHouseNum,newAddress1,newAddress2,newAddress3);
             System.out.println("============수정된값:"+result);
             return ResponseEntity.ok(result);
             

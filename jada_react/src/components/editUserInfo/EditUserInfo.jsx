@@ -373,12 +373,13 @@ function EditUserInfo() {
    const [editPwd, setEditPwd] = useState(false);
    const [newPwd, setNewPwd] = useState('');
    const editPwdBtn = () => {
-      setEditPwd(true);
+      window.location.href = '/find_pw';
+      // setEditPwd(true);
    };
-   const cancelPwdBtn = () => {
-      setEditPwd(false);
-      setNewPwd(null);
-   };
+   // const cancelPwdBtn = () => {
+   //    setEditPwd(false);
+   //    setNewPwd(null);
+   // };
 
    // 주소 수정
    const [editAddress, setEditAddress] = useState(false);
@@ -496,7 +497,7 @@ function EditUserInfo() {
       };
 
       // 새로운 이메일이 있는 경우에만 추가
-      if (newEmail) {
+      if (newEmail !== null && newEmail) {
          if (isVerified) {
             editUserDto.email = newEmail;
          } else {
@@ -508,7 +509,7 @@ function EditUserInfo() {
       }
 
       // 새로운 전화번호가 있는 경우에만 추가
-      if (newPhone) {
+      if (newPhone !== null && newPhone) {
          // newPhone이 올바른 전화번호 형식인지 검증
          const phoneRegex = /^\d{3}\d{3,4}\d{4}$/;
          if (!phoneRegex.test(newPhone)) {
@@ -523,38 +524,38 @@ function EditUserInfo() {
       }
 
       // 새로운 비밀번호가 있는 경우에만 추가
-      if (newPwd) {
-         // 비밀번호 정규식
-         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-         if (!passwordRegex.test(newPwd)) {
-            swal('오류', '비밀번호 형식이 맞지않습니다.', 'error');
-            return;
-         }
-         editUserDto.password = newPwd;
-      } else {
-         editUserDto.password = userPassword;
-      }
+      // if (newPwd !== null && newPwd) {
+      //    // 비밀번호 정규식
+      //    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+      //    if (!passwordRegex.test(newPwd)) {
+      //       swal('오류', '비밀번호 형식이 맞지않습니다.', 'error');
+      //       return;
+      //    }
+      //    editUserDto.password = newPwd;
+      // } else {
+      //    editUserDto.password = userPassword;
+      // }
 
       // 새로운 주소 정보가 있는 경우에만 추가
-      if (selectedElement1) {
+      if (selectedElement1 !== null && selectedElement1) {
          editUserDto.address1 = selectedElement1;
       } else {
          editUserDto.address1 = userAddress1;
       }
 
-      if (selectedElement2) {
+      if (selectedElement2 !== null && selectedElement2) {
          editUserDto.address2 = selectedElement2;
       } else {
          editUserDto.address2 = userAddress2;
       }
-      if (selectedElement3) {
+      if (selectedElement3 !== null && selectedElement3) {
          editUserDto.address3 = selectedElement3;
       } else {
          editUserDto.address3 = userAddress3;
       }
 
       // 새로운 가구원 수가 있는 경우에만 추가
-      if (newHouseNum) {
+      if (newHouseNum !== null && newHouseNum) {
          // newHouseNum이 숫자인지 검증
          const numberRegex = /^[0-9]+$/;
          if (!numberRegex.test(parseInt(newHouseNum))) {
