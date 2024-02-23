@@ -1,12 +1,8 @@
 import { NavLink } from "react-router-dom";
-
-// import icon_bot from "../../chatTest/bot_NOG.png";
 import style from "../css/Chatbot.module.css";
 
 function ChatBot({ login }) {
-	const bot_NOG =
-		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
-
+	const bot_NOG = `https://private-user-images.githubusercontent.com/84889516/307254633-a8e3748e-5508-407f-bb71-0fce40637d67.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2NzU0OTIsIm5iZiI6MTcwODY3NTE5MiwicGF0aCI6Ii84NDg4OTUxNi8zMDcyNTQ2MzMtYThlMzc0OGUtNTUwOC00MDdmLWJiNzEtMGZjZTQwNjM3ZDY3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjIzVDA3NTk1MlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWFjMGE5MTkzNDNjMTNlYWU1ZmU0ODkyM2VmMmVjYmZmODljZTNlMDA4MDc3ZDU5ZmNiY2RmZmNmOTIwNWNjNzgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.vaOGJMFtHYDc6rCz8-XtRoidhL-uQ6RKpHBARfkOj1Q`;
 	return (
 		<>
 			<NavLink
