@@ -263,7 +263,7 @@ function NogiAnalysis() {
                                     </p>
                                     <p>
                                        질문일자:{' '}
-                                       {new Date(value.chat_time).toLocaleString('ko-KR', {
+                                       {new Date(selectedBoard1.chat_time).toLocaleString('ko-KR', {
                                           year: 'numeric',
                                           month: '2-digit',
                                           day: '2-digit',
