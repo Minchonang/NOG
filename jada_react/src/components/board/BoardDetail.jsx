@@ -6,10 +6,11 @@ import Header from "../common/jsx/Header";
 import common from "../common/css/common.module.css";
 import style from "./css/BoardDetail.module.css";
 import LoadingNog from "../common/jsx/LoadingNog";
-import admin from "./img/admin.png";
+// import admin from "./img/admin.png";
 import swal from "sweetalert";
 
 function BoardDetail() {
+  const admin = `https://private-user-images.githubusercontent.com/84889516/307254532-3ed4b5cd-344f-4229-b00d-48ce084f3c13.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2NzU0OTIsIm5iZiI6MTcwODY3NTE5MiwicGF0aCI6Ii84NDg4OTUxNi8zMDcyNTQ1MzItM2VkNGI1Y2QtMzQ0Zi00MjI5LWIwMGQtNDhjZTA4NGYzYzEzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjIzVDA3NTk1MlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiNWNiNGE5NDVlNjhmZDU2OGM1YjgxMDc0MGZmMzVlNzg0N2FlZjZmZjE0NjE5NzRmYzViMDIwNzZkOThlYjcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.nh9CdYMc1je7UTfDXVRT23YBSR6HaigWFrDFx1H7L8Q`;
   const [board, setBoard] = useState(null);
   const { boardId } = useParams();
   const [comment, setComment] = useState("");
