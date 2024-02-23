@@ -321,7 +321,14 @@ function UserList() {
                                  ? selectedUser.homeDevice.serialNum
                                  : ''}{' '}
                            </p>
-                           <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
+                           <p>
+                              가입일자:{' '}
+                              {new Date(selectedUser.creDateTime).toLocaleString('ko-KR', {
+                                 year: 'numeric',
+                                 month: '2-digit',
+                                 day: '2-digit',
+                              })}
+                           </p>
                         </>
                      ) : (
                         <>

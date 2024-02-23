@@ -130,7 +130,14 @@ function Inquiry() {
                                  ? `${selectedBoard.content.substring(0, 12)}...`
                                  : selectedBoard.content}
                            </p>
-                           <p>작성일자: {new Date(selectedBoard.writeDate).toLocaleString('ko-KR')}</p>
+                           <p>
+                              작성일자:{' '}
+                              {new Date(selectedBoard.writeDate).toLocaleString('ko-KR', {
+                                 year: 'numeric',
+                                 month: '2-digit',
+                                 day: '2-digit',
+                              })}
+                           </p>
                         </div>
                         <div className={style.btn_area}>
                            <button className={style.reply_btn} onClick={() => goDetail(selectedBoard.boardId)}>
