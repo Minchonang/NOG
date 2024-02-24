@@ -11,13 +11,10 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import ChatBot from "../common/jsx/ChatBot";
 import swal from "sweetalert";
+import bot_NOG from "../common/img/bot_NOG/bot_NOG.png";
+import animation_loading from "../common/img/coinPred/Animation_loading.gif";
 
 function CoinPred() {
-	const bot_NOG =
-		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
-
-	const animation_loading = `https://private-user-images.githubusercontent.com/84889516/307252873-22f38a9b-0361-43cf-82f7-43f43fd9e5a1.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2NzQ4MzMsIm5iZiI6MTcwODY3NDUzMywicGF0aCI6Ii84NDg4OTUxNi8zMDcyNTI4NzMtMjJmMzhhOWItMDM2MS00M2NmLTgyZjctNDNmNDNmZDllNWExLmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjIzVDA3NDg1M1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWI5ZGE5OGMwNGU1M2VmZDdjOGJmOGRlZWMwZTNhM2UzZTQ3OWVhM2QwNzkyMzgwMTM0NjdmNjliMTFiZjU5ZmUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.oBx4pdbtjaNsK4ei5ABEHbyS_ZjxgkpX8UWcqFM3K50`;
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [data_nowGraph, setData_nowGraph] = useState(null); // 현재 코인 그래프
 	const [data_nowPrice, setData_nowPrice] = useState(null); // 현재 코인 시세

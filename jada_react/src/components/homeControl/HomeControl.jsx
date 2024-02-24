@@ -21,6 +21,9 @@ import Modal from "react-modal";
 import LoadingNog from "../common/jsx/LoadingNog";
 import swal from "sweetalert";
 
+import onBtn from "../common/img/homeControl/button_on.png";
+import offBtn from "../common/img/homeControl/button_off.png";
+
 function HomeControl() {
 	// 로딩
 	const [isLoading, setIsLoading] = useState(true);
@@ -62,10 +65,6 @@ function HomeControl() {
 	const [serverAirTemp, setServerAirTemp] = useState("");
 	const [homeBoilerTemp, setHomeBoilerTemp] = useState("0");
 	const [serverBoilerTemp, setServerBoilerTemp] = useState("");
-
-	// on, off 스위치 이미지
-	const onBtn = `https://private-user-images.githubusercontent.com/84889516/307262905-01525b82-6e10-4796-a819-3765efd8a20a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2Nzc2ODMsIm5iZiI6MTcwODY3NzM4MywicGF0aCI6Ii84NDg4OTUxNi8zMDcyNjI5MDUtMDE1MjViODItNmUxMC00Nzk2LWE4MTktMzc2NWVmZDhhMjBhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjIzVDA4MzYyM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVmYTgxMDRmMmUyZGQxMTVkMTMzZWExM2U1NjcwOGZhODQ5YWQ3NWUyMzY2NzVkMTkwNDJmOTg1OTQ0ZGRmYzQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.FllbA-WrfCwLGwNCwiBX28HukiEc1ptVag9Pc4VBqrM`;
-	const offBtn = `https://private-user-images.githubusercontent.com/84889516/307262887-3c437676-c50f-4eb7-9ce5-803dc451422f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2Nzc2ODMsIm5iZiI6MTcwODY3NzM4MywicGF0aCI6Ii84NDg4OTUxNi8zMDcyNjI4ODctM2M0Mzc2NzYtYzUwZi00ZWI3LTljZTUtODAzZGM0NTE0MjJmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjIzVDA4MzYyM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0MjhmOTBkZDdmNjQ1ODc5NWNhNWIyYTNmNGZhYzUwZDk3MWVjNzliYTJkOTY5OWJiNTgzZjZjYWExY2NiZTEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.aRXfxRXnJXWaWB0oHDuxjUq5eUfWp7RyJ-FxXHc_bzk`;
 
 	// 주소 위도 경도로 바꾸기
 	const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키
