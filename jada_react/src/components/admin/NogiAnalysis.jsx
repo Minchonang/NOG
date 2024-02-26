@@ -348,7 +348,7 @@ function NogiAnalysis() {
                                     </p>
                                     <p>
                                        탈퇴일자:{' '}
-                                       {new Date(value.exit_date).toLocaleString('ko-KR', {
+                                       {new Date(selectedBoard2.exit_date).toLocaleString('ko-KR', {
                                           year: 'numeric',
                                           month: '2-digit',
                                           day: '2-digit',
