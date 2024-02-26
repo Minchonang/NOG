@@ -11,10 +11,9 @@ import img3 from "./img/img3.png";
 import img4 from "./img/img4.png";
 import img5 from "./img/img5.png";
 import img6 from "./img/img6.png";
-import BottomNav from "../common/jsx/BottomNav";
 import ChatBot from "../common/jsx/ChatBot";
 import Loading from "../common/jsx/Loading";
-import Modal from "react-modal";
+import swal from "sweetalert";
 
 function Home() {
 	// 로딩
@@ -90,9 +89,6 @@ function Home() {
 			id: userId,
 			password: userPwd,
 		};
-		// const formData = new URLSearchParams();
-		// formData.append("id", userId);
-		// formData.append("password", userPwd);
 
 		try {
 			const response = await fetch(`${API_BASE_URL}/api/userinfo/login`, {
@@ -100,7 +96,6 @@ function Home() {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "ip: 8080",
-					// "Content-Type": "application/x-www-form-urlencoded",
 				},
 				body: JSON.stringify(requestData),
 			});
@@ -111,12 +106,12 @@ function Home() {
 
 				// 서버에서 반환된 값 출력
 				const responseData = await response.json();
-				console.log("서버 응답 데이터:", responseData);
+				// console.log('서버 응답 데이터:', responseData);
 				// userId 추출
 				const receivedUserId = responseData.id;
 				const receivedUserRole = responseData.role;
-				console.log("유저 ID :", receivedUserId);
-				console.log("유저 ROLE :", receivedUserRole);
+				// console.log('유저 ID :', receivedUserId);
+				// console.log('유저 ROLE :', receivedUserRole);
 				window.sessionStorage.setItem("user_id", receivedUserId);
 
 				if (receivedUserRole === 1) {
@@ -129,12 +124,20 @@ function Home() {
 				console.log("로그인 실패:", response.status);
 				const errorMessage = await response.text();
 				sessionStorage.removeItem("user_id");
-				// alert(errorMessage);
-				alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+				swal(
+					"로그인 실패",
+					"아이디 또는 비밀번호가 일치하지 않습니다.",
+					"error"
+				);
 			}
 		} catch (error) {
 			console.error("로그인 중 오류 발생:", error);
 			sessionStorage.removeItem("user_id");
+			swal(
+				"오류",
+				"서버에 오류가 발생하였습니다. 다시 시도해 주세요.",
+				"error"
+			);
 		}
 	};
 
@@ -179,7 +182,7 @@ function Home() {
 						<div className={style.login_area}>로그인</div>
 						<div className={common.input_area}>
 							<input
-								className={common.themeBorder}
+								className={`${common.themeBorder} ${style.adminInput}`}
 								type="text"
 								value={userId}
 								onChange={(e) => setUserId(e.target.value)}
@@ -189,6 +192,7 @@ function Home() {
 							/>
 							<div className={style.pwd_area}>
 								<input
+									className={style.adminInput}
 									// className={common.themeBorder}
 									type={showPassword ? "text" : "password"}
 									value={userPwd}
@@ -201,12 +205,19 @@ function Home() {
 									onClick={togglePasswordVisibility}
 									className={style.eyeIcon}
 								>
-									{showPassword ? <FaEye /> : <FaEyeSlash />}
+									{showPassword ? (
+										<FaEye className={style.adminEyeIcon} />
+									) : (
+										<FaEyeSlash className={style.adminEyeIcon} />
+									)}
 								</span>
 							</div>
 						</div>
 						<div className={common.btn_area}>
-							<button className={common.themeBgrColor} onClick={handleLogin}>
+							<button
+								className={`${common.themeBgrColor} ${style.adminButton}`}
+								onClick={handleLogin}
+							>
 								로그인
 							</button>
 						</div>

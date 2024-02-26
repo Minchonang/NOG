@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { TfiReload } from "react-icons/tfi";
 
 import common from "../common/css/common.module.css";
@@ -10,11 +10,13 @@ import Loading from "../common/jsx/LoadingNog";
 import axios from "axios";
 import Chart from "chart.js/auto";
 import ChatBot from "../common/jsx/ChatBot";
+import swal from "sweetalert";
 
 function CoinPred() {
 	const bot_NOG =
 		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Ff7cdc086-7672-4a43-abb2-b9d65af8459e%2FUntitled.png?table=block&id=e8e6ed65-29ba-474f-8dc1-3ba04ddebe3d&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
-	const animation_loading = `https://file.notion.so/f/f/a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d/9dcba8da-1619-41c5-b6eb-c8cd9e5f14ab/Animation_loading.gif?id=454f4966-16c0-4a1a-a7cc-0aa13fa427bb&table=block&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&expirationTimestamp=1708416000000&signature=H9jZr4YgEX_685oImjncWz6XnyttZippJSYFpKDoxfc`;
+
+	const animation_loading = `https://file.notion.so/f/f/a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d/9dcba8da-1619-41c5-b6eb-c8cd9e5f14ab/Animation_loading.gif?id=454f4966-16c0-4a1a-a7cc-0aa13fa427bb&table=block&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&expirationTimestamp=1708567200000&signature=dE37sXR80g1MNdsw479F8S3dxRBaXLy99bVE9wm1LNI`;
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [data_nowGraph, setData_nowGraph] = useState(null); // 현재 코인 그래프
@@ -25,11 +27,12 @@ function CoinPred() {
 	const [predPrice, setPredPrice] = useState("");
 	const [upDown, setUpDown] = useState("-"); // 5분 뒤 예측 증감
 	const [isGraphLoading, setIsGraphLoading] = useState(true); // 그래프 불러오는 중
+	// const [userId, setUserId] = useState("");
 
 	const chartRef1 = useRef(null);
 
 	const [selectedCoin, setSelectedCoin] = useState("KRW-ARDR");
-	// 코인 변경 시
+	// 코인 변경 시 작동하는 함수
 	const handleChangeCoin = (e) => {
 		setSelectedCoin(e.target.value);
 		setNowPrice("-");
@@ -61,17 +64,24 @@ function CoinPred() {
 	useEffect(() => {
 		showLoading();
 		changeGraphLoading();
+		swal(
+			"안내",
+			"코인 예측 가격 결과는 오로지 정보 제공 목적으로 제공되며, 이에 대해 피해가 발생하여도 당사는 책임을 지지 않습니다.",
+			"info"
+		);
 	}, []);
 
-  // 코인 선택 안내 메시지 사라지기
-  const [showSelectGuide, setShowSelectGuide] = useState(true);
-  const handleGuide = (e) => {
-    setShowSelectGuide(false);
-  };
+	const userId = sessionStorage.getItem("user_id");
+
+	// 코인 선택 안내 메시지 사라지기
+	const [showSelectGuide, setShowSelectGuide] = useState(true);
+	const handleGuide = (e) => {
+		setShowSelectGuide(false);
+	};
 
 	// 1. flask로부터 데이터 받기 (now_coin_chart)
 	const nowCoinChart = async (selectedCoin) => {
-		console.log("코인 데이터 가져오기 시작...");
+		console.log(`코인(${selectedCoin}) 데이터 가져오기 시작...`);
 		try {
 			const response = await axios.get(
 				`http://3.38.50.14:5000/now_coin_chart?ago=2000&coinname=${selectedCoin}`
@@ -80,15 +90,14 @@ function CoinPred() {
 			const data1 = response;
 			setData_nowGraph(data1);
 			setIsGraphLoading(false); // 그래프 내 로딩화면 끝
-			console.log("현재 코인 그래프 ", data1);
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
 		}
 	};
 
-  useEffect(() => {
-    nowCoinChart(selectedCoin);
-  }, [selectedCoin]);
+	useEffect(() => {
+		nowCoinChart(selectedCoin);
+	}, [selectedCoin]);
 
 	// 2. flask로부터 데이터 받기 (now_coin)
 	const nowCoin = async (selectedCoin) => {
@@ -98,21 +107,20 @@ function CoinPred() {
 			);
 			const data2 = response;
 			setData_nowPrice(data2);
-			console.log("현재 코인 가격 ", data2);
 			// 현재 가격 추출
 			if (data2.data) {
 				const now_price = data2.data.map((entry) => entry.trade_price);
 				setNowPrice(now_price);
-				console.log("현재 코인 가격 ", now_price);
+				console.log("현재 코인 가격 ", now_price[0]);
 			}
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
 		}
 	};
 
-  useEffect(() => {
-    nowCoin(selectedCoin);
-  }, [selectedCoin]);
+	useEffect(() => {
+		nowCoin(selectedCoin);
+	}, [selectedCoin]);
 
 	// 3. flask로부터 데이터 받기 (pred_coin_chart)
 	const predCoinChart = async (selectedCoin) => {
@@ -122,15 +130,14 @@ function CoinPred() {
 			);
 			const data3 = response;
 			setData_predGraph(data3);
-			console.log("예측 코인 차트 ", data3);
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
 		}
 	};
 
-  useEffect(() => {
-    predCoinChart(selectedCoin);
-  }, [selectedCoin]);
+	useEffect(() => {
+		predCoinChart(selectedCoin);
+	}, [selectedCoin]);
 
 	// 4. flask로부터 데이터 받기 (pred_coin)
 	const predCoin = async (selectedCoin) => {
@@ -140,7 +147,6 @@ function CoinPred() {
 			);
 			const data4 = response;
 			setData_predPrice(data4);
-			console.log("예측 코인 가격 ", data4);
 			// 예측 가격 추출
 			if (data4.data) {
 				const pred_price = data4.data[0];
@@ -152,9 +158,9 @@ function CoinPred() {
 		}
 	};
 
-  useEffect(() => {
-    predCoin(selectedCoin);
-  }, [selectedCoin]);
+	useEffect(() => {
+		predCoin(selectedCoin);
+	}, [selectedCoin]);
 
 	// 차트그리기
 	useEffect(() => {
@@ -179,55 +185,55 @@ function CoinPred() {
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 			);
 
-      chartRef1.current.chart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: tradePrices.map((_, index) => index + 1), // 인덱스를 기반으로 라벨 생성
-          datasets: [
-            {
-              label: "실제 거래 가격",
-              data: tradePrices,
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
-              borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
-              pointRadius: 0,
-            },
-            {
-              label: "예측 가격",
-              data: predPrices,
-              backgroundColor: "rgba(255, 99, 132, 0.2)",
-              borderColor: "rgba(255, 99, 132, 1)",
-              borderWidth: 1,
-              pointRadius: 0,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            legend: {
-              display: true, // 범주 숨김
-              position: "bottom",
-            },
-          },
-          scales: {
-            x: {
-              // max: predPrices.length,
-              min: tradePrices.length - predPrices.length,
-            },
-          },
-        },
-      });
-      // predPrices의 index 값이 tradePrices의 length - predPrices의 length 만큼 더해지도록 수정
-      chartRef1.current.chart.data.datasets[1].data = predPrices.map(
-        (value, index) => ({
-          x: predStartIndex + index + 1,
-          y: value,
-        })
-      );
-      console.log(
-        ">>>>>>예측 가격 마지막입니다.: ",
-        predPrice - predPrices[predPrices.length - 1]
-      );
+			chartRef1.current.chart = new Chart(ctx, {
+				type: "line",
+				data: {
+					labels: tradePrices.map((_, index) => index + 1), // 인덱스를 기반으로 라벨 생성
+					datasets: [
+						{
+							label: "실제 거래 가격",
+							data: tradePrices,
+							backgroundColor: "rgba(75, 192, 192, 0.2)",
+							borderColor: "rgba(75, 192, 192, 1)",
+							borderWidth: 1,
+							pointRadius: 0,
+						},
+						{
+							label: "예측 가격",
+							data: predPrices,
+							backgroundColor: "rgba(255, 99, 132, 0.2)",
+							borderColor: "rgba(255, 99, 132, 1)",
+							borderWidth: 1,
+							pointRadius: 0,
+						},
+					],
+				},
+				options: {
+					plugins: {
+						legend: {
+							display: true, // 범주 숨김
+							position: "bottom",
+						},
+					},
+					scales: {
+						x: {
+							// max: predPrices.length,
+							min: tradePrices.length - predPrices.length,
+						},
+					},
+				},
+			});
+			// predPrices의 index 값이 tradePrices의 length - predPrices의 length 만큼 더해지도록 수정
+			chartRef1.current.chart.data.datasets[1].data = predPrices.map(
+				(value, index) => ({
+					x: predStartIndex + index + 1,
+					y: value,
+				})
+			);
+			console.log(
+				"----- 예측 시세 완료 ----- ",
+				predPrice - predPrices[predPrices.length - 1]
+			);
 
 			// 차트 업데이트
 			chartRef1.current.chart.update();
@@ -240,7 +246,7 @@ function CoinPred() {
 				<Loading />
 			) : (
 				<div className={common.background}>
-					<Header sub_title={"오늘의 코인"} />
+					<Header sub_title={"오늘의 코인"} userId={userId} />
 					<div className={style.main_area}>
 						<div className={style.coinInfo_area}>
 							<div className={style.coinName_area}>
@@ -302,11 +308,16 @@ function CoinPred() {
 						</div>
 						<div className={style.coinGraph_area}>
 							{isGraphLoading ? (
-								<img
-									className={style.loadingGif}
-									src={animation_loading}
-									alt="loadingAnimation"
-								/>
+								<>
+									<div className={style.graphLoading_area}>
+										<img
+											className={style.loadingGif}
+											src={animation_loading}
+											alt="loadingAnimation"
+										/>
+										<div>그래프를 불러오는 중입니다...</div>
+									</div>
+								</>
 							) : (
 								<canvas className={style.coinGraph} ref={chartRef1}></canvas>
 							)}

@@ -60,7 +60,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://192.168.0.84:5001/my_home?user_id=${id}${
+          `http://3.38.50.14:5000/my_home?user_id=${id}${
             searchDate ? "&date=" + searchDate : ""
           }`
         );
@@ -96,7 +96,7 @@ const MyChart = () => {
       try {
         // axios로 GET 요청 보내기
         const response = await axios.get(
-          `http://192.168.0.84:5001/pred?user_id=${id}`
+          `http://3.38.50.14:5000/pred?user_id=${id}`
         );
         const data = response.data;
         console.log("pred_result : ", data);
@@ -260,6 +260,7 @@ const MyChart = () => {
                     <span className={style.spring}></span>
                     <span className={style.close}> ●</span>
                   </div>
+
                   <DoughnutChart
                     data1={[
                       chartData1["average_total_usage"],
@@ -540,7 +541,7 @@ const MyChart = () => {
                   <span className={style.important_keywords}>
                     {chartData1["my_total_usage"]
                       ? chartData1["my_total_usage"] + " kWh"
-                      : "데이터 없음"}{" "}
+                      : "데이터 없음"}
                   </span>
                 </div>
                 <div>
