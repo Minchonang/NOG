@@ -376,10 +376,9 @@ function EditUserInfo() {
       window.location.href = '/find_pw';
       // setEditPwd(true);
    };
-   // const cancelPwdBtn = () => {
-   //    setEditPwd(false);
-   //    setNewPwd(null);
-   // };
+   const cancelPwdBtn = () => {
+      setEditPwd(false);
+   };
 
    // 주소 수정
    const [editAddress, setEditAddress] = useState(false);

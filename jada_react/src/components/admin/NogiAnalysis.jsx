@@ -64,6 +64,10 @@ function NogiAnalysis() {
          setChartData2(data2);
          setTableData1(data3);
          setTableData2(data4);
+         console.log('data1' + data1);
+         console.log('data2' + data2);
+         console.log('data3' + data3);
+         console.log('data4' + data4);
       } catch (error) {
          console.error('Error fetching data:', error.message);
       }
@@ -141,7 +145,8 @@ function NogiAnalysis() {
    const handleBoardClick1 = (rowData) => {
       setSelectedBoard1(rowData);
    };
-
+   console.log('selectedBoard1' + selectedBoard1);
+   console.log('selectedBoard1' + selectedBoard2);
    const handleCloseModal1 = () => {
       setSelectedBoard1(null);
    };
@@ -165,7 +170,7 @@ function NogiAnalysis() {
 
    return (
       <>
-         <div className={common.background}>
+         <div className={common.admin_background}>
             <Header sub_title="관리자" />
 
             <div className={style.main_area}>
@@ -263,7 +268,7 @@ function NogiAnalysis() {
                                     </p>
                                     <p>
                                        질문일자:{' '}
-                                       {new Date(selectedBoard1.chat_time).toLocaleString('ko-KR', {
+                                       {new Date(value.chat_time).toLocaleString('ko-KR', {
                                           year: 'numeric',
                                           month: '2-digit',
                                           day: '2-digit',
@@ -305,6 +310,7 @@ function NogiAnalysis() {
                                                    {new Date(value.exit_date).toLocaleString('ko-KR', {
                                                       year: 'numeric',
                                                       month: '2-digit',
+
                                                       day: '2-digit',
                                                    })}
                                                 </td>
@@ -348,7 +354,7 @@ function NogiAnalysis() {
                                     </p>
                                     <p>
                                        탈퇴일자:{' '}
-                                       {new Date(selectedBoard2.exit_date).toLocaleString('ko-KR', {
+                                       {new Date(value.exit_date).toLocaleString('ko-KR', {
                                           year: 'numeric',
                                           month: '2-digit',
                                           day: '2-digit',
