@@ -21,6 +21,9 @@ import Modal from "react-modal";
 import LoadingNog from "../common/jsx/LoadingNog";
 import swal from "sweetalert";
 
+import onBtn from "../common/img/homeControl/button_on.png";
+import offBtn from "../common/img/homeControl/button_off.png";
+
 function HomeControl() {
 	// 로딩
 	const [isLoading, setIsLoading] = useState(true);
@@ -62,12 +65,6 @@ function HomeControl() {
 	const [serverAirTemp, setServerAirTemp] = useState("");
 	const [homeBoilerTemp, setHomeBoilerTemp] = useState("0");
 	const [serverBoilerTemp, setServerBoilerTemp] = useState("");
-
-	// on, off 스위치 이미지
-	const onBtn =
-		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2F1843f095-ad9e-4428-b3c8-c5c9286400ee%2FUntitled.png?table=block&id=853660a2-2827-4ac8-82b8-3b410c60aa33&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
-	const offBtn =
-		"https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa8f094af-6e08-4df8-9b2b-f7f4eaa9e42d%2Fd83a0b09-21ae-4a3f-8b40-a064402acf3b%2FUntitled.png?table=block&id=4f2d8ba0-ca30-40b4-924d-40960b1edf87&spaceId=a8f094af-6e08-4df8-9b2b-f7f4eaa9e42d&width=2000&userId=6519112b-50fc-4c6c-b9e6-174d9c3dbad1&cache=v2";
 
 	// 주소 위도 경도로 바꾸기
 	const KAKAO_API_KEY = "64d6a3d901c3b9bdfedb6dd921427996"; // 카카오 API 키

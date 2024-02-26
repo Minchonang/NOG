@@ -16,7 +16,7 @@ app/__pycahe__
 # ignore model file
 *.pt
 *.keras
-yolo_pose/output/
+jada_yolo/output/
 your_script.spec
 *.keras
 # testing
