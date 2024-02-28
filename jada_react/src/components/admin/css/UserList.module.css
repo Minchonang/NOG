@@ -289,7 +289,7 @@
 
 @media (min-width: 1024px) {
 	.main_area {
-		padding: 136px 15% 90px;
+		padding: 5% 15% 90px;
 		background-color: #f5f5f5;
 	}
 
@@ -373,7 +373,7 @@
 
 	.modal_title {
 		margin: 10px auto 40px;
-		font-size: 2.3em;
+		font-size: 2em;
 
 		-webkit-user-select: none;
 		-moz-user-select: none;

@@ -3,7 +3,7 @@
 	flex-direction: column;
 	width: 100%;
 	margin: 0 auto;
-	padding: 13% 5% 90px;
+	padding: 0 5% 10%;
 	font-family: "Godo";
 }
 
@@ -57,7 +57,7 @@
 
 .selectGuide {
 	position: absolute;
-	left: 65px;
+	left: 16%;
 	display: flex;
 	align-items: center;
 	padding: 8px 10px;

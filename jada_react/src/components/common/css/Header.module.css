@@ -1,4 +1,5 @@
-.title_area {
+.title_area,
+.admin_title_area {
 	position: absolute;
 	z-index: 2;
 	display: flex;
@@ -87,13 +88,34 @@
 
 @media (min-width: 1024px) {
 	.title_area {
-		
+		position: relative;
+		max-width: 40vw;
 		padding: 0.5% 2%;
 		font-size: 3em;
 		box-shadow: none;
 	}
 
+	.admin_title_area {
+		position: relative;
+		width: 100vw;
+		display: flex;
+		z-index: 2;
+		flex-direction: row;
+		align-items: center;
+		padding: 0.5% 2%;
+		/* padding: 2.5% 5%; */
+		background-color: #fbf7ef;
+		font-family: "godo";
+		font-size: 3em;
+		box-shadow: none;
+	}
+
+	.mainIcon {
+		position: absolute;
+	}
+
 	.subMenu {
+		position: absolute;
 		top: 62px;
 		right: 14px;
 		padding: 10px;

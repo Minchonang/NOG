@@ -1,59 +1,31 @@
-/* --------------------- */
-/* 상단바 */
-.title_area {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 2;
-	display: flex;
-	flex-direction: row;
-	width: 100vw;
-	padding: 2% 5%;
-	background-color: #fbf7ef;
-	font-family: "godo";
-	font-size: 1.7em;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-}
-.title_area div {
-	margin-left: 10px;
-	font-size: 0.9em;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-/* -------------------------- */
 /* 온도 구역 */
 .temp_area {
+	width: 100%;
+	z-index: 1;
 	display: flex;
 	justify-content: space-around;
 	border: 2px solid;
-	z-index: 1;
-	width: 100%;
 	margin-top: 48px;
 	padding: 48px 10% 30px;
-	display: flex;
+	background-color: #fbf7ef;
 	font-family: "Godo", serif;
 	font-weight: lighter;
 	border: none;
-	background-color: #fbf7ef;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .outdoor_temp,
 .home_temp,
 .recommend_temp {
-	text-align: center;
 	font-size: 1.2em;
+	text-align: center;
 }
 
 .outdoor_temp_title,
 .home_temp_title,
 .recommend_temp_title {
-	font-size: 1.3em;
 	margin-bottom: 5px;
+	font-size: 1.3em;
 }
 
 .outdoor_temp_area,
@@ -63,10 +35,6 @@
 	flex-direction: column;
 	align-items: center;
 }
-
-/* .outdoor_temp_icon {
-	margin: 5px 0;
-} */
 
 .fcHome,
 .fcClose {
@@ -264,4 +232,19 @@
 	background: none;
 	border: none;
 	align-items: center;
+}
+
+@media (min-width: 1024px) {
+	.temp_area {
+		display: flex;
+		flex-direction: row;
+		margin-top: 0;
+		padding: 30px 10%;
+	}
+
+	.main_area {
+		position: relative;
+		margin: 0;
+		padding: 13% 5%;
+	}
 }

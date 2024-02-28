@@ -186,3 +186,14 @@
 	outline: none;
 	border-color: #ff9f0a;
 }
+
+@media (min-width: 1024px) {
+	.main_area {
+		position: relative;
+		padding: 5%;
+	}
+
+	.topGuide_area {
+		margin-top: 5%;
+	}
+}

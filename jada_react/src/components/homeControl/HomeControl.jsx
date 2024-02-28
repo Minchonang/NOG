@@ -571,9 +571,9 @@ function HomeControl() {
 							</div>
 						</div>
 
+					</div>
 						<ChatBot />
 						<BottomNav activeHome={true} />
-					</div>
 				</div>
 			)}
 		</>

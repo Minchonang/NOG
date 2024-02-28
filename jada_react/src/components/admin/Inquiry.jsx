@@ -69,8 +69,8 @@ function Inquiry() {
 
    return (
       <>
-         <div className={common.background}>
-            <Header sub_title="관리자" />
+         <div className={`${common.background}, ${style.admin_background}`}>
+            {/* <Header sub_title="관리자" /> */}
             <div className={style.main_area}>
                <div className={style.title}>
                   <div>문의사항</div>

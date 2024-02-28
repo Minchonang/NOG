@@ -11,6 +11,32 @@ import { API_BASE_URL } from "../../../App.js";
 import header from "../css/Header.module.css";
 
 function Header({ sub_title, userId }) {
+	const [userRoll, setUserRole] = useState(null);
+
+	const getUserRole = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/api/userinfo/getRole`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: userId,
+			});
+
+			if (response.ok) {
+				const result = await response.json();
+				setUserRole(result.role);
+			} else {
+				console.log("서버 오류");
+			}
+		} catch (error) {
+			console.error("서버 통신 오류", error);
+		}
+	};
+	useEffect(() => {
+		getUserRole();
+	}, []);
+
 	const go_logout = async (e) => {
 		e.preventDefault();
 		// 세션 스크립트: 로그아웃 시 세션 지우기
@@ -80,21 +106,33 @@ function Header({ sub_title, userId }) {
 
 	return (
 		<>
-			<div className={header.title_area}>
+			<div
+				className={
+					sub_title === "관리자" || userRoll
+						? header.admin_title_area
+						: header.title_area
+				}
+			>
 				<NavLink to="/analysis">NOG</NavLink>
 				<div className={header.sub_title}>{sub_title}</div>
 				<FcMenu className={header.mainIcon} onClick={toggleSubMenu} />
 
 				{isSubMenuVisible && (
 					<div className={header.subMenu} ref={subMenuArea}>
-						<div className={header.subMenuItem} onClick={go_coin}>
-							<FcRating className={header.play} />
-							<div>오늘의 코인</div>
-						</div>
-						<div className={header.subMenuItem} onClick={go_board}>
-							<FcAssistant className={header.inquiry} />
-							<div>문의하기</div>
-						</div>
+						{userRoll ? (
+							<></>
+						) : (
+							<>
+								<div className={header.subMenuItem} onClick={go_coin}>
+									<FcRating className={header.play} />
+									<div>오늘의 코인</div>
+								</div>
+								<div className={header.subMenuItem} onClick={go_board}>
+									<FcAssistant className={header.inquiry} />
+									<div>문의하기</div>
+								</div>
+							</>
+						)}
 						{userId ? (
 							<div className={header.subMenuItem} onClick={go_logout}>
 								<FcExport className={header.logout} />
