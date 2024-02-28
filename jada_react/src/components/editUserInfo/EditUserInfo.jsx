@@ -846,7 +846,7 @@ function EditUserInfo() {
                      </div>
 
                      {/* 정보 수정 완료 */}
-                     <div className={common.btn_area}>
+                     <div className={`${common.btn_area} ${style.btn_area}`}>
                         <button className={common.themeBgrColor} onClick={handleEdit}>
                            수정
                         </button>

@@ -168,7 +168,7 @@ function BoardDetail() {
 			{isLoading ? (
 				<LoadingNog />
 			) : (
-				<div className={common.background}>
+				<div className={userRole ? common.admin_background : common.background}>
 					<Header sub_title="내 문의사항" userId={userId} />
 
 					<div className={style.main_area} userId={userId}>

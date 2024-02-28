@@ -64,10 +64,6 @@ function NogiAnalysis() {
          setChartData2(data2);
          setTableData1(data3);
          setTableData2(data4);
-         console.log('data1' + data1);
-         console.log('data2' + data2);
-         console.log('data3' + data3);
-         console.log('data4' + data4);
       } catch (error) {
          console.error('Error fetching data:', error.message);
       }
@@ -145,8 +141,7 @@ function NogiAnalysis() {
    const handleBoardClick1 = (rowData) => {
       setSelectedBoard1(rowData);
    };
-   console.log('selectedBoard1' + selectedBoard1);
-   console.log('selectedBoard1' + selectedBoard2);
+
    const handleCloseModal1 = () => {
       setSelectedBoard1(null);
    };
@@ -173,204 +168,205 @@ function NogiAnalysis() {
          <div className={common.admin_background}>
             <Header sub_title="관리자" />
 
-            <div className={style.main_area}>
-               <div className={style.title}>
-                  <div>유저분석</div>
-               </div>
+            {/* <div className={common.admin_background}>
+				<div className={style.main_area}>
+					<div className={style.title}>
+						<div>유저분석</div>
+					</div> */}
 
-               {/* 박스 컨테이너 1 - 챗봇 데이터 표와 분석 그래프 */}
+            {/* 박스 컨테이너 1 - 챗봇 데이터 표와 분석 그래프 */}
 
-               <div className={style.keyword_container}>
-                  <div
-                     className={`${style.keyword_box} ${showChatbot ? style.showGraph : ''}`}
-                     onClick={() => {
-                        handleBoxClick('chatbot');
-                        clickChatbot();
-                        handleCloseModal1();
-                        handleCloseModal2();
-                     }}
-                  >
-                     <h1>챗봇대화 분석</h1>
-                  </div>
-                  {/* 박스 컨테이너 2 - 탈퇴사유 표와 그래프 */}
-                  <div
-                     className={`${style.keyword_box} ${showDelReason ? style.showGraph : ''}`}
-                     onClick={() => {
-                        handleBoxClick('withdrawl');
-                        clickDelReason();
-                        handleCloseModal1();
-                        handleCloseModal2();
-                     }}
-                  >
-                     <h1>탈퇴사유 분석</h1>
-                  </div>
+            <div className={style.keyword_container}>
+               <div
+                  className={`${style.keyword_box} ${showChatbot ? style.showGraph : ''}`}
+                  onClick={() => {
+                     handleBoxClick('chatbot');
+                     clickChatbot();
+                     handleCloseModal1();
+                     handleCloseModal2();
+                  }}
+               >
+                  <h1>챗봇대화 분석</h1>
                </div>
-               {/* Visible 컨테이너 1 - 챗봇 데이터 표와 분석 그래프 */}
-               <div className={visibleContainers['chatbot'] ? style.box_container : style.box_container_close}>
-                  <div className={style.chart_box}>
-                     <div className={style.chart_title_box} onClick={() => handleBoxClick('chatbot')}>
-                        {/* 챗봇 대화 표 */}
-                        <div className={style.list}>
-                           <div className={style.boardList_title}>
-                              <div>내용</div>
-                              <div>유사도</div>
-                           </div>
-                           <div className={style.boardList_table}>
-                              <table>
-                                 <tbody>
-                                    {tableData1 &&
-                                       Object.keys(tableData1)
-                                          .map((key) => tableData1[key])
-                                          .filter((value) => value)
-                                          .sort((a, b) => a.similar - b.similar)
-                                          .map((value, index) => (
-                                             <tr key={index + 1} onClick={() => handleBoardClick1(value, index)}>
-                                                <td>{value.user_question}</td>
-                                                <td>{value.similar}</td>
-                                             </tr>
-                                          ))}
-                                 </tbody>
-                              </table>
-                           </div>
+               {/* 박스 컨테이너 2 - 탈퇴사유 표와 그래프 */}
+               <div
+                  className={`${style.keyword_box} ${showDelReason ? style.showGraph : ''}`}
+                  onClick={() => {
+                     handleBoxClick('withdrawl');
+                     clickDelReason();
+                     handleCloseModal1();
+                     handleCloseModal2();
+                  }}
+               >
+                  <h1>탈퇴사유 분석</h1>
+               </div>
+            </div>
+            {/* Visible 컨테이너 1 - 챗봇 데이터 표와 분석 그래프 */}
+            <div className={visibleContainers['chatbot'] ? style.box_container : style.box_container_close}>
+               <div className={style.chart_box}>
+                  <div className={style.chart_title_box} onClick={() => handleBoxClick('chatbot')}>
+                     {/* 챗봇 대화 표 */}
+                     <div className={style.list}>
+                        <div className={style.boardList_title}>
+                           <div>내용</div>
+                           <div>유사도</div>
                         </div>
-                        {/* 챗봇 대화 그래프 */}
-                        <div className={style.list}>
-                           <div className={style.boardList_title}>
-                              <div>질문 패턴 분석</div>
-                           </div>
-                           <div className={style.boardList_graph}>
-                              <canvas className={style.canvas1} ref={chartRef1}></canvas>
-                           </div>
+                        <div className={style.boardList_table}>
+                           <table>
+                              <tbody>
+                                 {tableData1 &&
+                                    Object.keys(tableData1)
+                                       .map((key) => tableData1[key])
+                                       .filter((value) => value)
+                                       .sort((a, b) => a.similar - b.similar)
+                                       .map((value, index) => (
+                                          <tr key={index + 1} onClick={() => handleBoardClick1(value, index)}>
+                                             <td>{value.user_question}</td>
+                                             <td>{value.similar}</td>
+                                          </tr>
+                                       ))}
+                              </tbody>
+                           </table>
                         </div>
-                        {selectedBoard1 && (
-                           <div className={style.custom_modal}>
-                              <div className={style.modal_container}>
-                                 <div className={style.modal_title}>챗봇 대화🤖</div>
-                                 <div className={style.modal_content}>
-                                    <p>회원: {selectedBoard1.chat_user_id}</p>
-                                    <p>
-                                       <span className={style.text_highlight}>
-                                          사용자 질문: {''}
-                                          {selectedBoard1.user_question.length > 12
-                                             ? `${selectedBoard1.user_question.substring(
-                                                  0,
-                                                  12
-                                               )}\n${selectedBoard1.user_question.substring(12)}`
-                                             : selectedBoard1.user_question}
-                                       </span>
-                                    </p>
-                                    <p className={selectedBoard1.data_question.length > 13 ? style.smallLetter : ''}>
-                                       예상 질문: {''}
-                                       {selectedBoard1.data_question}
-                                    </p>
-                                    <p>
-                                       유사도: <span className={style.modal_similar}>{selectedBoard1.similar}</span>{' '}
-                                    </p>
-                                    <p>
-                                       질문일자:{' '}
-                                       {new Date(value.chat_time).toLocaleString('ko-KR', {
-                                          year: 'numeric',
-                                          month: '2-digit',
-                                          day: '2-digit',
-                                       })}
-                                    </p>
-                                 </div>
-                                 <button className={style.close_btn} onClick={handleCloseModal1}>
-                                    닫기
-                                 </button>
-                              </div>
-                           </div>
-                        )}
                      </div>
-                  </div>
-               </div>
-
-               {/*탈퇴사유 파트  */}
-
-               <div className={visibleContainers['withdrawl'] ? style.box_container : style.box_container_close}>
-                  <div className={style.chart_box}>
-                     <div className={style.chart_title_box} onClick={() => handleBoxClick('withdrawl')}>
-                        {/* 탈퇴사유 표 */}
-                        <div className={style.list}>
-                           <div className={style.boardList_title}>
-                              <div>탈퇴일자</div>
-                              <div>탈퇴사유</div>
-                           </div>
-                           <div className={style.boardList_table}>
-                              <table>
-                                 <tbody>
-                                    {tableData2 &&
-                                       Object.keys(tableData2)
-                                          .map((key) => tableData2[key])
-                                          .filter((value) => value)
-                                          .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
-                                          .map((value, index) => (
-                                             <tr key={index + 1} onClick={() => handleBoardClick2(value, index)}>
-                                                <td>
-                                                   {new Date(value.exit_date).toLocaleString('ko-KR', {
-                                                      year: 'numeric',
-                                                      month: '2-digit',
-
-                                                      day: '2-digit',
-                                                   })}
-                                                </td>
-                                                <td>{value.exit_content}</td>
-                                             </tr>
-                                          ))}
-                                 </tbody>
-                              </table>
-                           </div>
+                     {/* 챗봇 대화 그래프 */}
+                     <div className={style.list}>
+                        <div className={style.boardList_title}>
+                           <div>질문 패턴 분석</div>
                         </div>
-                        {/* 탈퇴사유 그래프 */}
-                        <div className={style.list}>
-                           <div className={style.boardList_title}>
-                              <div>탈퇴 사유 분석</div>
-                           </div>
-                           <div className={style.boardList_graph}>
-                              <table>
-                                 <tbody>
-                                    <canvas className={style.canvas2} ref={chartRef2}></canvas>
-                                 </tbody>
-                              </table>
-                           </div>
+                        <div className={style.boardList_graph}>
+                           <canvas className={style.canvas1} ref={chartRef1}></canvas>
                         </div>
-                        {selectedBoard2 && (
-                           <div className={style.custom_modal}>
-                              <div className={style.modal_container}>
-                                 <hr className={style.bookends} />
-                                 <div className={style.modal_title}>탈퇴 사유🤔</div>
-                                 <div className={style.modal_content}>
-                                    <p>회원 거주지역: {selectedBoard2.user_address}</p>
-                                    <p>
-                                       <span className={style.text_highlight}>
-                                          탈퇴 사유: {''}
-                                          {selectedBoard2.exit_content.length > 12
-                                             ? `${selectedBoard2.exit_content.substring(
-                                                  0,
-                                                  12
-                                               )}\n${selectedBoard2.exit_content.substring(12)}`
-                                             : selectedBoard2.exit_content}
-                                       </span>
-                                    </p>
-                                    <p>
-                                       탈퇴일자:{' '}
-                                       {new Date(value.exit_date).toLocaleString('ko-KR', {
-                                          year: 'numeric',
-                                          month: '2-digit',
-                                          day: '2-digit',
-                                       })}
-                                    </p>
-                                 </div>
-                                 <button className={style.close_btn} onClick={handleCloseModal2}>
-                                    닫기
-                                 </button>
-                              </div>
-                           </div>
-                        )}
                      </div>
+                     {selectedBoard1 && (
+                        <div className={style.custom_modal}>
+                           <div className={style.modal_container}>
+                              <div className={style.modal_title}>챗봇 대화🤖</div>
+                              <div className={style.modal_content}>
+                                 <p>회원: {selectedBoard1.chat_user_id}</p>
+                                 <p>
+                                    <span className={style.text_highlight}>
+                                       사용자 질문: {''}
+                                       {selectedBoard1.user_question.length > 12
+                                          ? `${selectedBoard1.user_question.substring(
+                                               0,
+                                               12
+                                            )}\n${selectedBoard1.user_question.substring(12)}`
+                                          : selectedBoard1.user_question}
+                                    </span>
+                                 </p>
+                                 <p className={selectedBoard1.data_question.length > 13 ? style.smallLetter : ''}>
+                                    예상 질문: {''}
+                                    {selectedBoard1.data_question}
+                                 </p>
+                                 <p>
+                                    유사도: <span className={style.modal_similar}>{selectedBoard1.similar}</span>{' '}
+                                 </p>
+                                 <p>
+                                    질문일자:{' '}
+                                    {new Date(selectedBoard1.chat_time).toLocaleString('ko-KR', {
+                                       year: 'numeric',
+                                       month: '2-digit',
+                                       day: '2-digit',
+                                    })}
+                                 </p>
+                              </div>
+                              <button className={style.close_btn} onClick={handleCloseModal1}>
+                                 닫기
+                              </button>
+                           </div>
+                        </div>
+                     )}
                   </div>
                </div>
             </div>
+
+            {/*탈퇴사유 파트  */}
+
+            <div className={visibleContainers['withdrawl'] ? style.box_container : style.box_container_close}>
+               <div className={style.chart_box}>
+                  <div className={style.chart_title_box} onClick={() => handleBoxClick('withdrawl')}>
+                     {/* 탈퇴사유 표 */}
+                     <div className={style.list}>
+                        <div className={style.boardList_title}>
+                           <div>탈퇴일자</div>
+                           <div>탈퇴사유</div>
+                        </div>
+                        <div className={style.boardList_table}>
+                           <table>
+                              <tbody>
+                                 {tableData2 &&
+                                    Object.keys(tableData2)
+                                       .map((key) => tableData2[key])
+                                       .filter((value) => value)
+                                       .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
+                                       .map((value, index) => (
+                                          <tr key={index + 1} onClick={() => handleBoardClick2(value, index)}>
+                                             <td>
+                                                {new Date(value.exit_date).toLocaleString('ko-KR', {
+                                                   year: 'numeric',
+                                                   month: '2-digit',
+
+                                                   day: '2-digit',
+                                                })}
+                                             </td>
+                                             <td>{value.exit_content}</td>
+                                          </tr>
+                                       ))}
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     {/* 탈퇴사유 그래프 */}
+                     <div className={style.list}>
+                        <div className={style.boardList_title}>
+                           <div>탈퇴 사유 분석</div>
+                        </div>
+                        <div className={style.boardList_graph}>
+                           <table>
+                              <tbody>
+                                 <canvas className={style.canvas2} ref={chartRef2}></canvas>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     {selectedBoard2 && (
+                        <div className={style.custom_modal}>
+                           <div className={style.modal_container}>
+                              <hr className={style.bookends} />
+                              <div className={style.modal_title}>탈퇴 사유🤔</div>
+                              <div className={style.modal_content}>
+                                 <p>회원 거주지역: {selectedBoard2.user_address}</p>
+                                 <p>
+                                    <span className={style.text_highlight}>
+                                       탈퇴 사유: {''}
+                                       {selectedBoard2.exit_content.length > 12
+                                          ? `${selectedBoard2.exit_content.substring(
+                                               0,
+                                               12
+                                            )}\n${selectedBoard2.exit_content.substring(12)}`
+                                          : selectedBoard2.exit_content}
+                                    </span>
+                                 </p>
+                                 <p>
+                                    탈퇴일자:{' '}
+                                    {new Date(selectedBoard2.exit_date).toLocaleString('ko-KR', {
+                                       year: 'numeric',
+                                       month: '2-digit',
+                                       day: '2-digit',
+                                    })}
+                                 </p>
+                              </div>
+                              <button className={style.close_btn} onClick={handleCloseModal2}>
+                                 닫기
+                              </button>
+                           </div>
+                        </div>
+                     )}
+                  </div>
+               </div>
+            </div>
+            {/* </div> */}
          </div>
       </>
    );

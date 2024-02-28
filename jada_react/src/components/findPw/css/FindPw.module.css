@@ -11,7 +11,6 @@
   margin-bottom: 0;
 }
 .inputEmail_area button {
-  font-family: "Godo";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -22,7 +21,9 @@
   border: 0;
   border-radius: 10px;
   color: white;
+  font-family: "Godo";
   font-weight: bold;
+  cursor: pointer;
 }
 
 .findId_area {
@@ -49,7 +50,7 @@
 
 @media (min-width: 768px) {
   .main_area {
-    padding: 0% 35%;
+    padding: 0% 15%;
     font-size: large;
   }
 }

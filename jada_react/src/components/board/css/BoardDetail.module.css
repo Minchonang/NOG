@@ -3,7 +3,7 @@
 	position: absolute;
 	z-index: 1;
 	width: 100%;
-	padding: 13% 5% 70px;
+	padding: 13% 5% 90px;
 	display: flex;
 	flex-direction: column;
 	font-family: "Godo", serif;
@@ -175,8 +175,9 @@
 	border: none;
 }
 
-@media screen and (min-width: 1024px) {
+@media (min-width: 1024px) {
 	.main_area {
+		position: relative;
 		padding: 62px 15% 90px;
 		height: auto;
 	}
@@ -240,6 +241,7 @@
 	}
 
 	.goBackBtn {
+		margin: 15px 0;
 		font-size: 1em;
 		cursor: pointer;
 	}

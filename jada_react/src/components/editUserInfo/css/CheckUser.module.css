@@ -1,30 +1,52 @@
+.main_area {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	padding: 20% 10% 70px;
+	display: flex;
+	flex-direction: column;
+	font-family: "Godo", serif;
+	font-weight: lighter;
+}
+
 .password_area {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  margin: 10% auto 0;
-  border: 2px solid #ff9f0a;
-  border-radius: 10px;
-  margin-bottom: 5px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 10% auto 5px;
+	border: 2px solid #ff9f0a;
+	border-radius: 10px;
 }
 
 .password_area input {
-  width: 90%;
-  padding: 4% 10px;
-  font-size: 1em;
-  outline: none;
-  border: none;
-  border-radius: 10px;
-  font-family: "Godo";
+	width: 90%;
+	padding: 4% 10px;
+	font-size: 1em;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	font-family: "Godo";
 }
 
 .password_area input::placeholder {
-  font-size: 0.8em;
-  font-family: "Godo";
-  color: rgb(198, 198, 198);
+	font-size: 0.8em;
+	font-family: "Godo";
+	color: rgb(198, 198, 198);
 }
 
 .eyeIcon {
-  padding-top: 5px;
+	padding-top: 5px;
+}
+
+@media (min-width: 1024px) {
+	.main_area {
+		position: relative;
+		margin: auto 0;
+		padding: 10% 5%;
+	}
+
+	.password_area {
+		margin: 5% 0 10px;
+	}
 }

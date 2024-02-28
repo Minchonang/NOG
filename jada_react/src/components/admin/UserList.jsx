@@ -287,7 +287,7 @@ function UserList() {
                               <td>{user.name}</td>
                               <td>{user.address1 + ' ' + user.address2}</td>
                               <td style={{ color: user.homeDevice ? 'black' : 'red' }}>
-                                 {user.homeDevice ? user.homeDevice.homeId : '등록된 기기가 없습니다.'}
+                                 {user.homeDevice ? user.homeDevice.homeId : '없음'}
                               </td>
                            </tr>
                         ))
@@ -321,14 +321,7 @@ function UserList() {
                                  ? selectedUser.homeDevice.serialNum
                                  : ''}{' '}
                            </p>
-                           <p>
-                              가입일자:{' '}
-                              {new Date(selectedUser.creDateTime).toLocaleString('ko-KR', {
-                                 year: 'numeric',
-                                 month: '2-digit',
-                                 day: '2-digit',
-                              })}
-                           </p>
+                           <p>가입일자: {new Date(selectedUser.creDateTime).toLocaleString('ko-KR')}</p>
                         </>
                      ) : (
                         <>
