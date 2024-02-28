@@ -711,11 +711,13 @@ function EditUserInfo() {
                               ) : (
                                  <div>***************</div>
                               )}
-                              {!editPwd ? (
+                              <button onClick={editPwdBtn}>변경</button>
+
+                              {/* {!editPwd ? (
                                  <button onClick={editPwdBtn}>변경</button>
                               ) : (
                                  <button onClick={cancelPwdBtn}>취소</button>
-                              )}
+                              )} */}
                            </div>
                         </div>
 
