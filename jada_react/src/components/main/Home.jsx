@@ -5,15 +5,16 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import common from "../common/css/common.module.css";
 import style from "./css/Home.module.css";
-import img1 from "./img/img1.jpg";
-import img2 from "./img/img2.jpg";
-import img3 from "./img/img3.png";
-import img4 from "./img/img4.png";
-import img5 from "./img/img5.png";
-import img6 from "./img/img6.png";
 import ChatBot from "../common/jsx/ChatBot";
 import Loading from "../common/jsx/Loading";
 import swal from "sweetalert";
+
+import img1 from "../common/img/home/home_1.jpg";
+import img2 from "../common/img/home/home_2.jpg";
+import img3 from "../common/img/home/home_3.png";
+import img4 from "../common/img/home/home_4.png";
+import img5 from "../common/img/home/home_5.png";
+import img6 from "../common/img/home/home_6.png";
 
 function Home() {
 	// 로딩

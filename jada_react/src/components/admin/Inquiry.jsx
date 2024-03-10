@@ -69,8 +69,8 @@ function Inquiry() {
 
    return (
       <>
-         <div className={common.background}>
-            <Header sub_title="관리자" />
+         <div className={`${common.background}, ${style.admin_background}`}>
+            {/* <Header sub_title="관리자" /> */}
             <div className={style.main_area}>
                <div className={style.title}>
                   <div>문의사항</div>
@@ -130,7 +130,14 @@ function Inquiry() {
                                  ? `${selectedBoard.content.substring(0, 12)}...`
                                  : selectedBoard.content}
                            </p>
-                           <p>작성일자: {new Date(selectedBoard.writeDate).toLocaleString('ko-KR')}</p>
+                           <p>
+                              작성일자:{' '}
+                              {new Date(selectedBoard.writeDate).toLocaleString('ko-KR', {
+                                 year: 'numeric',
+                                 month: '2-digit',
+                                 day: '2-digit',
+                              })}
+                           </p>
                         </div>
                         <div className={style.btn_area}>
                            <button className={style.reply_btn} onClick={() => goDetail(selectedBoard.boardId)}>

@@ -1,7 +1,8 @@
 .hidden {
 	display: none;
 }
-.background {
+.background,
+.admin_background {
 	position: fixed;
 	z-index: 2;
 	bottom: 0;
@@ -51,9 +52,18 @@
 
 @media (min-width: 1024px) {
 	.background {
-		position: absolute;
-		top: 62px;
+		position: inherit;
+		max-width: 40vw;
+		margin: 0 auto;
 	}
+	.admin_background {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		margin: 0 auto;
+		background-color: #fbf7ef;
+	}
+
 	.main_area {
 		justify-content: space-between;
 		padding: 0;

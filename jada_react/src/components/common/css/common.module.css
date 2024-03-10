@@ -105,9 +105,30 @@ a {
 	font-size: 0.8em;
 }
 
-/* @media (min-width: 1024px) {
-	.title_area {
-		padding: 1% 3%;
-		font-size: 2em;
+@media (min-width: 1024px) {
+	.background {
+		max-width: 40vw;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 0 auto;
 	}
-} */
+
+	.main_area {
+		position: relative;
+		margin: auto 0;
+		padding: 20% 20%;
+	}
+
+	.title_area {
+		margin: 5% auto;
+	}
+
+	.btn_area {
+		font-size: 1.2em;
+	}
+	.btn_area button {
+		padding: 15px;
+	}
+}

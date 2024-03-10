@@ -87,7 +87,7 @@
 	padding: 5%;
 	border: 1px solid lightgray;
 	border-radius: 10px;
-	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .info_sub_title {
 	font-size: 1.1em;
@@ -285,4 +285,26 @@
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.userAddress {
+	width: 80%;
+	white-space: normal;
+	line-height: 140%;
+}
+
+@media (min-width: 1024px) {
+	.main_area {
+		position: relative;
+		margin: auto 0;
+		padding: 5% 5% 0;
+	}
+
+	.userId {
+		margin: 5% auto;
+	}
+
+	.userAddress {
+		white-space: nowrap;
+	}
 }
